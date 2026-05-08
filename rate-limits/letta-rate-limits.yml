@@ -5,7 +5,7 @@ provider: Letta
 providerId: letta
 created: '2026-05-08'
 modified: '2026-05-08'
-reconciled: false
+reconciled: partial
 tags:
 - AI
 - Agents
@@ -15,21 +15,33 @@ tags:
 - Rate Limiting
 - Quotas
 - Throttling
-description: Placeholder rate-limit artifact for Letta. Replace with real limits once researched.
-notes: Initial scaffold — limits have not yet been reconciled.
+description: >-
+  Letta Cloud allows unlimited agents per account. Specific HTTP RPS limits are not
+  publicly documented; Enterprise contracts unlock increased quotas. Self-hosted Letta has
+  no Letta-imposed rate limits (only your infra capacity and downstream LLM provider
+  limits).
+notes: Self-host for unbounded throughput; Enterprise for higher cloud quotas.
 sources:
-- https://www.letta.com/
+- https://docs.letta.com/guides/api/plans
+- https://docs.letta.com/
 responseCodes:
   throttled: 429
 limits:
-- name: Default
+- name: Agents
   scope: account
-  metric: varies
-  limit: see provider documentation
-  notes: Pending reconciliation.
+  metric: agents
+  limit: unlimited
+  notes: Unlimited agents on API Plan (each active agent billed at $0.10/month).
+- name: HTTP Requests
+  scope: account
+  metric: requests
+  limit: not publicly documented
+  notes: Standard 429 backoff applies on Letta Cloud.
 policies:
 - name: Backoff Strategy
   description: Clients should implement exponential backoff with jitter and honor any Retry-After header.
+- name: Self-Host for Bursty Workloads
+  description: Run the open-source Letta server on your own infrastructure to avoid Cloud quotas.
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com

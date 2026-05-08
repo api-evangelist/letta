@@ -3,7 +3,11 @@ url: https://raw.githubusercontent.com/api-evangelist/letta/refs/heads/main/apis
 name: Letta
 x-type: company
 description: >-
-  Letta (formerly MemGPT) is a stateful AI agents platform built around long-term memory, tool use, and agent orchestration. Open-source server + cloud.
+  Letta (formerly MemGPT) is a stateful AI agents platform built around long-term memory,
+  tool execution, and multi-agent coordination. The Letta REST API exposes agents, memory
+  blocks, tools, sources (RAG), runs, and streaming responses. Open-source server is
+  available on GitHub; Letta Cloud is the managed offering. Python and TypeScript SDKs
+  ship alongside the REST API.
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
   - AI
@@ -11,13 +15,62 @@ tags:
   - Memory
   - MemGPT
   - Stateful
+  - Open Source
 created: '2026-05-08'
 modified: '2026-05-08'
 specificationVersion: '0.19'
-apis: []
+apis:
+  - aid: letta:cloud
+    name: Letta Cloud API
+    description: >-
+      REST API for managing stateful agents, memory blocks (in-context + archival/RAG),
+      custom tools (sandbox, client-side, MCP), sources, runs, and streaming responses.
+      Bearer token auth on Letta Cloud.
+    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    humanURL: https://docs.letta.com/
+    baseURL: https://api.letta.com
+    tags:
+      - Agents
+      - Memory
+      - Tools
+      - Streaming
+      - RAG
+    properties:
+      - type: Documentation
+        url: https://docs.letta.com/
+      - type: SignUp
+        url: https://app.letta.com/
+      - type: Pricing
+        url: https://docs.letta.com/guides/api/plans
+      - type: GitHub
+        url: https://github.com/letta-ai/letta
+      - type: LLMsTxt
+        url: https://docs.letta.com/llms-full.txt
+  - aid: letta:self-hosted
+    name: Letta Self-Hosted Server
+    description: >-
+      Open-source Letta server for self-hosted agent deployments. Same REST API surface as
+      Letta Cloud, free to run; pay only for hosting and underlying LLM API usage. Agents
+      can be migrated between self-hosted and cloud via .af agent file format.
+    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    humanURL: https://github.com/letta-ai/letta
+    baseURL: https://localhost:8283
+    tags:
+      - Open Source
+      - Self-Hosted
+      - Agents
+    properties:
+      - type: GitHub
+        url: https://github.com/letta-ai/letta
+      - type: Documentation
+        url: https://docs.letta.com/
 common:
   - type: Website
     url: https://www.letta.com/
+  - type: Documentation
+    url: https://docs.letta.com/
+  - type: GitHub
+    url: https://github.com/letta-ai/letta
   - type: Plans
     url: plans/letta-plans-pricing.yml
   - type: RateLimits

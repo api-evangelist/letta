@@ -5,7 +5,7 @@ provider: Letta
 providerId: letta
 created: '2026-05-08'
 modified: '2026-05-08'
-reconciled: false
+reconciled: true
 tags:
 - AI
 - Agents
@@ -15,9 +15,14 @@ tags:
 - FinOps
 - Cost Management
 - FOCUS
-description: FOCUS-aligned FinOps placeholder for Letta. Pipeline will replace with real billing details.
-notes: Initial scaffold — billing model has not yet been reconciled.
+description: >-
+  FOCUS-aligned FinOps view of Letta. Letta Cloud combines a $20/month base with
+  per-active-agent ($0.10/mo) and per-second tool execution ($0.00015/sec) usage
+  components. Underlying LLM tokens are pass-through at provider cost. Self-hosted Letta
+  removes Letta charges entirely; you pay only infra and LLM bills.
+notes: Active agent count is the dominant Letta-specific cost lever; LLM token cost typically dominates the total bill.
 sources:
+- https://docs.letta.com/guides/api/plans
 - https://www.letta.com/
 - https://focus.finops.org/focus-specification/v1-3/
 alignedWith:
@@ -29,15 +34,15 @@ alignedWith:
 publisherName: Letta
 serviceCategory: AI
 billingModel:
-  pricingCategory: To Be Reconciled
+  pricingCategory: Subscription + Usage (Per-Agent + Per-Second + LLM Pass-Through)
   billingFrequency: Monthly
   billingCurrency: USD
   chargeCategories:
-  - Usage
   - Purchase
+  - Usage
   - Adjustment
 focusColumns:
-  ServiceName: Letta
+  ServiceName: Letta Cloud
   ServiceCategory: AI
   ProviderName: Letta
   PublisherName: Letta
@@ -45,22 +50,41 @@ focusColumns:
   BillingCurrency: USD
   ChargeCategory: Usage
 meters:
-- name: api_usage
-  description: Catch-all meter pending reconciliation.
-  unit: varies
+- name: plan_fee
+  description: Letta Cloud monthly base fee ($20/month on API Plan).
+  unit: month
   aggregation: sum
   dimensions:
   - account
-  - resource
+- name: active_agents
+  description: Active agent count, billed at $0.10/agent/month.
+  unit: agent-month
+  aggregation: max
+  dimensions:
+  - account
+- name: tool_execution_seconds
+  description: Tool execution time at $0.00015/sec.
+  unit: second
+  aggregation: sum
+  dimensions:
+  - account
+  - tool
+- name: llm_tokens
+  description: Pass-through LLM token usage at provider cost.
+  unit: token
+  aggregation: sum
+  dimensions:
+  - account
+  - model
 principles:
 - name: Visibility
-  description: Pull provider invoices or usage exports until a self-serve usage feed is documented.
+  description: Track active agent count, tool execution time, and LLM token spend in Letta dashboard.
 - name: Allocation
-  description: Tag invoice line items to consuming business units in your FinOps store.
+  description: Tag agents to consuming product surfaces.
 - name: Optimization
-  description: Levers depend on the provider's billing model; review at renewal once reconciled.
+  description: Archive idle agents to drop active agent count; switch to cheaper LLM models where possible; self-host for high-volume workloads.
 - name: Accountability
-  description: Assign a contract owner to review billing against negotiated terms.
+  description: Assign owners for plan fee, agent fleet, tool budget, and LLM provider contracts separately.
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
