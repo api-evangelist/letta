@@ -1,0 +1,217 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/letta/main/json-schema/letta-group-schema.json",
+  "title": "Group",
+  "description": "JSON Schema for the Letta Group entity, extracted from the Letta OpenAPI 1.0.0 spec.",
+  "properties": {
+    "id": {
+      "type": "string",
+      "title": "Id",
+      "description": "The id of the group. Assigned by the database."
+    },
+    "manager_type": {
+      "$ref": "#/$defs/ManagerType"
+    },
+    "agent_ids": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array",
+      "title": "Agent Ids",
+      "description": ""
+    },
+    "description": {
+      "type": "string",
+      "title": "Description",
+      "description": ""
+    },
+    "project_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Project Id",
+      "description": "The associated project id."
+    },
+    "template_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Template Id",
+      "description": "The id of the template."
+    },
+    "base_template_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Base Template Id",
+      "description": "The base template id."
+    },
+    "deployment_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Deployment Id",
+      "description": "The id of the deployment."
+    },
+    "shared_block_ids": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array",
+      "title": "Shared Block Ids",
+      "description": "",
+      "default": [],
+      "deprecated": true
+    },
+    "manager_agent_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Manager Agent Id",
+      "description": ""
+    },
+    "termination_token": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Termination Token",
+      "description": ""
+    },
+    "max_turns": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Max Turns",
+      "description": ""
+    },
+    "sleeptime_agent_frequency": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Sleeptime Agent Frequency",
+      "description": ""
+    },
+    "turns_counter": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Turns Counter",
+      "description": ""
+    },
+    "last_processed_message_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Last Processed Message Id",
+      "description": ""
+    },
+    "max_message_buffer_length": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Max Message Buffer Length",
+      "description": "The desired maximum length of messages in the context window of the convo agent. This is a best effort, and may be off slightly due to user/assistant interleaving."
+    },
+    "min_message_buffer_length": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Min Message Buffer Length",
+      "description": "The desired minimum length of messages in the context window of the convo agent. This is a best effort, and may be off-by-one due to user/assistant interleaving."
+    },
+    "hidden": {
+      "anyOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Hidden",
+      "description": "If set to True, the group will be hidden."
+    }
+  },
+  "additionalProperties": false,
+  "type": "object",
+  "required": [
+    "id",
+    "manager_type",
+    "agent_ids",
+    "description"
+  ],
+  "$defs": {
+    "ManagerType": {
+      "type": "string",
+      "enum": [
+        "round_robin",
+        "supervisor",
+        "dynamic",
+        "sleeptime",
+        "voice_sleeptime",
+        "swarm"
+      ],
+      "title": "ManagerType"
+    }
+  }
+}

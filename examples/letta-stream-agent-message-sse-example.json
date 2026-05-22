@@ -1,0 +1,31 @@
+{
+  "operation": "Stream Agent Message (SSE)",
+  "method": "POST",
+  "path": "/v1/agents/{agent_id}/messages/stream",
+  "auth": "Bearer token (LETTA_API_KEY)",
+  "request": {
+    "method": "POST",
+    "path": "/v1/agents/agent-2f6d4a13/messages/stream",
+    "headers": {
+      "Authorization": "Bearer $LETTA_API_KEY",
+      "Content-Type": "application/json",
+      "Accept": "text/event-stream"
+    },
+    "body": {
+      "messages": [
+        {
+          "role": "user",
+          "content": "Summarize our last conversation."
+        }
+      ],
+      "stream_tokens": true
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "text/event-stream"
+    },
+    "body_excerpt": "event: message_chunk\ndata: {\"message_type\":\"reasoning_message\",\"reasoning\":\"Recall last...\"}\n\nevent: message_chunk\ndata: {\"message_type\":\"assistant_message\",\"content\":\"Last time you asked about...\"}\n\nevent: done\ndata: [DONE]\n"
+  }
+}

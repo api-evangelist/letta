@@ -1,0 +1,290 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/letta/main/json-schema/letta-tool-schema.json",
+  "title": "Tool",
+  "description": "Representation of a tool, which is a function that can be called by the agent.",
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^tool-[a-fA-F0-9]{8}",
+      "title": "Id",
+      "description": "The human-friendly ID of the Tool",
+      "examples": [
+        "tool-123e4567-e89b-12d3-a456-426614174000"
+      ]
+    },
+    "tool_type": {
+      "$ref": "#/$defs/ToolType"
+    },
+    "description": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Description",
+      "description": "The description of the tool."
+    },
+    "source_type": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Source Type",
+      "description": "The type of the source code."
+    },
+    "name": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Name",
+      "description": "The name of the function."
+    },
+    "tags": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array",
+      "title": "Tags",
+      "description": "Metadata tags.",
+      "default": []
+    },
+    "source_code": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Source Code",
+      "description": "The source code of the function."
+    },
+    "json_schema": {
+      "anyOf": [
+        {
+          "additionalProperties": true,
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Json Schema",
+      "description": "The JSON schema of the function."
+    },
+    "args_json_schema": {
+      "anyOf": [
+        {
+          "additionalProperties": true,
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Args Json Schema",
+      "description": "The args JSON schema of the function."
+    },
+    "return_char_limit": {
+      "type": "integer",
+      "maximum": 1000000,
+      "minimum": 1,
+      "title": "Return Char Limit",
+      "description": "The maximum number of characters in the response.",
+      "default": 50000
+    },
+    "pip_requirements": {
+      "anyOf": [
+        {
+          "items": {
+            "$ref": "#/$defs/PipRequirement"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Pip Requirements",
+      "description": "Optional list of pip packages required by this tool."
+    },
+    "npm_requirements": {
+      "anyOf": [
+        {
+          "items": {
+            "$ref": "#/$defs/NpmRequirement"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Npm Requirements",
+      "description": "Optional list of npm packages required by this tool."
+    },
+    "default_requires_approval": {
+      "anyOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Default Requires Approval",
+      "description": "Default value for whether or not executing this tool requires approval."
+    },
+    "enable_parallel_execution": {
+      "anyOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Enable Parallel Execution",
+      "description": "If set to True, then this tool will potentially be executed concurrently with other tools. Default False.",
+      "default": false
+    },
+    "created_by_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Created By Id",
+      "description": "The id of the user that made this Tool."
+    },
+    "last_updated_by_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Last Updated By Id",
+      "description": "The id of the user that made this Tool."
+    },
+    "metadata_": {
+      "anyOf": [
+        {
+          "additionalProperties": true,
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Metadata",
+      "description": "A dictionary of additional metadata for the tool."
+    },
+    "project_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Project Id",
+      "description": "The project id of the tool."
+    }
+  },
+  "additionalProperties": false,
+  "type": "object",
+  "$defs": {
+    "ToolType": {
+      "type": "string",
+      "enum": [
+        "custom",
+        "letta_core",
+        "letta_memory_core",
+        "letta_multi_agent_core",
+        "letta_sleeptime_core",
+        "letta_voice_sleeptime_core",
+        "letta_builtin",
+        "letta_files_core",
+        "external_langchain",
+        "external_composio",
+        "external_mcp"
+      ],
+      "title": "ToolType"
+    },
+    "PipRequirement": {
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "title": "Name",
+          "description": "Name of the pip package."
+        },
+        "version": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Version",
+          "description": "Optional version of the package, following semantic versioning."
+        }
+      },
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "title": "PipRequirement"
+    },
+    "NpmRequirement": {
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "title": "Name",
+          "description": "Name of the npm package."
+        },
+        "version": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Version",
+          "description": "Optional version of the package, following semantic versioning."
+        }
+      },
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "title": "NpmRequirement"
+    }
+  }
+}

@@ -1,0 +1,728 @@
+naftiko: "1.0.0-alpha2"
+
+info:
+  label: "Letta API — Conversations"
+  description: >-
+    Conversational sessions — durable conversation threads anchored to an agent. 13 operations. Lead operation: Create Conversation. Self-contained Naftiko capability covering one Letta business surface.
+  tags:
+    - Letta
+    - Stateful Agents
+    - Conversations
+  created: "2026-05-08"
+  modified: "2026-05-22"
+
+binds:
+  - namespace: env
+    keys:
+      LETTA_API_KEY: LETTA_API_KEY
+
+capability:
+
+  consumes:
+    - type: http
+      namespace: "letta-conversations"
+      baseUri: "https://api.letta.com"
+      description: "Letta API — Conversations business capability. Self-contained, no shared references."
+      authentication:
+        type: bearer
+        token: "{{env.LETTA_API_KEY}}"
+      resources:
+        - name: "conversations"
+          path: "/v1/conversations/"
+          operations:
+            - name: "create_conversation"
+              method: POST
+              description: "Create Conversation"
+              inputParameters:
+                - name: "agent_id"
+                  in: query
+                  type: string
+                  required: true
+                  description: "The agent ID to create a conversation for"
+                - name: "body"
+                  in: body
+                  type: object
+                  required: true
+                  description: "Request payload"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: "list_conversations"
+              method: GET
+              description: "List Conversations"
+              inputParameters:
+                - name: "agent_id"
+                  in: query
+                  type: string
+                  required: false
+                  description: "The agent ID to list conversations for (optional - returns all conversations if not provided)"
+                - name: "limit"
+                  in: query
+                  type: integer
+                  required: false
+                  description: "Maximum number of conversations to return"
+                - name: "after"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Cursor for pagination (conversation ID)"
+                - name: "summary_search"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Search for text within conversation summaries"
+                - name: "order"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Sort order for conversations. 'asc' for oldest first, 'desc' for newest first"
+                - name: "order_by"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Field to sort by"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "conversations-by-id"
+          path: "/v1/conversations/{conversation_id}"
+          operations:
+            - name: "retrieve_conversation"
+              method: GET
+              description: "Retrieve Conversation"
+              inputParameters:
+                - name: "conversation_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "The ID of the conv in the format 'conv-<uuid4>'"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: "update_conversation"
+              method: PATCH
+              description: "Update Conversation"
+              inputParameters:
+                - name: "conversation_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "The ID of the conv in the format 'conv-<uuid4>'"
+                - name: "body"
+                  in: body
+                  type: object
+                  required: true
+                  description: "Request payload"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: "delete_conversation"
+              method: DELETE
+              description: "Delete Conversation"
+              inputParameters:
+                - name: "conversation_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "The ID of the conv in the format 'conv-<uuid4>'"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "conversations-by-id-fork"
+          path: "/v1/conversations/{conversation_id}/fork"
+          operations:
+            - name: "fork_conversation"
+              method: POST
+              description: "Fork Conversation"
+              inputParameters:
+                - name: "conversation_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "The conversation identifier. Can be a conversation ID ('conv-<uuid4>'), 'default' for agent-direct mode (with agent_id parameter), or an agent ID ('agent-<uuid4>') for backwards compatibility (depreca"
+                - name: "agent_id"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Agent ID for agent-direct mode with 'default' conversation"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "conversations-by-id-messages"
+          path: "/v1/conversations/{conversation_id}/messages"
+          operations:
+            - name: "list_conversation_messages"
+              method: GET
+              description: "List Conversation Messages"
+              inputParameters:
+                - name: "conversation_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "The conversation identifier. Can be a conversation ID ('conv-<uuid4>'), 'default' for agent-direct mode (with agent_id parameter), or an agent ID ('agent-<uuid4>') for backwards compatibility (depreca"
+                - name: "agent_id"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Agent ID for agent-direct mode with 'default' conversation"
+                - name: "before"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Message ID cursor for pagination. Returns messages that come before this message ID in the specified sort order"
+                - name: "after"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Message ID cursor for pagination. Returns messages that come after this message ID in the specified sort order"
+                - name: "limit"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Maximum number of messages to return"
+                - name: "order"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Sort order for messages by creation time. 'asc' for oldest first, 'desc' for newest first"
+                - name: "order_by"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Field to sort by"
+                - name: "group_id"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Group ID to filter messages by."
+                - name: "include_err"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Whether to include error messages and error statuses. For debugging purposes only."
+                - name: "include_return_message_types"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Message types to include in response. When null, all message types are returned."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: "send_conversation_message"
+              method: POST
+              description: "Send Conversation Message"
+              inputParameters:
+                - name: "conversation_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "The conversation identifier. Can be a conversation ID ('conv-<uuid4>'), 'default' for agent-direct mode (with agent_id parameter), or an agent ID ('agent-<uuid4>') for backwards compatibility (depreca"
+                - name: "body"
+                  in: body
+                  type: object
+                  required: true
+                  description: "Request payload"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "conversations-by-id-messages-preview-raw-payload"
+          path: "/v1/conversations/{conversation_id}/messages/preview-raw-payload"
+          operations:
+            - name: "preview_conversation_model_request"
+              method: POST
+              description: "Preview Conversation Model Request"
+              inputParameters:
+                - name: "conversation_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "The conversation identifier. Can be a conversation ID ('conv-<uuid4>'), 'default' for agent-direct mode (with agent_id parameter), or an agent ID ('agent-<uuid4>') for backwards compatibility (depreca"
+                - name: "body"
+                  in: body
+                  type: object
+                  required: true
+                  description: "Request payload"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "conversations-by-id-stream"
+          path: "/v1/conversations/{conversation_id}/stream"
+          operations:
+            - name: "retrieve_conversation_stream"
+              method: POST
+              description: "Retrieve Conversation Stream"
+              inputParameters:
+                - name: "conversation_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "The conversation identifier. Can be a conversation ID ('conv-<uuid4>'), 'default' for agent-direct mode (with agent_id parameter), or an agent ID ('agent-<uuid4>') for backwards compatibility (depreca"
+                - name: "body"
+                  in: body
+                  type: object
+                  required: true
+                  description: "Request payload"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "conversations-by-id-cancel"
+          path: "/v1/conversations/{conversation_id}/cancel"
+          operations:
+            - name: "cancel_conversation"
+              method: POST
+              description: "Cancel Conversation"
+              inputParameters:
+                - name: "conversation_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "The conversation identifier. Can be a conversation ID ('conv-<uuid4>'), 'default' for agent-direct mode (with agent_id parameter), or an agent ID ('agent-<uuid4>') for backwards compatibility (depreca"
+                - name: "agent_id"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Agent ID for agent-direct mode with 'default' conversation"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "conversations-by-id-recompile"
+          path: "/v1/conversations/{conversation_id}/recompile"
+          operations:
+            - name: "recompile_conversation"
+              method: POST
+              description: "Recompile Conversation"
+              inputParameters:
+                - name: "conversation_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "The conversation identifier. Can be a conversation ID ('conv-<uuid4>'), 'default' for agent-direct mode (with agent_id parameter), or an agent ID ('agent-<uuid4>') for backwards compatibility (depreca"
+                - name: "dry_run"
+                  in: query
+                  type: boolean
+                  required: false
+                  description: "If True, do not persist changes; still returns the compiled system prompt."
+                - name: "body"
+                  in: body
+                  type: object
+                  required: true
+                  description: "Request payload"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "conversations-by-id-compact"
+          path: "/v1/conversations/{conversation_id}/compact"
+          operations:
+            - name: "compact_conversation"
+              method: POST
+              description: "Compact Conversation"
+              inputParameters:
+                - name: "conversation_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "The conversation identifier. Can be a conversation ID ('conv-<uuid4>'), 'default' for agent-direct mode (with agent_id parameter), or an agent ID ('agent-<uuid4>') for backwards compatibility (depreca"
+                - name: "body"
+                  in: body
+                  type: object
+                  required: true
+                  description: "Request payload"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  exposes:
+    - type: rest
+      namespace: "letta-conversations-rest"
+      port: 8080
+      description: "REST adapter for Letta API — Conversations. One Spectral-compliant resource per consumed operation."
+      resources:
+        - path: "/v1/conversations/"
+          name: "conversations"
+          description: "REST surface for conversations."
+          operations:
+            - method: POST
+              name: "create_conversation"
+              description: "Create Conversation"
+              call: "letta-conversations.create_conversation"
+              with:
+                "agent_id": "rest.agent_id"
+                "body": "rest.body"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: GET
+              name: "list_conversations"
+              description: "List Conversations"
+              call: "letta-conversations.list_conversations"
+              with:
+                "agent_id": "rest.agent_id"
+                "limit": "rest.limit"
+                "after": "rest.after"
+                "summary_search": "rest.summary_search"
+                "order": "rest.order"
+                "order_by": "rest.order_by"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/conversations/{conversation-id}"
+          name: "conversations-by-id"
+          description: "REST surface for conversations-by-id."
+          operations:
+            - method: GET
+              name: "retrieve_conversation"
+              description: "Retrieve Conversation"
+              call: "letta-conversations.retrieve_conversation"
+              with:
+                "conversation_id": "rest.conversation_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: PATCH
+              name: "update_conversation"
+              description: "Update Conversation"
+              call: "letta-conversations.update_conversation"
+              with:
+                "conversation_id": "rest.conversation_id"
+                "body": "rest.body"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: DELETE
+              name: "delete_conversation"
+              description: "Delete Conversation"
+              call: "letta-conversations.delete_conversation"
+              with:
+                "conversation_id": "rest.conversation_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/conversations/{conversation-id}/fork"
+          name: "conversations-by-id-fork"
+          description: "REST surface for conversations-by-id-fork."
+          operations:
+            - method: POST
+              name: "fork_conversation"
+              description: "Fork Conversation"
+              call: "letta-conversations.fork_conversation"
+              with:
+                "conversation_id": "rest.conversation_id"
+                "agent_id": "rest.agent_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/conversations/{conversation-id}/messages"
+          name: "conversations-by-id-messages"
+          description: "REST surface for conversations-by-id-messages."
+          operations:
+            - method: GET
+              name: "list_conversation_messages"
+              description: "List Conversation Messages"
+              call: "letta-conversations.list_conversation_messages"
+              with:
+                "conversation_id": "rest.conversation_id"
+                "agent_id": "rest.agent_id"
+                "before": "rest.before"
+                "after": "rest.after"
+                "limit": "rest.limit"
+                "order": "rest.order"
+                "order_by": "rest.order_by"
+                "group_id": "rest.group_id"
+                "include_err": "rest.include_err"
+                "include_return_message_types": "rest.include_return_message_types"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: "send_conversation_message"
+              description: "Send Conversation Message"
+              call: "letta-conversations.send_conversation_message"
+              with:
+                "conversation_id": "rest.conversation_id"
+                "body": "rest.body"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/conversations/{conversation-id}/messages/preview-raw-payload"
+          name: "conversations-by-id-messages-preview-raw-payload"
+          description: "REST surface for conversations-by-id-messages-preview-raw-payload."
+          operations:
+            - method: POST
+              name: "preview_conversation_model_request"
+              description: "Preview Conversation Model Request"
+              call: "letta-conversations.preview_conversation_model_request"
+              with:
+                "conversation_id": "rest.conversation_id"
+                "body": "rest.body"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/conversations/{conversation-id}/stream"
+          name: "conversations-by-id-stream"
+          description: "REST surface for conversations-by-id-stream."
+          operations:
+            - method: POST
+              name: "retrieve_conversation_stream"
+              description: "Retrieve Conversation Stream"
+              call: "letta-conversations.retrieve_conversation_stream"
+              with:
+                "conversation_id": "rest.conversation_id"
+                "body": "rest.body"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/conversations/{conversation-id}/cancel"
+          name: "conversations-by-id-cancel"
+          description: "REST surface for conversations-by-id-cancel."
+          operations:
+            - method: POST
+              name: "cancel_conversation"
+              description: "Cancel Conversation"
+              call: "letta-conversations.cancel_conversation"
+              with:
+                "conversation_id": "rest.conversation_id"
+                "agent_id": "rest.agent_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/conversations/{conversation-id}/recompile"
+          name: "conversations-by-id-recompile"
+          description: "REST surface for conversations-by-id-recompile."
+          operations:
+            - method: POST
+              name: "recompile_conversation"
+              description: "Recompile Conversation"
+              call: "letta-conversations.recompile_conversation"
+              with:
+                "conversation_id": "rest.conversation_id"
+                "dry_run": "rest.dry_run"
+                "body": "rest.body"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/conversations/{conversation-id}/compact"
+          name: "conversations-by-id-compact"
+          description: "REST surface for conversations-by-id-compact."
+          operations:
+            - method: POST
+              name: "compact_conversation"
+              description: "Compact Conversation"
+              call: "letta-conversations.compact_conversation"
+              with:
+                "conversation_id": "rest.conversation_id"
+                "body": "rest.body"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+    - type: mcp
+      namespace: "letta-conversations-mcp"
+      port: 9090
+      transport: http
+      description: "MCP adapter for Letta API — Conversations. One verb-noun tool per consumed operation."
+      tools:
+        - name: "create-conversation"
+          description: "Create Conversation"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "letta-conversations.create_conversation"
+          with:
+            "agent_id": "tools.agent_id"
+            "body": "tools.body"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "list-conversations"
+          description: "List Conversations"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "letta-conversations.list_conversations"
+          with:
+            "agent_id": "tools.agent_id"
+            "limit": "tools.limit"
+            "after": "tools.after"
+            "summary_search": "tools.summary_search"
+            "order": "tools.order"
+            "order_by": "tools.order_by"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "retrieve-conversation"
+          description: "Retrieve Conversation"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "letta-conversations.retrieve_conversation"
+          with:
+            "conversation_id": "tools.conversation_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "update-conversation"
+          description: "Update Conversation"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: true
+          call: "letta-conversations.update_conversation"
+          with:
+            "conversation_id": "tools.conversation_id"
+            "body": "tools.body"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "delete-conversation"
+          description: "Delete Conversation"
+          hints:
+            readOnly: false
+            destructive: true
+            idempotent: true
+          call: "letta-conversations.delete_conversation"
+          with:
+            "conversation_id": "tools.conversation_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "fork-conversation"
+          description: "Fork Conversation"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "letta-conversations.fork_conversation"
+          with:
+            "conversation_id": "tools.conversation_id"
+            "agent_id": "tools.agent_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "list-conversation-messages"
+          description: "List Conversation Messages"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "letta-conversations.list_conversation_messages"
+          with:
+            "conversation_id": "tools.conversation_id"
+            "agent_id": "tools.agent_id"
+            "before": "tools.before"
+            "after": "tools.after"
+            "limit": "tools.limit"
+            "order": "tools.order"
+            "order_by": "tools.order_by"
+            "group_id": "tools.group_id"
+            "include_err": "tools.include_err"
+            "include_return_message_types": "tools.include_return_message_types"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "send-conversation-message"
+          description: "Send Conversation Message"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "letta-conversations.send_conversation_message"
+          with:
+            "conversation_id": "tools.conversation_id"
+            "body": "tools.body"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "preview-conversation-model-request"
+          description: "Preview Conversation Model Request"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "letta-conversations.preview_conversation_model_request"
+          with:
+            "conversation_id": "tools.conversation_id"
+            "body": "tools.body"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "retrieve-conversation-stream"
+          description: "Retrieve Conversation Stream"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: false
+          call: "letta-conversations.retrieve_conversation_stream"
+          with:
+            "conversation_id": "tools.conversation_id"
+            "body": "tools.body"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "cancel-conversation"
+          description: "Cancel Conversation"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "letta-conversations.cancel_conversation"
+          with:
+            "conversation_id": "tools.conversation_id"
+            "agent_id": "tools.agent_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "recompile-conversation"
+          description: "Recompile Conversation"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "letta-conversations.recompile_conversation"
+          with:
+            "conversation_id": "tools.conversation_id"
+            "dry_run": "tools.dry_run"
+            "body": "tools.body"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "compact-conversation"
+          description: "Compact Conversation"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "letta-conversations.compact_conversation"
+          with:
+            "conversation_id": "tools.conversation_id"
+            "body": "tools.body"
+          outputParameters:
+            - type: object
+              mapping: "$."

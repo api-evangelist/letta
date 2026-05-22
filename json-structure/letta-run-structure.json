@@ -1,0 +1,154 @@
+{
+  "jsonStructure": "0.1",
+  "name": "letta-run",
+  "title": "Letta Run",
+  "description": "Flat structure summary of the Letta Run entity, derived from the Letta OpenAPI 1.0.0 spec.",
+  "source": "https://raw.githubusercontent.com/letta-ai/letta/main/fern/openapi.json",
+  "entity": "Run",
+  "fields": [
+    {
+      "name": "id",
+      "type": "string",
+      "required": false,
+      "description": "The human-friendly ID of the Run",
+      "enum": null,
+      "format": null
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "required": false,
+      "description": "Status of the run.",
+      "enum": [
+        "created",
+        "running",
+        "completed",
+        "failed",
+        "cancelled"
+      ],
+      "format": null
+    },
+    {
+      "name": "created_at",
+      "type": "string",
+      "required": false,
+      "description": "The timestamp when the run was created.",
+      "enum": null,
+      "format": "date-time"
+    },
+    {
+      "name": "completed_at",
+      "type": "object",
+      "required": false,
+      "description": "The timestamp when the run was completed.",
+      "enum": null,
+      "format": null
+    },
+    {
+      "name": "agent_id",
+      "type": "string",
+      "required": true,
+      "description": "The unique identifier of the agent associated with the run.",
+      "enum": null,
+      "format": null
+    },
+    {
+      "name": "conversation_id",
+      "type": "object",
+      "required": false,
+      "description": "The unique identifier of the conversation associated with the run.",
+      "enum": null,
+      "format": null
+    },
+    {
+      "name": "base_template_id",
+      "type": "object",
+      "required": false,
+      "description": "The base template ID that the run belongs to.",
+      "enum": null,
+      "format": null
+    },
+    {
+      "name": "background",
+      "type": "object",
+      "required": false,
+      "description": "Whether the run was created in background mode.",
+      "enum": null,
+      "format": null
+    },
+    {
+      "name": "metadata",
+      "type": "object",
+      "required": false,
+      "description": "Additional metadata for the run.",
+      "enum": null,
+      "format": null
+    },
+    {
+      "name": "request_config",
+      "type": "object",
+      "required": false,
+      "description": "The request configuration for the run.",
+      "enum": null,
+      "format": null
+    },
+    {
+      "name": "stop_reason",
+      "type": "object",
+      "required": false,
+      "description": "The reason why the run was stopped.",
+      "enum": null,
+      "format": null
+    },
+    {
+      "name": "callback_url",
+      "type": "object",
+      "required": false,
+      "description": "If set, POST to this URL when the run completes.",
+      "enum": null,
+      "format": null
+    },
+    {
+      "name": "callback_sent_at",
+      "type": "object",
+      "required": false,
+      "description": "Timestamp when the callback was last attempted.",
+      "enum": null,
+      "format": null
+    },
+    {
+      "name": "callback_status_code",
+      "type": "object",
+      "required": false,
+      "description": "HTTP status code returned by the callback endpoint.",
+      "enum": null,
+      "format": null
+    },
+    {
+      "name": "callback_error",
+      "type": "object",
+      "required": false,
+      "description": "Optional error message from attempting to POST the callback endpoint.",
+      "enum": null,
+      "format": null
+    },
+    {
+      "name": "ttft_ns",
+      "type": "object",
+      "required": false,
+      "description": "Time to first token for a run in nanoseconds",
+      "enum": null,
+      "format": null
+    },
+    {
+      "name": "total_duration_ns",
+      "type": "object",
+      "required": false,
+      "description": "Total run duration in nanoseconds",
+      "enum": null,
+      "format": null
+    }
+  ],
+  "fieldCount": 17,
+  "requiredCount": 1
+}

@@ -1,0 +1,434 @@
+naftiko: "1.0.0-alpha2"
+
+info:
+  label: "Letta API — Steps"
+  description: >-
+    Steps — per-step traces inside an agent run. 6 operations. Lead operation: List Steps. Self-contained Naftiko capability covering one Letta business surface.
+  tags:
+    - Letta
+    - Stateful Agents
+    - Steps
+  created: "2026-05-08"
+  modified: "2026-05-22"
+
+binds:
+  - namespace: env
+    keys:
+      LETTA_API_KEY: LETTA_API_KEY
+
+capability:
+
+  consumes:
+    - type: http
+      namespace: "letta-steps"
+      baseUri: "https://api.letta.com"
+      description: "Letta API — Steps business capability. Self-contained, no shared references."
+      authentication:
+        type: bearer
+        token: "{{env.LETTA_API_KEY}}"
+      resources:
+        - name: "steps"
+          path: "/v1/steps/"
+          operations:
+            - name: "list_steps"
+              method: GET
+              description: "List Steps"
+              inputParameters:
+                - name: "before"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Return steps before this step ID"
+                - name: "after"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Return steps after this step ID"
+                - name: "limit"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Maximum number of steps to return"
+                - name: "order"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Sort order for steps by creation time. 'asc' for oldest first, 'desc' for newest first"
+                - name: "order_by"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Field to sort by"
+                - name: "start_date"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Return steps after this ISO datetime (e.g. \"2025-01-29T15:01:19-08:00\")"
+                - name: "end_date"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Return steps before this ISO datetime (e.g. \"2025-01-29T15:01:19-08:00\")"
+                - name: "model"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Filter by the name of the model used for the step"
+                - name: "agent_id"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Filter by the ID of the agent that performed the step"
+                - name: "trace_ids"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Filter by trace ids returned by the server"
+                - name: "feedback"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Filter by feedback"
+                - name: "has_feedback"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Filter by whether steps have feedback (true) or not (false)"
+                - name: "tags"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Filter by tags"
+                - name: "project_id"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Filter by the project ID that is associated with the step (cloud only)."
+                - name: "X-Project"
+                  in: header
+                  type: string
+                  required: false
+                  description: "Filter by project slug to associate with the group (cloud only)."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "steps-by-id"
+          path: "/v1/steps/{step_id}"
+          operations:
+            - name: "retrieve_step"
+              method: GET
+              description: "Retrieve Step"
+              inputParameters:
+                - name: "step_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "The ID of the step in the format 'step-<uuid4>'"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "steps-by-id-metrics"
+          path: "/v1/steps/{step_id}/metrics"
+          operations:
+            - name: "retrieve_metrics_for_step"
+              method: GET
+              description: "Retrieve Metrics for Step"
+              inputParameters:
+                - name: "step_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "The ID of the step in the format 'step-<uuid4>'"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "steps-by-id-trace"
+          path: "/v1/steps/{step_id}/trace"
+          operations:
+            - name: "retrieve_trace_for_step"
+              method: GET
+              description: "Retrieve Trace for Step"
+              inputParameters:
+                - name: "step_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "The ID of the step in the format 'step-<uuid4>'"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "steps-by-id-feedback"
+          path: "/v1/steps/{step_id}/feedback"
+          operations:
+            - name: "modify_feedback_for_step"
+              method: PATCH
+              description: "Modify Feedback for Step"
+              inputParameters:
+                - name: "step_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "The ID of the step in the format 'step-<uuid4>'"
+                - name: "body"
+                  in: body
+                  type: object
+                  required: true
+                  description: "Request payload"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "steps-by-id-messages"
+          path: "/v1/steps/{step_id}/messages"
+          operations:
+            - name: "list_messages_for_step"
+              method: GET
+              description: "List Messages for Step"
+              inputParameters:
+                - name: "step_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "The ID of the step in the format 'step-<uuid4>'"
+                - name: "before"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Message ID cursor for pagination. Returns messages that come before this message ID in the specified sort order"
+                - name: "after"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Message ID cursor for pagination. Returns messages that come after this message ID in the specified sort order"
+                - name: "limit"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Maximum number of messages to return"
+                - name: "order"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Sort order for messages by creation time. 'asc' for oldest first, 'desc' for newest first"
+                - name: "order_by"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Sort by field"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  exposes:
+    - type: rest
+      namespace: "letta-steps-rest"
+      port: 8080
+      description: "REST adapter for Letta API — Steps. One Spectral-compliant resource per consumed operation."
+      resources:
+        - path: "/v1/steps/"
+          name: "steps"
+          description: "REST surface for steps."
+          operations:
+            - method: GET
+              name: "list_steps"
+              description: "List Steps"
+              call: "letta-steps.list_steps"
+              with:
+                "before": "rest.before"
+                "after": "rest.after"
+                "limit": "rest.limit"
+                "order": "rest.order"
+                "order_by": "rest.order_by"
+                "start_date": "rest.start_date"
+                "end_date": "rest.end_date"
+                "model": "rest.model"
+                "agent_id": "rest.agent_id"
+                "trace_ids": "rest.trace_ids"
+                "feedback": "rest.feedback"
+                "has_feedback": "rest.has_feedback"
+                "tags": "rest.tags"
+                "project_id": "rest.project_id"
+                "X-Project": "rest.X-Project"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/steps/{step-id}"
+          name: "steps-by-id"
+          description: "REST surface for steps-by-id."
+          operations:
+            - method: GET
+              name: "retrieve_step"
+              description: "Retrieve Step"
+              call: "letta-steps.retrieve_step"
+              with:
+                "step_id": "rest.step_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/steps/{step-id}/metrics"
+          name: "steps-by-id-metrics"
+          description: "REST surface for steps-by-id-metrics."
+          operations:
+            - method: GET
+              name: "retrieve_metrics_for_step"
+              description: "Retrieve Metrics for Step"
+              call: "letta-steps.retrieve_metrics_for_step"
+              with:
+                "step_id": "rest.step_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/steps/{step-id}/trace"
+          name: "steps-by-id-trace"
+          description: "REST surface for steps-by-id-trace."
+          operations:
+            - method: GET
+              name: "retrieve_trace_for_step"
+              description: "Retrieve Trace for Step"
+              call: "letta-steps.retrieve_trace_for_step"
+              with:
+                "step_id": "rest.step_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/steps/{step-id}/feedback"
+          name: "steps-by-id-feedback"
+          description: "REST surface for steps-by-id-feedback."
+          operations:
+            - method: PATCH
+              name: "modify_feedback_for_step"
+              description: "Modify Feedback for Step"
+              call: "letta-steps.modify_feedback_for_step"
+              with:
+                "step_id": "rest.step_id"
+                "body": "rest.body"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/steps/{step-id}/messages"
+          name: "steps-by-id-messages"
+          description: "REST surface for steps-by-id-messages."
+          operations:
+            - method: GET
+              name: "list_messages_for_step"
+              description: "List Messages for Step"
+              call: "letta-steps.list_messages_for_step"
+              with:
+                "step_id": "rest.step_id"
+                "before": "rest.before"
+                "after": "rest.after"
+                "limit": "rest.limit"
+                "order": "rest.order"
+                "order_by": "rest.order_by"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+    - type: mcp
+      namespace: "letta-steps-mcp"
+      port: 9090
+      transport: http
+      description: "MCP adapter for Letta API — Steps. One verb-noun tool per consumed operation."
+      tools:
+        - name: "list-steps"
+          description: "List Steps"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "letta-steps.list_steps"
+          with:
+            "before": "tools.before"
+            "after": "tools.after"
+            "limit": "tools.limit"
+            "order": "tools.order"
+            "order_by": "tools.order_by"
+            "start_date": "tools.start_date"
+            "end_date": "tools.end_date"
+            "model": "tools.model"
+            "agent_id": "tools.agent_id"
+            "trace_ids": "tools.trace_ids"
+            "feedback": "tools.feedback"
+            "has_feedback": "tools.has_feedback"
+            "tags": "tools.tags"
+            "project_id": "tools.project_id"
+            "X-Project": "tools.X-Project"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "retrieve-step"
+          description: "Retrieve Step"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "letta-steps.retrieve_step"
+          with:
+            "step_id": "tools.step_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "retrieve-metrics-step"
+          description: "Retrieve Metrics for Step"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "letta-steps.retrieve_metrics_for_step"
+          with:
+            "step_id": "tools.step_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "retrieve-trace-step"
+          description: "Retrieve Trace for Step"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "letta-steps.retrieve_trace_for_step"
+          with:
+            "step_id": "tools.step_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "modify-feedback-step"
+          description: "Modify Feedback for Step"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: true
+          call: "letta-steps.modify_feedback_for_step"
+          with:
+            "step_id": "tools.step_id"
+            "body": "tools.body"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "list-messages-step"
+          description: "List Messages for Step"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "letta-steps.list_messages_for_step"
+          with:
+            "step_id": "tools.step_id"
+            "before": "tools.before"
+            "after": "tools.after"
+            "limit": "tools.limit"
+            "order": "tools.order"
+            "order_by": "tools.order_by"
+          outputParameters:
+            - type: object
+              mapping: "$."

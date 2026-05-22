@@ -1,0 +1,91 @@
+naftiko: "1.0.0-alpha2"
+
+info:
+  label: "Letta API — Voice"
+  description: >-
+    Voice — low-latency voice-mode chat completions for agents (beta). 1 operations. Lead operation: Create Voice Chat Completions. Self-contained Naftiko capability covering one Letta business surface.
+  tags:
+    - Letta
+    - Stateful Agents
+    - Voice
+  created: "2026-05-08"
+  modified: "2026-05-22"
+
+binds:
+  - namespace: env
+    keys:
+      LETTA_API_KEY: LETTA_API_KEY
+
+capability:
+
+  consumes:
+    - type: http
+      namespace: "letta-voice"
+      baseUri: "https://api.letta.com"
+      description: "Letta API — Voice business capability. Self-contained, no shared references."
+      authentication:
+        type: bearer
+        token: "{{env.LETTA_API_KEY}}"
+      resources:
+        - name: "voice-beta-by-id-chat-completions"
+          path: "/v1/voice-beta/{agent_id}/chat/completions"
+          operations:
+            - name: "create_voice_chat_completions"
+              method: POST
+              description: "Create Voice Chat Completions"
+              inputParameters:
+                - name: "agent_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "agent_id parameter"
+                - name: "body"
+                  in: body
+                  type: object
+                  required: true
+                  description: "Request payload"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  exposes:
+    - type: rest
+      namespace: "letta-voice-rest"
+      port: 8080
+      description: "REST adapter for Letta API — Voice. One Spectral-compliant resource per consumed operation."
+      resources:
+        - path: "/v1/voice-beta/{agent-id}/chat/completions"
+          name: "voice-beta-by-id-chat-completions"
+          description: "REST surface for voice-beta-by-id-chat-completions."
+          operations:
+            - method: POST
+              name: "create_voice_chat_completions"
+              description: "Create Voice Chat Completions"
+              call: "letta-voice.create_voice_chat_completions"
+              with:
+                "agent_id": "rest.agent_id"
+                "body": "rest.body"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+    - type: mcp
+      namespace: "letta-voice-mcp"
+      port: 9090
+      transport: http
+      description: "MCP adapter for Letta API — Voice. One verb-noun tool per consumed operation."
+      tools:
+        - name: "create-voice-chat-completions"
+          description: "Create Voice Chat Completions"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "letta-voice.create_voice_chat_completions"
+          with:
+            "agent_id": "tools.agent_id"
+            "body": "tools.body"
+          outputParameters:
+            - type: object
+              mapping: "$."

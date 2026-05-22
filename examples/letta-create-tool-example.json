@@ -1,0 +1,46 @@
+{
+  "operation": "Create Tool",
+  "method": "POST",
+  "path": "/v1/tools/",
+  "auth": "Bearer token (LETTA_API_KEY)",
+  "request": {
+    "method": "POST",
+    "path": "/v1/tools",
+    "headers": {
+      "Authorization": "Bearer $LETTA_API_KEY",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "sum_two",
+      "description": "Sum two integers and return the result.",
+      "source_code": "def sum_two(a: int, b: int) -> int:\n    \"\"\"Return a + b.\"\"\"\n    return a + b\n",
+      "source_type": "python"
+    }
+  },
+  "response": {
+    "status": 201,
+    "body": {
+      "id": "tool-sum-01",
+      "name": "sum_two",
+      "source_type": "python",
+      "json_schema": {
+        "name": "sum_two",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "a": {
+              "type": "integer"
+            },
+            "b": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "a",
+            "b"
+          ]
+        }
+      }
+    }
+  }
+}

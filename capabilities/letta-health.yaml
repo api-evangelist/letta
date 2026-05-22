@@ -1,0 +1,106 @@
+naftiko: "1.0.0-alpha2"
+
+info:
+  label: "Letta API — Health"
+  description: >-
+    Service health — readiness and liveness probes. 2 operations. Lead operation: Check Health. Self-contained Naftiko capability covering one Letta business surface.
+  tags:
+    - Letta
+    - Stateful Agents
+    - Health
+  created: "2026-05-08"
+  modified: "2026-05-22"
+
+binds:
+  - namespace: env
+    keys:
+      LETTA_API_KEY: LETTA_API_KEY
+
+capability:
+
+  consumes:
+    - type: http
+      namespace: "letta-health"
+      baseUri: "https://api.letta.com"
+      description: "Letta API — Health business capability. Self-contained, no shared references."
+      authentication:
+        type: bearer
+        token: "{{env.LETTA_API_KEY}}"
+      resources:
+        - name: "health"
+          path: "/v1/health/"
+          operations:
+            - name: "check_health"
+              method: GET
+              description: "Check Health"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "ready"
+          path: "/v1/ready/"
+          operations:
+            - name: "check_readiness"
+              method: GET
+              description: "Check Readiness"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  exposes:
+    - type: rest
+      namespace: "letta-health-rest"
+      port: 8080
+      description: "REST adapter for Letta API — Health. One Spectral-compliant resource per consumed operation."
+      resources:
+        - path: "/v1/health/"
+          name: "health"
+          description: "REST surface for health."
+          operations:
+            - method: GET
+              name: "check_health"
+              description: "Check Health"
+              call: "letta-health.check_health"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/ready/"
+          name: "ready"
+          description: "REST surface for ready."
+          operations:
+            - method: GET
+              name: "check_readiness"
+              description: "Check Readiness"
+              call: "letta-health.check_readiness"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+    - type: mcp
+      namespace: "letta-health-mcp"
+      port: 9090
+      transport: http
+      description: "MCP adapter for Letta API — Health. One verb-noun tool per consumed operation."
+      tools:
+        - name: "check-health"
+          description: "Check Health"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "letta-health.check_health"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "check-readiness"
+          description: "Check Readiness"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "letta-health.check_readiness"
+          outputParameters:
+            - type: object
+              mapping: "$."

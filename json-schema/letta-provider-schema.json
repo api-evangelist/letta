@@ -1,0 +1,195 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/letta/main/json-schema/letta-provider-schema.json",
+  "title": "Provider",
+  "description": "JSON Schema for the Letta Provider entity, extracted from the Letta OpenAPI 1.0.0 spec.",
+  "properties": {
+    "id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Id",
+      "description": "The id of the provider, lazily created by the database manager."
+    },
+    "name": {
+      "type": "string",
+      "title": "Name",
+      "description": "The name of the provider"
+    },
+    "provider_type": {
+      "$ref": "#/$defs/ProviderType"
+    },
+    "provider_category": {
+      "$ref": "#/$defs/ProviderCategory"
+    },
+    "api_key": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Api Key",
+      "description": "API key or secret key used for requests to the provider.",
+      "deprecated": true
+    },
+    "base_url": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Base Url",
+      "description": "Base URL for the provider."
+    },
+    "access_key": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Access Key",
+      "description": "Access key used for requests to the provider.",
+      "deprecated": true
+    },
+    "region": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Region",
+      "description": "Region used for requests to the provider."
+    },
+    "api_version": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Api Version",
+      "description": "API version used for requests to the provider."
+    },
+    "updated_at": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "date-time"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Updated At",
+      "description": "The last update timestamp of the provider."
+    },
+    "last_synced": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "date-time"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Last Synced",
+      "description": "The last time models were synced for this provider."
+    },
+    "api_key_enc": {
+      "anyOf": [
+        {
+          "type": "string",
+          "description": "Encrypted secret value (stored as encrypted string)",
+          "nullable": true
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Api Key Enc",
+      "description": "Encrypted API key as Secret object"
+    },
+    "access_key_enc": {
+      "anyOf": [
+        {
+          "type": "string",
+          "description": "Encrypted secret value (stored as encrypted string)",
+          "nullable": true
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Access Key Enc",
+      "description": "Encrypted access key as Secret object"
+    }
+  },
+  "additionalProperties": false,
+  "type": "object",
+  "required": [
+    "name",
+    "provider_type",
+    "provider_category"
+  ],
+  "$defs": {
+    "ProviderType": {
+      "type": "string",
+      "enum": [
+        "anthropic",
+        "azure",
+        "baseten",
+        "bedrock",
+        "cerebras",
+        "chatgpt_oauth",
+        "deepseek",
+        "fireworks",
+        "google_ai",
+        "google_vertex",
+        "groq",
+        "hugging-face",
+        "letta",
+        "lmstudio_openai",
+        "minimax",
+        "mistral",
+        "ollama",
+        "openai",
+        "together",
+        "vllm",
+        "sglang",
+        "openrouter",
+        "xai",
+        "zai",
+        "zai_coding"
+      ],
+      "title": "ProviderType"
+    },
+    "ProviderCategory": {
+      "type": "string",
+      "enum": [
+        "base",
+        "byok"
+      ],
+      "title": "ProviderCategory"
+    }
+  }
+}

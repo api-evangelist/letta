@@ -1,0 +1,504 @@
+naftiko: "1.0.0-alpha2"
+
+info:
+  label: "Letta API — Archives"
+  description: >-
+    Archival memory archives — RAG-style long-term store of passages attached to agents. 9 operations. Lead operation: Create Archive. Self-contained Naftiko capability covering one Letta business surface.
+  tags:
+    - Letta
+    - Stateful Agents
+    - Archives
+  created: "2026-05-08"
+  modified: "2026-05-22"
+
+binds:
+  - namespace: env
+    keys:
+      LETTA_API_KEY: LETTA_API_KEY
+
+capability:
+
+  consumes:
+    - type: http
+      namespace: "letta-archives"
+      baseUri: "https://api.letta.com"
+      description: "Letta API — Archives business capability. Self-contained, no shared references."
+      authentication:
+        type: bearer
+        token: "{{env.LETTA_API_KEY}}"
+      resources:
+        - name: "archives"
+          path: "/v1/archives/"
+          operations:
+            - name: "create_archive"
+              method: POST
+              description: "Create Archive"
+              inputParameters:
+                - name: "body"
+                  in: body
+                  type: object
+                  required: true
+                  description: "Request payload"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: "list_archives"
+              method: GET
+              description: "List Archives"
+              inputParameters:
+                - name: "before"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Archive ID cursor for pagination. Returns archives that come before this archive ID in the specified sort order"
+                - name: "after"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Archive ID cursor for pagination. Returns archives that come after this archive ID in the specified sort order"
+                - name: "limit"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Maximum number of archives to return"
+                - name: "order"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Sort order for archives by creation time. 'asc' for oldest first, 'desc' for newest first"
+                - name: "order_by"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Field to sort by"
+                - name: "name"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Filter by archive name (exact match)"
+                - name: "agent_id"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Only archives attached to this agent ID"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "archives-by-id"
+          path: "/v1/archives/{archive_id}"
+          operations:
+            - name: "retrieve_archive"
+              method: GET
+              description: "Retrieve Archive"
+              inputParameters:
+                - name: "archive_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "The ID of the archive in the format 'archive-<uuid4>'"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: "modify_archive"
+              method: PATCH
+              description: "Modify Archive"
+              inputParameters:
+                - name: "archive_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "The ID of the archive in the format 'archive-<uuid4>'"
+                - name: "body"
+                  in: body
+                  type: object
+                  required: true
+                  description: "Request payload"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: "delete_archive"
+              method: DELETE
+              description: "Delete Archive"
+              inputParameters:
+                - name: "archive_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "The ID of the archive in the format 'archive-<uuid4>'"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "archives-by-id-agents"
+          path: "/v1/archives/{archive_id}/agents"
+          operations:
+            - name: "list_agents_for_archive"
+              method: GET
+              description: "List Agents for Archive"
+              inputParameters:
+                - name: "archive_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "The ID of the archive in the format 'archive-<uuid4>'"
+                - name: "before"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Agent ID cursor for pagination. Returns agents that come before this agent ID in the specified sort order"
+                - name: "after"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Agent ID cursor for pagination. Returns agents that come after this agent ID in the specified sort order"
+                - name: "limit"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Maximum number of agents to return"
+                - name: "order"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Sort order for agents by creation time. 'asc' for oldest first, 'desc' for newest first"
+                - name: "include"
+                  in: query
+                  type: array
+                  required: false
+                  description: "Specify which relational fields to include in the response. No relationships are included by default."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "archives-by-id-passages"
+          path: "/v1/archives/{archive_id}/passages"
+          operations:
+            - name: "create_passage_in_archive"
+              method: POST
+              description: "Create Passage in Archive"
+              inputParameters:
+                - name: "archive_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "The ID of the archive in the format 'archive-<uuid4>'"
+                - name: "body"
+                  in: body
+                  type: object
+                  required: true
+                  description: "Request payload"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "archives-by-id-passages-batch"
+          path: "/v1/archives/{archive_id}/passages/batch"
+          operations:
+            - name: "create_passages_in_archive"
+              method: POST
+              description: "Create Passages in Archive"
+              inputParameters:
+                - name: "archive_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "The ID of the archive in the format 'archive-<uuid4>'"
+                - name: "body"
+                  in: body
+                  type: object
+                  required: true
+                  description: "Request payload"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "archives-by-id-passages-by-id"
+          path: "/v1/archives/{archive_id}/passages/{passage_id}"
+          operations:
+            - name: "delete_passage_from_archive"
+              method: DELETE
+              description: "Delete Passage from Archive"
+              inputParameters:
+                - name: "archive_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "The ID of the archive in the format 'archive-<uuid4>'"
+                - name: "passage_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "The ID of the passage in the format 'passage-<uuid4>'"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  exposes:
+    - type: rest
+      namespace: "letta-archives-rest"
+      port: 8080
+      description: "REST adapter for Letta API — Archives. One Spectral-compliant resource per consumed operation."
+      resources:
+        - path: "/v1/archives/"
+          name: "archives"
+          description: "REST surface for archives."
+          operations:
+            - method: POST
+              name: "create_archive"
+              description: "Create Archive"
+              call: "letta-archives.create_archive"
+              with:
+                "body": "rest.body"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: GET
+              name: "list_archives"
+              description: "List Archives"
+              call: "letta-archives.list_archives"
+              with:
+                "before": "rest.before"
+                "after": "rest.after"
+                "limit": "rest.limit"
+                "order": "rest.order"
+                "order_by": "rest.order_by"
+                "name": "rest.name"
+                "agent_id": "rest.agent_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/archives/{archive-id}"
+          name: "archives-by-id"
+          description: "REST surface for archives-by-id."
+          operations:
+            - method: GET
+              name: "retrieve_archive"
+              description: "Retrieve Archive"
+              call: "letta-archives.retrieve_archive"
+              with:
+                "archive_id": "rest.archive_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: PATCH
+              name: "modify_archive"
+              description: "Modify Archive"
+              call: "letta-archives.modify_archive"
+              with:
+                "archive_id": "rest.archive_id"
+                "body": "rest.body"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: DELETE
+              name: "delete_archive"
+              description: "Delete Archive"
+              call: "letta-archives.delete_archive"
+              with:
+                "archive_id": "rest.archive_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/archives/{archive-id}/agents"
+          name: "archives-by-id-agents"
+          description: "REST surface for archives-by-id-agents."
+          operations:
+            - method: GET
+              name: "list_agents_for_archive"
+              description: "List Agents for Archive"
+              call: "letta-archives.list_agents_for_archive"
+              with:
+                "archive_id": "rest.archive_id"
+                "before": "rest.before"
+                "after": "rest.after"
+                "limit": "rest.limit"
+                "order": "rest.order"
+                "include": "rest.include"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/archives/{archive-id}/passages"
+          name: "archives-by-id-passages"
+          description: "REST surface for archives-by-id-passages."
+          operations:
+            - method: POST
+              name: "create_passage_in_archive"
+              description: "Create Passage in Archive"
+              call: "letta-archives.create_passage_in_archive"
+              with:
+                "archive_id": "rest.archive_id"
+                "body": "rest.body"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/archives/{archive-id}/passages/batch"
+          name: "archives-by-id-passages-batch"
+          description: "REST surface for archives-by-id-passages-batch."
+          operations:
+            - method: POST
+              name: "create_passages_in_archive"
+              description: "Create Passages in Archive"
+              call: "letta-archives.create_passages_in_archive"
+              with:
+                "archive_id": "rest.archive_id"
+                "body": "rest.body"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/archives/{archive-id}/passages/{passage-id}"
+          name: "archives-by-id-passages-by-id"
+          description: "REST surface for archives-by-id-passages-by-id."
+          operations:
+            - method: DELETE
+              name: "delete_passage_from_archive"
+              description: "Delete Passage from Archive"
+              call: "letta-archives.delete_passage_from_archive"
+              with:
+                "archive_id": "rest.archive_id"
+                "passage_id": "rest.passage_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+    - type: mcp
+      namespace: "letta-archives-mcp"
+      port: 9090
+      transport: http
+      description: "MCP adapter for Letta API — Archives. One verb-noun tool per consumed operation."
+      tools:
+        - name: "create-archive"
+          description: "Create Archive"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "letta-archives.create_archive"
+          with:
+            "body": "tools.body"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "list-archives"
+          description: "List Archives"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "letta-archives.list_archives"
+          with:
+            "before": "tools.before"
+            "after": "tools.after"
+            "limit": "tools.limit"
+            "order": "tools.order"
+            "order_by": "tools.order_by"
+            "name": "tools.name"
+            "agent_id": "tools.agent_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "retrieve-archive"
+          description: "Retrieve Archive"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "letta-archives.retrieve_archive"
+          with:
+            "archive_id": "tools.archive_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "modify-archive"
+          description: "Modify Archive"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: true
+          call: "letta-archives.modify_archive"
+          with:
+            "archive_id": "tools.archive_id"
+            "body": "tools.body"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "delete-archive"
+          description: "Delete Archive"
+          hints:
+            readOnly: false
+            destructive: true
+            idempotent: true
+          call: "letta-archives.delete_archive"
+          with:
+            "archive_id": "tools.archive_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "list-agents-archive"
+          description: "List Agents for Archive"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "letta-archives.list_agents_for_archive"
+          with:
+            "archive_id": "tools.archive_id"
+            "before": "tools.before"
+            "after": "tools.after"
+            "limit": "tools.limit"
+            "order": "tools.order"
+            "include": "tools.include"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "create-passage-archive"
+          description: "Create Passage in Archive"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "letta-archives.create_passage_in_archive"
+          with:
+            "archive_id": "tools.archive_id"
+            "body": "tools.body"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "create-passages-archive"
+          description: "Create Passages in Archive"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "letta-archives.create_passages_in_archive"
+          with:
+            "archive_id": "tools.archive_id"
+            "body": "tools.body"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "delete-passage-archive"
+          description: "Delete Passage from Archive"
+          hints:
+            readOnly: false
+            destructive: true
+            idempotent: true
+          call: "letta-archives.delete_passage_from_archive"
+          with:
+            "archive_id": "tools.archive_id"
+            "passage_id": "tools.passage_id"
+          outputParameters:
+            - type: object
+              mapping: "$."

@@ -1,0 +1,861 @@
+naftiko: "1.0.0-alpha2"
+
+info:
+  label: "Letta API — Feeds"
+  description: >-
+    Feeds — subscribed feeds that drive agents. 16 operations. Lead operation: Create Feed. Self-contained Naftiko capability covering one Letta business surface.
+  tags:
+    - Letta
+    - Stateful Agents
+    - Feeds
+  created: "2026-05-08"
+  modified: "2026-05-22"
+
+binds:
+  - namespace: env
+    keys:
+      LETTA_API_KEY: LETTA_API_KEY
+
+capability:
+
+  consumes:
+    - type: http
+      namespace: "letta-feeds"
+      baseUri: "https://api.letta.com"
+      description: "Letta API — Feeds business capability. Self-contained, no shared references."
+      authentication:
+        type: bearer
+        token: "{{env.LETTA_API_KEY}}"
+      resources:
+        - name: "feeds"
+          path: "/v1/feeds"
+          operations:
+            - name: "feeds_createfeed"
+              method: POST
+              description: "Create Feed"
+              inputParameters:
+                - name: "body"
+                  in: body
+                  type: object
+                  required: true
+                  description: "Body"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: "feeds_listfeeds"
+              method: GET
+              description: "List Feeds"
+              inputParameters:
+                - name: "project_id"
+                  in: query
+                  type: string
+                  required: false
+                  description: "project_id parameter"
+                - name: "name"
+                  in: query
+                  type: string
+                  required: false
+                  description: "name parameter"
+                - name: "limit"
+                  in: query
+                  type: string
+                  required: false
+                  description: "limit parameter"
+                - name: "offset"
+                  in: query
+                  type: string
+                  required: false
+                  description: "offset parameter"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "feeds-by-id"
+          path: "/v1/feeds/{feed_id}"
+          operations:
+            - name: "feeds_getfeed"
+              method: GET
+              description: "Get Feed"
+              inputParameters:
+                - name: "feed_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "feed_id parameter"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: "feeds_deletefeed"
+              method: DELETE
+              description: "Delete Feed"
+              inputParameters:
+                - name: "feed_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "feed_id parameter"
+                - name: "body"
+                  in: body
+                  type: object
+                  required: true
+                  description: "Body"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "feeds-by-id-messages"
+          path: "/v1/feeds/{feed_id}/messages"
+          operations:
+            - name: "feeds_publishmessages"
+              method: POST
+              description: "Publish Messages"
+              inputParameters:
+                - name: "feed_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "feed_id parameter"
+                - name: "body"
+                  in: body
+                  type: object
+                  required: true
+                  description: "Body"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: "feeds_listmessages"
+              method: GET
+              description: "List Feed Messages"
+              inputParameters:
+                - name: "feed_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "feed_id parameter"
+                - name: "after_sequence"
+                  in: query
+                  type: string
+                  required: false
+                  description: "after_sequence parameter"
+                - name: "limit"
+                  in: query
+                  type: string
+                  required: false
+                  description: "limit parameter"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "feeds-by-id-messages-by-id"
+          path: "/v1/feeds/{feed_id}/messages/{message_id}"
+          operations:
+            - name: "feeds_getmessage"
+              method: GET
+              description: "Get Feed Message"
+              inputParameters:
+                - name: "feed_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "feed_id parameter"
+                - name: "message_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "message_id parameter"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "feeds-by-id-subscribe"
+          path: "/v1/feeds/{feed_id}/subscribe"
+          operations:
+            - name: "feeds_subscribeagent"
+              method: POST
+              description: "Subscribe Agent to Feed"
+              inputParameters:
+                - name: "feed_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "feed_id parameter"
+                - name: "body"
+                  in: body
+                  type: object
+                  required: true
+                  description: "Body"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "feeds-by-id-subscriptions-by-id"
+          path: "/v1/feeds/{feed_id}/subscriptions/{subscription_id}"
+          operations:
+            - name: "feeds_updatesubscription"
+              method: PATCH
+              description: "Update Subscription"
+              inputParameters:
+                - name: "feed_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "feed_id parameter"
+                - name: "subscription_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "subscription_id parameter"
+                - name: "body"
+                  in: body
+                  type: object
+                  required: true
+                  description: "Body"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: "feeds_deletesubscription"
+              method: DELETE
+              description: "Delete Subscription"
+              inputParameters:
+                - name: "feed_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "feed_id parameter"
+                - name: "subscription_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "subscription_id parameter"
+                - name: "body"
+                  in: body
+                  type: object
+                  required: true
+                  description: "Body"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "feeds-by-id-unsubscribe"
+          path: "/v1/feeds/{feed_id}/unsubscribe"
+          operations:
+            - name: "feeds_unsubscribeagent"
+              method: POST
+              description: "Unsubscribe Agent from Feed"
+              inputParameters:
+                - name: "feed_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "feed_id parameter"
+                - name: "body"
+                  in: body
+                  type: object
+                  required: true
+                  description: "Body"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "feeds-by-id-subscriptions-by-id-trigger"
+          path: "/v1/feeds/{feed_id}/subscriptions/{subscription_id}/trigger"
+          operations:
+            - name: "feeds_triggersubscription"
+              method: POST
+              description: "Trigger Subscription"
+              inputParameters:
+                - name: "feed_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "feed_id parameter"
+                - name: "subscription_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "subscription_id parameter"
+                - name: "body"
+                  in: body
+                  type: object
+                  required: true
+                  description: "Body"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "feeds-by-id-subscriptions-by-id-backfill"
+          path: "/v1/feeds/{feed_id}/subscriptions/{subscription_id}/backfill"
+          operations:
+            - name: "feeds_backfillsubscription"
+              method: POST
+              description: "Backfill Subscription"
+              inputParameters:
+                - name: "feed_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "feed_id parameter"
+                - name: "subscription_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "subscription_id parameter"
+                - name: "body"
+                  in: body
+                  type: object
+                  required: true
+                  description: "Body"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "feeds-by-id-subscriptions-by-id-history"
+          path: "/v1/feeds/{feed_id}/subscriptions/{subscription_id}/history"
+          operations:
+            - name: "feeds_listsubscriptionhistory"
+              method: GET
+              description: "List Subscription History"
+              inputParameters:
+                - name: "feed_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "feed_id parameter"
+                - name: "subscription_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "subscription_id parameter"
+                - name: "page_size"
+                  in: query
+                  type: string
+                  required: false
+                  description: "page_size parameter"
+                - name: "next_page_token"
+                  in: query
+                  type: string
+                  required: false
+                  description: "next_page_token parameter"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "feeds-by-id-subscriptions-cron"
+          path: "/v1/feeds/{feed_id}/subscriptions/cron"
+          operations:
+            - name: "feeds_updateallsubscriptionscron"
+              method: PATCH
+              description: "Update All Subscriptions Cron Schedule"
+              inputParameters:
+                - name: "feed_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "feed_id parameter"
+                - name: "body"
+                  in: body
+                  type: object
+                  required: true
+                  description: "Body"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "feeds-by-id-subscriptions"
+          path: "/v1/feeds/{feed_id}/subscriptions"
+          operations:
+            - name: "feeds_listsubscriptions"
+              method: GET
+              description: "List Feed Subscriptions"
+              inputParameters:
+                - name: "feed_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "feed_id parameter"
+                - name: "limit"
+                  in: query
+                  type: string
+                  required: false
+                  description: "limit parameter"
+                - name: "offset"
+                  in: query
+                  type: string
+                  required: false
+                  description: "offset parameter"
+                - name: "agent_id"
+                  in: query
+                  type: string
+                  required: false
+                  description: "agent_id parameter"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  exposes:
+    - type: rest
+      namespace: "letta-feeds-rest"
+      port: 8080
+      description: "REST adapter for Letta API — Feeds. One Spectral-compliant resource per consumed operation."
+      resources:
+        - path: "/v1/feeds"
+          name: "feeds"
+          description: "REST surface for feeds."
+          operations:
+            - method: POST
+              name: "feeds_createfeed"
+              description: "Create Feed"
+              call: "letta-feeds.feeds_createfeed"
+              with:
+                "body": "rest.body"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: GET
+              name: "feeds_listfeeds"
+              description: "List Feeds"
+              call: "letta-feeds.feeds_listfeeds"
+              with:
+                "project_id": "rest.project_id"
+                "name": "rest.name"
+                "limit": "rest.limit"
+                "offset": "rest.offset"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/feeds/{feed-id}"
+          name: "feeds-by-id"
+          description: "REST surface for feeds-by-id."
+          operations:
+            - method: GET
+              name: "feeds_getfeed"
+              description: "Get Feed"
+              call: "letta-feeds.feeds_getfeed"
+              with:
+                "feed_id": "rest.feed_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: DELETE
+              name: "feeds_deletefeed"
+              description: "Delete Feed"
+              call: "letta-feeds.feeds_deletefeed"
+              with:
+                "feed_id": "rest.feed_id"
+                "body": "rest.body"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/feeds/{feed-id}/messages"
+          name: "feeds-by-id-messages"
+          description: "REST surface for feeds-by-id-messages."
+          operations:
+            - method: POST
+              name: "feeds_publishmessages"
+              description: "Publish Messages"
+              call: "letta-feeds.feeds_publishmessages"
+              with:
+                "feed_id": "rest.feed_id"
+                "body": "rest.body"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: GET
+              name: "feeds_listmessages"
+              description: "List Feed Messages"
+              call: "letta-feeds.feeds_listmessages"
+              with:
+                "feed_id": "rest.feed_id"
+                "after_sequence": "rest.after_sequence"
+                "limit": "rest.limit"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/feeds/{feed-id}/messages/{message-id}"
+          name: "feeds-by-id-messages-by-id"
+          description: "REST surface for feeds-by-id-messages-by-id."
+          operations:
+            - method: GET
+              name: "feeds_getmessage"
+              description: "Get Feed Message"
+              call: "letta-feeds.feeds_getmessage"
+              with:
+                "feed_id": "rest.feed_id"
+                "message_id": "rest.message_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/feeds/{feed-id}/subscribe"
+          name: "feeds-by-id-subscribe"
+          description: "REST surface for feeds-by-id-subscribe."
+          operations:
+            - method: POST
+              name: "feeds_subscribeagent"
+              description: "Subscribe Agent to Feed"
+              call: "letta-feeds.feeds_subscribeagent"
+              with:
+                "feed_id": "rest.feed_id"
+                "body": "rest.body"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/feeds/{feed-id}/subscriptions/{subscription-id}"
+          name: "feeds-by-id-subscriptions-by-id"
+          description: "REST surface for feeds-by-id-subscriptions-by-id."
+          operations:
+            - method: PATCH
+              name: "feeds_updatesubscription"
+              description: "Update Subscription"
+              call: "letta-feeds.feeds_updatesubscription"
+              with:
+                "feed_id": "rest.feed_id"
+                "subscription_id": "rest.subscription_id"
+                "body": "rest.body"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: DELETE
+              name: "feeds_deletesubscription"
+              description: "Delete Subscription"
+              call: "letta-feeds.feeds_deletesubscription"
+              with:
+                "feed_id": "rest.feed_id"
+                "subscription_id": "rest.subscription_id"
+                "body": "rest.body"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/feeds/{feed-id}/unsubscribe"
+          name: "feeds-by-id-unsubscribe"
+          description: "REST surface for feeds-by-id-unsubscribe."
+          operations:
+            - method: POST
+              name: "feeds_unsubscribeagent"
+              description: "Unsubscribe Agent from Feed"
+              call: "letta-feeds.feeds_unsubscribeagent"
+              with:
+                "feed_id": "rest.feed_id"
+                "body": "rest.body"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/feeds/{feed-id}/subscriptions/{subscription-id}/trigger"
+          name: "feeds-by-id-subscriptions-by-id-trigger"
+          description: "REST surface for feeds-by-id-subscriptions-by-id-trigger."
+          operations:
+            - method: POST
+              name: "feeds_triggersubscription"
+              description: "Trigger Subscription"
+              call: "letta-feeds.feeds_triggersubscription"
+              with:
+                "feed_id": "rest.feed_id"
+                "subscription_id": "rest.subscription_id"
+                "body": "rest.body"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/feeds/{feed-id}/subscriptions/{subscription-id}/backfill"
+          name: "feeds-by-id-subscriptions-by-id-backfill"
+          description: "REST surface for feeds-by-id-subscriptions-by-id-backfill."
+          operations:
+            - method: POST
+              name: "feeds_backfillsubscription"
+              description: "Backfill Subscription"
+              call: "letta-feeds.feeds_backfillsubscription"
+              with:
+                "feed_id": "rest.feed_id"
+                "subscription_id": "rest.subscription_id"
+                "body": "rest.body"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/feeds/{feed-id}/subscriptions/{subscription-id}/history"
+          name: "feeds-by-id-subscriptions-by-id-history"
+          description: "REST surface for feeds-by-id-subscriptions-by-id-history."
+          operations:
+            - method: GET
+              name: "feeds_listsubscriptionhistory"
+              description: "List Subscription History"
+              call: "letta-feeds.feeds_listsubscriptionhistory"
+              with:
+                "feed_id": "rest.feed_id"
+                "subscription_id": "rest.subscription_id"
+                "page_size": "rest.page_size"
+                "next_page_token": "rest.next_page_token"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/feeds/{feed-id}/subscriptions/cron"
+          name: "feeds-by-id-subscriptions-cron"
+          description: "REST surface for feeds-by-id-subscriptions-cron."
+          operations:
+            - method: PATCH
+              name: "feeds_updateallsubscriptionscron"
+              description: "Update All Subscriptions Cron Schedule"
+              call: "letta-feeds.feeds_updateallsubscriptionscron"
+              with:
+                "feed_id": "rest.feed_id"
+                "body": "rest.body"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/feeds/{feed-id}/subscriptions"
+          name: "feeds-by-id-subscriptions"
+          description: "REST surface for feeds-by-id-subscriptions."
+          operations:
+            - method: GET
+              name: "feeds_listsubscriptions"
+              description: "List Feed Subscriptions"
+              call: "letta-feeds.feeds_listsubscriptions"
+              with:
+                "feed_id": "rest.feed_id"
+                "limit": "rest.limit"
+                "offset": "rest.offset"
+                "agent_id": "rest.agent_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+    - type: mcp
+      namespace: "letta-feeds-mcp"
+      port: 9090
+      transport: http
+      description: "MCP adapter for Letta API — Feeds. One verb-noun tool per consumed operation."
+      tools:
+        - name: "create-feed"
+          description: "Create Feed"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "letta-feeds.feeds_createfeed"
+          with:
+            "body": "tools.body"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "list-feeds"
+          description: "List Feeds"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "letta-feeds.feeds_listfeeds"
+          with:
+            "project_id": "tools.project_id"
+            "name": "tools.name"
+            "limit": "tools.limit"
+            "offset": "tools.offset"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "get-feed"
+          description: "Get Feed"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "letta-feeds.feeds_getfeed"
+          with:
+            "feed_id": "tools.feed_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "delete-feed"
+          description: "Delete Feed"
+          hints:
+            readOnly: false
+            destructive: true
+            idempotent: true
+          call: "letta-feeds.feeds_deletefeed"
+          with:
+            "feed_id": "tools.feed_id"
+            "body": "tools.body"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "publish-messages"
+          description: "Publish Messages"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "letta-feeds.feeds_publishmessages"
+          with:
+            "feed_id": "tools.feed_id"
+            "body": "tools.body"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "list-feed-messages"
+          description: "List Feed Messages"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "letta-feeds.feeds_listmessages"
+          with:
+            "feed_id": "tools.feed_id"
+            "after_sequence": "tools.after_sequence"
+            "limit": "tools.limit"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "get-feed-message"
+          description: "Get Feed Message"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "letta-feeds.feeds_getmessage"
+          with:
+            "feed_id": "tools.feed_id"
+            "message_id": "tools.message_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "subscribe-agent-feed"
+          description: "Subscribe Agent to Feed"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "letta-feeds.feeds_subscribeagent"
+          with:
+            "feed_id": "tools.feed_id"
+            "body": "tools.body"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "update-subscription"
+          description: "Update Subscription"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: true
+          call: "letta-feeds.feeds_updatesubscription"
+          with:
+            "feed_id": "tools.feed_id"
+            "subscription_id": "tools.subscription_id"
+            "body": "tools.body"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "delete-subscription"
+          description: "Delete Subscription"
+          hints:
+            readOnly: false
+            destructive: true
+            idempotent: true
+          call: "letta-feeds.feeds_deletesubscription"
+          with:
+            "feed_id": "tools.feed_id"
+            "subscription_id": "tools.subscription_id"
+            "body": "tools.body"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "unsubscribe-agent-feed"
+          description: "Unsubscribe Agent from Feed"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "letta-feeds.feeds_unsubscribeagent"
+          with:
+            "feed_id": "tools.feed_id"
+            "body": "tools.body"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "trigger-subscription"
+          description: "Trigger Subscription"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "letta-feeds.feeds_triggersubscription"
+          with:
+            "feed_id": "tools.feed_id"
+            "subscription_id": "tools.subscription_id"
+            "body": "tools.body"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "backfill-subscription"
+          description: "Backfill Subscription"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "letta-feeds.feeds_backfillsubscription"
+          with:
+            "feed_id": "tools.feed_id"
+            "subscription_id": "tools.subscription_id"
+            "body": "tools.body"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "list-subscription-history"
+          description: "List Subscription History"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "letta-feeds.feeds_listsubscriptionhistory"
+          with:
+            "feed_id": "tools.feed_id"
+            "subscription_id": "tools.subscription_id"
+            "page_size": "tools.page_size"
+            "next_page_token": "tools.next_page_token"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "update-all-subscriptions-cron-schedule"
+          description: "Update All Subscriptions Cron Schedule"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: true
+          call: "letta-feeds.feeds_updateallsubscriptionscron"
+          with:
+            "feed_id": "tools.feed_id"
+            "body": "tools.body"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "list-feed-subscriptions"
+          description: "List Feed Subscriptions"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "letta-feeds.feeds_listsubscriptions"
+          with:
+            "feed_id": "tools.feed_id"
+            "limit": "tools.limit"
+            "offset": "tools.offset"
+            "agent_id": "tools.agent_id"
+          outputParameters:
+            - type: object
+              mapping: "$."

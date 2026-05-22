@@ -1,0 +1,687 @@
+naftiko: "1.0.0-alpha2"
+
+info:
+  label: "Letta API — Sources"
+  description: >-
+    Data sources — file/URL ingestion that feeds passages into agent archival memory. 14 operations. Lead operation: Count Sources. Self-contained Naftiko capability covering one Letta business surface.
+  tags:
+    - Letta
+    - Stateful Agents
+    - Sources
+  created: "2026-05-08"
+  modified: "2026-05-22"
+
+binds:
+  - namespace: env
+    keys:
+      LETTA_API_KEY: LETTA_API_KEY
+
+capability:
+
+  consumes:
+    - type: http
+      namespace: "letta-sources"
+      baseUri: "https://api.letta.com"
+      description: "Letta API — Sources business capability. Self-contained, no shared references."
+      authentication:
+        type: bearer
+        token: "{{env.LETTA_API_KEY}}"
+      resources:
+        - name: "sources-count"
+          path: "/v1/sources/count"
+          operations:
+            - name: "count_sources"
+              method: GET
+              description: "Count Sources"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "sources-by-id"
+          path: "/v1/sources/{source_id}"
+          operations:
+            - name: "retrieve_source"
+              method: GET
+              description: "Retrieve Source"
+              inputParameters:
+                - name: "source_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "The ID of the source in the format 'source-<uuid4>'"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: "modify_source"
+              method: PATCH
+              description: "Modify Source"
+              inputParameters:
+                - name: "source_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "The ID of the source in the format 'source-<uuid4>'"
+                - name: "body"
+                  in: body
+                  type: object
+                  required: true
+                  description: "Request payload"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: "delete_source"
+              method: DELETE
+              description: "Delete Source"
+              inputParameters:
+                - name: "source_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "The ID of the source in the format 'source-<uuid4>'"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "sources-name-by-id"
+          path: "/v1/sources/name/{source_name}"
+          operations:
+            - name: "get_source_id_by_name"
+              method: GET
+              description: "Get Source ID by Name"
+              inputParameters:
+                - name: "source_name"
+                  in: path
+                  type: string
+                  required: true
+                  description: "source_name parameter"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "sources-metadata"
+          path: "/v1/sources/metadata"
+          operations:
+            - name: "get_sources_metadata"
+              method: GET
+              description: "Get Sources Metadata"
+              inputParameters:
+                - name: "include_detailed_per_source_metadata"
+                  in: query
+                  type: boolean
+                  required: false
+                  description: "include_detailed_per_source_metadata parameter"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "sources"
+          path: "/v1/sources/"
+          operations:
+            - name: "list_sources"
+              method: GET
+              description: "List Sources"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: "create_source"
+              method: POST
+              description: "Create Source"
+              inputParameters:
+                - name: "body"
+                  in: body
+                  type: object
+                  required: true
+                  description: "Request payload"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "sources-by-id-upload"
+          path: "/v1/sources/{source_id}/upload"
+          operations:
+            - name: "upload_file_to_source"
+              method: POST
+              description: "Upload File to Source"
+              inputParameters:
+                - name: "source_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "The ID of the source in the format 'source-<uuid4>'"
+                - name: "duplicate_handling"
+                  in: query
+                  type: string
+                  required: false
+                  description: "How to handle duplicate filenames"
+                - name: "name"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Optional custom name to override the uploaded file's name"
+                - name: "body"
+                  in: body
+                  type: object
+                  required: true
+                  description: "Request payload"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "sources-by-id-agents"
+          path: "/v1/sources/{source_id}/agents"
+          operations:
+            - name: "get_agents_for_source"
+              method: GET
+              description: "Get Agents for Source"
+              inputParameters:
+                - name: "source_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "The ID of the source in the format 'source-<uuid4>'"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "sources-by-id-passages"
+          path: "/v1/sources/{source_id}/passages"
+          operations:
+            - name: "list_source_passages"
+              method: GET
+              description: "List Source Passages"
+              inputParameters:
+                - name: "source_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "The ID of the source in the format 'source-<uuid4>'"
+                - name: "after"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Message after which to retrieve the returned messages."
+                - name: "before"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Message before which to retrieve the returned messages."
+                - name: "limit"
+                  in: query
+                  type: integer
+                  required: false
+                  description: "Maximum number of messages to retrieve."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "sources-by-id-files"
+          path: "/v1/sources/{source_id}/files"
+          operations:
+            - name: "list_source_files"
+              method: GET
+              description: "List Source Files"
+              inputParameters:
+                - name: "source_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "The ID of the source in the format 'source-<uuid4>'"
+                - name: "limit"
+                  in: query
+                  type: integer
+                  required: false
+                  description: "Number of files to return"
+                - name: "after"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Pagination cursor to fetch the next set of results"
+                - name: "include_content"
+                  in: query
+                  type: boolean
+                  required: false
+                  description: "Whether to include full file content"
+                - name: "check_status_updates"
+                  in: query
+                  type: boolean
+                  required: false
+                  description: "Whether to check and update file processing status (from the vector db service). If False, will not fetch and update the status, which may lead to performance gains."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "sources-by-id-files-by-id"
+          path: "/v1/sources/{source_id}/files/{file_id}"
+          operations:
+            - name: "get_file_metadata"
+              method: GET
+              description: "Get File Metadata"
+              inputParameters:
+                - name: "source_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "The ID of the source in the format 'source-<uuid4>'"
+                - name: "file_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "The ID of the file in the format 'file-<uuid4>'"
+                - name: "include_content"
+                  in: query
+                  type: boolean
+                  required: false
+                  description: "Whether to include full file content"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "sources-by-id-by-id"
+          path: "/v1/sources/{source_id}/{file_id}"
+          operations:
+            - name: "delete_file_from_source"
+              method: DELETE
+              description: "Delete File from Source"
+              inputParameters:
+                - name: "source_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "The ID of the source in the format 'source-<uuid4>'"
+                - name: "file_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "The ID of the file in the format 'file-<uuid4>'"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  exposes:
+    - type: rest
+      namespace: "letta-sources-rest"
+      port: 8080
+      description: "REST adapter for Letta API — Sources. One Spectral-compliant resource per consumed operation."
+      resources:
+        - path: "/v1/sources/count"
+          name: "sources-count"
+          description: "REST surface for sources-count."
+          operations:
+            - method: GET
+              name: "count_sources"
+              description: "Count Sources"
+              call: "letta-sources.count_sources"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/sources/{source-id}"
+          name: "sources-by-id"
+          description: "REST surface for sources-by-id."
+          operations:
+            - method: GET
+              name: "retrieve_source"
+              description: "Retrieve Source"
+              call: "letta-sources.retrieve_source"
+              with:
+                "source_id": "rest.source_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: PATCH
+              name: "modify_source"
+              description: "Modify Source"
+              call: "letta-sources.modify_source"
+              with:
+                "source_id": "rest.source_id"
+                "body": "rest.body"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: DELETE
+              name: "delete_source"
+              description: "Delete Source"
+              call: "letta-sources.delete_source"
+              with:
+                "source_id": "rest.source_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/sources/name/{source-name}"
+          name: "sources-name-by-id"
+          description: "REST surface for sources-name-by-id."
+          operations:
+            - method: GET
+              name: "get_source_id_by_name"
+              description: "Get Source ID by Name"
+              call: "letta-sources.get_source_id_by_name"
+              with:
+                "source_name": "rest.source_name"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/sources/metadata"
+          name: "sources-metadata"
+          description: "REST surface for sources-metadata."
+          operations:
+            - method: GET
+              name: "get_sources_metadata"
+              description: "Get Sources Metadata"
+              call: "letta-sources.get_sources_metadata"
+              with:
+                "include_detailed_per_source_metadata": "rest.include_detailed_per_source_metadata"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/sources/"
+          name: "sources"
+          description: "REST surface for sources."
+          operations:
+            - method: GET
+              name: "list_sources"
+              description: "List Sources"
+              call: "letta-sources.list_sources"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: "create_source"
+              description: "Create Source"
+              call: "letta-sources.create_source"
+              with:
+                "body": "rest.body"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/sources/{source-id}/upload"
+          name: "sources-by-id-upload"
+          description: "REST surface for sources-by-id-upload."
+          operations:
+            - method: POST
+              name: "upload_file_to_source"
+              description: "Upload File to Source"
+              call: "letta-sources.upload_file_to_source"
+              with:
+                "source_id": "rest.source_id"
+                "duplicate_handling": "rest.duplicate_handling"
+                "name": "rest.name"
+                "body": "rest.body"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/sources/{source-id}/agents"
+          name: "sources-by-id-agents"
+          description: "REST surface for sources-by-id-agents."
+          operations:
+            - method: GET
+              name: "get_agents_for_source"
+              description: "Get Agents for Source"
+              call: "letta-sources.get_agents_for_source"
+              with:
+                "source_id": "rest.source_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/sources/{source-id}/passages"
+          name: "sources-by-id-passages"
+          description: "REST surface for sources-by-id-passages."
+          operations:
+            - method: GET
+              name: "list_source_passages"
+              description: "List Source Passages"
+              call: "letta-sources.list_source_passages"
+              with:
+                "source_id": "rest.source_id"
+                "after": "rest.after"
+                "before": "rest.before"
+                "limit": "rest.limit"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/sources/{source-id}/files"
+          name: "sources-by-id-files"
+          description: "REST surface for sources-by-id-files."
+          operations:
+            - method: GET
+              name: "list_source_files"
+              description: "List Source Files"
+              call: "letta-sources.list_source_files"
+              with:
+                "source_id": "rest.source_id"
+                "limit": "rest.limit"
+                "after": "rest.after"
+                "include_content": "rest.include_content"
+                "check_status_updates": "rest.check_status_updates"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/sources/{source-id}/files/{file-id}"
+          name: "sources-by-id-files-by-id"
+          description: "REST surface for sources-by-id-files-by-id."
+          operations:
+            - method: GET
+              name: "get_file_metadata"
+              description: "Get File Metadata"
+              call: "letta-sources.get_file_metadata"
+              with:
+                "source_id": "rest.source_id"
+                "file_id": "rest.file_id"
+                "include_content": "rest.include_content"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/sources/{source-id}/{file-id}"
+          name: "sources-by-id-by-id"
+          description: "REST surface for sources-by-id-by-id."
+          operations:
+            - method: DELETE
+              name: "delete_file_from_source"
+              description: "Delete File from Source"
+              call: "letta-sources.delete_file_from_source"
+              with:
+                "source_id": "rest.source_id"
+                "file_id": "rest.file_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+    - type: mcp
+      namespace: "letta-sources-mcp"
+      port: 9090
+      transport: http
+      description: "MCP adapter for Letta API — Sources. One verb-noun tool per consumed operation."
+      tools:
+        - name: "count-sources"
+          description: "Count Sources"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "letta-sources.count_sources"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "retrieve-source"
+          description: "Retrieve Source"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "letta-sources.retrieve_source"
+          with:
+            "source_id": "tools.source_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "modify-source"
+          description: "Modify Source"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: true
+          call: "letta-sources.modify_source"
+          with:
+            "source_id": "tools.source_id"
+            "body": "tools.body"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "delete-source"
+          description: "Delete Source"
+          hints:
+            readOnly: false
+            destructive: true
+            idempotent: true
+          call: "letta-sources.delete_source"
+          with:
+            "source_id": "tools.source_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "get-source-id-name"
+          description: "Get Source ID by Name"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "letta-sources.get_source_id_by_name"
+          with:
+            "source_name": "tools.source_name"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "get-sources-metadata"
+          description: "Get Sources Metadata"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "letta-sources.get_sources_metadata"
+          with:
+            "include_detailed_per_source_metadata": "tools.include_detailed_per_source_metadata"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "list-sources"
+          description: "List Sources"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "letta-sources.list_sources"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "create-source"
+          description: "Create Source"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "letta-sources.create_source"
+          with:
+            "body": "tools.body"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "upload-file-source"
+          description: "Upload File to Source"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "letta-sources.upload_file_to_source"
+          with:
+            "source_id": "tools.source_id"
+            "duplicate_handling": "tools.duplicate_handling"
+            "name": "tools.name"
+            "body": "tools.body"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "get-agents-source"
+          description: "Get Agents for Source"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "letta-sources.get_agents_for_source"
+          with:
+            "source_id": "tools.source_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "list-source-passages"
+          description: "List Source Passages"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "letta-sources.list_source_passages"
+          with:
+            "source_id": "tools.source_id"
+            "after": "tools.after"
+            "before": "tools.before"
+            "limit": "tools.limit"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "list-source-files"
+          description: "List Source Files"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "letta-sources.list_source_files"
+          with:
+            "source_id": "tools.source_id"
+            "limit": "tools.limit"
+            "after": "tools.after"
+            "include_content": "tools.include_content"
+            "check_status_updates": "tools.check_status_updates"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "get-file-metadata"
+          description: "Get File Metadata"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "letta-sources.get_file_metadata"
+          with:
+            "source_id": "tools.source_id"
+            "file_id": "tools.file_id"
+            "include_content": "tools.include_content"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "delete-file-source"
+          description: "Delete File from Source"
+          hints:
+            readOnly: false
+            destructive: true
+            idempotent: true
+          call: "letta-sources.delete_file_from_source"
+          with:
+            "source_id": "tools.source_id"
+            "file_id": "tools.file_id"
+          outputParameters:
+            - type: object
+              mapping: "$."

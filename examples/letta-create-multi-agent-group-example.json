@@ -1,0 +1,40 @@
+{
+  "operation": "Create Multi-Agent Group",
+  "method": "POST",
+  "path": "/v1/groups/",
+  "auth": "Bearer token (LETTA_API_KEY)",
+  "request": {
+    "method": "POST",
+    "path": "/v1/groups",
+    "headers": {
+      "Authorization": "Bearer $LETTA_API_KEY",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "description": "Support triage team with a sleep-time researcher.",
+      "manager_config": {
+        "manager_type": "supervisor",
+        "manager_agent_id": "agent-2f6d4a13"
+      },
+      "agent_ids": [
+        "agent-3a7e5b24",
+        "agent-4b8f6c35"
+      ],
+      "shared_block_ids": [
+        "block-pc-99"
+      ],
+      "sleep_time_agent_id": "agent-sleep-01"
+    }
+  },
+  "response": {
+    "status": 201,
+    "body": {
+      "id": "group-77",
+      "description": "Support triage team",
+      "agent_ids": [
+        "agent-3a7e5b24",
+        "agent-4b8f6c35"
+      ]
+    }
+  }
+}

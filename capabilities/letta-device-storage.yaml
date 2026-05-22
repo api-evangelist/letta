@@ -1,0 +1,84 @@
+naftiko: "1.0.0-alpha2"
+
+info:
+  label: "Letta API — Device Storage"
+  description: >-
+    Device storage — per-device storage for the Letta Code SDK and ADE. 1 operations. Lead operation: Get Device Storage Key. Self-contained Naftiko capability covering one Letta business surface.
+  tags:
+    - Letta
+    - Stateful Agents
+    - Device Storage
+  created: "2026-05-08"
+  modified: "2026-05-22"
+
+binds:
+  - namespace: env
+    keys:
+      LETTA_API_KEY: LETTA_API_KEY
+
+capability:
+
+  consumes:
+    - type: http
+      namespace: "letta-device-storage"
+      baseUri: "https://api.letta.com"
+      description: "Letta API — Device Storage business capability. Self-contained, no shared references."
+      authentication:
+        type: bearer
+        token: "{{env.LETTA_API_KEY}}"
+      resources:
+        - name: "device-storage-key"
+          path: "/v1/device-storage-key"
+          operations:
+            - name: "devicestorage_getdevicestoragekey"
+              method: GET
+              description: "Get Device Storage Key"
+              inputParameters:
+                - name: "deviceId"
+                  in: query
+                  type: string
+                  required: true
+                  description: "deviceId parameter"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  exposes:
+    - type: rest
+      namespace: "letta-device-storage-rest"
+      port: 8080
+      description: "REST adapter for Letta API — Device Storage. One Spectral-compliant resource per consumed operation."
+      resources:
+        - path: "/v1/device-storage-key"
+          name: "device-storage-key"
+          description: "REST surface for device-storage-key."
+          operations:
+            - method: GET
+              name: "devicestorage_getdevicestoragekey"
+              description: "Get Device Storage Key"
+              call: "letta-device-storage.devicestorage_getdevicestoragekey"
+              with:
+                "deviceId": "rest.deviceId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+    - type: mcp
+      namespace: "letta-device-storage-mcp"
+      port: 9090
+      transport: http
+      description: "MCP adapter for Letta API — Device Storage. One verb-noun tool per consumed operation."
+      tools:
+        - name: "get-device-storage-key"
+          description: "Get Device Storage Key"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "letta-device-storage.devicestorage_getdevicestoragekey"
+          with:
+            "deviceId": "tools.deviceId"
+          outputParameters:
+            - type: object
+              mapping: "$."

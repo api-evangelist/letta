@@ -1,0 +1,52 @@
+{
+  "id": "agent-2f6d4a13-5e9c-4b7e-a3f1-7b8e9c1d2e34",
+  "name": "support-agent-1",
+  "description": "Customer support agent with persistent memory of every interaction.",
+  "created_at": "2026-05-22T10:00:00Z",
+  "updated_at": "2026-05-22T12:15:32Z",
+  "agent_type": "memgpt_agent",
+  "llm_config": {
+    "model": "gpt-4.1",
+    "model_endpoint_type": "openai",
+    "model_endpoint": "https://api.openai.com/v1",
+    "context_window": 128000,
+    "max_tokens": 4096,
+    "temperature": 0.7
+  },
+  "embedding_config": {
+    "embedding_model": "text-embedding-3-small",
+    "embedding_endpoint_type": "openai",
+    "embedding_dim": 1536
+  },
+  "memory": {
+    "blocks": [
+      {
+        "id": "block-persona-01",
+        "label": "persona",
+        "value": "You are a calm, patient API support agent. You remember every customer interaction.",
+        "limit": 2000
+      },
+      {
+        "id": "block-human-01",
+        "label": "human",
+        "value": "The user is Kin Lane, founder of API Evangelist. Prefers concise answers.",
+        "limit": 1000
+      }
+    ]
+  },
+  "tools": [
+    {"id": "tool-send-msg", "name": "send_message"},
+    {"id": "tool-core-append", "name": "core_memory_append"},
+    {"id": "tool-core-replace", "name": "core_memory_replace"},
+    {"id": "tool-arch-insert", "name": "archival_memory_insert"},
+    {"id": "tool-arch-search", "name": "archival_memory_search"},
+    {"id": "tool-conv-search", "name": "conversation_search"},
+    {"id": "tool-web", "name": "web_search"}
+  ],
+  "sources": [
+    {"id": "source-ae-01", "name": "api-evangelist-docs"}
+  ],
+  "tags": ["support", "production"],
+  "enable_sleeptime": false,
+  "metadata": {"team": "platform", "deployed_via": "letta-cloud"}
+}

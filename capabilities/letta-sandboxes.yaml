@@ -1,0 +1,175 @@
+naftiko: "1.0.0-alpha2"
+
+info:
+  label: "Letta API — Sandboxes"
+  description: >-
+    Sandboxes — manage code-execution sandboxes used by sandbox tools. 3 operations. Lead operation: Create Sandbox. Self-contained Naftiko capability covering one Letta business surface.
+  tags:
+    - Letta
+    - Stateful Agents
+    - Sandboxes
+  created: "2026-05-08"
+  modified: "2026-05-22"
+
+binds:
+  - namespace: env
+    keys:
+      LETTA_API_KEY: LETTA_API_KEY
+
+capability:
+
+  consumes:
+    - type: http
+      namespace: "letta-sandboxes"
+      baseUri: "https://api.letta.com"
+      description: "Letta API — Sandboxes business capability. Self-contained, no shared references."
+      authentication:
+        type: bearer
+        token: "{{env.LETTA_API_KEY}}"
+      resources:
+        - name: "sandboxes"
+          path: "/v1/sandboxes"
+          operations:
+            - name: "sandboxes_createsandbox"
+              method: POST
+              description: "Create Sandbox"
+              inputParameters:
+                - name: "body"
+                  in: body
+                  type: object
+                  required: true
+                  description: "Body"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: "sandboxes_listsandboxes"
+              method: GET
+              description: "List Sandboxes"
+              inputParameters:
+                - name: "agentId"
+                  in: query
+                  type: string
+                  required: false
+                  description: "agentId parameter"
+                - name: "limit"
+                  in: query
+                  type: string
+                  required: false
+                  description: "limit parameter"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "sandboxes-by-id-terminate"
+          path: "/v1/sandboxes/{sandboxId}/terminate"
+          operations:
+            - name: "sandboxes_terminatesandbox"
+              method: POST
+              description: "Terminate Sandbox"
+              inputParameters:
+                - name: "sandboxId"
+                  in: path
+                  type: string
+                  required: true
+                  description: "sandboxId parameter"
+                - name: "body"
+                  in: body
+                  type: object
+                  required: true
+                  description: "Body"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  exposes:
+    - type: rest
+      namespace: "letta-sandboxes-rest"
+      port: 8080
+      description: "REST adapter for Letta API — Sandboxes. One Spectral-compliant resource per consumed operation."
+      resources:
+        - path: "/v1/sandboxes"
+          name: "sandboxes"
+          description: "REST surface for sandboxes."
+          operations:
+            - method: POST
+              name: "sandboxes_createsandbox"
+              description: "Create Sandbox"
+              call: "letta-sandboxes.sandboxes_createsandbox"
+              with:
+                "body": "rest.body"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: GET
+              name: "sandboxes_listsandboxes"
+              description: "List Sandboxes"
+              call: "letta-sandboxes.sandboxes_listsandboxes"
+              with:
+                "agentId": "rest.agentId"
+                "limit": "rest.limit"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/sandboxes/{sandboxId}/terminate"
+          name: "sandboxes-by-id-terminate"
+          description: "REST surface for sandboxes-by-id-terminate."
+          operations:
+            - method: POST
+              name: "sandboxes_terminatesandbox"
+              description: "Terminate Sandbox"
+              call: "letta-sandboxes.sandboxes_terminatesandbox"
+              with:
+                "sandboxId": "rest.sandboxId"
+                "body": "rest.body"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+    - type: mcp
+      namespace: "letta-sandboxes-mcp"
+      port: 9090
+      transport: http
+      description: "MCP adapter for Letta API — Sandboxes. One verb-noun tool per consumed operation."
+      tools:
+        - name: "create-sandbox"
+          description: "Create Sandbox"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "letta-sandboxes.sandboxes_createsandbox"
+          with:
+            "body": "tools.body"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "list-sandboxes"
+          description: "List Sandboxes"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "letta-sandboxes.sandboxes_listsandboxes"
+          with:
+            "agentId": "tools.agentId"
+            "limit": "tools.limit"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "terminate-sandbox"
+          description: "Terminate Sandbox"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "letta-sandboxes.sandboxes_terminatesandbox"
+          with:
+            "sandboxId": "tools.sandboxId"
+            "body": "tools.body"
+          outputParameters:
+            - type: object
+              mapping: "$."

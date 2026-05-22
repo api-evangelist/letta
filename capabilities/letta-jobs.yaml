@@ -1,0 +1,322 @@
+naftiko: "1.0.0-alpha2"
+
+info:
+  label: "Letta API — Jobs"
+  description: >-
+    Background jobs — track long-running operations such as file ingestion. 5 operations. Lead operation: List Jobs. Self-contained Naftiko capability covering one Letta business surface.
+  tags:
+    - Letta
+    - Stateful Agents
+    - Jobs
+  created: "2026-05-08"
+  modified: "2026-05-22"
+
+binds:
+  - namespace: env
+    keys:
+      LETTA_API_KEY: LETTA_API_KEY
+
+capability:
+
+  consumes:
+    - type: http
+      namespace: "letta-jobs"
+      baseUri: "https://api.letta.com"
+      description: "Letta API — Jobs business capability. Self-contained, no shared references."
+      authentication:
+        type: bearer
+        token: "{{env.LETTA_API_KEY}}"
+      resources:
+        - name: "jobs"
+          path: "/v1/jobs/"
+          operations:
+            - name: "list_jobs"
+              method: GET
+              description: "List Jobs"
+              inputParameters:
+                - name: "source_id"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Deprecated: Use `folder_id` parameter instead. Only list jobs associated with the source."
+                - name: "before"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Job ID cursor for pagination. Returns jobs that come before this job ID in the specified sort order"
+                - name: "after"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Job ID cursor for pagination. Returns jobs that come after this job ID in the specified sort order"
+                - name: "limit"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Maximum number of jobs to return"
+                - name: "order"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Sort order for jobs by creation time. 'asc' for oldest first, 'desc' for newest first"
+                - name: "order_by"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Field to sort by"
+                - name: "active"
+                  in: query
+                  type: boolean
+                  required: false
+                  description: "Filter for active jobs."
+                - name: "ascending"
+                  in: query
+                  type: boolean
+                  required: false
+                  description: "Whether to sort jobs oldest to newest (True, default) or newest to oldest (False). Deprecated in favor of order field."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "jobs-active"
+          path: "/v1/jobs/active"
+          operations:
+            - name: "list_active_jobs"
+              method: GET
+              description: "List Active Jobs"
+              inputParameters:
+                - name: "source_id"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Deprecated: Use `folder_id` parameter instead. Only list jobs associated with the source."
+                - name: "before"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Cursor for pagination"
+                - name: "after"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Cursor for pagination"
+                - name: "limit"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Limit for pagination"
+                - name: "ascending"
+                  in: query
+                  type: boolean
+                  required: false
+                  description: "Whether to sort jobs oldest to newest (True, default) or newest to oldest (False)"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "jobs-by-id"
+          path: "/v1/jobs/{job_id}"
+          operations:
+            - name: "retrieve_job"
+              method: GET
+              description: "Retrieve Job"
+              inputParameters:
+                - name: "job_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "The ID of the job in the format 'job-<uuid4>'"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: "delete_job"
+              method: DELETE
+              description: "Delete Job"
+              inputParameters:
+                - name: "job_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "The ID of the job in the format 'job-<uuid4>'"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "jobs-by-id-cancel"
+          path: "/v1/jobs/{job_id}/cancel"
+          operations:
+            - name: "cancel_job"
+              method: PATCH
+              description: "Cancel Job"
+              inputParameters:
+                - name: "job_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "The ID of the job in the format 'job-<uuid4>'"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  exposes:
+    - type: rest
+      namespace: "letta-jobs-rest"
+      port: 8080
+      description: "REST adapter for Letta API — Jobs. One Spectral-compliant resource per consumed operation."
+      resources:
+        - path: "/v1/jobs/"
+          name: "jobs"
+          description: "REST surface for jobs."
+          operations:
+            - method: GET
+              name: "list_jobs"
+              description: "List Jobs"
+              call: "letta-jobs.list_jobs"
+              with:
+                "source_id": "rest.source_id"
+                "before": "rest.before"
+                "after": "rest.after"
+                "limit": "rest.limit"
+                "order": "rest.order"
+                "order_by": "rest.order_by"
+                "active": "rest.active"
+                "ascending": "rest.ascending"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/jobs/active"
+          name: "jobs-active"
+          description: "REST surface for jobs-active."
+          operations:
+            - method: GET
+              name: "list_active_jobs"
+              description: "List Active Jobs"
+              call: "letta-jobs.list_active_jobs"
+              with:
+                "source_id": "rest.source_id"
+                "before": "rest.before"
+                "after": "rest.after"
+                "limit": "rest.limit"
+                "ascending": "rest.ascending"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/jobs/{job-id}"
+          name: "jobs-by-id"
+          description: "REST surface for jobs-by-id."
+          operations:
+            - method: GET
+              name: "retrieve_job"
+              description: "Retrieve Job"
+              call: "letta-jobs.retrieve_job"
+              with:
+                "job_id": "rest.job_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: DELETE
+              name: "delete_job"
+              description: "Delete Job"
+              call: "letta-jobs.delete_job"
+              with:
+                "job_id": "rest.job_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/jobs/{job-id}/cancel"
+          name: "jobs-by-id-cancel"
+          description: "REST surface for jobs-by-id-cancel."
+          operations:
+            - method: PATCH
+              name: "cancel_job"
+              description: "Cancel Job"
+              call: "letta-jobs.cancel_job"
+              with:
+                "job_id": "rest.job_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+    - type: mcp
+      namespace: "letta-jobs-mcp"
+      port: 9090
+      transport: http
+      description: "MCP adapter for Letta API — Jobs. One verb-noun tool per consumed operation."
+      tools:
+        - name: "list-jobs"
+          description: "List Jobs"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "letta-jobs.list_jobs"
+          with:
+            "source_id": "tools.source_id"
+            "before": "tools.before"
+            "after": "tools.after"
+            "limit": "tools.limit"
+            "order": "tools.order"
+            "order_by": "tools.order_by"
+            "active": "tools.active"
+            "ascending": "tools.ascending"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "list-active-jobs"
+          description: "List Active Jobs"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "letta-jobs.list_active_jobs"
+          with:
+            "source_id": "tools.source_id"
+            "before": "tools.before"
+            "after": "tools.after"
+            "limit": "tools.limit"
+            "ascending": "tools.ascending"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "retrieve-job"
+          description: "Retrieve Job"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "letta-jobs.retrieve_job"
+          with:
+            "job_id": "tools.job_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "delete-job"
+          description: "Delete Job"
+          hints:
+            readOnly: false
+            destructive: true
+            idempotent: true
+          call: "letta-jobs.delete_job"
+          with:
+            "job_id": "tools.job_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "cancel-job"
+          description: "Cancel Job"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: true
+          call: "letta-jobs.cancel_job"
+          with:
+            "job_id": "tools.job_id"
+          outputParameters:
+            - type: object
+              mapping: "$."

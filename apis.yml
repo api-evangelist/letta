@@ -4,28 +4,39 @@ name: Letta
 kind: company
 description: >-
   Letta (formerly MemGPT) is a stateful AI agents platform built around long-term memory,
-  tool execution, and multi-agent coordination. The Letta REST API exposes agents, memory
-  blocks, tools, sources (RAG), runs, and streaming responses. Open-source server is
-  available on GitHub; Letta Cloud is the managed offering. Python and TypeScript SDKs
-  ship alongside the REST API.
+  tool execution, and multi-agent coordination. The Letta REST API exposes 239 endpoints
+  across 36 public resource categories — agents, memory blocks, archival memory, sources
+  (RAG), custom tools (sandboxed/client-side/MCP), MCP servers, multi-agent groups,
+  identities, runs, scheduled messages, and a streaming voice-mode endpoint. Open-source
+  server (Apache-2.0, 22.9k+ stars) is available on GitHub; Letta Cloud is the managed
+  offering; the Agent Development Environment (ADE) provides a web UI for inspecting
+  context windows, memory blocks, and run history. Python and TypeScript SDKs ship
+  alongside the REST API, and the open `.af` agent file format lets agents migrate
+  between deployments.
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
   - AI
   - Agents
+  - Stateful Agents
   - Memory
   - MemGPT
-  - Stateful
+  - Continual Learning
+  - MCP
+  - Multi-Agent
+  - RAG
   - Open Source
 created: '2026-05-08'
-modified: '2026-05-08'
+modified: '2026-05-22'
 specificationVersion: '0.19'
 apis:
   - aid: letta:cloud
     name: Letta Cloud API
     description: >-
       REST API for managing stateful agents, memory blocks (in-context + archival/RAG),
-      custom tools (sandbox, client-side, MCP), sources, runs, and streaming responses.
-      Bearer token auth on Letta Cloud.
+      custom tools (sandboxed Python, client-side, MCP-delegated), sources, multi-agent
+      groups (supervisor/round-robin/dynamic/sleep-time), MCP server registrations, runs,
+      identities, scheduled messages, and a beta voice-mode streaming endpoint. 239 paths
+      under `/v1/`. Bearer token auth (`Authorization: Bearer $LETTA_API_KEY`).
     image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     humanURL: https://docs.letta.com/
     baseURL: https://api.letta.com
@@ -35,6 +46,8 @@ apis:
       - Tools
       - Streaming
       - RAG
+      - MCP
+      - Multi-Agent
     properties:
       - type: Documentation
         url: https://docs.letta.com/
@@ -46,39 +59,231 @@ apis:
         url: https://github.com/letta-ai/letta
       - type: LLMsTxt
         url: https://docs.letta.com/llms-full.txt
+      - type: Changelog
+        url: https://www.letta.com/blog
+      - type: OpenAPI
+        url: openapi/letta-openapi.json
+      - type: OpenAPIYAML
+        url: openapi/letta-openapi.yml
+      - type: SpectralRuleset
+        url: rules/letta-rules.yml
+      - type: JSONSchema
+        url: json-schema/letta-agent-schema.json
+      - type: JSONSchema
+        url: json-schema/letta-block-schema.json
+      - type: JSONSchema
+        url: json-schema/letta-tool-schema.json
+      - type: JSONSchema
+        url: json-schema/letta-source-schema.json
+      - type: JSONSchema
+        url: json-schema/letta-run-schema.json
+      - type: JSONSchema
+        url: json-schema/letta-group-schema.json
+      - type: JSONSchema
+        url: json-schema/letta-identity-schema.json
+      - type: JSONSchema
+        url: json-schema/letta-message-schema.json
+      - type: JSONSchema
+        url: json-schema/letta-passage-schema.json
+      - type: JSONSchema
+        url: json-schema/letta-archive-schema.json
+      - type: JSONSchema
+        url: json-schema/letta-job-schema.json
+      - type: JSONSchema
+        url: json-schema/letta-llm-config-schema.json
+      - type: JSONSchema
+        url: json-schema/letta-embedding-config-schema.json
+      - type: JSONSchema
+        url: json-schema/letta-provider-schema.json
+      - type: NaftikoCapability
+        url: capabilities/letta-agents.yaml
+      - type: NaftikoCapability
+        url: capabilities/letta-blocks.yaml
+      - type: NaftikoCapability
+        url: capabilities/letta-archives.yaml
+      - type: NaftikoCapability
+        url: capabilities/letta-passages.yaml
+      - type: NaftikoCapability
+        url: capabilities/letta-sources.yaml
+      - type: NaftikoCapability
+        url: capabilities/letta-tools.yaml
+      - type: NaftikoCapability
+        url: capabilities/letta-mcp-servers.yaml
+      - type: NaftikoCapability
+        url: capabilities/letta-groups.yaml
+      - type: NaftikoCapability
+        url: capabilities/letta-identities.yaml
+      - type: NaftikoCapability
+        url: capabilities/letta-runs.yaml
+      - type: NaftikoCapability
+        url: capabilities/letta-jobs.yaml
+      - type: NaftikoCapability
+        url: capabilities/letta-messages.yaml
+      - type: NaftikoCapability
+        url: capabilities/letta-conversations.yaml
+      - type: NaftikoCapability
+        url: capabilities/letta-scheduled-messages.yaml
+      - type: NaftikoCapability
+        url: capabilities/letta-voice.yaml
+      - type: NaftikoCapability
+        url: capabilities/letta-models.yaml
+      - type: NaftikoCapability
+        url: capabilities/letta-llms.yaml
+      - type: NaftikoCapability
+        url: capabilities/letta-embeddings.yaml
+      - type: NaftikoCapability
+        url: capabilities/letta-providers.yaml
+      - type: NaftikoCapability
+        url: capabilities/letta-folders.yaml
+      - type: NaftikoCapability
+        url: capabilities/letta-projects.yaml
+      - type: NaftikoCapability
+        url: capabilities/letta-templates.yaml
+      - type: NaftikoCapability
+        url: capabilities/letta-sandboxes.yaml
+      - type: NaftikoCapability
+        url: capabilities/letta-memory-files.yaml
+      - type: NaftikoCapability
+        url: capabilities/letta-device-storage.yaml
+      - type: NaftikoCapability
+        url: capabilities/letta-feeds.yaml
+      - type: NaftikoCapability
+        url: capabilities/letta-environments.yaml
+      - type: NaftikoCapability
+        url: capabilities/letta-client-side-access-tokens.yaml
+      - type: NaftikoCapability
+        url: capabilities/letta-pipelines.yaml
+      - type: NaftikoCapability
+        url: capabilities/letta-health.yaml
+      - type: NaftikoCapability
+        url: capabilities/letta-telemetry.yaml
+      - type: NaftikoCapability
+        url: capabilities/letta-steps.yaml
+      - type: NaftikoCapability
+        url: capabilities/letta-tag.yaml
+      - type: NaftikoCapability
+        url: capabilities/letta-metadata.yaml
+      - type: NaftikoCapability
+        url: capabilities/letta-chat.yaml
+      - type: NaftikoCapability
+        url: capabilities/letta-admin.yaml
+
   - aid: letta:self-hosted
     name: Letta Self-Hosted Server
     description: >-
-      Open-source Letta server for self-hosted agent deployments. Same REST API surface as
-      Letta Cloud, free to run; pay only for hosting and underlying LLM API usage. Agents
-      can be migrated between self-hosted and cloud via .af agent file format.
+      Open-source Letta server (Apache-2.0) for self-hosted agent deployments. Same REST
+      API surface as Letta Cloud, free to run; pay only for hosting and underlying LLM API
+      usage. Default base URL is http://localhost:8283. Agents can be migrated between
+      self-hosted and cloud via the open .af agent file format.
     image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     humanURL: https://github.com/letta-ai/letta
-    baseURL: https://localhost:8283
+    baseURL: http://localhost:8283
     tags:
       - Open Source
       - Self-Hosted
       - Agents
+      - Docker
     properties:
       - type: GitHub
         url: https://github.com/letta-ai/letta
       - type: Documentation
         url: https://docs.letta.com/
+      - type: License
+        url: https://github.com/letta-ai/letta/blob/main/LICENSE
+      - type: Docker
+        url: https://github.com/letta-ai/letta/blob/main/Dockerfile
+      - type: AgentFileFormat
+        url: https://github.com/letta-ai/agent-file
+      - type: OpenAPI
+        url: openapi/letta-openapi.json
+
+  - aid: letta:letta-code
+    name: Letta Code
+    description: >-
+      Letta's memory-first coding agent — a CLI plus a desktop app (and an action for
+      GitHub repos). "The memory-first coding agent that remembers and learns." Builds on
+      the Letta Code SDK and the broader Letta platform; offered with personal plans
+      (chat.letta.com) separate from the API Plan.
+    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    humanURL: https://github.com/letta-ai/letta-code
+    baseURL: https://chat.letta.com
+    tags:
+      - Coding Agent
+      - CLI
+      - Desktop
+    properties:
+      - type: GitHub
+        url: https://github.com/letta-ai/letta-code
+      - type: SDK
+        url: https://github.com/letta-ai/letta-code-sdk
+      - type: GitHubAction
+        url: https://github.com/letta-ai/letta-code-action
+      - type: Demo
+        url: https://github.com/letta-ai/letta-oss-ui
+      - type: Skills
+        url: https://github.com/letta-ai/skills
+
 common:
   - type: LinkedIn
     url: https://www.linkedin.com/company/letta-ai
   - type: Website
     url: https://www.letta.com/
+  - type: Blog
+    url: https://www.letta.com/blog
   - type: Documentation
     url: https://docs.letta.com/
+  - type: LLMsTxt
+    url: https://docs.letta.com/llms-full.txt
   - type: GitHub
-    url: https://github.com/letta-ai/letta
+    url: https://github.com/letta-ai
+  - type: GitHubOrg
+    url: https://github.com/letta-ai
+  - type: PythonSDK
+    url: https://github.com/letta-ai/letta-python
+  - type: TypeScriptSDK
+    url: https://github.com/letta-ai/letta-node
+  - type: SignIn
+    url: https://app.letta.com/
+  - type: Pricing
+    url: https://docs.letta.com/guides/api/plans
   - type: Plans
     url: plans/letta-plans-pricing.yml
   - type: RateLimits
     url: rate-limits/letta-rate-limits.yml
   - type: FinOps
     url: finops/letta-finops.yml
+  - type: SpectralRuleset
+    url: rules/letta-rules.yml
+  - type: JSONLDContext
+    url: json-ld/letta-context.jsonld
+  - type: Vocabulary
+    url: vocabulary/letta-vocabulary.yml
+  - type: AgentFileFormat
+    url: https://github.com/letta-ai/agent-file
+
+# --- GitHub org profile (letta-ai) ---
+# 36+ public repos. Highlights:
+#   - letta            22.9k stars  Python      OSS server, the platform itself (Apache-2.0)
+#   - letta-code        2.5k stars  TypeScript  Memory-first coding agent
+#   - claude-subconscious 2.7k stars TypeScript Letta-based memory subconscious for Claude Code
+#   - agent-file        1.1k stars  TypeScript  Open .af file format for stateful agents
+#   - skills            105 stars   Python      Shared skills repo (Letta Code/Claude Code/Codex)
+#   - letta-evals       71 stars    Python      Evaluation kit for stateful agents
+#   - letta-oss-ui      73 stars    TypeScript  Open-source demo UI on the Letta Code SDK
+#   - letta-obsidian    72 stars    TypeScript  Obsidian plugin that runs a Letta agent on your vault
+#   - letta-chatbot-example 99      TypeScript  Reference chatbot built on Letta
+#   - letta-python      52 stars    Python      Python SDK
+#   - letta-node        48 stars    TypeScript  TypeScript SDK
+#   - letta-code-sdk    68 stars    TypeScript  Letta Code SDK
+#   - vercel-ai-sdk-provider TypeScript         Official Vercel AI SDK provider
+#   - n8n-nodes-letta   18 stars    TypeScript  Official n8n node
+#   - letta-voice       25 stars    Python      Low-latency voice chat with Letta agents
+#   - letta-flask        2 stars    Python      Letta + Flask example
+#   - deep-research     27 stars    Python      Open-source deep-research agent on Letta
+#   - sleep-time-compute 132 stars  Python      Accompanying material for the sleep-time compute paper
+#   - context-constitution 74 stars                  Letta primitive for memory governance
+#   - learning-sdk      45 stars    Python      Drop-in continual learning SDK
+
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

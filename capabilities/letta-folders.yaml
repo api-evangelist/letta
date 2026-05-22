@@ -1,0 +1,795 @@
+naftiko: "1.0.0-alpha2"
+
+info:
+  label: "Letta API — Folders"
+  description: >-
+    Folders — organize agents and resources into folders. 14 operations. Lead operation: Count Folders. Self-contained Naftiko capability covering one Letta business surface.
+  tags:
+    - Letta
+    - Stateful Agents
+    - Folders
+  created: "2026-05-08"
+  modified: "2026-05-22"
+
+binds:
+  - namespace: env
+    keys:
+      LETTA_API_KEY: LETTA_API_KEY
+
+capability:
+
+  consumes:
+    - type: http
+      namespace: "letta-folders"
+      baseUri: "https://api.letta.com"
+      description: "Letta API — Folders business capability. Self-contained, no shared references."
+      authentication:
+        type: bearer
+        token: "{{env.LETTA_API_KEY}}"
+      resources:
+        - name: "folders-count"
+          path: "/v1/folders/count"
+          operations:
+            - name: "count_folders"
+              method: GET
+              description: "Count Folders"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "folders-by-id"
+          path: "/v1/folders/{folder_id}"
+          operations:
+            - name: "retrieve_folder"
+              method: GET
+              description: "Retrieve Folder"
+              inputParameters:
+                - name: "folder_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "The ID of the source in the format 'source-<uuid4>'"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: "modify_folder"
+              method: PATCH
+              description: "Modify Folder"
+              inputParameters:
+                - name: "folder_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "The ID of the source in the format 'source-<uuid4>'"
+                - name: "body"
+                  in: body
+                  type: object
+                  required: true
+                  description: "Request payload"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: "delete_folder"
+              method: DELETE
+              description: "Delete Folder"
+              inputParameters:
+                - name: "folder_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "The ID of the source in the format 'source-<uuid4>'"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "folders-name-by-id"
+          path: "/v1/folders/name/{folder_name}"
+          operations:
+            - name: "get_folder_by_name"
+              method: GET
+              description: "Get Folder by Name"
+              inputParameters:
+                - name: "folder_name"
+                  in: path
+                  type: string
+                  required: true
+                  description: "folder_name parameter"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "folders-metadata"
+          path: "/v1/folders/metadata"
+          operations:
+            - name: "retrieve_metadata"
+              method: GET
+              description: "Retrieve Metadata"
+              inputParameters:
+                - name: "include_detailed_per_source_metadata"
+                  in: query
+                  type: boolean
+                  required: false
+                  description: "include_detailed_per_source_metadata parameter"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "folders"
+          path: "/v1/folders/"
+          operations:
+            - name: "list_folders"
+              method: GET
+              description: "List Folders"
+              inputParameters:
+                - name: "before"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Folder ID cursor for pagination. Returns folders that come before this folder ID in the specified sort order"
+                - name: "after"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Folder ID cursor for pagination. Returns folders that come after this folder ID in the specified sort order"
+                - name: "limit"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Maximum number of folders to return"
+                - name: "order"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Sort order for folders by creation time. 'asc' for oldest first, 'desc' for newest first"
+                - name: "order_by"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Field to sort by"
+                - name: "name"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Folder name to filter by"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: "create_folder"
+              method: POST
+              description: "Create Folder"
+              inputParameters:
+                - name: "body"
+                  in: body
+                  type: object
+                  required: true
+                  description: "Request payload"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "folders-by-id-upload"
+          path: "/v1/folders/{folder_id}/upload"
+          operations:
+            - name: "upload_file_to_folder"
+              method: POST
+              description: "Upload File to Folder"
+              inputParameters:
+                - name: "folder_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "The ID of the source in the format 'source-<uuid4>'"
+                - name: "duplicate_handling"
+                  in: query
+                  type: string
+                  required: false
+                  description: "How to handle duplicate filenames"
+                - name: "name"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Optional custom name to override the uploaded file's name"
+                - name: "body"
+                  in: body
+                  type: object
+                  required: true
+                  description: "Request payload"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "folders-by-id-agents"
+          path: "/v1/folders/{folder_id}/agents"
+          operations:
+            - name: "list_agents_for_folder"
+              method: GET
+              description: "List Agents for Folder"
+              inputParameters:
+                - name: "folder_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "The ID of the source in the format 'source-<uuid4>'"
+                - name: "before"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Agent ID cursor for pagination. Returns agents that come before this agent ID in the specified sort order"
+                - name: "after"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Agent ID cursor for pagination. Returns agents that come after this agent ID in the specified sort order"
+                - name: "limit"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Maximum number of agents to return"
+                - name: "order"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Sort order for agents by creation time. 'asc' for oldest first, 'desc' for newest first"
+                - name: "order_by"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Field to sort by"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "folders-by-id-passages"
+          path: "/v1/folders/{folder_id}/passages"
+          operations:
+            - name: "list_folder_passages"
+              method: GET
+              description: "List Folder Passages"
+              inputParameters:
+                - name: "folder_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "The ID of the source in the format 'source-<uuid4>'"
+                - name: "before"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Passage ID cursor for pagination. Returns passages that come before this passage ID in the specified sort order"
+                - name: "after"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Passage ID cursor for pagination. Returns passages that come after this passage ID in the specified sort order"
+                - name: "limit"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Maximum number of passages to return"
+                - name: "order"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Sort order for passages by creation time. 'asc' for oldest first, 'desc' for newest first"
+                - name: "order_by"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Field to sort by"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "folders-by-id-files"
+          path: "/v1/folders/{folder_id}/files"
+          operations:
+            - name: "list_files_for_folder"
+              method: GET
+              description: "List Files for Folder"
+              inputParameters:
+                - name: "folder_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "The ID of the source in the format 'source-<uuid4>'"
+                - name: "before"
+                  in: query
+                  type: string
+                  required: false
+                  description: "File ID cursor for pagination. Returns files that come before this file ID in the specified sort order"
+                - name: "after"
+                  in: query
+                  type: string
+                  required: false
+                  description: "File ID cursor for pagination. Returns files that come after this file ID in the specified sort order"
+                - name: "limit"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Maximum number of files to return"
+                - name: "order"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Sort order for files by creation time. 'asc' for oldest first, 'desc' for newest first"
+                - name: "order_by"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Field to sort by"
+                - name: "include_content"
+                  in: query
+                  type: boolean
+                  required: false
+                  description: "Whether to include full file content"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "folders-by-id-files-by-id"
+          path: "/v1/folders/{folder_id}/files/{file_id}"
+          operations:
+            - name: "retrieve_file"
+              method: GET
+              description: "Retrieve File"
+              inputParameters:
+                - name: "folder_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "The ID of the source in the format 'source-<uuid4>'"
+                - name: "file_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "The ID of the file in the format 'file-<uuid4>'"
+                - name: "include_content"
+                  in: query
+                  type: boolean
+                  required: false
+                  description: "Whether to include full file content"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "folders-by-id-by-id"
+          path: "/v1/folders/{folder_id}/{file_id}"
+          operations:
+            - name: "delete_file_from_folder"
+              method: DELETE
+              description: "Delete File from Folder"
+              inputParameters:
+                - name: "folder_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "The ID of the source in the format 'source-<uuid4>'"
+                - name: "file_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "The ID of the file in the format 'file-<uuid4>'"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  exposes:
+    - type: rest
+      namespace: "letta-folders-rest"
+      port: 8080
+      description: "REST adapter for Letta API — Folders. One Spectral-compliant resource per consumed operation."
+      resources:
+        - path: "/v1/folders/count"
+          name: "folders-count"
+          description: "REST surface for folders-count."
+          operations:
+            - method: GET
+              name: "count_folders"
+              description: "Count Folders"
+              call: "letta-folders.count_folders"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/folders/{folder-id}"
+          name: "folders-by-id"
+          description: "REST surface for folders-by-id."
+          operations:
+            - method: GET
+              name: "retrieve_folder"
+              description: "Retrieve Folder"
+              call: "letta-folders.retrieve_folder"
+              with:
+                "folder_id": "rest.folder_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: PATCH
+              name: "modify_folder"
+              description: "Modify Folder"
+              call: "letta-folders.modify_folder"
+              with:
+                "folder_id": "rest.folder_id"
+                "body": "rest.body"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: DELETE
+              name: "delete_folder"
+              description: "Delete Folder"
+              call: "letta-folders.delete_folder"
+              with:
+                "folder_id": "rest.folder_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/folders/name/{folder-name}"
+          name: "folders-name-by-id"
+          description: "REST surface for folders-name-by-id."
+          operations:
+            - method: GET
+              name: "get_folder_by_name"
+              description: "Get Folder by Name"
+              call: "letta-folders.get_folder_by_name"
+              with:
+                "folder_name": "rest.folder_name"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/folders/metadata"
+          name: "folders-metadata"
+          description: "REST surface for folders-metadata."
+          operations:
+            - method: GET
+              name: "retrieve_metadata"
+              description: "Retrieve Metadata"
+              call: "letta-folders.retrieve_metadata"
+              with:
+                "include_detailed_per_source_metadata": "rest.include_detailed_per_source_metadata"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/folders/"
+          name: "folders"
+          description: "REST surface for folders."
+          operations:
+            - method: GET
+              name: "list_folders"
+              description: "List Folders"
+              call: "letta-folders.list_folders"
+              with:
+                "before": "rest.before"
+                "after": "rest.after"
+                "limit": "rest.limit"
+                "order": "rest.order"
+                "order_by": "rest.order_by"
+                "name": "rest.name"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: "create_folder"
+              description: "Create Folder"
+              call: "letta-folders.create_folder"
+              with:
+                "body": "rest.body"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/folders/{folder-id}/upload"
+          name: "folders-by-id-upload"
+          description: "REST surface for folders-by-id-upload."
+          operations:
+            - method: POST
+              name: "upload_file_to_folder"
+              description: "Upload File to Folder"
+              call: "letta-folders.upload_file_to_folder"
+              with:
+                "folder_id": "rest.folder_id"
+                "duplicate_handling": "rest.duplicate_handling"
+                "name": "rest.name"
+                "body": "rest.body"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/folders/{folder-id}/agents"
+          name: "folders-by-id-agents"
+          description: "REST surface for folders-by-id-agents."
+          operations:
+            - method: GET
+              name: "list_agents_for_folder"
+              description: "List Agents for Folder"
+              call: "letta-folders.list_agents_for_folder"
+              with:
+                "folder_id": "rest.folder_id"
+                "before": "rest.before"
+                "after": "rest.after"
+                "limit": "rest.limit"
+                "order": "rest.order"
+                "order_by": "rest.order_by"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/folders/{folder-id}/passages"
+          name: "folders-by-id-passages"
+          description: "REST surface for folders-by-id-passages."
+          operations:
+            - method: GET
+              name: "list_folder_passages"
+              description: "List Folder Passages"
+              call: "letta-folders.list_folder_passages"
+              with:
+                "folder_id": "rest.folder_id"
+                "before": "rest.before"
+                "after": "rest.after"
+                "limit": "rest.limit"
+                "order": "rest.order"
+                "order_by": "rest.order_by"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/folders/{folder-id}/files"
+          name: "folders-by-id-files"
+          description: "REST surface for folders-by-id-files."
+          operations:
+            - method: GET
+              name: "list_files_for_folder"
+              description: "List Files for Folder"
+              call: "letta-folders.list_files_for_folder"
+              with:
+                "folder_id": "rest.folder_id"
+                "before": "rest.before"
+                "after": "rest.after"
+                "limit": "rest.limit"
+                "order": "rest.order"
+                "order_by": "rest.order_by"
+                "include_content": "rest.include_content"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/folders/{folder-id}/files/{file-id}"
+          name: "folders-by-id-files-by-id"
+          description: "REST surface for folders-by-id-files-by-id."
+          operations:
+            - method: GET
+              name: "retrieve_file"
+              description: "Retrieve File"
+              call: "letta-folders.retrieve_file"
+              with:
+                "folder_id": "rest.folder_id"
+                "file_id": "rest.file_id"
+                "include_content": "rest.include_content"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/folders/{folder-id}/{file-id}"
+          name: "folders-by-id-by-id"
+          description: "REST surface for folders-by-id-by-id."
+          operations:
+            - method: DELETE
+              name: "delete_file_from_folder"
+              description: "Delete File from Folder"
+              call: "letta-folders.delete_file_from_folder"
+              with:
+                "folder_id": "rest.folder_id"
+                "file_id": "rest.file_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+    - type: mcp
+      namespace: "letta-folders-mcp"
+      port: 9090
+      transport: http
+      description: "MCP adapter for Letta API — Folders. One verb-noun tool per consumed operation."
+      tools:
+        - name: "count-folders"
+          description: "Count Folders"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "letta-folders.count_folders"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "retrieve-folder"
+          description: "Retrieve Folder"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "letta-folders.retrieve_folder"
+          with:
+            "folder_id": "tools.folder_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "modify-folder"
+          description: "Modify Folder"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: true
+          call: "letta-folders.modify_folder"
+          with:
+            "folder_id": "tools.folder_id"
+            "body": "tools.body"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "delete-folder"
+          description: "Delete Folder"
+          hints:
+            readOnly: false
+            destructive: true
+            idempotent: true
+          call: "letta-folders.delete_folder"
+          with:
+            "folder_id": "tools.folder_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "get-folder-name"
+          description: "Get Folder by Name"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "letta-folders.get_folder_by_name"
+          with:
+            "folder_name": "tools.folder_name"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "retrieve-metadata"
+          description: "Retrieve Metadata"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "letta-folders.retrieve_metadata"
+          with:
+            "include_detailed_per_source_metadata": "tools.include_detailed_per_source_metadata"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "list-folders"
+          description: "List Folders"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "letta-folders.list_folders"
+          with:
+            "before": "tools.before"
+            "after": "tools.after"
+            "limit": "tools.limit"
+            "order": "tools.order"
+            "order_by": "tools.order_by"
+            "name": "tools.name"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "create-folder"
+          description: "Create Folder"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "letta-folders.create_folder"
+          with:
+            "body": "tools.body"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "upload-file-folder"
+          description: "Upload File to Folder"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "letta-folders.upload_file_to_folder"
+          with:
+            "folder_id": "tools.folder_id"
+            "duplicate_handling": "tools.duplicate_handling"
+            "name": "tools.name"
+            "body": "tools.body"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "list-agents-folder"
+          description: "List Agents for Folder"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "letta-folders.list_agents_for_folder"
+          with:
+            "folder_id": "tools.folder_id"
+            "before": "tools.before"
+            "after": "tools.after"
+            "limit": "tools.limit"
+            "order": "tools.order"
+            "order_by": "tools.order_by"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "list-folder-passages"
+          description: "List Folder Passages"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "letta-folders.list_folder_passages"
+          with:
+            "folder_id": "tools.folder_id"
+            "before": "tools.before"
+            "after": "tools.after"
+            "limit": "tools.limit"
+            "order": "tools.order"
+            "order_by": "tools.order_by"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "list-files-folder"
+          description: "List Files for Folder"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "letta-folders.list_files_for_folder"
+          with:
+            "folder_id": "tools.folder_id"
+            "before": "tools.before"
+            "after": "tools.after"
+            "limit": "tools.limit"
+            "order": "tools.order"
+            "order_by": "tools.order_by"
+            "include_content": "tools.include_content"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "retrieve-file"
+          description: "Retrieve File"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "letta-folders.retrieve_file"
+          with:
+            "folder_id": "tools.folder_id"
+            "file_id": "tools.file_id"
+            "include_content": "tools.include_content"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "delete-file-folder"
+          description: "Delete File from Folder"
+          hints:
+            readOnly: false
+            destructive: true
+            idempotent: true
+          call: "letta-folders.delete_file_from_folder"
+          with:
+            "folder_id": "tools.folder_id"
+            "file_id": "tools.file_id"
+          outputParameters:
+            - type: object
+              mapping: "$."

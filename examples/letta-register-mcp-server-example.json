@@ -1,0 +1,29 @@
+{
+  "operation": "Register MCP Server",
+  "method": "POST",
+  "path": "/v1/mcp-servers/",
+  "auth": "Bearer token (LETTA_API_KEY)",
+  "request": {
+    "method": "POST",
+    "path": "/v1/mcp-servers",
+    "headers": {
+      "Authorization": "Bearer $LETTA_API_KEY",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "github-mcp",
+      "transport": "streamable_http",
+      "server_url": "https://mcp.example.com/github",
+      "auth_header": "Authorization",
+      "auth_token": "Bearer ghp_xxx"
+    }
+  },
+  "response": {
+    "status": 201,
+    "body": {
+      "id": "mcp-01",
+      "name": "github-mcp",
+      "transport": "streamable_http"
+    }
+  }
+}

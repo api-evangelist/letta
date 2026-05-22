@@ -1,0 +1,63 @@
+{
+  "operation": "Send Agent Message",
+  "method": "POST",
+  "path": "/v1/agents/{agent_id}/messages",
+  "auth": "Bearer token (LETTA_API_KEY)",
+  "request": {
+    "method": "POST",
+    "path": "/v1/agents/agent-2f6d4a13/messages",
+    "headers": {
+      "Authorization": "Bearer $LETTA_API_KEY",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "messages": [
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "Hi, can you remember that I prefer concise answers?"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "run_id": "run-77a3",
+      "messages": [
+        {
+          "message_type": "reasoning_message",
+          "reasoning": "Update core memory: human prefers concise answers."
+        },
+        {
+          "message_type": "tool_call_message",
+          "tool_call": {
+            "name": "core_memory_append",
+            "arguments": {
+              "label": "human",
+              "content": "Prefers concise answers."
+            }
+          }
+        },
+        {
+          "message_type": "tool_return_message",
+          "tool_return": "OK"
+        },
+        {
+          "message_type": "assistant_message",
+          "content": "Got it \u2014 I will keep answers concise."
+        }
+      ],
+      "usage": {
+        "completion_tokens": 86,
+        "prompt_tokens": 1240,
+        "total_tokens": 1326,
+        "step_count": 1
+      }
+    }
+  }
+}

@@ -1,0 +1,282 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/letta/main/json-schema/letta-run-schema.json",
+  "title": "Run",
+  "description": "Representation of a run - a conversation or processing session for an agent. Runs track when agents process messages and maintain the relationship between agents, steps, and messages.",
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^(job|run)-[a-fA-F0-9]{8}",
+      "title": "Id",
+      "description": "The human-friendly ID of the Run",
+      "examples": [
+        "run-123e4567-e89b-12d3-a456-426614174000"
+      ]
+    },
+    "status": {
+      "$ref": "#/$defs/RunStatus"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Created At",
+      "description": "The timestamp when the run was created."
+    },
+    "completed_at": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "date-time"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Completed At",
+      "description": "The timestamp when the run was completed."
+    },
+    "agent_id": {
+      "type": "string",
+      "title": "Agent Id",
+      "description": "The unique identifier of the agent associated with the run."
+    },
+    "conversation_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Conversation Id",
+      "description": "The unique identifier of the conversation associated with the run."
+    },
+    "base_template_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Base Template Id",
+      "description": "The base template ID that the run belongs to."
+    },
+    "background": {
+      "anyOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Background",
+      "description": "Whether the run was created in background mode."
+    },
+    "metadata": {
+      "anyOf": [
+        {
+          "additionalProperties": true,
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Metadata",
+      "description": "Additional metadata for the run."
+    },
+    "request_config": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/LettaRequestConfig"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "The request configuration for the run."
+    },
+    "stop_reason": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/StopReasonType"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "The reason why the run was stopped."
+    },
+    "callback_url": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Callback Url",
+      "description": "If set, POST to this URL when the run completes."
+    },
+    "callback_sent_at": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "date-time"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Callback Sent At",
+      "description": "Timestamp when the callback was last attempted."
+    },
+    "callback_status_code": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Callback Status Code",
+      "description": "HTTP status code returned by the callback endpoint."
+    },
+    "callback_error": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Callback Error",
+      "description": "Optional error message from attempting to POST the callback endpoint."
+    },
+    "ttft_ns": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Ttft Ns",
+      "description": "Time to first token for a run in nanoseconds"
+    },
+    "total_duration_ns": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Total Duration Ns",
+      "description": "Total run duration in nanoseconds"
+    }
+  },
+  "additionalProperties": false,
+  "type": "object",
+  "required": [
+    "agent_id"
+  ],
+  "$defs": {
+    "RunStatus": {
+      "type": "string",
+      "enum": [
+        "created",
+        "running",
+        "completed",
+        "failed",
+        "cancelled"
+      ],
+      "title": "RunStatus",
+      "description": "Status of the run."
+    },
+    "LettaRequestConfig": {
+      "properties": {
+        "use_assistant_message": {
+          "type": "boolean",
+          "title": "Use Assistant Message",
+          "description": "Whether the server should parse specific tool call arguments (default `send_message`) as `AssistantMessage` objects.",
+          "default": true
+        },
+        "assistant_message_tool_name": {
+          "type": "string",
+          "title": "Assistant Message Tool Name",
+          "description": "The name of the designated message tool.",
+          "default": "send_message"
+        },
+        "assistant_message_tool_kwarg": {
+          "type": "string",
+          "title": "Assistant Message Tool Kwarg",
+          "description": "The name of the message argument in the designated message tool.",
+          "default": "message"
+        },
+        "include_return_message_types": {
+          "anyOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/MessageType"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Include Return Message Types",
+          "description": "Only return specified message types in the response. If `None` (default) returns all messages."
+        }
+      },
+      "type": "object",
+      "title": "LettaRequestConfig"
+    },
+    "MessageType": {
+      "type": "string",
+      "enum": [
+        "system_message",
+        "user_message",
+        "assistant_message",
+        "reasoning_message",
+        "hidden_reasoning_message",
+        "tool_call_message",
+        "tool_return_message",
+        "approval_request_message",
+        "approval_response_message",
+        "summary_message",
+        "event_message"
+      ],
+      "title": "MessageType"
+    },
+    "StopReasonType": {
+      "type": "string",
+      "enum": [
+        "end_turn",
+        "error",
+        "llm_api_error",
+        "invalid_llm_response",
+        "invalid_tool_call",
+        "max_steps",
+        "max_tokens_exceeded",
+        "no_tool_call",
+        "tool_rule",
+        "cancelled",
+        "insufficient_credits",
+        "requires_approval",
+        "context_window_overflow_in_system_prompt"
+      ],
+      "title": "StopReasonType"
+    }
+  }
+}

@@ -1,0 +1,1051 @@
+naftiko: "1.0.0-alpha2"
+
+info:
+  label: "Letta API — Tools"
+  description: >-
+    Custom tools — register and execute sandboxed Python, client-side, and MCP-backed tools. 21 operations. Lead operation: Delete Tool. Self-contained Naftiko capability covering one Letta business surface.
+  tags:
+    - Letta
+    - Stateful Agents
+    - Tools
+  created: "2026-05-08"
+  modified: "2026-05-22"
+
+binds:
+  - namespace: env
+    keys:
+      LETTA_API_KEY: LETTA_API_KEY
+
+capability:
+
+  consumes:
+    - type: http
+      namespace: "letta-tools"
+      baseUri: "https://api.letta.com"
+      description: "Letta API — Tools business capability. Self-contained, no shared references."
+      authentication:
+        type: bearer
+        token: "{{env.LETTA_API_KEY}}"
+      resources:
+        - name: "tools-by-id"
+          path: "/v1/tools/{tool_id}"
+          operations:
+            - name: "delete_tool"
+              method: DELETE
+              description: "Delete Tool"
+              inputParameters:
+                - name: "tool_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "The ID of the tool in the format 'tool-<uuid4>'"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: "retrieve_tool"
+              method: GET
+              description: "Retrieve Tool"
+              inputParameters:
+                - name: "tool_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "The ID of the tool in the format 'tool-<uuid4>'"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: "modify_tool"
+              method: PATCH
+              description: "Modify Tool"
+              inputParameters:
+                - name: "tool_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "The ID of the tool in the format 'tool-<uuid4>'"
+                - name: "body"
+                  in: body
+                  type: object
+                  required: true
+                  description: "Request payload"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "tools-count"
+          path: "/v1/tools/count"
+          operations:
+            - name: "count_tools"
+              method: GET
+              description: "Count Tools"
+              inputParameters:
+                - name: "name"
+                  in: query
+                  type: string
+                  required: false
+                  description: "name parameter"
+                - name: "names"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Filter by specific tool names"
+                - name: "tool_ids"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Filter by specific tool IDs - accepts repeated params or comma-separated values"
+                - name: "search"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Search tool names (case-insensitive partial match)"
+                - name: "tool_types"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Filter by tool type(s) - accepts repeated params or comma-separated values"
+                - name: "exclude_tool_types"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Tool type(s) to exclude - accepts repeated params or comma-separated values"
+                - name: "return_only_letta_tools"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Count only tools with tool_type starting with 'letta_'"
+                - name: "exclude_letta_tools"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Exclude built-in Letta tools from the count"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "tools"
+          path: "/v1/tools/"
+          operations:
+            - name: "list_tools"
+              method: GET
+              description: "List Tools"
+              inputParameters:
+                - name: "before"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Tool ID cursor for pagination. Returns tools that come before this tool ID in the specified sort order"
+                - name: "after"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Tool ID cursor for pagination. Returns tools that come after this tool ID in the specified sort order"
+                - name: "limit"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Maximum number of tools to return"
+                - name: "order"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Sort order for tools by creation time. 'asc' for oldest first, 'desc' for newest first"
+                - name: "order_by"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Field to sort by"
+                - name: "name"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Filter by single tool name"
+                - name: "names"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Filter by specific tool names"
+                - name: "tool_ids"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Filter by specific tool IDs - accepts repeated params or comma-separated values"
+                - name: "search"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Search tool names (case-insensitive partial match)"
+                - name: "tool_types"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Filter by tool type(s) - accepts repeated params or comma-separated values"
+                - name: "exclude_tool_types"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Tool type(s) to exclude - accepts repeated params or comma-separated values"
+                - name: "return_only_letta_tools"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Return only tools with tool_type starting with 'letta_'"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: "create_tool"
+              method: POST
+              description: "Create Tool"
+              inputParameters:
+                - name: "body"
+                  in: body
+                  type: object
+                  required: true
+                  description: "Request payload"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: "upsert_tool"
+              method: PUT
+              description: "Upsert Tool"
+              inputParameters:
+                - name: "body"
+                  in: body
+                  type: object
+                  required: true
+                  description: "Request payload"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "tools-search"
+          path: "/v1/tools/search"
+          operations:
+            - name: "search_tools"
+              method: POST
+              description: "Search Tools"
+              inputParameters:
+                - name: "body"
+                  in: body
+                  type: object
+                  required: true
+                  description: "Request payload"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "tools-add-base-tools"
+          path: "/v1/tools/add-base-tools"
+          operations:
+            - name: "add_base_tools"
+              method: POST
+              description: "Upsert Base Tools"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "tools-run"
+          path: "/v1/tools/run"
+          operations:
+            - name: "run_tool_from_source"
+              method: POST
+              description: "Run Tool from Source"
+              inputParameters:
+                - name: "body"
+                  in: body
+                  type: object
+                  required: true
+                  description: "Request payload"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "tools-mcp-servers"
+          path: "/v1/tools/mcp/servers"
+          operations:
+            - name: "list_mcp_servers"
+              method: GET
+              description: "List MCP Servers"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: "add_mcp_server"
+              method: PUT
+              description: "Add MCP Server to Config"
+              inputParameters:
+                - name: "body"
+                  in: body
+                  type: object
+                  required: true
+                  description: "Request payload"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "tools-mcp-servers-by-id-tools"
+          path: "/v1/tools/mcp/servers/{mcp_server_name}/tools"
+          operations:
+            - name: "list_mcp_tools_by_server"
+              method: GET
+              description: "List MCP Tools by Server"
+              inputParameters:
+                - name: "mcp_server_name"
+                  in: path
+                  type: string
+                  required: true
+                  description: "mcp_server_name parameter"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "tools-mcp-servers-by-id-resync"
+          path: "/v1/tools/mcp/servers/{mcp_server_name}/resync"
+          operations:
+            - name: "resync_mcp_server_tools"
+              method: POST
+              description: "Resync MCP Server Tools"
+              inputParameters:
+                - name: "mcp_server_name"
+                  in: path
+                  type: string
+                  required: true
+                  description: "mcp_server_name parameter"
+                - name: "agent_id"
+                  in: query
+                  type: string
+                  required: false
+                  description: "agent_id parameter"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "tools-mcp-servers-by-id-by-id"
+          path: "/v1/tools/mcp/servers/{mcp_server_name}/{mcp_tool_name}"
+          operations:
+            - name: "add_mcp_tool"
+              method: POST
+              description: "Add MCP Tool"
+              inputParameters:
+                - name: "mcp_server_name"
+                  in: path
+                  type: string
+                  required: true
+                  description: "mcp_server_name parameter"
+                - name: "mcp_tool_name"
+                  in: path
+                  type: string
+                  required: true
+                  description: "mcp_tool_name parameter"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "tools-mcp-servers-by-id"
+          path: "/v1/tools/mcp/servers/{mcp_server_name}"
+          operations:
+            - name: "update_mcp_server"
+              method: PATCH
+              description: "Update MCP Server"
+              inputParameters:
+                - name: "mcp_server_name"
+                  in: path
+                  type: string
+                  required: true
+                  description: "mcp_server_name parameter"
+                - name: "body"
+                  in: body
+                  type: object
+                  required: true
+                  description: "Request payload"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: "delete_mcp_server"
+              method: DELETE
+              description: "Delete MCP Server from Config"
+              inputParameters:
+                - name: "mcp_server_name"
+                  in: path
+                  type: string
+                  required: true
+                  description: "mcp_server_name parameter"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "tools-mcp-servers-test"
+          path: "/v1/tools/mcp/servers/test"
+          operations:
+            - name: "test_mcp_server"
+              method: POST
+              description: "Test MCP Server"
+              inputParameters:
+                - name: "body"
+                  in: body
+                  type: object
+                  required: true
+                  description: "Request payload"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "tools-mcp-servers-connect"
+          path: "/v1/tools/mcp/servers/connect"
+          operations:
+            - name: "connect_mcp_server"
+              method: POST
+              description: "Connect MCP Server"
+              inputParameters:
+                - name: "body"
+                  in: body
+                  type: object
+                  required: true
+                  description: "Request payload"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "tools-mcp-servers-by-id-tools-by-id-execute"
+          path: "/v1/tools/mcp/servers/{mcp_server_name}/tools/{tool_name}/execute"
+          operations:
+            - name: "execute_mcp_tool"
+              method: POST
+              description: "Execute MCP Tool"
+              inputParameters:
+                - name: "mcp_server_name"
+                  in: path
+                  type: string
+                  required: true
+                  description: "mcp_server_name parameter"
+                - name: "tool_name"
+                  in: path
+                  type: string
+                  required: true
+                  description: "tool_name parameter"
+                - name: "body"
+                  in: body
+                  type: object
+                  required: true
+                  description: "Request payload"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "tools-mcp-oauth-callback"
+          path: "/v1/tools/mcp/oauth/callback"
+          operations:
+            - name: "mcp_oauth_callback"
+              method: GET
+              description: "MCP Oauth Callback"
+              inputParameters:
+                - name: "code"
+                  in: query
+                  type: string
+                  required: false
+                  description: "OAuth authorization code"
+                - name: "state"
+                  in: query
+                  type: string
+                  required: false
+                  description: "OAuth state parameter"
+                - name: "error"
+                  in: query
+                  type: string
+                  required: false
+                  description: "OAuth error"
+                - name: "error_description"
+                  in: query
+                  type: string
+                  required: false
+                  description: "OAuth error description"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  exposes:
+    - type: rest
+      namespace: "letta-tools-rest"
+      port: 8080
+      description: "REST adapter for Letta API — Tools. One Spectral-compliant resource per consumed operation."
+      resources:
+        - path: "/v1/tools/{tool-id}"
+          name: "tools-by-id"
+          description: "REST surface for tools-by-id."
+          operations:
+            - method: DELETE
+              name: "delete_tool"
+              description: "Delete Tool"
+              call: "letta-tools.delete_tool"
+              with:
+                "tool_id": "rest.tool_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: GET
+              name: "retrieve_tool"
+              description: "Retrieve Tool"
+              call: "letta-tools.retrieve_tool"
+              with:
+                "tool_id": "rest.tool_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: PATCH
+              name: "modify_tool"
+              description: "Modify Tool"
+              call: "letta-tools.modify_tool"
+              with:
+                "tool_id": "rest.tool_id"
+                "body": "rest.body"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/tools/count"
+          name: "tools-count"
+          description: "REST surface for tools-count."
+          operations:
+            - method: GET
+              name: "count_tools"
+              description: "Count Tools"
+              call: "letta-tools.count_tools"
+              with:
+                "name": "rest.name"
+                "names": "rest.names"
+                "tool_ids": "rest.tool_ids"
+                "search": "rest.search"
+                "tool_types": "rest.tool_types"
+                "exclude_tool_types": "rest.exclude_tool_types"
+                "return_only_letta_tools": "rest.return_only_letta_tools"
+                "exclude_letta_tools": "rest.exclude_letta_tools"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/tools/"
+          name: "tools"
+          description: "REST surface for tools."
+          operations:
+            - method: GET
+              name: "list_tools"
+              description: "List Tools"
+              call: "letta-tools.list_tools"
+              with:
+                "before": "rest.before"
+                "after": "rest.after"
+                "limit": "rest.limit"
+                "order": "rest.order"
+                "order_by": "rest.order_by"
+                "name": "rest.name"
+                "names": "rest.names"
+                "tool_ids": "rest.tool_ids"
+                "search": "rest.search"
+                "tool_types": "rest.tool_types"
+                "exclude_tool_types": "rest.exclude_tool_types"
+                "return_only_letta_tools": "rest.return_only_letta_tools"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: "create_tool"
+              description: "Create Tool"
+              call: "letta-tools.create_tool"
+              with:
+                "body": "rest.body"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: PUT
+              name: "upsert_tool"
+              description: "Upsert Tool"
+              call: "letta-tools.upsert_tool"
+              with:
+                "body": "rest.body"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/tools/search"
+          name: "tools-search"
+          description: "REST surface for tools-search."
+          operations:
+            - method: POST
+              name: "search_tools"
+              description: "Search Tools"
+              call: "letta-tools.search_tools"
+              with:
+                "body": "rest.body"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/tools/add-base-tools"
+          name: "tools-add-base-tools"
+          description: "REST surface for tools-add-base-tools."
+          operations:
+            - method: POST
+              name: "add_base_tools"
+              description: "Upsert Base Tools"
+              call: "letta-tools.add_base_tools"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/tools/run"
+          name: "tools-run"
+          description: "REST surface for tools-run."
+          operations:
+            - method: POST
+              name: "run_tool_from_source"
+              description: "Run Tool from Source"
+              call: "letta-tools.run_tool_from_source"
+              with:
+                "body": "rest.body"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/tools/mcp/servers"
+          name: "tools-mcp-servers"
+          description: "REST surface for tools-mcp-servers."
+          operations:
+            - method: GET
+              name: "list_mcp_servers"
+              description: "List MCP Servers"
+              call: "letta-tools.list_mcp_servers"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: PUT
+              name: "add_mcp_server"
+              description: "Add MCP Server to Config"
+              call: "letta-tools.add_mcp_server"
+              with:
+                "body": "rest.body"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/tools/mcp/servers/{mcp-server-name}/tools"
+          name: "tools-mcp-servers-by-id-tools"
+          description: "REST surface for tools-mcp-servers-by-id-tools."
+          operations:
+            - method: GET
+              name: "list_mcp_tools_by_server"
+              description: "List MCP Tools by Server"
+              call: "letta-tools.list_mcp_tools_by_server"
+              with:
+                "mcp_server_name": "rest.mcp_server_name"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/tools/mcp/servers/{mcp-server-name}/resync"
+          name: "tools-mcp-servers-by-id-resync"
+          description: "REST surface for tools-mcp-servers-by-id-resync."
+          operations:
+            - method: POST
+              name: "resync_mcp_server_tools"
+              description: "Resync MCP Server Tools"
+              call: "letta-tools.resync_mcp_server_tools"
+              with:
+                "mcp_server_name": "rest.mcp_server_name"
+                "agent_id": "rest.agent_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/tools/mcp/servers/{mcp-server-name}/{mcp-tool-name}"
+          name: "tools-mcp-servers-by-id-by-id"
+          description: "REST surface for tools-mcp-servers-by-id-by-id."
+          operations:
+            - method: POST
+              name: "add_mcp_tool"
+              description: "Add MCP Tool"
+              call: "letta-tools.add_mcp_tool"
+              with:
+                "mcp_server_name": "rest.mcp_server_name"
+                "mcp_tool_name": "rest.mcp_tool_name"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/tools/mcp/servers/{mcp-server-name}"
+          name: "tools-mcp-servers-by-id"
+          description: "REST surface for tools-mcp-servers-by-id."
+          operations:
+            - method: PATCH
+              name: "update_mcp_server"
+              description: "Update MCP Server"
+              call: "letta-tools.update_mcp_server"
+              with:
+                "mcp_server_name": "rest.mcp_server_name"
+                "body": "rest.body"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: DELETE
+              name: "delete_mcp_server"
+              description: "Delete MCP Server from Config"
+              call: "letta-tools.delete_mcp_server"
+              with:
+                "mcp_server_name": "rest.mcp_server_name"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/tools/mcp/servers/test"
+          name: "tools-mcp-servers-test"
+          description: "REST surface for tools-mcp-servers-test."
+          operations:
+            - method: POST
+              name: "test_mcp_server"
+              description: "Test MCP Server"
+              call: "letta-tools.test_mcp_server"
+              with:
+                "body": "rest.body"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/tools/mcp/servers/connect"
+          name: "tools-mcp-servers-connect"
+          description: "REST surface for tools-mcp-servers-connect."
+          operations:
+            - method: POST
+              name: "connect_mcp_server"
+              description: "Connect MCP Server"
+              call: "letta-tools.connect_mcp_server"
+              with:
+                "body": "rest.body"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/tools/mcp/servers/{mcp-server-name}/tools/{tool-name}/execute"
+          name: "tools-mcp-servers-by-id-tools-by-id-execute"
+          description: "REST surface for tools-mcp-servers-by-id-tools-by-id-execute."
+          operations:
+            - method: POST
+              name: "execute_mcp_tool"
+              description: "Execute MCP Tool"
+              call: "letta-tools.execute_mcp_tool"
+              with:
+                "mcp_server_name": "rest.mcp_server_name"
+                "tool_name": "rest.tool_name"
+                "body": "rest.body"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/tools/mcp/oauth/callback"
+          name: "tools-mcp-oauth-callback"
+          description: "REST surface for tools-mcp-oauth-callback."
+          operations:
+            - method: GET
+              name: "mcp_oauth_callback"
+              description: "MCP Oauth Callback"
+              call: "letta-tools.mcp_oauth_callback"
+              with:
+                "code": "rest.code"
+                "state": "rest.state"
+                "error": "rest.error"
+                "error_description": "rest.error_description"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+    - type: mcp
+      namespace: "letta-tools-mcp"
+      port: 9090
+      transport: http
+      description: "MCP adapter for Letta API — Tools. One verb-noun tool per consumed operation."
+      tools:
+        - name: "delete-tool"
+          description: "Delete Tool"
+          hints:
+            readOnly: false
+            destructive: true
+            idempotent: true
+          call: "letta-tools.delete_tool"
+          with:
+            "tool_id": "tools.tool_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "retrieve-tool"
+          description: "Retrieve Tool"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "letta-tools.retrieve_tool"
+          with:
+            "tool_id": "tools.tool_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "modify-tool"
+          description: "Modify Tool"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: true
+          call: "letta-tools.modify_tool"
+          with:
+            "tool_id": "tools.tool_id"
+            "body": "tools.body"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "count-tools"
+          description: "Count Tools"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "letta-tools.count_tools"
+          with:
+            "name": "tools.name"
+            "names": "tools.names"
+            "tool_ids": "tools.tool_ids"
+            "search": "tools.search"
+            "tool_types": "tools.tool_types"
+            "exclude_tool_types": "tools.exclude_tool_types"
+            "return_only_letta_tools": "tools.return_only_letta_tools"
+            "exclude_letta_tools": "tools.exclude_letta_tools"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "list-tools"
+          description: "List Tools"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "letta-tools.list_tools"
+          with:
+            "before": "tools.before"
+            "after": "tools.after"
+            "limit": "tools.limit"
+            "order": "tools.order"
+            "order_by": "tools.order_by"
+            "name": "tools.name"
+            "names": "tools.names"
+            "tool_ids": "tools.tool_ids"
+            "search": "tools.search"
+            "tool_types": "tools.tool_types"
+            "exclude_tool_types": "tools.exclude_tool_types"
+            "return_only_letta_tools": "tools.return_only_letta_tools"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "create-tool"
+          description: "Create Tool"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "letta-tools.create_tool"
+          with:
+            "body": "tools.body"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "upsert-tool"
+          description: "Upsert Tool"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: true
+          call: "letta-tools.upsert_tool"
+          with:
+            "body": "tools.body"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "search-tools"
+          description: "Search Tools"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: false
+          call: "letta-tools.search_tools"
+          with:
+            "body": "tools.body"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "upsert-base-tools"
+          description: "Upsert Base Tools"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "letta-tools.add_base_tools"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "run-tool-source"
+          description: "Run Tool from Source"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "letta-tools.run_tool_from_source"
+          with:
+            "body": "tools.body"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "list-mcp-servers"
+          description: "List MCP Servers"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "letta-tools.list_mcp_servers"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "add-mcp-server-config"
+          description: "Add MCP Server to Config"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: true
+          call: "letta-tools.add_mcp_server"
+          with:
+            "body": "tools.body"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "list-mcp-tools-server"
+          description: "List MCP Tools by Server"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "letta-tools.list_mcp_tools_by_server"
+          with:
+            "mcp_server_name": "tools.mcp_server_name"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "resync-mcp-server-tools"
+          description: "Resync MCP Server Tools"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "letta-tools.resync_mcp_server_tools"
+          with:
+            "mcp_server_name": "tools.mcp_server_name"
+            "agent_id": "tools.agent_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "add-mcp-tool"
+          description: "Add MCP Tool"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "letta-tools.add_mcp_tool"
+          with:
+            "mcp_server_name": "tools.mcp_server_name"
+            "mcp_tool_name": "tools.mcp_tool_name"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "update-mcp-server"
+          description: "Update MCP Server"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: true
+          call: "letta-tools.update_mcp_server"
+          with:
+            "mcp_server_name": "tools.mcp_server_name"
+            "body": "tools.body"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "delete-mcp-server-config"
+          description: "Delete MCP Server from Config"
+          hints:
+            readOnly: false
+            destructive: true
+            idempotent: true
+          call: "letta-tools.delete_mcp_server"
+          with:
+            "mcp_server_name": "tools.mcp_server_name"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "test-mcp-server"
+          description: "Test MCP Server"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: false
+          call: "letta-tools.test_mcp_server"
+          with:
+            "body": "tools.body"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "connect-mcp-server"
+          description: "Connect MCP Server"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "letta-tools.connect_mcp_server"
+          with:
+            "body": "tools.body"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "execute-mcp-tool"
+          description: "Execute MCP Tool"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "letta-tools.execute_mcp_tool"
+          with:
+            "mcp_server_name": "tools.mcp_server_name"
+            "tool_name": "tools.tool_name"
+            "body": "tools.body"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "mcp-oauth-callback"
+          description: "MCP Oauth Callback"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "letta-tools.mcp_oauth_callback"
+          with:
+            "code": "tools.code"
+            "state": "tools.state"
+            "error": "tools.error"
+            "error_description": "tools.error_description"
+          outputParameters:
+            - type: object
+              mapping: "$."

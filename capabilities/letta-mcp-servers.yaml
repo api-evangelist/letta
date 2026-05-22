@@ -1,0 +1,466 @@
+naftiko: "1.0.0-alpha2"
+
+info:
+  label: "Letta API — MCP Servers"
+  description: >-
+    MCP server registry — register external Model Context Protocol servers and expose their tools to agents. 10 operations. Lead operation: Create MCP Server. Self-contained Naftiko capability covering one Letta business surface.
+  tags:
+    - Letta
+    - Stateful Agents
+    - MCP Servers
+  created: "2026-05-08"
+  modified: "2026-05-22"
+
+binds:
+  - namespace: env
+    keys:
+      LETTA_API_KEY: LETTA_API_KEY
+
+capability:
+
+  consumes:
+    - type: http
+      namespace: "letta-mcp-servers"
+      baseUri: "https://api.letta.com"
+      description: "Letta API — MCP Servers business capability. Self-contained, no shared references."
+      authentication:
+        type: bearer
+        token: "{{env.LETTA_API_KEY}}"
+      resources:
+        - name: "mcp-servers"
+          path: "/v1/mcp-servers/"
+          operations:
+            - name: "mcp_create_mcp_server"
+              method: POST
+              description: "Create MCP Server"
+              inputParameters:
+                - name: "body"
+                  in: body
+                  type: object
+                  required: true
+                  description: "Request payload"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: "mcp_list_mcp_servers"
+              method: GET
+              description: "List MCP Servers"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "mcp-servers-by-id"
+          path: "/v1/mcp-servers/{mcp_server_id}"
+          operations:
+            - name: "mcp_retrieve_mcp_server"
+              method: GET
+              description: "Retrieve MCP Server"
+              inputParameters:
+                - name: "mcp_server_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "mcp_server_id parameter"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: "mcp_delete_mcp_server"
+              method: DELETE
+              description: "Delete MCP Server"
+              inputParameters:
+                - name: "mcp_server_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "mcp_server_id parameter"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: "mcp_update_mcp_server"
+              method: PATCH
+              description: "Update MCP Server"
+              inputParameters:
+                - name: "mcp_server_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "mcp_server_id parameter"
+                - name: "body"
+                  in: body
+                  type: object
+                  required: true
+                  description: "Request payload"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "mcp-servers-by-id-tools"
+          path: "/v1/mcp-servers/{mcp_server_id}/tools"
+          operations:
+            - name: "mcp_list_tools_for_mcp_server"
+              method: GET
+              description: "List Tools for MCP Server"
+              inputParameters:
+                - name: "mcp_server_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "mcp_server_id parameter"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "mcp-servers-by-id-tools-by-id"
+          path: "/v1/mcp-servers/{mcp_server_id}/tools/{tool_id}"
+          operations:
+            - name: "mcp_retrieve_mcp_tool"
+              method: GET
+              description: "Retrieve MCP Tool"
+              inputParameters:
+                - name: "mcp_server_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "mcp_server_id parameter"
+                - name: "tool_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "tool_id parameter"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "mcp-servers-by-id-tools-by-id-run"
+          path: "/v1/mcp-servers/{mcp_server_id}/tools/{tool_id}/run"
+          operations:
+            - name: "mcp_run_tool"
+              method: POST
+              description: "Run MCP Tool"
+              inputParameters:
+                - name: "mcp_server_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "mcp_server_id parameter"
+                - name: "tool_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "tool_id parameter"
+                - name: "body"
+                  in: body
+                  type: object
+                  required: true
+                  description: "Request payload"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "mcp-servers-by-id-refresh"
+          path: "/v1/mcp-servers/{mcp_server_id}/refresh"
+          operations:
+            - name: "mcp_refresh_mcp_server_tools"
+              method: PATCH
+              description: "Refresh MCP Server Tools"
+              inputParameters:
+                - name: "mcp_server_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "mcp_server_id parameter"
+                - name: "agent_id"
+                  in: query
+                  type: string
+                  required: false
+                  description: "agent_id parameter"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "mcp-servers-connect-by-id"
+          path: "/v1/mcp-servers/connect/{mcp_server_id}"
+          operations:
+            - name: "mcp_connect_mcp_server"
+              method: GET
+              description: "Connect MCP Server"
+              inputParameters:
+                - name: "mcp_server_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "mcp_server_id parameter"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  exposes:
+    - type: rest
+      namespace: "letta-mcp-servers-rest"
+      port: 8080
+      description: "REST adapter for Letta API — MCP Servers. One Spectral-compliant resource per consumed operation."
+      resources:
+        - path: "/v1/mcp-servers/"
+          name: "mcp-servers"
+          description: "REST surface for mcp-servers."
+          operations:
+            - method: POST
+              name: "mcp_create_mcp_server"
+              description: "Create MCP Server"
+              call: "letta-mcp-servers.mcp_create_mcp_server"
+              with:
+                "body": "rest.body"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: GET
+              name: "mcp_list_mcp_servers"
+              description: "List MCP Servers"
+              call: "letta-mcp-servers.mcp_list_mcp_servers"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/mcp-servers/{mcp-server-id}"
+          name: "mcp-servers-by-id"
+          description: "REST surface for mcp-servers-by-id."
+          operations:
+            - method: GET
+              name: "mcp_retrieve_mcp_server"
+              description: "Retrieve MCP Server"
+              call: "letta-mcp-servers.mcp_retrieve_mcp_server"
+              with:
+                "mcp_server_id": "rest.mcp_server_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: DELETE
+              name: "mcp_delete_mcp_server"
+              description: "Delete MCP Server"
+              call: "letta-mcp-servers.mcp_delete_mcp_server"
+              with:
+                "mcp_server_id": "rest.mcp_server_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: PATCH
+              name: "mcp_update_mcp_server"
+              description: "Update MCP Server"
+              call: "letta-mcp-servers.mcp_update_mcp_server"
+              with:
+                "mcp_server_id": "rest.mcp_server_id"
+                "body": "rest.body"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/mcp-servers/{mcp-server-id}/tools"
+          name: "mcp-servers-by-id-tools"
+          description: "REST surface for mcp-servers-by-id-tools."
+          operations:
+            - method: GET
+              name: "mcp_list_tools_for_mcp_server"
+              description: "List Tools for MCP Server"
+              call: "letta-mcp-servers.mcp_list_tools_for_mcp_server"
+              with:
+                "mcp_server_id": "rest.mcp_server_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/mcp-servers/{mcp-server-id}/tools/{tool-id}"
+          name: "mcp-servers-by-id-tools-by-id"
+          description: "REST surface for mcp-servers-by-id-tools-by-id."
+          operations:
+            - method: GET
+              name: "mcp_retrieve_mcp_tool"
+              description: "Retrieve MCP Tool"
+              call: "letta-mcp-servers.mcp_retrieve_mcp_tool"
+              with:
+                "mcp_server_id": "rest.mcp_server_id"
+                "tool_id": "rest.tool_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/mcp-servers/{mcp-server-id}/tools/{tool-id}/run"
+          name: "mcp-servers-by-id-tools-by-id-run"
+          description: "REST surface for mcp-servers-by-id-tools-by-id-run."
+          operations:
+            - method: POST
+              name: "mcp_run_tool"
+              description: "Run MCP Tool"
+              call: "letta-mcp-servers.mcp_run_tool"
+              with:
+                "mcp_server_id": "rest.mcp_server_id"
+                "tool_id": "rest.tool_id"
+                "body": "rest.body"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/mcp-servers/{mcp-server-id}/refresh"
+          name: "mcp-servers-by-id-refresh"
+          description: "REST surface for mcp-servers-by-id-refresh."
+          operations:
+            - method: PATCH
+              name: "mcp_refresh_mcp_server_tools"
+              description: "Refresh MCP Server Tools"
+              call: "letta-mcp-servers.mcp_refresh_mcp_server_tools"
+              with:
+                "mcp_server_id": "rest.mcp_server_id"
+                "agent_id": "rest.agent_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/mcp-servers/connect/{mcp-server-id}"
+          name: "mcp-servers-connect-by-id"
+          description: "REST surface for mcp-servers-connect-by-id."
+          operations:
+            - method: GET
+              name: "mcp_connect_mcp_server"
+              description: "Connect MCP Server"
+              call: "letta-mcp-servers.mcp_connect_mcp_server"
+              with:
+                "mcp_server_id": "rest.mcp_server_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+    - type: mcp
+      namespace: "letta-mcp-servers-mcp"
+      port: 9090
+      transport: http
+      description: "MCP adapter for Letta API — MCP Servers. One verb-noun tool per consumed operation."
+      tools:
+        - name: "create-mcp-server"
+          description: "Create MCP Server"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "letta-mcp-servers.mcp_create_mcp_server"
+          with:
+            "body": "tools.body"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "list-mcp-servers"
+          description: "List MCP Servers"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "letta-mcp-servers.mcp_list_mcp_servers"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "retrieve-mcp-server"
+          description: "Retrieve MCP Server"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "letta-mcp-servers.mcp_retrieve_mcp_server"
+          with:
+            "mcp_server_id": "tools.mcp_server_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "delete-mcp-server"
+          description: "Delete MCP Server"
+          hints:
+            readOnly: false
+            destructive: true
+            idempotent: true
+          call: "letta-mcp-servers.mcp_delete_mcp_server"
+          with:
+            "mcp_server_id": "tools.mcp_server_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "update-mcp-server"
+          description: "Update MCP Server"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: true
+          call: "letta-mcp-servers.mcp_update_mcp_server"
+          with:
+            "mcp_server_id": "tools.mcp_server_id"
+            "body": "tools.body"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "list-tools-mcp-server"
+          description: "List Tools for MCP Server"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "letta-mcp-servers.mcp_list_tools_for_mcp_server"
+          with:
+            "mcp_server_id": "tools.mcp_server_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "retrieve-mcp-tool"
+          description: "Retrieve MCP Tool"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "letta-mcp-servers.mcp_retrieve_mcp_tool"
+          with:
+            "mcp_server_id": "tools.mcp_server_id"
+            "tool_id": "tools.tool_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "run-mcp-tool"
+          description: "Run MCP Tool"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "letta-mcp-servers.mcp_run_tool"
+          with:
+            "mcp_server_id": "tools.mcp_server_id"
+            "tool_id": "tools.tool_id"
+            "body": "tools.body"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "refresh-mcp-server-tools"
+          description: "Refresh MCP Server Tools"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: true
+          call: "letta-mcp-servers.mcp_refresh_mcp_server_tools"
+          with:
+            "mcp_server_id": "tools.mcp_server_id"
+            "agent_id": "tools.agent_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "connect-mcp-server"
+          description: "Connect MCP Server"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "letta-mcp-servers.mcp_connect_mcp_server"
+          with:
+            "mcp_server_id": "tools.mcp_server_id"
+          outputParameters:
+            - type: object
+              mapping: "$."

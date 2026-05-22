@@ -1,0 +1,415 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/letta/main/json-schema/letta-llm-config-schema.json",
+  "title": "LLMConfig",
+  "description": "Configuration for Language Model (LLM) connection and generation parameters.\n\n.. deprecated::\n    LLMConfig is deprecated and should not be used as an input or return type in API calls.\n    Use the schemas in letta.schemas.model (ModelSettings, OpenAIModelSettings, etc.) instead.\n    For conversion, use the _to_model() method or Model._from_llm_config() method.",
+  "properties": {
+    "model": {
+      "type": "string",
+      "title": "Model",
+      "description": "LLM model name. "
+    },
+    "display_name": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Display Name",
+      "description": "A human-friendly display name for the model."
+    },
+    "model_endpoint_type": {
+      "type": "string",
+      "enum": [
+        "openai",
+        "anthropic",
+        "google_ai",
+        "google_vertex",
+        "azure",
+        "groq",
+        "ollama",
+        "webui",
+        "webui-legacy",
+        "lmstudio",
+        "lmstudio-legacy",
+        "lmstudio-chatcompletions",
+        "llamacpp",
+        "koboldcpp",
+        "vllm",
+        "hugging-face",
+        "minimax",
+        "mistral",
+        "together",
+        "bedrock",
+        "deepseek",
+        "xai",
+        "zai",
+        "zai_coding",
+        "baseten",
+        "fireworks",
+        "openrouter",
+        "chatgpt_oauth"
+      ],
+      "title": "Model Endpoint Type",
+      "description": "The endpoint type for the model."
+    },
+    "model_endpoint": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Model Endpoint",
+      "description": "The endpoint for the model."
+    },
+    "provider_name": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Provider Name",
+      "description": "The provider name for the model."
+    },
+    "provider_category": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/ProviderCategory"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "The provider category for the model."
+    },
+    "model_wrapper": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Model Wrapper",
+      "description": "The wrapper for the model."
+    },
+    "context_window": {
+      "type": "integer",
+      "title": "Context Window",
+      "description": "The context window size for the model."
+    },
+    "put_inner_thoughts_in_kwargs": {
+      "anyOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Put Inner Thoughts In Kwargs",
+      "description": "Puts 'inner_thoughts' as a kwarg in the function call if this is set to True. This helps with function calling performance and also the generation of inner thoughts.",
+      "default": false
+    },
+    "handle": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Handle",
+      "description": "The handle for this config, in the format provider/model-name."
+    },
+    "temperature": {
+      "type": "number",
+      "title": "Temperature",
+      "description": "The temperature to use when generating text with the model. A higher temperature will result in more random text.",
+      "default": 1
+    },
+    "max_tokens": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Max Tokens",
+      "description": "The maximum number of tokens to generate. If not set, the model will use its default value."
+    },
+    "enable_reasoner": {
+      "type": "boolean",
+      "title": "Enable Reasoner",
+      "description": "Whether or not the model should use extended thinking if it is a 'reasoning' style model",
+      "default": true
+    },
+    "reasoning_effort": {
+      "anyOf": [
+        {
+          "type": "string",
+          "enum": [
+            "none",
+            "minimal",
+            "low",
+            "medium",
+            "high",
+            "xhigh"
+          ]
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Reasoning Effort",
+      "description": "The reasoning effort to use when generating text reasoning models"
+    },
+    "max_reasoning_tokens": {
+      "type": "integer",
+      "title": "Max Reasoning Tokens",
+      "description": "Configurable thinking budget for extended thinking. Used for enable_reasoner and also for Google Vertex models like Gemini 2.5 Flash. Minimum value is 1024 when used with enable_reasoner.",
+      "default": 0
+    },
+    "effort": {
+      "anyOf": [
+        {
+          "type": "string",
+          "enum": [
+            "low",
+            "medium",
+            "high",
+            "max"
+          ]
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Effort",
+      "description": "The effort level for Anthropic models that support it (Opus 4.5, Opus 4.6). Controls token spending and thinking behavior. Not setting this gives similar performance to 'high'."
+    },
+    "frequency_penalty": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Frequency Penalty",
+      "description": "Positive values penalize new tokens based on their existing frequency in the text so far, decreasing the model's likelihood to repeat the same line verbatim. From OpenAI: Number between -2.0 and 2.0."
+    },
+    "compatibility_type": {
+      "anyOf": [
+        {
+          "type": "string",
+          "enum": [
+            "gguf",
+            "mlx"
+          ]
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Compatibility Type",
+      "description": "The framework compatibility type for the model."
+    },
+    "verbosity": {
+      "anyOf": [
+        {
+          "type": "string",
+          "enum": [
+            "low",
+            "medium",
+            "high"
+          ]
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Verbosity",
+      "description": "Soft control for how verbose model output should be, used for GPT-5 models."
+    },
+    "tier": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Tier",
+      "description": "The cost tier for the model (cloud only)."
+    },
+    "parallel_tool_calls": {
+      "anyOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Parallel Tool Calls",
+      "description": "Deprecated: Use model_settings to configure parallel tool calls instead. If set to True, enables parallel tool calling. Defaults to False.",
+      "default": false,
+      "deprecated": true
+    },
+    "response_format": {
+      "anyOf": [
+        {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/TextResponseFormat"
+            },
+            {
+              "$ref": "#/$defs/JsonSchemaResponseFormat"
+            },
+            {
+              "$ref": "#/$defs/JsonObjectResponseFormat"
+            }
+          ],
+          "discriminator": {
+            "propertyName": "type",
+            "mapping": {
+              "json_object": "#/components/schemas/JsonObjectResponseFormat",
+              "json_schema": "#/components/schemas/JsonSchemaResponseFormat",
+              "text": "#/components/schemas/TextResponseFormat"
+            }
+          }
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Response Format",
+      "description": "The response format for the model's output. Supports text, json_object, and json_schema (structured outputs). Can be set via model_settings."
+    },
+    "strict": {
+      "type": "boolean",
+      "title": "Strict",
+      "description": "Enable strict mode for tool calling. When true, tool schemas include strict: true and additionalProperties: false, guaranteeing tool outputs match JSON schemas.",
+      "default": false
+    },
+    "return_logprobs": {
+      "type": "boolean",
+      "title": "Return Logprobs",
+      "description": "Whether to return log probabilities of the output tokens. Useful for RL training.",
+      "default": false
+    },
+    "top_logprobs": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Top Logprobs",
+      "description": "Number of most likely tokens to return at each position (0-20). Requires return_logprobs=True."
+    },
+    "return_token_ids": {
+      "type": "boolean",
+      "title": "Return Token Ids",
+      "description": "Whether to return token IDs for all LLM generations via SGLang native endpoint. Required for multi-turn RL training with loss masking. Only works with SGLang provider.",
+      "default": false
+    },
+    "tool_call_parser": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Tool Call Parser",
+      "description": "SGLang tool call parser name (e.g. 'glm47', 'qwen25', 'hermes'). Used by the SGLang native adapter to parse tool calls from raw model output."
+    }
+  },
+  "type": "object",
+  "required": [
+    "model",
+    "model_endpoint_type",
+    "context_window"
+  ],
+  "$defs": {
+    "ProviderCategory": {
+      "type": "string",
+      "enum": [
+        "base",
+        "byok"
+      ],
+      "title": "ProviderCategory"
+    },
+    "TextResponseFormat": {
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "text",
+          "title": "Type",
+          "description": "The type of the response format.",
+          "default": "text"
+        }
+      },
+      "type": "object",
+      "title": "TextResponseFormat",
+      "description": "Response format for plain text responses."
+    },
+    "JsonSchemaResponseFormat": {
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "json_schema",
+          "title": "Type",
+          "description": "The type of the response format.",
+          "default": "json_schema"
+        },
+        "json_schema": {
+          "additionalProperties": true,
+          "type": "object",
+          "title": "Json Schema",
+          "description": "The JSON schema of the response."
+        }
+      },
+      "type": "object",
+      "required": [
+        "json_schema"
+      ],
+      "title": "JsonSchemaResponseFormat",
+      "description": "Response format for JSON schema-based responses."
+    },
+    "JsonObjectResponseFormat": {
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "json_object",
+          "title": "Type",
+          "description": "The type of the response format.",
+          "default": "json_object"
+        }
+      },
+      "type": "object",
+      "title": "JsonObjectResponseFormat",
+      "description": "Response format for JSON object responses."
+    }
+  }
+}

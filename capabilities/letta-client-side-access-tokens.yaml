@@ -1,0 +1,182 @@
+naftiko: "1.0.0-alpha2"
+
+info:
+  label: "Letta API — Client-Side Access Tokens"
+  description: >-
+    Client-side tokens — mint short-lived browser/mobile access tokens. 3 operations. Lead operation: Create Token (Cloud-only). Self-contained Naftiko capability covering one Letta business surface.
+  tags:
+    - Letta
+    - Stateful Agents
+    - Client-Side Access Tokens
+  created: "2026-05-08"
+  modified: "2026-05-22"
+
+binds:
+  - namespace: env
+    keys:
+      LETTA_API_KEY: LETTA_API_KEY
+
+capability:
+
+  consumes:
+    - type: http
+      namespace: "letta-client-side-access-tokens"
+      baseUri: "https://api.letta.com"
+      description: "Letta API — Client-Side Access Tokens business capability. Self-contained, no shared references."
+      authentication:
+        type: bearer
+        token: "{{env.LETTA_API_KEY}}"
+      resources:
+        - name: "client-side-access-tokens"
+          path: "/v1/client-side-access-tokens"
+          operations:
+            - name: "clientsideaccesstokens_createclientsideaccesstoken"
+              method: POST
+              description: "Create Token (Cloud-only)"
+              inputParameters:
+                - name: "body"
+                  in: body
+                  type: object
+                  required: true
+                  description: "Body"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: "clientsideaccesstokens_listclientsideaccesstokens"
+              method: GET
+              description: "List Tokens (Cloud-only)"
+              inputParameters:
+                - name: "agentId"
+                  in: query
+                  type: string
+                  required: false
+                  description: "The agent ID to filter tokens by. If provided, only tokens for this agent will be returned."
+                - name: "offset"
+                  in: query
+                  type: number
+                  required: false
+                  description: "The offset for pagination. Defaults to 0."
+                - name: "limit"
+                  in: query
+                  type: number
+                  required: false
+                  description: "The number of tokens to return per page. Defaults to 10."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "client-side-access-tokens-by-id"
+          path: "/v1/client-side-access-tokens/{token}"
+          operations:
+            - name: "clientsideaccesstokens_deleteclientsideaccesstoken"
+              method: DELETE
+              description: "Delete Token (Cloud-only)"
+              inputParameters:
+                - name: "token"
+                  in: path
+                  type: string
+                  required: true
+                  description: "The access token to delete"
+                - name: "body"
+                  in: body
+                  type: object
+                  required: true
+                  description: "Body"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  exposes:
+    - type: rest
+      namespace: "letta-client-side-access-tokens-rest"
+      port: 8080
+      description: "REST adapter for Letta API — Client-Side Access Tokens. One Spectral-compliant resource per consumed operation."
+      resources:
+        - path: "/v1/client-side-access-tokens"
+          name: "client-side-access-tokens"
+          description: "REST surface for client-side-access-tokens."
+          operations:
+            - method: POST
+              name: "clientsideaccesstokens_createclientsideaccesstoken"
+              description: "Create Token (Cloud-only)"
+              call: "letta-client-side-access-tokens.clientsideaccesstokens_createclientsideaccesstoken"
+              with:
+                "body": "rest.body"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: GET
+              name: "clientsideaccesstokens_listclientsideaccesstokens"
+              description: "List Tokens (Cloud-only)"
+              call: "letta-client-side-access-tokens.clientsideaccesstokens_listclientsideaccesstokens"
+              with:
+                "agentId": "rest.agentId"
+                "offset": "rest.offset"
+                "limit": "rest.limit"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/client-side-access-tokens/{token}"
+          name: "client-side-access-tokens-by-id"
+          description: "REST surface for client-side-access-tokens-by-id."
+          operations:
+            - method: DELETE
+              name: "clientsideaccesstokens_deleteclientsideaccesstoken"
+              description: "Delete Token (Cloud-only)"
+              call: "letta-client-side-access-tokens.clientsideaccesstokens_deleteclientsideaccesstoken"
+              with:
+                "token": "rest.token"
+                "body": "rest.body"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+    - type: mcp
+      namespace: "letta-client-side-access-tokens-mcp"
+      port: 9090
+      transport: http
+      description: "MCP adapter for Letta API — Client-Side Access Tokens. One verb-noun tool per consumed operation."
+      tools:
+        - name: "create-token-cloud-only"
+          description: "Create Token (Cloud-only)"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "letta-client-side-access-tokens.clientsideaccesstokens_createclientsideaccesstoken"
+          with:
+            "body": "tools.body"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "list-tokens-cloud-only"
+          description: "List Tokens (Cloud-only)"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "letta-client-side-access-tokens.clientsideaccesstokens_listclientsideaccesstokens"
+          with:
+            "agentId": "tools.agentId"
+            "offset": "tools.offset"
+            "limit": "tools.limit"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "delete-token-cloud-only"
+          description: "Delete Token (Cloud-only)"
+          hints:
+            readOnly: false
+            destructive: true
+            idempotent: true
+          call: "letta-client-side-access-tokens.clientsideaccesstokens_deleteclientsideaccesstoken"
+          with:
+            "token": "tools.token"
+            "body": "tools.body"
+          outputParameters:
+            - type: object
+              mapping: "$."

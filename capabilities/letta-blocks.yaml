@@ -1,0 +1,630 @@
+naftiko: "1.0.0-alpha2"
+
+info:
+  label: "Letta API — Blocks"
+  description: >-
+    Memory blocks — manage labeled in-context memory blocks shared across agents. 9 operations. Lead operation: List Blocks. Self-contained Naftiko capability covering one Letta business surface.
+  tags:
+    - Letta
+    - Stateful Agents
+    - Blocks
+  created: "2026-05-08"
+  modified: "2026-05-22"
+
+binds:
+  - namespace: env
+    keys:
+      LETTA_API_KEY: LETTA_API_KEY
+
+capability:
+
+  consumes:
+    - type: http
+      namespace: "letta-blocks"
+      baseUri: "https://api.letta.com"
+      description: "Letta API — Blocks business capability. Self-contained, no shared references."
+      authentication:
+        type: bearer
+        token: "{{env.LETTA_API_KEY}}"
+      resources:
+        - name: "blocks"
+          path: "/v1/blocks/"
+          operations:
+            - name: "list_blocks"
+              method: GET
+              description: "List Blocks"
+              inputParameters:
+                - name: "label"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Label to include (alphanumeric, hyphens, underscores, forward slashes)"
+                - name: "templates_only"
+                  in: query
+                  type: boolean
+                  required: false
+                  description: "Whether to include only templates"
+                - name: "name"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Name filter (alphanumeric, spaces, hyphens, underscores)"
+                - name: "identity_id"
+                  in: query
+                  type: string
+                  required: false
+                  description: "The ID of the identity in the format 'identity-<uuid4>'"
+                - name: "identifier_keys"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Search agents by identifier keys"
+                - name: "project_id"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Search blocks by project id"
+                - name: "tags"
+                  in: query
+                  type: string
+                  required: false
+                  description: "List of tags to filter blocks by"
+                - name: "match_all_tags"
+                  in: query
+                  type: boolean
+                  required: false
+                  description: "If True, only returns blocks that match ALL given tags. Otherwise, return blocks that have ANY of the passed-in tags."
+                - name: "limit"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Number of blocks to return"
+                - name: "before"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Block ID cursor for pagination. Returns blocks that come before this block ID in the specified sort order"
+                - name: "after"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Block ID cursor for pagination. Returns blocks that come after this block ID in the specified sort order"
+                - name: "order"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Sort order for blocks by creation time. 'asc' for oldest first, 'desc' for newest first"
+                - name: "order_by"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Field to sort by"
+                - name: "label_search"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Search blocks by label. If provided, returns blocks whose label matches the search query. This is a full-text search on block labels."
+                - name: "description_search"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Search blocks by description. If provided, returns blocks whose description matches the search query. This is a full-text search on block descriptions."
+                - name: "value_search"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Search blocks by value. If provided, returns blocks whose value matches the search query. This is a full-text search on block values."
+                - name: "connected_to_agents_count_gt"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Filter blocks by the number of connected agents. If provided, returns blocks that have more than this number of connected agents."
+                - name: "connected_to_agents_count_lt"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Filter blocks by the number of connected agents. If provided, returns blocks that have less than this number of connected agents."
+                - name: "connected_to_agents_count_eq"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Filter blocks by the exact number of connected agents. If provided, returns blocks that have exactly this number of connected agents."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: "create_block"
+              method: POST
+              description: "Create Block"
+              inputParameters:
+                - name: "body"
+                  in: body
+                  type: object
+                  required: true
+                  description: "Request payload"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "blocks-count"
+          path: "/v1/blocks/count"
+          operations:
+            - name: "count_blocks"
+              method: GET
+              description: "Count Blocks"
+              inputParameters:
+                - name: "label"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Label to include (alphanumeric, hyphens, underscores, forward slashes)"
+                - name: "templates_only"
+                  in: query
+                  type: boolean
+                  required: false
+                  description: "Whether to include only templates"
+                - name: "name"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Name filter (alphanumeric, spaces, hyphens, underscores)"
+                - name: "tags"
+                  in: query
+                  type: string
+                  required: false
+                  description: "List of tags to filter blocks by"
+                - name: "match_all_tags"
+                  in: query
+                  type: boolean
+                  required: false
+                  description: "If True, only counts blocks that match ALL given tags. Otherwise, counts blocks that have ANY of the passed-in tags."
+                - name: "project_id"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Search blocks by project id"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "blocks-by-id"
+          path: "/v1/blocks/{block_id}"
+          operations:
+            - name: "modify_block"
+              method: PATCH
+              description: "Modify Block"
+              inputParameters:
+                - name: "block_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "The ID of the block in the format 'block-<uuid4>'"
+                - name: "body"
+                  in: body
+                  type: object
+                  required: true
+                  description: "Request payload"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: "delete_block"
+              method: DELETE
+              description: "Delete Block"
+              inputParameters:
+                - name: "block_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "The ID of the block in the format 'block-<uuid4>'"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: "retrieve_block"
+              method: GET
+              description: "Retrieve Block"
+              inputParameters:
+                - name: "block_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "The ID of the block in the format 'block-<uuid4>'"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "blocks-by-id-agents"
+          path: "/v1/blocks/{block_id}/agents"
+          operations:
+            - name: "list_agents_for_block"
+              method: GET
+              description: "List Agents for Block"
+              inputParameters:
+                - name: "block_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "The ID of the block in the format 'block-<uuid4>'"
+                - name: "before"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Agent ID cursor for pagination. Returns agents that come before this agent ID in the specified sort order"
+                - name: "after"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Agent ID cursor for pagination. Returns agents that come after this agent ID in the specified sort order"
+                - name: "limit"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Maximum number of agents to return"
+                - name: "order"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Sort order for agents by creation time. 'asc' for oldest first, 'desc' for newest first"
+                - name: "order_by"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Field to sort by"
+                - name: "include_relationships"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Specify which relational fields (e.g., 'tools', 'sources', 'memory') to include in the response. If not provided, all relationships are loaded by default. Using this can optimize performance by reduci"
+                - name: "include"
+                  in: query
+                  type: array
+                  required: false
+                  description: "Specify which relational fields to include in the response. No relationships are included by default."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "blocks-by-id-identities-attach-by-id"
+          path: "/v1/blocks/{block_id}/identities/attach/{identity_id}"
+          operations:
+            - name: "attach_identity_to_block"
+              method: PATCH
+              description: "Attach Identity to Block"
+              inputParameters:
+                - name: "identity_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "identity_id parameter"
+                - name: "block_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "The ID of the block in the format 'block-<uuid4>'"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "blocks-by-id-identities-detach-by-id"
+          path: "/v1/blocks/{block_id}/identities/detach/{identity_id}"
+          operations:
+            - name: "detach_identity_from_block"
+              method: PATCH
+              description: "Detach Identity from Block"
+              inputParameters:
+                - name: "identity_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "identity_id parameter"
+                - name: "block_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "The ID of the block in the format 'block-<uuid4>'"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  exposes:
+    - type: rest
+      namespace: "letta-blocks-rest"
+      port: 8080
+      description: "REST adapter for Letta API — Blocks. One Spectral-compliant resource per consumed operation."
+      resources:
+        - path: "/v1/blocks/"
+          name: "blocks"
+          description: "REST surface for blocks."
+          operations:
+            - method: GET
+              name: "list_blocks"
+              description: "List Blocks"
+              call: "letta-blocks.list_blocks"
+              with:
+                "label": "rest.label"
+                "templates_only": "rest.templates_only"
+                "name": "rest.name"
+                "identity_id": "rest.identity_id"
+                "identifier_keys": "rest.identifier_keys"
+                "project_id": "rest.project_id"
+                "tags": "rest.tags"
+                "match_all_tags": "rest.match_all_tags"
+                "limit": "rest.limit"
+                "before": "rest.before"
+                "after": "rest.after"
+                "order": "rest.order"
+                "order_by": "rest.order_by"
+                "label_search": "rest.label_search"
+                "description_search": "rest.description_search"
+                "value_search": "rest.value_search"
+                "connected_to_agents_count_gt": "rest.connected_to_agents_count_gt"
+                "connected_to_agents_count_lt": "rest.connected_to_agents_count_lt"
+                "connected_to_agents_count_eq": "rest.connected_to_agents_count_eq"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: "create_block"
+              description: "Create Block"
+              call: "letta-blocks.create_block"
+              with:
+                "body": "rest.body"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/blocks/count"
+          name: "blocks-count"
+          description: "REST surface for blocks-count."
+          operations:
+            - method: GET
+              name: "count_blocks"
+              description: "Count Blocks"
+              call: "letta-blocks.count_blocks"
+              with:
+                "label": "rest.label"
+                "templates_only": "rest.templates_only"
+                "name": "rest.name"
+                "tags": "rest.tags"
+                "match_all_tags": "rest.match_all_tags"
+                "project_id": "rest.project_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/blocks/{block-id}"
+          name: "blocks-by-id"
+          description: "REST surface for blocks-by-id."
+          operations:
+            - method: PATCH
+              name: "modify_block"
+              description: "Modify Block"
+              call: "letta-blocks.modify_block"
+              with:
+                "block_id": "rest.block_id"
+                "body": "rest.body"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: DELETE
+              name: "delete_block"
+              description: "Delete Block"
+              call: "letta-blocks.delete_block"
+              with:
+                "block_id": "rest.block_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: GET
+              name: "retrieve_block"
+              description: "Retrieve Block"
+              call: "letta-blocks.retrieve_block"
+              with:
+                "block_id": "rest.block_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/blocks/{block-id}/agents"
+          name: "blocks-by-id-agents"
+          description: "REST surface for blocks-by-id-agents."
+          operations:
+            - method: GET
+              name: "list_agents_for_block"
+              description: "List Agents for Block"
+              call: "letta-blocks.list_agents_for_block"
+              with:
+                "block_id": "rest.block_id"
+                "before": "rest.before"
+                "after": "rest.after"
+                "limit": "rest.limit"
+                "order": "rest.order"
+                "order_by": "rest.order_by"
+                "include_relationships": "rest.include_relationships"
+                "include": "rest.include"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/blocks/{block-id}/identities/attach/{identity-id}"
+          name: "blocks-by-id-identities-attach-by-id"
+          description: "REST surface for blocks-by-id-identities-attach-by-id."
+          operations:
+            - method: PATCH
+              name: "attach_identity_to_block"
+              description: "Attach Identity to Block"
+              call: "letta-blocks.attach_identity_to_block"
+              with:
+                "identity_id": "rest.identity_id"
+                "block_id": "rest.block_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/blocks/{block-id}/identities/detach/{identity-id}"
+          name: "blocks-by-id-identities-detach-by-id"
+          description: "REST surface for blocks-by-id-identities-detach-by-id."
+          operations:
+            - method: PATCH
+              name: "detach_identity_from_block"
+              description: "Detach Identity from Block"
+              call: "letta-blocks.detach_identity_from_block"
+              with:
+                "identity_id": "rest.identity_id"
+                "block_id": "rest.block_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+    - type: mcp
+      namespace: "letta-blocks-mcp"
+      port: 9090
+      transport: http
+      description: "MCP adapter for Letta API — Blocks. One verb-noun tool per consumed operation."
+      tools:
+        - name: "list-blocks"
+          description: "List Blocks"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "letta-blocks.list_blocks"
+          with:
+            "label": "tools.label"
+            "templates_only": "tools.templates_only"
+            "name": "tools.name"
+            "identity_id": "tools.identity_id"
+            "identifier_keys": "tools.identifier_keys"
+            "project_id": "tools.project_id"
+            "tags": "tools.tags"
+            "match_all_tags": "tools.match_all_tags"
+            "limit": "tools.limit"
+            "before": "tools.before"
+            "after": "tools.after"
+            "order": "tools.order"
+            "order_by": "tools.order_by"
+            "label_search": "tools.label_search"
+            "description_search": "tools.description_search"
+            "value_search": "tools.value_search"
+            "connected_to_agents_count_gt": "tools.connected_to_agents_count_gt"
+            "connected_to_agents_count_lt": "tools.connected_to_agents_count_lt"
+            "connected_to_agents_count_eq": "tools.connected_to_agents_count_eq"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "create-block"
+          description: "Create Block"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "letta-blocks.create_block"
+          with:
+            "body": "tools.body"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "count-blocks"
+          description: "Count Blocks"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "letta-blocks.count_blocks"
+          with:
+            "label": "tools.label"
+            "templates_only": "tools.templates_only"
+            "name": "tools.name"
+            "tags": "tools.tags"
+            "match_all_tags": "tools.match_all_tags"
+            "project_id": "tools.project_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "modify-block"
+          description: "Modify Block"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: true
+          call: "letta-blocks.modify_block"
+          with:
+            "block_id": "tools.block_id"
+            "body": "tools.body"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "delete-block"
+          description: "Delete Block"
+          hints:
+            readOnly: false
+            destructive: true
+            idempotent: true
+          call: "letta-blocks.delete_block"
+          with:
+            "block_id": "tools.block_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "retrieve-block"
+          description: "Retrieve Block"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "letta-blocks.retrieve_block"
+          with:
+            "block_id": "tools.block_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "list-agents-block"
+          description: "List Agents for Block"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "letta-blocks.list_agents_for_block"
+          with:
+            "block_id": "tools.block_id"
+            "before": "tools.before"
+            "after": "tools.after"
+            "limit": "tools.limit"
+            "order": "tools.order"
+            "order_by": "tools.order_by"
+            "include_relationships": "tools.include_relationships"
+            "include": "tools.include"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "attach-identity-block"
+          description: "Attach Identity to Block"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: true
+          call: "letta-blocks.attach_identity_to_block"
+          with:
+            "identity_id": "tools.identity_id"
+            "block_id": "tools.block_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "detach-identity-block"
+          description: "Detach Identity from Block"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: true
+          call: "letta-blocks.detach_identity_from_block"
+          with:
+            "identity_id": "tools.identity_id"
+            "block_id": "tools.block_id"
+          outputParameters:
+            - type: object
+              mapping: "$."

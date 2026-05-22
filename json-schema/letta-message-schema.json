@@ -1,0 +1,954 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/letta/main/json-schema/letta-message-schema.json",
+  "title": "Message",
+  "description": "    Letta's internal representation of a message. Includes methods to convert to/from LLM provider formats.\n\n    Attributes:\n        id (str): The unique identifier of the message.\n        role (MessageRole): The role of the participant.\n        text (str): The text of the message.\n        user_id (str): The unique identifier of the user.\n        agent_id (str): The unique identifier of the agent.\n        model (str): The model used to make the function call.\n        name (str): The name of the participant.\n        created_at (datetime): The time the message was created.\n        tool_calls (List[OpenAIToolCall,]): The list of tool calls requested.\n        tool_call_id (str): The id of the tool call.\n        step_id (str): The id of the step that this message was created in.\n        otid (str): The offline threading id associated with this message.\n        tool_returns (List[ToolReturn]): The list of tool returns requested.\n        group_id (str): The multi-agent group that the message was sent in.\n        sender_id (str): The id of the sender of the message, can be an identity id or agent id.\n        conversation_id (str): The conversation this message belongs to.\nt",
+  "properties": {
+    "created_by_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Created By Id",
+      "description": "The id of the user that made this object."
+    },
+    "last_updated_by_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Last Updated By Id",
+      "description": "The id of the user that made this object."
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Created At",
+      "description": "The timestamp when the object was created."
+    },
+    "updated_at": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "date-time"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Updated At",
+      "description": "The timestamp when the object was last updated."
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^message-[a-fA-F0-9]{8}",
+      "title": "Id",
+      "description": "The human-friendly ID of the Message",
+      "examples": [
+        "message-123e4567-e89b-12d3-a456-426614174000"
+      ]
+    },
+    "agent_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Agent Id",
+      "description": "The unique identifier of the agent."
+    },
+    "model": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Model",
+      "description": "The model used to make the function call."
+    },
+    "role": {
+      "$ref": "#/$defs/MessageRole"
+    },
+    "content": {
+      "anyOf": [
+        {
+          "items": {
+            "oneOf": [
+              {
+                "$ref": "#/$defs/TextContent"
+              },
+              {
+                "$ref": "#/$defs/ImageContent"
+              },
+              {
+                "$ref": "#/$defs/ToolCallContent"
+              },
+              {
+                "$ref": "#/$defs/ToolReturnContent"
+              },
+              {
+                "$ref": "#/$defs/ReasoningContent"
+              },
+              {
+                "$ref": "#/$defs/RedactedReasoningContent"
+              },
+              {
+                "$ref": "#/$defs/OmittedReasoningContent"
+              },
+              {
+                "$ref": "#/$defs/SummarizedReasoningContent"
+              }
+            ],
+            "discriminator": {
+              "propertyName": "type",
+              "mapping": {
+                "image": "#/components/schemas/ImageContent",
+                "omitted_reasoning": "#/components/schemas/OmittedReasoningContent",
+                "reasoning": "#/components/schemas/ReasoningContent",
+                "redacted_reasoning": "#/components/schemas/RedactedReasoningContent",
+                "summarized_reasoning": "#/components/schemas/SummarizedReasoningContent",
+                "text": "#/components/schemas/TextContent",
+                "tool_call": "#/components/schemas/ToolCallContent",
+                "tool_return": "#/components/schemas/ToolReturnContent"
+              }
+            }
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Content",
+      "description": "The content of the message."
+    },
+    "name": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Name",
+      "description": "For role user/assistant: the (optional) name of the participant. For role tool/function: the name of the function called."
+    },
+    "tool_calls": {
+      "anyOf": [
+        {
+          "items": {
+            "$ref": "#/$defs/ChatCompletionMessageFunctionToolCall-Output"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Tool Calls",
+      "description": "The list of tool calls requested. Only applicable for role assistant."
+    },
+    "tool_call_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Tool Call Id",
+      "description": "The ID of the tool call. Only applicable for role tool."
+    },
+    "step_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Step Id",
+      "description": "The id of the step that this message was created in."
+    },
+    "run_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Run Id",
+      "description": "The id of the run that this message was created in."
+    },
+    "otid": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Otid",
+      "description": "The offline threading id associated with this message"
+    },
+    "tool_returns": {
+      "anyOf": [
+        {
+          "items": {
+            "$ref": "#/$defs/letta__schemas__message__ToolReturn-Output"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Tool Returns",
+      "description": "Tool execution return information for prior tool calls"
+    },
+    "group_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Group Id",
+      "description": "The multi-agent group that the message was sent in"
+    },
+    "sender_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Sender Id",
+      "description": "The id of the sender of the message, can be an identity id or agent id"
+    },
+    "batch_item_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Batch Item Id",
+      "description": "The id of the LLMBatchItem that this message is associated with"
+    },
+    "conversation_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Conversation Id",
+      "description": "The conversation this message belongs to"
+    },
+    "is_err": {
+      "anyOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Is Err",
+      "description": "Whether this message is part of an error step. Used only for debugging purposes."
+    },
+    "approval_request_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Approval Request Id",
+      "description": "The id of the approval request if this message is associated with a tool call request."
+    },
+    "approve": {
+      "anyOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Approve",
+      "description": "Whether tool call is approved."
+    },
+    "denial_reason": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Denial Reason",
+      "description": "The reason the tool call request was denied."
+    },
+    "approvals": {
+      "anyOf": [
+        {
+          "items": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/ApprovalReturn"
+              },
+              {
+                "$ref": "#/$defs/letta__schemas__message__ToolReturn-Output"
+              }
+            ]
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Approvals",
+      "description": "The list of approvals for this message."
+    }
+  },
+  "additionalProperties": false,
+  "type": "object",
+  "required": [
+    "role"
+  ],
+  "$defs": {
+    "MessageRole": {
+      "type": "string",
+      "enum": [
+        "assistant",
+        "user",
+        "tool",
+        "function",
+        "system",
+        "approval",
+        "summary"
+      ],
+      "title": "MessageRole"
+    },
+    "TextContent": {
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "text",
+          "title": "Type",
+          "description": "The type of the message.",
+          "default": "text"
+        },
+        "text": {
+          "type": "string",
+          "title": "Text",
+          "description": "The text content of the message."
+        },
+        "signature": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Signature",
+          "description": "Stores a unique identifier for any reasoning associated with this text content."
+        }
+      },
+      "type": "object",
+      "required": [
+        "text"
+      ],
+      "title": "TextContent"
+    },
+    "ImageContent": {
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "image",
+          "title": "Type",
+          "description": "The type of the message.",
+          "default": "image"
+        },
+        "source": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/UrlImage"
+            },
+            {
+              "$ref": "#/$defs/Base64Image"
+            },
+            {
+              "$ref": "#/$defs/LettaImage"
+            }
+          ],
+          "title": "Source",
+          "description": "The source of the image.",
+          "discriminator": {
+            "propertyName": "type",
+            "mapping": {
+              "base64": "#/components/schemas/Base64Image",
+              "letta": "#/components/schemas/LettaImage",
+              "url": "#/components/schemas/UrlImage"
+            }
+          }
+        }
+      },
+      "type": "object",
+      "required": [
+        "source"
+      ],
+      "title": "ImageContent"
+    },
+    "UrlImage": {
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "url",
+          "title": "Type",
+          "description": "The source type for the image.",
+          "default": "url"
+        },
+        "url": {
+          "type": "string",
+          "title": "Url",
+          "description": "The URL of the image."
+        }
+      },
+      "type": "object",
+      "required": [
+        "url"
+      ],
+      "title": "UrlImage"
+    },
+    "Base64Image": {
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "base64",
+          "title": "Type",
+          "description": "The source type for the image.",
+          "default": "base64"
+        },
+        "media_type": {
+          "type": "string",
+          "title": "Media Type",
+          "description": "The media type for the image."
+        },
+        "data": {
+          "type": "string",
+          "title": "Data",
+          "description": "The base64 encoded image data."
+        },
+        "detail": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Detail",
+          "description": "What level of detail to use when processing and understanding the image (low, high, or auto to let the model decide)"
+        }
+      },
+      "type": "object",
+      "required": [
+        "media_type",
+        "data"
+      ],
+      "title": "Base64Image"
+    },
+    "LettaImage": {
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "letta",
+          "title": "Type",
+          "description": "The source type for the image.",
+          "default": "letta"
+        },
+        "file_id": {
+          "type": "string",
+          "title": "File Id",
+          "description": "The unique identifier of the image file persisted in storage."
+        },
+        "media_type": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Media Type",
+          "description": "The media type for the image."
+        },
+        "data": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Data",
+          "description": "The base64 encoded image data."
+        },
+        "detail": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Detail",
+          "description": "What level of detail to use when processing and understanding the image (low, high, or auto to let the model decide)"
+        }
+      },
+      "type": "object",
+      "required": [
+        "file_id"
+      ],
+      "title": "LettaImage"
+    },
+    "ToolCallContent": {
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "tool_call",
+          "title": "Type",
+          "description": "Indicates this content represents a tool call event.",
+          "default": "tool_call"
+        },
+        "id": {
+          "type": "string",
+          "title": "Id",
+          "description": "A unique identifier for this specific tool call instance."
+        },
+        "name": {
+          "type": "string",
+          "title": "Name",
+          "description": "The name of the tool being called."
+        },
+        "input": {
+          "additionalProperties": true,
+          "type": "object",
+          "title": "Input",
+          "description": "The parameters being passed to the tool, structured as a dictionary of parameter names to values."
+        },
+        "signature": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Signature",
+          "description": "Stores a unique identifier for any reasoning associated with this tool call."
+        }
+      },
+      "type": "object",
+      "required": [
+        "id",
+        "name",
+        "input"
+      ],
+      "title": "ToolCallContent"
+    },
+    "ToolReturnContent": {
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "tool_return",
+          "title": "Type",
+          "description": "Indicates this content represents a tool return event.",
+          "default": "tool_return"
+        },
+        "tool_call_id": {
+          "type": "string",
+          "title": "Tool Call Id",
+          "description": "References the ID of the ToolCallContent that initiated this tool call."
+        },
+        "content": {
+          "type": "string",
+          "title": "Content",
+          "description": "The content returned by the tool execution."
+        },
+        "is_error": {
+          "type": "boolean",
+          "title": "Is Error",
+          "description": "Indicates whether the tool execution resulted in an error."
+        }
+      },
+      "type": "object",
+      "required": [
+        "tool_call_id",
+        "content",
+        "is_error"
+      ],
+      "title": "ToolReturnContent"
+    },
+    "ReasoningContent": {
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "reasoning",
+          "title": "Type",
+          "description": "Indicates this is a reasoning/intermediate step.",
+          "default": "reasoning"
+        },
+        "is_native": {
+          "type": "boolean",
+          "title": "Is Native",
+          "description": "Whether the reasoning content was generated by a reasoner model that processed this step."
+        },
+        "reasoning": {
+          "type": "string",
+          "title": "Reasoning",
+          "description": "The intermediate reasoning or thought process content."
+        },
+        "signature": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Signature",
+          "description": "A unique identifier for this reasoning step."
+        }
+      },
+      "type": "object",
+      "required": [
+        "is_native",
+        "reasoning"
+      ],
+      "title": "ReasoningContent",
+      "description": "Sent via the Anthropic Messages API"
+    },
+    "RedactedReasoningContent": {
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "redacted_reasoning",
+          "title": "Type",
+          "description": "Indicates this is a redacted thinking step.",
+          "default": "redacted_reasoning"
+        },
+        "data": {
+          "type": "string",
+          "title": "Data",
+          "description": "The redacted or filtered intermediate reasoning content."
+        }
+      },
+      "type": "object",
+      "required": [
+        "data"
+      ],
+      "title": "RedactedReasoningContent",
+      "description": "Sent via the Anthropic Messages API"
+    },
+    "OmittedReasoningContent": {
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "omitted_reasoning",
+          "title": "Type",
+          "description": "Indicates this is an omitted reasoning step.",
+          "default": "omitted_reasoning"
+        },
+        "signature": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Signature",
+          "description": "A unique identifier for this reasoning step."
+        }
+      },
+      "type": "object",
+      "title": "OmittedReasoningContent",
+      "description": "A placeholder for reasoning content we know is present, but isn't returned by the provider (e.g. OpenAI GPT-5 on ChatCompletions)"
+    },
+    "SummarizedReasoningContent": {
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "summarized_reasoning",
+          "title": "Type",
+          "description": "Indicates this is a summarized reasoning step.",
+          "default": "summarized_reasoning"
+        },
+        "id": {
+          "type": "string",
+          "title": "Id",
+          "description": "The unique identifier for this reasoning step."
+        },
+        "summary": {
+          "items": {
+            "$ref": "#/$defs/SummarizedReasoningContentPart"
+          },
+          "type": "array",
+          "title": "Summary",
+          "description": "Summaries of the reasoning content."
+        },
+        "encrypted_content": {
+          "type": "string",
+          "title": "Encrypted Content",
+          "description": "The encrypted reasoning content."
+        }
+      },
+      "type": "object",
+      "required": [
+        "id",
+        "summary"
+      ],
+      "title": "SummarizedReasoningContent",
+      "description": "The style of reasoning content returned by the OpenAI Responses API"
+    },
+    "SummarizedReasoningContentPart": {
+      "properties": {
+        "index": {
+          "type": "integer",
+          "title": "Index",
+          "description": "The index of the summary part."
+        },
+        "text": {
+          "type": "string",
+          "title": "Text",
+          "description": "The text of the summary part."
+        }
+      },
+      "type": "object",
+      "required": [
+        "index",
+        "text"
+      ],
+      "title": "SummarizedReasoningContentPart"
+    },
+    "ChatCompletionMessageFunctionToolCall-Output": {
+      "properties": {
+        "id": {
+          "type": "string",
+          "title": "Id"
+        },
+        "function": {
+          "$ref": "#/$defs/Function-Output"
+        },
+        "type": {
+          "type": "string",
+          "const": "function",
+          "title": "Type"
+        }
+      },
+      "additionalProperties": true,
+      "type": "object",
+      "required": [
+        "id",
+        "function",
+        "type"
+      ],
+      "title": "ChatCompletionMessageFunctionToolCall",
+      "description": "A call to a function tool created by the model."
+    },
+    "Function-Output": {
+      "properties": {
+        "arguments": {
+          "type": "string",
+          "title": "Arguments"
+        },
+        "name": {
+          "type": "string",
+          "title": "Name"
+        }
+      },
+      "additionalProperties": true,
+      "type": "object",
+      "required": [
+        "arguments",
+        "name"
+      ],
+      "title": "Function",
+      "description": "The function that the model called."
+    },
+    "letta__schemas__message__ToolReturn-Output": {
+      "properties": {
+        "tool_call_id": {
+          "anyOf": [
+            {},
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Tool Call Id",
+          "description": "The ID for the tool call"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "success",
+            "error"
+          ],
+          "title": "Status",
+          "description": "The status of the tool call"
+        },
+        "stdout": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Stdout",
+          "description": "Captured stdout (e.g. prints, logs) from the tool invocation"
+        },
+        "stderr": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Stderr",
+          "description": "Captured stderr from the tool invocation"
+        },
+        "func_response": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "items": {
+                "oneOf": [
+                  {
+                    "$ref": "#/$defs/TextContent"
+                  },
+                  {
+                    "$ref": "#/$defs/ImageContent"
+                  }
+                ],
+                "discriminator": {
+                  "propertyName": "type",
+                  "mapping": {
+                    "image": "#/components/schemas/ImageContent",
+                    "text": "#/components/schemas/TextContent"
+                  }
+                }
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Func Response",
+          "description": "The function response - either a string or list of content parts (text/image)"
+        }
+      },
+      "type": "object",
+      "required": [
+        "status"
+      ],
+      "title": "ToolReturn"
+    },
+    "ApprovalReturn": {
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "approval",
+          "title": "Type",
+          "description": "The message type to be created.",
+          "default": "approval"
+        },
+        "tool_call_id": {
+          "type": "string",
+          "title": "Tool Call Id",
+          "description": "The ID of the tool call that corresponds to this approval"
+        },
+        "approve": {
+          "type": "boolean",
+          "title": "Approve",
+          "description": "Whether the tool has been approved"
+        },
+        "reason": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Reason",
+          "description": "An optional explanation for the provided approval status"
+        }
+      },
+      "type": "object",
+      "required": [
+        "tool_call_id",
+        "approve"
+      ],
+      "title": "ApprovalReturn"
+    }
+  }
+}

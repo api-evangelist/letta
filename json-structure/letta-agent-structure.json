@@ -1,0 +1,382 @@
+{
+  "jsonStructure": "0.1",
+  "name": "letta-agent",
+  "title": "Letta AgentState",
+  "description": "Flat structure summary of the Letta AgentState entity, derived from the Letta OpenAPI 1.0.0 spec.",
+  "source": "https://raw.githubusercontent.com/letta-ai/letta/main/fern/openapi.json",
+  "entity": "AgentState",
+  "fields": [
+    {
+      "name": "created_by_id",
+      "type": "object",
+      "required": false,
+      "description": "The id of the user that made this object.",
+      "enum": null,
+      "format": null
+    },
+    {
+      "name": "last_updated_by_id",
+      "type": "object",
+      "required": false,
+      "description": "The id of the user that made this object.",
+      "enum": null,
+      "format": null
+    },
+    {
+      "name": "created_at",
+      "type": "object",
+      "required": false,
+      "description": "The timestamp when the object was created.",
+      "enum": null,
+      "format": null
+    },
+    {
+      "name": "updated_at",
+      "type": "object",
+      "required": false,
+      "description": "The timestamp when the object was last updated.",
+      "enum": null,
+      "format": null
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "required": true,
+      "description": "The id of the agent. Assigned by the database.",
+      "enum": null,
+      "format": null
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "description": "The name of the agent.",
+      "enum": null,
+      "format": null
+    },
+    {
+      "name": "tool_rules",
+      "type": "object",
+      "required": false,
+      "description": "The list of tool rules.",
+      "enum": null,
+      "format": null
+    },
+    {
+      "name": "message_ids",
+      "type": "object",
+      "required": false,
+      "description": "The ids of the messages in the agent's in-context memory.",
+      "enum": null,
+      "format": null
+    },
+    {
+      "name": "system",
+      "type": "string",
+      "required": true,
+      "description": "The system prompt used by the agent.",
+      "enum": null,
+      "format": null
+    },
+    {
+      "name": "agent_type",
+      "type": "string",
+      "required": true,
+      "description": "Enum to represent the type of agent.",
+      "enum": [
+        "memgpt_agent",
+        "memgpt_v2_agent",
+        "letta_v1_agent",
+        "react_agent",
+        "workflow_agent",
+        "split_thread_agent",
+        "sleeptime_agent",
+        "voice_convo_agent",
+        "voice_sleeptime_agent"
+      ],
+      "format": null
+    },
+    {
+      "name": "llm_config",
+      "type": "object",
+      "required": true,
+      "description": "Configuration for Language Model (LLM) connection and generation parameters.",
+      "enum": null,
+      "format": null
+    },
+    {
+      "name": "embedding_config",
+      "type": "object",
+      "required": false,
+      "description": "Deprecated: Use `embedding` field instead. The embedding configuration used by the agent.",
+      "enum": null,
+      "format": null
+    },
+    {
+      "name": "model",
+      "type": "object",
+      "required": false,
+      "description": "The model handle used by the agent (format: provider/model-name).",
+      "enum": null,
+      "format": null
+    },
+    {
+      "name": "embedding",
+      "type": "object",
+      "required": false,
+      "description": "The embedding model handle used by the agent (format: provider/model-name).",
+      "enum": null,
+      "format": null
+    },
+    {
+      "name": "model_settings",
+      "type": "object",
+      "required": false,
+      "description": "The model settings used by the agent.",
+      "enum": null,
+      "format": null
+    },
+    {
+      "name": "compaction_settings",
+      "type": "object",
+      "required": false,
+      "description": "The compaction settings configuration used for compaction.",
+      "enum": null,
+      "format": null
+    },
+    {
+      "name": "response_format",
+      "type": "object",
+      "required": false,
+      "description": "The response format used by the agent",
+      "enum": null,
+      "format": null
+    },
+    {
+      "name": "description",
+      "type": "object",
+      "required": false,
+      "description": "The description of the agent.",
+      "enum": null,
+      "format": null
+    },
+    {
+      "name": "metadata",
+      "type": "object",
+      "required": false,
+      "description": "The metadata of the agent.",
+      "enum": null,
+      "format": null
+    },
+    {
+      "name": "memory",
+      "type": "object",
+      "required": true,
+      "description": "Represents the in-context memory (i.e. Core memory) of the agent. This includes both the `Block` objects (labelled by sections), as well as tools to edit the blocks.",
+      "enum": null,
+      "format": null
+    },
+    {
+      "name": "blocks",
+      "type": "array<object>",
+      "required": true,
+      "description": "The memory blocks used by the agent.",
+      "enum": null,
+      "format": null
+    },
+    {
+      "name": "tools",
+      "type": "array<object>",
+      "required": true,
+      "description": "The tools used by the agent.",
+      "enum": null,
+      "format": null
+    },
+    {
+      "name": "sources",
+      "type": "array<object>",
+      "required": true,
+      "description": "Deprecated: Use `folders` field instead. The sources used by the agent.",
+      "enum": null,
+      "format": null
+    },
+    {
+      "name": "tags",
+      "type": "array<string>",
+      "required": true,
+      "description": "The tags associated with the agent.",
+      "enum": null,
+      "format": null
+    },
+    {
+      "name": "tool_exec_environment_variables",
+      "type": "array<object>",
+      "required": false,
+      "description": "Deprecated: use `secrets` field instead.",
+      "enum": null,
+      "format": null
+    },
+    {
+      "name": "secrets",
+      "type": "array<object>",
+      "required": false,
+      "description": "The environment variables for tool execution specific to this agent.",
+      "enum": null,
+      "format": null
+    },
+    {
+      "name": "project_id",
+      "type": "object",
+      "required": false,
+      "description": "The id of the project the agent belongs to.",
+      "enum": null,
+      "format": null
+    },
+    {
+      "name": "template_id",
+      "type": "object",
+      "required": false,
+      "description": "The id of the template the agent belongs to.",
+      "enum": null,
+      "format": null
+    },
+    {
+      "name": "base_template_id",
+      "type": "object",
+      "required": false,
+      "description": "The base template id of the agent.",
+      "enum": null,
+      "format": null
+    },
+    {
+      "name": "deployment_id",
+      "type": "object",
+      "required": false,
+      "description": "The id of the deployment.",
+      "enum": null,
+      "format": null
+    },
+    {
+      "name": "entity_id",
+      "type": "object",
+      "required": false,
+      "description": "The id of the entity within the template.",
+      "enum": null,
+      "format": null
+    },
+    {
+      "name": "identity_ids",
+      "type": "array<string>",
+      "required": false,
+      "description": "Deprecated: Use `identities` field instead. The ids of the identities associated with this agent.",
+      "enum": null,
+      "format": null
+    },
+    {
+      "name": "identities",
+      "type": "array<object>",
+      "required": false,
+      "description": "The identities associated with this agent.",
+      "enum": null,
+      "format": null
+    },
+    {
+      "name": "pending_approval",
+      "type": "object",
+      "required": false,
+      "description": "The latest approval request message pending for this agent, if any.",
+      "enum": null,
+      "format": null
+    },
+    {
+      "name": "message_buffer_autoclear",
+      "type": "boolean",
+      "required": false,
+      "description": "If set to True, the agent will not remember previous messages (though the agent will still retain state via core memory blocks and archival/recall memory). Not recommended unless you have an advanced use case.",
+      "enum": null,
+      "format": null
+    },
+    {
+      "name": "enable_sleeptime",
+      "type": "object",
+      "required": false,
+      "description": "If set to True, memory management will move to a background agent thread.",
+      "enum": null,
+      "format": null
+    },
+    {
+      "name": "multi_agent_group",
+      "type": "object",
+      "required": false,
+      "description": "Deprecated: Use `managed_group` field instead. The multi-agent group that this agent manages.",
+      "enum": null,
+      "format": null
+    },
+    {
+      "name": "managed_group",
+      "type": "object",
+      "required": false,
+      "description": "The multi-agent group that this agent manages",
+      "enum": null,
+      "format": null
+    },
+    {
+      "name": "last_run_completion",
+      "type": "object",
+      "required": false,
+      "description": "The timestamp when the agent last completed a run.",
+      "enum": null,
+      "format": null
+    },
+    {
+      "name": "last_run_duration_ms",
+      "type": "object",
+      "required": false,
+      "description": "The duration in milliseconds of the agent's last run.",
+      "enum": null,
+      "format": null
+    },
+    {
+      "name": "last_stop_reason",
+      "type": "object",
+      "required": false,
+      "description": "The stop reason from the agent's last run.",
+      "enum": null,
+      "format": null
+    },
+    {
+      "name": "timezone",
+      "type": "object",
+      "required": false,
+      "description": "The timezone of the agent (IANA format).",
+      "enum": null,
+      "format": null
+    },
+    {
+      "name": "max_files_open",
+      "type": "object",
+      "required": false,
+      "description": "Maximum number of files that can be open at once for this agent. Setting this too high may exceed the context window, which will break the agent.",
+      "enum": null,
+      "format": null
+    },
+    {
+      "name": "per_file_view_window_char_limit",
+      "type": "object",
+      "required": false,
+      "description": "The per-file view window character limit for this agent. Setting this too high may exceed the context window, which will break the agent.",
+      "enum": null,
+      "format": null
+    },
+    {
+      "name": "hidden",
+      "type": "object",
+      "required": false,
+      "description": "If set to True, the agent will be hidden.",
+      "enum": null,
+      "format": null
+    }
+  ],
+  "fieldCount": 45,
+  "requiredCount": 10
+}

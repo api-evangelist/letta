@@ -1,0 +1,406 @@
+naftiko: "1.0.0-alpha2"
+
+info:
+  label: "Letta API — Providers"
+  description: >-
+    Providers — configure LLM provider credentials and routing. 8 operations. Lead operation: List Providers. Self-contained Naftiko capability covering one Letta business surface.
+  tags:
+    - Letta
+    - Stateful Agents
+    - Providers
+  created: "2026-05-08"
+  modified: "2026-05-22"
+
+binds:
+  - namespace: env
+    keys:
+      LETTA_API_KEY: LETTA_API_KEY
+
+capability:
+
+  consumes:
+    - type: http
+      namespace: "letta-providers"
+      baseUri: "https://api.letta.com"
+      description: "Letta API — Providers business capability. Self-contained, no shared references."
+      authentication:
+        type: bearer
+        token: "{{env.LETTA_API_KEY}}"
+      resources:
+        - name: "providers"
+          path: "/v1/providers/"
+          operations:
+            - name: "list_providers"
+              method: GET
+              description: "List Providers"
+              inputParameters:
+                - name: "before"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Provider ID cursor for pagination. Returns providers that come before this provider ID in the specified sort order"
+                - name: "after"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Provider ID cursor for pagination. Returns providers that come after this provider ID in the specified sort order"
+                - name: "limit"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Maximum number of providers to return"
+                - name: "order"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Sort order for providers by creation time. 'asc' for oldest first, 'desc' for newest first"
+                - name: "order_by"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Field to sort by"
+                - name: "name"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Filter providers by name"
+                - name: "provider_type"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Filter providers by type"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: "create_provider"
+              method: POST
+              description: "Create Provider"
+              inputParameters:
+                - name: "body"
+                  in: body
+                  type: object
+                  required: true
+                  description: "Request payload"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "providers-by-id"
+          path: "/v1/providers/{provider_id}"
+          operations:
+            - name: "retrieve_provider"
+              method: GET
+              description: "Retrieve Provider"
+              inputParameters:
+                - name: "provider_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "The ID of the provider in the format 'provider-<uuid4>'"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: "modify_provider"
+              method: PATCH
+              description: "Modify Provider"
+              inputParameters:
+                - name: "provider_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "The ID of the provider in the format 'provider-<uuid4>'"
+                - name: "body"
+                  in: body
+                  type: object
+                  required: true
+                  description: "Request payload"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: "delete_provider"
+              method: DELETE
+              description: "Delete Provider"
+              inputParameters:
+                - name: "provider_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "The ID of the provider in the format 'provider-<uuid4>'"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "providers-check"
+          path: "/v1/providers/check"
+          operations:
+            - name: "check_provider"
+              method: POST
+              description: "Check Provider"
+              inputParameters:
+                - name: "body"
+                  in: body
+                  type: object
+                  required: true
+                  description: "Request payload"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "providers-by-id-check"
+          path: "/v1/providers/{provider_id}/check"
+          operations:
+            - name: "check_existing_provider"
+              method: POST
+              description: "Check Existing Provider"
+              inputParameters:
+                - name: "provider_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "The ID of the provider in the format 'provider-<uuid4>'"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "providers-by-id-refresh"
+          path: "/v1/providers/{provider_id}/refresh"
+          operations:
+            - name: "refresh_provider_models"
+              method: PATCH
+              description: "Refresh Provider Models"
+              inputParameters:
+                - name: "provider_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "The ID of the provider in the format 'provider-<uuid4>'"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  exposes:
+    - type: rest
+      namespace: "letta-providers-rest"
+      port: 8080
+      description: "REST adapter for Letta API — Providers. One Spectral-compliant resource per consumed operation."
+      resources:
+        - path: "/v1/providers/"
+          name: "providers"
+          description: "REST surface for providers."
+          operations:
+            - method: GET
+              name: "list_providers"
+              description: "List Providers"
+              call: "letta-providers.list_providers"
+              with:
+                "before": "rest.before"
+                "after": "rest.after"
+                "limit": "rest.limit"
+                "order": "rest.order"
+                "order_by": "rest.order_by"
+                "name": "rest.name"
+                "provider_type": "rest.provider_type"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: "create_provider"
+              description: "Create Provider"
+              call: "letta-providers.create_provider"
+              with:
+                "body": "rest.body"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/providers/{provider-id}"
+          name: "providers-by-id"
+          description: "REST surface for providers-by-id."
+          operations:
+            - method: GET
+              name: "retrieve_provider"
+              description: "Retrieve Provider"
+              call: "letta-providers.retrieve_provider"
+              with:
+                "provider_id": "rest.provider_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: PATCH
+              name: "modify_provider"
+              description: "Modify Provider"
+              call: "letta-providers.modify_provider"
+              with:
+                "provider_id": "rest.provider_id"
+                "body": "rest.body"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: DELETE
+              name: "delete_provider"
+              description: "Delete Provider"
+              call: "letta-providers.delete_provider"
+              with:
+                "provider_id": "rest.provider_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/providers/check"
+          name: "providers-check"
+          description: "REST surface for providers-check."
+          operations:
+            - method: POST
+              name: "check_provider"
+              description: "Check Provider"
+              call: "letta-providers.check_provider"
+              with:
+                "body": "rest.body"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/providers/{provider-id}/check"
+          name: "providers-by-id-check"
+          description: "REST surface for providers-by-id-check."
+          operations:
+            - method: POST
+              name: "check_existing_provider"
+              description: "Check Existing Provider"
+              call: "letta-providers.check_existing_provider"
+              with:
+                "provider_id": "rest.provider_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/providers/{provider-id}/refresh"
+          name: "providers-by-id-refresh"
+          description: "REST surface for providers-by-id-refresh."
+          operations:
+            - method: PATCH
+              name: "refresh_provider_models"
+              description: "Refresh Provider Models"
+              call: "letta-providers.refresh_provider_models"
+              with:
+                "provider_id": "rest.provider_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+    - type: mcp
+      namespace: "letta-providers-mcp"
+      port: 9090
+      transport: http
+      description: "MCP adapter for Letta API — Providers. One verb-noun tool per consumed operation."
+      tools:
+        - name: "list-providers"
+          description: "List Providers"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "letta-providers.list_providers"
+          with:
+            "before": "tools.before"
+            "after": "tools.after"
+            "limit": "tools.limit"
+            "order": "tools.order"
+            "order_by": "tools.order_by"
+            "name": "tools.name"
+            "provider_type": "tools.provider_type"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "create-provider"
+          description: "Create Provider"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "letta-providers.create_provider"
+          with:
+            "body": "tools.body"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "retrieve-provider"
+          description: "Retrieve Provider"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "letta-providers.retrieve_provider"
+          with:
+            "provider_id": "tools.provider_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "modify-provider"
+          description: "Modify Provider"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: true
+          call: "letta-providers.modify_provider"
+          with:
+            "provider_id": "tools.provider_id"
+            "body": "tools.body"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "delete-provider"
+          description: "Delete Provider"
+          hints:
+            readOnly: false
+            destructive: true
+            idempotent: true
+          call: "letta-providers.delete_provider"
+          with:
+            "provider_id": "tools.provider_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "check-provider"
+          description: "Check Provider"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: false
+          call: "letta-providers.check_provider"
+          with:
+            "body": "tools.body"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "check-existing-provider"
+          description: "Check Existing Provider"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: false
+          call: "letta-providers.check_existing_provider"
+          with:
+            "provider_id": "tools.provider_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "refresh-provider-models"
+          description: "Refresh Provider Models"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: true
+          call: "letta-providers.refresh_provider_models"
+          with:
+            "provider_id": "tools.provider_id"
+          outputParameters:
+            - type: object
+              mapping: "$."

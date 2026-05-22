@@ -1,0 +1,182 @@
+extends:
+  - spectral:oas
+
+# Spectral ruleset enforcing Letta API conventions.
+#
+# Derived from observation of letta-ai/letta/fern/openapi.json (Letta API v1.0.0):
+#   - 239 paths under /v1/...
+#   - Bearer-token auth via `Authorization: Bearer $LETTA_API_KEY`
+#   - Snake_case property names throughout the schema (e.g., agent_id, model_endpoint_type)
+#   - Tagged with public resource categories (Agents, Blocks, Tools, MCP Servers, etc.)
+#   - Operations summaries use Title Case
+#
+# Run with: spectral lint openapi/letta-openapi.json --ruleset rules/letta-rules.yml
+
+rules:
+  # --- Info block ---
+  letta-info-title:
+    description: Info title must be "Letta API" so consumers can identify the spec.
+    severity: error
+    given: $.info.title
+    then:
+      function: pattern
+      functionOptions:
+        match: '^Letta API$'
+
+  letta-info-license-apache:
+    description: Letta is Apache-2.0 licensed; the spec must declare it.
+    severity: warn
+    given: $.info.license.name
+    then:
+      function: pattern
+      functionOptions:
+        match: '^Apache-2\.0$'
+
+  letta-info-contact:
+    description: Info must include a contact block.
+    severity: warn
+    given: $.info
+    then:
+      field: contact
+      function: truthy
+
+  # --- Servers ---
+  letta-servers-defined:
+    description: At least one server entry is required and the cloud URL must be present.
+    severity: error
+    given: $.servers
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          type: array
+          minItems: 1
+          contains:
+            type: object
+            properties:
+              url:
+                type: string
+                pattern: '^https://(api|app)\.letta\.com$'
+
+  # --- Versioned base path ---
+  letta-paths-v1-prefix:
+    description: All public endpoints must be under the `/v1/` prefix.
+    severity: error
+    given: $.paths.*~
+    then:
+      function: pattern
+      functionOptions:
+        match: '^/v1/'
+
+  # --- Auth ---
+  letta-security-bearer:
+    description: Bearer auth must be defined as a security scheme.
+    severity: error
+    given: $.components.securitySchemes
+    then:
+      field: bearerAuth
+      function: truthy
+
+  # --- Tags ---
+  letta-tags-title-case:
+    description: Tags must use Title Case (e.g., "MCP Servers", "Scheduled Messages").
+    severity: warn
+    given: $.tags[*].name
+    then:
+      function: pattern
+      functionOptions:
+        match: '^[A-Z][A-Za-z0-9]*(?:[ \-/][A-Z][A-Za-z0-9]*|s$| of | and | the )*'
+
+  letta-operations-have-tags:
+    description: Every operation must declare at least one tag.
+    severity: error
+    given: $.paths[*][get,post,put,patch,delete].tags
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          type: array
+          minItems: 1
+
+  # --- Summaries ---
+  letta-summary-title-case:
+    description: Operation summaries must use Title Case.
+    severity: warn
+    given: $.paths[*][get,post,put,patch,delete].summary
+    then:
+      function: pattern
+      functionOptions:
+        match: '^[A-Z]'
+
+  letta-summary-no-trailing-period:
+    description: Operation summaries should not end with a period.
+    severity: warn
+    given: $.paths[*][get,post,put,patch,delete].summary
+    then:
+      function: pattern
+      functionOptions:
+        notMatch: '\.$'
+
+  # --- operationId ---
+  letta-operationid-snake-case:
+    description: operationId must be snake_case to match the Python SDK convention.
+    severity: warn
+    given: $.paths[*][get,post,put,patch,delete].operationId
+    then:
+      function: pattern
+      functionOptions:
+        match: '^[a-z][a-z0-9_]*$'
+
+  # --- Schema property naming ---
+  letta-schema-properties-snake-case:
+    description: Schema property names must be snake_case (matches Letta's API convention).
+    severity: warn
+    given: $.components.schemas[*].properties[*]~
+    then:
+      function: pattern
+      functionOptions:
+        match: '^[a-z][a-z0-9_]*$'
+
+  # --- Pagination ---
+  letta-list-pagination-params:
+    description: List endpoints (collection GETs) should accept `limit` and `cursor`/`before`/`after` for pagination.
+    severity: info
+    given: "$.paths[?(@property.match(/^\\/v1\\/(agents|blocks|tools|sources|groups|runs|jobs|identities|messages|passages|mcp-servers|providers|models|folders|projects|templates|sandboxes)\\/?$/))].get.parameters[*].name"
+    then:
+      function: enumeration
+      functionOptions:
+        values: [limit, cursor, before, after, page, order, ascending, tags, name, query]
+
+  # --- Responses ---
+  letta-responses-have-content:
+    description: 2xx responses (except 204) should declare content.
+    severity: warn
+    given: $.paths[*][get,post,put,patch,delete].responses['200','201','202']
+    then:
+      field: content
+      function: truthy
+
+  letta-error-response-defined:
+    description: Operations should document at least one 4xx error response (typical: 401 or 404 or 422).
+    severity: info
+    given: $.paths[*][get,post,put,patch,delete].responses
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          anyOf:
+            - required: ['400']
+            - required: ['401']
+            - required: ['403']
+            - required: ['404']
+            - required: ['422']
+
+  # --- IDs ---
+  letta-id-path-params-snake-case:
+    description: Path parameters that reference an ID should be snake_case (e.g., agent_id, run_id).
+    severity: warn
+    given: $.paths.*~
+    then:
+      function: pattern
+      functionOptions:
+        notMatch: '\{[a-z]+[A-Z]'

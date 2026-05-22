@@ -1,0 +1,257 @@
+{
+  "jsonStructure": "0.1",
+  "name": "letta-llm-config",
+  "title": "Letta LLMConfig",
+  "description": "Flat structure summary of the Letta LLMConfig entity, derived from the Letta OpenAPI 1.0.0 spec.",
+  "source": "https://raw.githubusercontent.com/letta-ai/letta/main/fern/openapi.json",
+  "entity": "LLMConfig",
+  "fields": [
+    {
+      "name": "model",
+      "type": "string",
+      "required": true,
+      "description": "LLM model name. ",
+      "enum": null,
+      "format": null
+    },
+    {
+      "name": "display_name",
+      "type": "object",
+      "required": false,
+      "description": "A human-friendly display name for the model.",
+      "enum": null,
+      "format": null
+    },
+    {
+      "name": "model_endpoint_type",
+      "type": "string",
+      "required": true,
+      "description": "The endpoint type for the model.",
+      "enum": [
+        "openai",
+        "anthropic",
+        "google_ai",
+        "google_vertex",
+        "azure",
+        "groq",
+        "ollama",
+        "webui",
+        "webui-legacy",
+        "lmstudio",
+        "lmstudio-legacy",
+        "lmstudio-chatcompletions",
+        "llamacpp",
+        "koboldcpp",
+        "vllm",
+        "hugging-face",
+        "minimax",
+        "mistral",
+        "together",
+        "bedrock",
+        "deepseek",
+        "xai",
+        "zai",
+        "zai_coding",
+        "baseten",
+        "fireworks",
+        "openrouter",
+        "chatgpt_oauth"
+      ],
+      "format": null
+    },
+    {
+      "name": "model_endpoint",
+      "type": "object",
+      "required": false,
+      "description": "The endpoint for the model.",
+      "enum": null,
+      "format": null
+    },
+    {
+      "name": "provider_name",
+      "type": "object",
+      "required": false,
+      "description": "The provider name for the model.",
+      "enum": null,
+      "format": null
+    },
+    {
+      "name": "provider_category",
+      "type": "object",
+      "required": false,
+      "description": "The provider category for the model.",
+      "enum": null,
+      "format": null
+    },
+    {
+      "name": "model_wrapper",
+      "type": "object",
+      "required": false,
+      "description": "The wrapper for the model.",
+      "enum": null,
+      "format": null
+    },
+    {
+      "name": "context_window",
+      "type": "integer",
+      "required": true,
+      "description": "The context window size for the model.",
+      "enum": null,
+      "format": null
+    },
+    {
+      "name": "put_inner_thoughts_in_kwargs",
+      "type": "object",
+      "required": false,
+      "description": "Puts 'inner_thoughts' as a kwarg in the function call if this is set to True. This helps with function calling performance and also the generation of inner thoughts.",
+      "enum": null,
+      "format": null
+    },
+    {
+      "name": "handle",
+      "type": "object",
+      "required": false,
+      "description": "The handle for this config, in the format provider/model-name.",
+      "enum": null,
+      "format": null
+    },
+    {
+      "name": "temperature",
+      "type": "number",
+      "required": false,
+      "description": "The temperature to use when generating text with the model. A higher temperature will result in more random text.",
+      "enum": null,
+      "format": null
+    },
+    {
+      "name": "max_tokens",
+      "type": "object",
+      "required": false,
+      "description": "The maximum number of tokens to generate. If not set, the model will use its default value.",
+      "enum": null,
+      "format": null
+    },
+    {
+      "name": "enable_reasoner",
+      "type": "boolean",
+      "required": false,
+      "description": "Whether or not the model should use extended thinking if it is a 'reasoning' style model",
+      "enum": null,
+      "format": null
+    },
+    {
+      "name": "reasoning_effort",
+      "type": "object",
+      "required": false,
+      "description": "The reasoning effort to use when generating text reasoning models",
+      "enum": null,
+      "format": null
+    },
+    {
+      "name": "max_reasoning_tokens",
+      "type": "integer",
+      "required": false,
+      "description": "Configurable thinking budget for extended thinking. Used for enable_reasoner and also for Google Vertex models like Gemini 2.5 Flash. Minimum value is 1024 when used with enable_reasoner.",
+      "enum": null,
+      "format": null
+    },
+    {
+      "name": "effort",
+      "type": "object",
+      "required": false,
+      "description": "The effort level for Anthropic models that support it (Opus 4.5, Opus 4.6). Controls token spending and thinking behavior. Not setting this gives similar performance to 'high'.",
+      "enum": null,
+      "format": null
+    },
+    {
+      "name": "frequency_penalty",
+      "type": "object",
+      "required": false,
+      "description": "Positive values penalize new tokens based on their existing frequency in the text so far, decreasing the model's likelihood to repeat the same line verbatim. From OpenAI: Number between -2.0 and 2.0.",
+      "enum": null,
+      "format": null
+    },
+    {
+      "name": "compatibility_type",
+      "type": "object",
+      "required": false,
+      "description": "The framework compatibility type for the model.",
+      "enum": null,
+      "format": null
+    },
+    {
+      "name": "verbosity",
+      "type": "object",
+      "required": false,
+      "description": "Soft control for how verbose model output should be, used for GPT-5 models.",
+      "enum": null,
+      "format": null
+    },
+    {
+      "name": "tier",
+      "type": "object",
+      "required": false,
+      "description": "The cost tier for the model (cloud only).",
+      "enum": null,
+      "format": null
+    },
+    {
+      "name": "parallel_tool_calls",
+      "type": "object",
+      "required": false,
+      "description": "Deprecated: Use model_settings to configure parallel tool calls instead. If set to True, enables parallel tool calling. Defaults to False.",
+      "enum": null,
+      "format": null
+    },
+    {
+      "name": "response_format",
+      "type": "object",
+      "required": false,
+      "description": "The response format for the model's output. Supports text, json_object, and json_schema (structured outputs). Can be set via model_settings.",
+      "enum": null,
+      "format": null
+    },
+    {
+      "name": "strict",
+      "type": "boolean",
+      "required": false,
+      "description": "Enable strict mode for tool calling. When true, tool schemas include strict: true and additionalProperties: false, guaranteeing tool outputs match JSON schemas.",
+      "enum": null,
+      "format": null
+    },
+    {
+      "name": "return_logprobs",
+      "type": "boolean",
+      "required": false,
+      "description": "Whether to return log probabilities of the output tokens. Useful for RL training.",
+      "enum": null,
+      "format": null
+    },
+    {
+      "name": "top_logprobs",
+      "type": "object",
+      "required": false,
+      "description": "Number of most likely tokens to return at each position (0-20). Requires return_logprobs=True.",
+      "enum": null,
+      "format": null
+    },
+    {
+      "name": "return_token_ids",
+      "type": "boolean",
+      "required": false,
+      "description": "Whether to return token IDs for all LLM generations via SGLang native endpoint. Required for multi-turn RL training with loss masking. Only works with SGLang provider.",
+      "enum": null,
+      "format": null
+    },
+    {
+      "name": "tool_call_parser",
+      "type": "object",
+      "required": false,
+      "description": "SGLang tool call parser name (e.g. 'glm47', 'qwen25', 'hermes'). Used by the SGLang native adapter to parse tool calls from raw model output.",
+      "enum": null,
+      "format": null
+    }
+  ],
+  "fieldCount": 27,
+  "requiredCount": 3
+}

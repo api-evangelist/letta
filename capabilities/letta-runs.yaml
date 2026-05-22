@@ -1,0 +1,630 @@
+naftiko: "1.0.0-alpha2"
+
+info:
+  label: "Letta API — Runs"
+  description: >-
+    Agent runs — inspect agent executions, step counts, usage, and run-scoped messages. 10 operations. Lead operation: List Runs. Self-contained Naftiko capability covering one Letta business surface.
+  tags:
+    - Letta
+    - Stateful Agents
+    - Runs
+  created: "2026-05-08"
+  modified: "2026-05-22"
+
+binds:
+  - namespace: env
+    keys:
+      LETTA_API_KEY: LETTA_API_KEY
+
+capability:
+
+  consumes:
+    - type: http
+      namespace: "letta-runs"
+      baseUri: "https://api.letta.com"
+      description: "Letta API — Runs business capability. Self-contained, no shared references."
+      authentication:
+        type: bearer
+        token: "{{env.LETTA_API_KEY}}"
+      resources:
+        - name: "runs"
+          path: "/v1/runs/"
+          operations:
+            - name: "list_runs"
+              method: GET
+              description: "List Runs"
+              inputParameters:
+                - name: "agent_id"
+                  in: query
+                  type: string
+                  required: false
+                  description: "The unique identifier of the agent associated with the run."
+                - name: "agent_ids"
+                  in: query
+                  type: string
+                  required: false
+                  description: "The unique identifiers of the agents associated with the run. Deprecated in favor of agent_id field."
+                - name: "statuses"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Filter runs by status. Can specify multiple statuses."
+                - name: "background"
+                  in: query
+                  type: string
+                  required: false
+                  description: "If True, filters for runs that were created in background mode."
+                - name: "stop_reason"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Filter runs by stop reason."
+                - name: "conversation_id"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Filter runs by conversation ID."
+                - name: "before"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Run ID cursor for pagination. Returns runs that come before this run ID in the specified sort order"
+                - name: "after"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Run ID cursor for pagination. Returns runs that come after this run ID in the specified sort order"
+                - name: "limit"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Maximum number of runs to return"
+                - name: "order"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Sort order for runs by creation time. 'asc' for oldest first, 'desc' for newest first"
+                - name: "order_by"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Field to sort by"
+                - name: "active"
+                  in: query
+                  type: boolean
+                  required: false
+                  description: "Filter for active runs."
+                - name: "ascending"
+                  in: query
+                  type: boolean
+                  required: false
+                  description: "Whether to sort agents oldest to newest (True) or newest to oldest (False, default). Deprecated in favor of order field."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "runs-active"
+          path: "/v1/runs/active"
+          operations:
+            - name: "list_active_runs"
+              method: GET
+              description: "List Active Runs"
+              inputParameters:
+                - name: "agent_id"
+                  in: query
+                  type: string
+                  required: false
+                  description: "The unique identifier of the agent associated with the run."
+                - name: "background"
+                  in: query
+                  type: string
+                  required: false
+                  description: "If True, filters for runs that were created in background mode."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "runs-by-id"
+          path: "/v1/runs/{run_id}"
+          operations:
+            - name: "retrieve_run"
+              method: GET
+              description: "Retrieve Run"
+              inputParameters:
+                - name: "run_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "run_id parameter"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: "delete_run"
+              method: DELETE
+              description: "Delete Run"
+              inputParameters:
+                - name: "run_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "run_id parameter"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "runs-by-id-messages"
+          path: "/v1/runs/{run_id}/messages"
+          operations:
+            - name: "list_messages_for_run"
+              method: GET
+              description: "List Messages for Run"
+              inputParameters:
+                - name: "run_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "run_id parameter"
+                - name: "before"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Message ID cursor for pagination. Returns messages that come before this message ID in the specified sort order"
+                - name: "after"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Message ID cursor for pagination. Returns messages that come after this message ID in the specified sort order"
+                - name: "limit"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Maximum number of messages to return"
+                - name: "order"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Sort order for messages by creation time. 'asc' for oldest first, 'desc' for newest first"
+                - name: "order_by"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Field to sort by"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "runs-by-id-usage"
+          path: "/v1/runs/{run_id}/usage"
+          operations:
+            - name: "retrieve_usage_for_run"
+              method: GET
+              description: "Retrieve Usage for Run"
+              inputParameters:
+                - name: "run_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "run_id parameter"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "runs-by-id-metrics"
+          path: "/v1/runs/{run_id}/metrics"
+          operations:
+            - name: "retrieve_metrics_for_run"
+              method: GET
+              description: "Retrieve Metrics for Run"
+              inputParameters:
+                - name: "run_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "run_id parameter"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "runs-by-id-steps"
+          path: "/v1/runs/{run_id}/steps"
+          operations:
+            - name: "list_steps_for_run"
+              method: GET
+              description: "List Steps for Run"
+              inputParameters:
+                - name: "run_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "run_id parameter"
+                - name: "before"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Cursor for pagination"
+                - name: "after"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Cursor for pagination"
+                - name: "limit"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Maximum number of messages to return"
+                - name: "order"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Sort order for steps by creation time. 'asc' for oldest first, 'desc' for newest first"
+                - name: "order_by"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Field to sort by"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "runs-by-id-trace"
+          path: "/v1/runs/{run_id}/trace"
+          operations:
+            - name: "retrieve_trace_for_run"
+              method: GET
+              description: "Retrieve Trace for Run"
+              inputParameters:
+                - name: "run_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "run_id parameter"
+                - name: "limit"
+                  in: query
+                  type: integer
+                  required: false
+                  description: "Maximum number of spans to return"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "runs-by-id-stream"
+          path: "/v1/runs/{run_id}/stream"
+          operations:
+            - name: "retrieve_stream_for_run"
+              method: POST
+              description: "Retrieve Stream for Run"
+              inputParameters:
+                - name: "run_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "run_id parameter"
+                - name: "body"
+                  in: body
+                  type: object
+                  required: true
+                  description: "Request payload"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  exposes:
+    - type: rest
+      namespace: "letta-runs-rest"
+      port: 8080
+      description: "REST adapter for Letta API — Runs. One Spectral-compliant resource per consumed operation."
+      resources:
+        - path: "/v1/runs/"
+          name: "runs"
+          description: "REST surface for runs."
+          operations:
+            - method: GET
+              name: "list_runs"
+              description: "List Runs"
+              call: "letta-runs.list_runs"
+              with:
+                "agent_id": "rest.agent_id"
+                "agent_ids": "rest.agent_ids"
+                "statuses": "rest.statuses"
+                "background": "rest.background"
+                "stop_reason": "rest.stop_reason"
+                "conversation_id": "rest.conversation_id"
+                "before": "rest.before"
+                "after": "rest.after"
+                "limit": "rest.limit"
+                "order": "rest.order"
+                "order_by": "rest.order_by"
+                "active": "rest.active"
+                "ascending": "rest.ascending"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/runs/active"
+          name: "runs-active"
+          description: "REST surface for runs-active."
+          operations:
+            - method: GET
+              name: "list_active_runs"
+              description: "List Active Runs"
+              call: "letta-runs.list_active_runs"
+              with:
+                "agent_id": "rest.agent_id"
+                "background": "rest.background"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/runs/{run-id}"
+          name: "runs-by-id"
+          description: "REST surface for runs-by-id."
+          operations:
+            - method: GET
+              name: "retrieve_run"
+              description: "Retrieve Run"
+              call: "letta-runs.retrieve_run"
+              with:
+                "run_id": "rest.run_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: DELETE
+              name: "delete_run"
+              description: "Delete Run"
+              call: "letta-runs.delete_run"
+              with:
+                "run_id": "rest.run_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/runs/{run-id}/messages"
+          name: "runs-by-id-messages"
+          description: "REST surface for runs-by-id-messages."
+          operations:
+            - method: GET
+              name: "list_messages_for_run"
+              description: "List Messages for Run"
+              call: "letta-runs.list_messages_for_run"
+              with:
+                "run_id": "rest.run_id"
+                "before": "rest.before"
+                "after": "rest.after"
+                "limit": "rest.limit"
+                "order": "rest.order"
+                "order_by": "rest.order_by"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/runs/{run-id}/usage"
+          name: "runs-by-id-usage"
+          description: "REST surface for runs-by-id-usage."
+          operations:
+            - method: GET
+              name: "retrieve_usage_for_run"
+              description: "Retrieve Usage for Run"
+              call: "letta-runs.retrieve_usage_for_run"
+              with:
+                "run_id": "rest.run_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/runs/{run-id}/metrics"
+          name: "runs-by-id-metrics"
+          description: "REST surface for runs-by-id-metrics."
+          operations:
+            - method: GET
+              name: "retrieve_metrics_for_run"
+              description: "Retrieve Metrics for Run"
+              call: "letta-runs.retrieve_metrics_for_run"
+              with:
+                "run_id": "rest.run_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/runs/{run-id}/steps"
+          name: "runs-by-id-steps"
+          description: "REST surface for runs-by-id-steps."
+          operations:
+            - method: GET
+              name: "list_steps_for_run"
+              description: "List Steps for Run"
+              call: "letta-runs.list_steps_for_run"
+              with:
+                "run_id": "rest.run_id"
+                "before": "rest.before"
+                "after": "rest.after"
+                "limit": "rest.limit"
+                "order": "rest.order"
+                "order_by": "rest.order_by"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/runs/{run-id}/trace"
+          name: "runs-by-id-trace"
+          description: "REST surface for runs-by-id-trace."
+          operations:
+            - method: GET
+              name: "retrieve_trace_for_run"
+              description: "Retrieve Trace for Run"
+              call: "letta-runs.retrieve_trace_for_run"
+              with:
+                "run_id": "rest.run_id"
+                "limit": "rest.limit"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/runs/{run-id}/stream"
+          name: "runs-by-id-stream"
+          description: "REST surface for runs-by-id-stream."
+          operations:
+            - method: POST
+              name: "retrieve_stream_for_run"
+              description: "Retrieve Stream for Run"
+              call: "letta-runs.retrieve_stream_for_run"
+              with:
+                "run_id": "rest.run_id"
+                "body": "rest.body"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+    - type: mcp
+      namespace: "letta-runs-mcp"
+      port: 9090
+      transport: http
+      description: "MCP adapter for Letta API — Runs. One verb-noun tool per consumed operation."
+      tools:
+        - name: "list-runs"
+          description: "List Runs"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "letta-runs.list_runs"
+          with:
+            "agent_id": "tools.agent_id"
+            "agent_ids": "tools.agent_ids"
+            "statuses": "tools.statuses"
+            "background": "tools.background"
+            "stop_reason": "tools.stop_reason"
+            "conversation_id": "tools.conversation_id"
+            "before": "tools.before"
+            "after": "tools.after"
+            "limit": "tools.limit"
+            "order": "tools.order"
+            "order_by": "tools.order_by"
+            "active": "tools.active"
+            "ascending": "tools.ascending"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "list-active-runs"
+          description: "List Active Runs"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "letta-runs.list_active_runs"
+          with:
+            "agent_id": "tools.agent_id"
+            "background": "tools.background"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "retrieve-run"
+          description: "Retrieve Run"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "letta-runs.retrieve_run"
+          with:
+            "run_id": "tools.run_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "delete-run"
+          description: "Delete Run"
+          hints:
+            readOnly: false
+            destructive: true
+            idempotent: true
+          call: "letta-runs.delete_run"
+          with:
+            "run_id": "tools.run_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "list-messages-run"
+          description: "List Messages for Run"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "letta-runs.list_messages_for_run"
+          with:
+            "run_id": "tools.run_id"
+            "before": "tools.before"
+            "after": "tools.after"
+            "limit": "tools.limit"
+            "order": "tools.order"
+            "order_by": "tools.order_by"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "retrieve-usage-run"
+          description: "Retrieve Usage for Run"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "letta-runs.retrieve_usage_for_run"
+          with:
+            "run_id": "tools.run_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "retrieve-metrics-run"
+          description: "Retrieve Metrics for Run"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "letta-runs.retrieve_metrics_for_run"
+          with:
+            "run_id": "tools.run_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "list-steps-run"
+          description: "List Steps for Run"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "letta-runs.list_steps_for_run"
+          with:
+            "run_id": "tools.run_id"
+            "before": "tools.before"
+            "after": "tools.after"
+            "limit": "tools.limit"
+            "order": "tools.order"
+            "order_by": "tools.order_by"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "retrieve-trace-run"
+          description: "Retrieve Trace for Run"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "letta-runs.retrieve_trace_for_run"
+          with:
+            "run_id": "tools.run_id"
+            "limit": "tools.limit"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "retrieve-stream-run"
+          description: "Retrieve Stream for Run"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: false
+          call: "letta-runs.retrieve_stream_for_run"
+          with:
+            "run_id": "tools.run_id"
+            "body": "tools.body"
+          outputParameters:
+            - type: object
+              mapping: "$."

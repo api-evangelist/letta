@@ -1,0 +1,25 @@
+{
+  "operation": "Upload File To Source",
+  "method": "POST",
+  "path": "/v1/sources/{source_id}/upload",
+  "auth": "Bearer token (LETTA_API_KEY)",
+  "request": {
+    "method": "POST",
+    "path": "/v1/sources/source-ae-01/upload",
+    "headers": {
+      "Authorization": "Bearer $LETTA_API_KEY",
+      "Content-Type": "multipart/form-data"
+    },
+    "body_form": {
+      "file": "@/path/to/notes.pdf"
+    }
+  },
+  "response": {
+    "status": 202,
+    "body": {
+      "job_id": "job-9a",
+      "status": "queued",
+      "message": "File queued for ingestion."
+    }
+  }
+}

@@ -1,0 +1,84 @@
+naftiko: "1.0.0-alpha2"
+
+info:
+  label: "Letta API — Passages"
+  description: >-
+    Passages — individual archival memory passages (chunked context). 1 operations. Lead operation: Search Passages. Self-contained Naftiko capability covering one Letta business surface.
+  tags:
+    - Letta
+    - Stateful Agents
+    - Passages
+  created: "2026-05-08"
+  modified: "2026-05-22"
+
+binds:
+  - namespace: env
+    keys:
+      LETTA_API_KEY: LETTA_API_KEY
+
+capability:
+
+  consumes:
+    - type: http
+      namespace: "letta-passages"
+      baseUri: "https://api.letta.com"
+      description: "Letta API — Passages business capability. Self-contained, no shared references."
+      authentication:
+        type: bearer
+        token: "{{env.LETTA_API_KEY}}"
+      resources:
+        - name: "passages-search"
+          path: "/v1/passages/search"
+          operations:
+            - name: "search_passages"
+              method: POST
+              description: "Search Passages"
+              inputParameters:
+                - name: "body"
+                  in: body
+                  type: object
+                  required: true
+                  description: "Request payload"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  exposes:
+    - type: rest
+      namespace: "letta-passages-rest"
+      port: 8080
+      description: "REST adapter for Letta API — Passages. One Spectral-compliant resource per consumed operation."
+      resources:
+        - path: "/v1/passages/search"
+          name: "passages-search"
+          description: "REST surface for passages-search."
+          operations:
+            - method: POST
+              name: "search_passages"
+              description: "Search Passages"
+              call: "letta-passages.search_passages"
+              with:
+                "body": "rest.body"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+    - type: mcp
+      namespace: "letta-passages-mcp"
+      port: 9090
+      transport: http
+      description: "MCP adapter for Letta API — Passages. One verb-noun tool per consumed operation."
+      tools:
+        - name: "search-passages"
+          description: "Search Passages"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: false
+          call: "letta-passages.search_passages"
+          with:
+            "body": "tools.body"
+          outputParameters:
+            - type: object
+              mapping: "$."

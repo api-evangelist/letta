@@ -1,0 +1,217 @@
+naftiko: "1.0.0-alpha2"
+
+info:
+  label: "Letta API — Memory Files"
+  description: >-
+    Memory files — file resources attached to agent memory. 3 operations. Lead operation: List Directory. Self-contained Naftiko capability covering one Letta business surface.
+  tags:
+    - Letta
+    - Stateful Agents
+    - Memory Files
+  created: "2026-05-08"
+  modified: "2026-05-22"
+
+binds:
+  - namespace: env
+    keys:
+      LETTA_API_KEY: LETTA_API_KEY
+
+capability:
+
+  consumes:
+    - type: http
+      namespace: "letta-memory-files"
+      baseUri: "https://api.letta.com"
+      description: "Letta API — Memory Files business capability. Self-contained, no shared references."
+      authentication:
+        type: bearer
+        token: "{{env.LETTA_API_KEY}}"
+      resources:
+        - name: "agents-by-id-memory-files-directory"
+          path: "/v1/agents/{agent_id}/memory-files/directory"
+          operations:
+            - name: "memoryfiles_listdirectory"
+              method: GET
+              description: "List Directory"
+              inputParameters:
+                - name: "agent_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "agent_id parameter"
+                - name: "path"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Directory path to list. Empty for root."
+                - name: "depth"
+                  in: query
+                  type: number
+                  required: false
+                  description: "Depth of directory listing (default: 1)."
+                - name: "ref"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Git ref (default: HEAD)."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "agents-by-id-memory-files-history"
+          path: "/v1/agents/{agent_id}/memory-files/history"
+          operations:
+            - name: "memoryfiles_getfilehistory"
+              method: GET
+              description: "Get File History"
+              inputParameters:
+                - name: "agent_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "agent_id parameter"
+                - name: "file_path"
+                  in: query
+                  type: string
+                  required: true
+                  description: "Path to the file (e.g. \"blocks/persona.md\")."
+                - name: "limit"
+                  in: query
+                  type: number
+                  required: false
+                  description: "Max commits to return (default: 50)."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "agents-by-id-memory-files-content"
+          path: "/v1/agents/{agent_id}/memory-files/content"
+          operations:
+            - name: "memoryfiles_readfilecontent"
+              method: GET
+              description: "Read File Content"
+              inputParameters:
+                - name: "agent_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "agent_id parameter"
+                - name: "file_path"
+                  in: query
+                  type: string
+                  required: true
+                  description: "Path to the file (e.g. \"blocks/persona.md\")."
+                - name: "ref"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Git ref (default: HEAD)."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  exposes:
+    - type: rest
+      namespace: "letta-memory-files-rest"
+      port: 8080
+      description: "REST adapter for Letta API — Memory Files. One Spectral-compliant resource per consumed operation."
+      resources:
+        - path: "/v1/agents/{agent-id}/memory-files/directory"
+          name: "agents-by-id-memory-files-directory"
+          description: "REST surface for agents-by-id-memory-files-directory."
+          operations:
+            - method: GET
+              name: "memoryfiles_listdirectory"
+              description: "List Directory"
+              call: "letta-memory-files.memoryfiles_listdirectory"
+              with:
+                "agent_id": "rest.agent_id"
+                "path": "rest.path"
+                "depth": "rest.depth"
+                "ref": "rest.ref"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/agents/{agent-id}/memory-files/history"
+          name: "agents-by-id-memory-files-history"
+          description: "REST surface for agents-by-id-memory-files-history."
+          operations:
+            - method: GET
+              name: "memoryfiles_getfilehistory"
+              description: "Get File History"
+              call: "letta-memory-files.memoryfiles_getfilehistory"
+              with:
+                "agent_id": "rest.agent_id"
+                "file_path": "rest.file_path"
+                "limit": "rest.limit"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/agents/{agent-id}/memory-files/content"
+          name: "agents-by-id-memory-files-content"
+          description: "REST surface for agents-by-id-memory-files-content."
+          operations:
+            - method: GET
+              name: "memoryfiles_readfilecontent"
+              description: "Read File Content"
+              call: "letta-memory-files.memoryfiles_readfilecontent"
+              with:
+                "agent_id": "rest.agent_id"
+                "file_path": "rest.file_path"
+                "ref": "rest.ref"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+    - type: mcp
+      namespace: "letta-memory-files-mcp"
+      port: 9090
+      transport: http
+      description: "MCP adapter for Letta API — Memory Files. One verb-noun tool per consumed operation."
+      tools:
+        - name: "list-directory"
+          description: "List Directory"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "letta-memory-files.memoryfiles_listdirectory"
+          with:
+            "agent_id": "tools.agent_id"
+            "path": "tools.path"
+            "depth": "tools.depth"
+            "ref": "tools.ref"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "get-file-history"
+          description: "Get File History"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "letta-memory-files.memoryfiles_getfilehistory"
+          with:
+            "agent_id": "tools.agent_id"
+            "file_path": "tools.file_path"
+            "limit": "tools.limit"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "read-file-content"
+          description: "Read File Content"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "letta-memory-files.memoryfiles_readfilecontent"
+          with:
+            "agent_id": "tools.agent_id"
+            "file_path": "tools.file_path"
+            "ref": "tools.ref"
+          outputParameters:
+            - type: object
+              mapping: "$."

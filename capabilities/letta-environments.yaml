@@ -1,0 +1,287 @@
+naftiko: "1.0.0-alpha2"
+
+info:
+  label: "Letta API — Environments"
+  description: >-
+    Environments — environment variables and configuration scoped to agents/tools. 5 operations. Lead operation: Register Environment. Self-contained Naftiko capability covering one Letta business surface.
+  tags:
+    - Letta
+    - Stateful Agents
+    - Environments
+  created: "2026-05-08"
+  modified: "2026-05-22"
+
+binds:
+  - namespace: env
+    keys:
+      LETTA_API_KEY: LETTA_API_KEY
+
+capability:
+
+  consumes:
+    - type: http
+      namespace: "letta-environments"
+      baseUri: "https://api.letta.com"
+      description: "Letta API — Environments business capability. Self-contained, no shared references."
+      authentication:
+        type: bearer
+        token: "{{env.LETTA_API_KEY}}"
+      resources:
+        - name: "environments-register"
+          path: "/v1/environments/register"
+          operations:
+            - name: "environments_register"
+              method: POST
+              description: "Register Environment"
+              inputParameters:
+                - name: "body"
+                  in: body
+                  type: object
+                  required: true
+                  description: "Body"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "environments-by-id"
+          path: "/v1/environments/{deviceId}"
+          operations:
+            - name: "environments_getconnection"
+              method: GET
+              description: "Get Environment Connection"
+              inputParameters:
+                - name: "deviceId"
+                  in: path
+                  type: string
+                  required: true
+                  description: "deviceId parameter"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "environments"
+          path: "/v1/environments"
+          operations:
+            - name: "environments_listconnections"
+              method: GET
+              description: "List Environment Connections"
+              inputParameters:
+                - name: "limit"
+                  in: query
+                  type: string
+                  required: false
+                  description: "limit parameter"
+                - name: "after"
+                  in: query
+                  type: string
+                  required: false
+                  description: "after parameter"
+                - name: "userId"
+                  in: query
+                  type: string
+                  required: false
+                  description: "userId parameter"
+                - name: "onlineOnly"
+                  in: query
+                  type: string
+                  required: false
+                  description: "onlineOnly parameter"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "environments-by-id-messages"
+          path: "/v1/environments/{connectionId}/messages"
+          operations:
+            - name: "environments_sendmessage"
+              method: POST
+              description: "Send Message to Environment"
+              inputParameters:
+                - name: "connectionId"
+                  in: path
+                  type: string
+                  required: true
+                  description: "connectionId parameter"
+                - name: "body"
+                  in: body
+                  type: object
+                  required: true
+                  description: "Body"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "environments-by-id"
+          path: "/v1/environments/{id}"
+          operations:
+            - name: "environments_deleteenvironment"
+              method: DELETE
+              description: "Delete Environment"
+              inputParameters:
+                - name: "id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "id parameter"
+                - name: "body"
+                  in: body
+                  type: object
+                  required: true
+                  description: "Body"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  exposes:
+    - type: rest
+      namespace: "letta-environments-rest"
+      port: 8080
+      description: "REST adapter for Letta API — Environments. One Spectral-compliant resource per consumed operation."
+      resources:
+        - path: "/v1/environments/register"
+          name: "environments-register"
+          description: "REST surface for environments-register."
+          operations:
+            - method: POST
+              name: "environments_register"
+              description: "Register Environment"
+              call: "letta-environments.environments_register"
+              with:
+                "body": "rest.body"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/environments/{deviceId}"
+          name: "environments-by-id"
+          description: "REST surface for environments-by-id."
+          operations:
+            - method: GET
+              name: "environments_getconnection"
+              description: "Get Environment Connection"
+              call: "letta-environments.environments_getconnection"
+              with:
+                "deviceId": "rest.deviceId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/environments"
+          name: "environments"
+          description: "REST surface for environments."
+          operations:
+            - method: GET
+              name: "environments_listconnections"
+              description: "List Environment Connections"
+              call: "letta-environments.environments_listconnections"
+              with:
+                "limit": "rest.limit"
+                "after": "rest.after"
+                "userId": "rest.userId"
+                "onlineOnly": "rest.onlineOnly"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/environments/{connectionId}/messages"
+          name: "environments-by-id-messages"
+          description: "REST surface for environments-by-id-messages."
+          operations:
+            - method: POST
+              name: "environments_sendmessage"
+              description: "Send Message to Environment"
+              call: "letta-environments.environments_sendmessage"
+              with:
+                "connectionId": "rest.connectionId"
+                "body": "rest.body"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/environments/{id}"
+          name: "environments-by-id"
+          description: "REST surface for environments-by-id."
+          operations:
+            - method: DELETE
+              name: "environments_deleteenvironment"
+              description: "Delete Environment"
+              call: "letta-environments.environments_deleteenvironment"
+              with:
+                "id": "rest.id"
+                "body": "rest.body"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+    - type: mcp
+      namespace: "letta-environments-mcp"
+      port: 9090
+      transport: http
+      description: "MCP adapter for Letta API — Environments. One verb-noun tool per consumed operation."
+      tools:
+        - name: "register-environment"
+          description: "Register Environment"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "letta-environments.environments_register"
+          with:
+            "body": "tools.body"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "get-environment-connection"
+          description: "Get Environment Connection"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "letta-environments.environments_getconnection"
+          with:
+            "deviceId": "tools.deviceId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "list-environment-connections"
+          description: "List Environment Connections"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "letta-environments.environments_listconnections"
+          with:
+            "limit": "tools.limit"
+            "after": "tools.after"
+            "userId": "tools.userId"
+            "onlineOnly": "tools.onlineOnly"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "send-message-environment"
+          description: "Send Message to Environment"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "letta-environments.environments_sendmessage"
+          with:
+            "connectionId": "tools.connectionId"
+            "body": "tools.body"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "delete-environment"
+          description: "Delete Environment"
+          hints:
+            readOnly: false
+            destructive: true
+            idempotent: true
+          call: "letta-environments.environments_deleteenvironment"
+          with:
+            "id": "tools.id"
+            "body": "tools.body"
+          outputParameters:
+            - type: object
+              mapping: "$."

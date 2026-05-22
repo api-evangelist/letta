@@ -1,0 +1,476 @@
+naftiko: "1.0.0-alpha2"
+
+info:
+  label: "Letta API — Messages"
+  description: >-
+    Messages — send messages, list history, search, and batch operations. 8 operations. Lead operation: List All Messages. Self-contained Naftiko capability covering one Letta business surface.
+  tags:
+    - Letta
+    - Stateful Agents
+    - Messages
+  created: "2026-05-08"
+  modified: "2026-05-22"
+
+binds:
+  - namespace: env
+    keys:
+      LETTA_API_KEY: LETTA_API_KEY
+
+capability:
+
+  consumes:
+    - type: http
+      namespace: "letta-messages"
+      baseUri: "https://api.letta.com"
+      description: "Letta API — Messages business capability. Self-contained, no shared references."
+      authentication:
+        type: bearer
+        token: "{{env.LETTA_API_KEY}}"
+      resources:
+        - name: "messages"
+          path: "/v1/messages/"
+          operations:
+            - name: "list_all_messages"
+              method: GET
+              description: "List All Messages"
+              inputParameters:
+                - name: "before"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Message ID cursor for pagination. Returns messages that come before this message ID in the specified sort order"
+                - name: "after"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Message ID cursor for pagination. Returns messages that come after this message ID in the specified sort order"
+                - name: "limit"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Maximum number of messages to return"
+                - name: "order"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Sort order for messages by creation time. 'asc' for oldest first, 'desc' for newest first"
+                - name: "conversation_id"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Conversation ID to filter messages by"
+                - name: "include_return_message_types"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Message types to include in response. When null, all message types are returned."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "messages-search"
+          path: "/v1/messages/search"
+          operations:
+            - name: "search_all_messages"
+              method: POST
+              description: "Search All Messages"
+              inputParameters:
+                - name: "body"
+                  in: body
+                  type: object
+                  required: true
+                  description: "Request payload"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "messages-batches"
+          path: "/v1/messages/batches"
+          operations:
+            - name: "create_batch"
+              method: POST
+              description: "Create Batch"
+              inputParameters:
+                - name: "body"
+                  in: body
+                  type: object
+                  required: true
+                  description: "Request payload"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: "list_batches"
+              method: GET
+              description: "List Batches"
+              inputParameters:
+                - name: "before"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Job ID cursor for pagination. Returns jobs that come before this job ID in the specified sort order"
+                - name: "after"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Job ID cursor for pagination. Returns jobs that come after this job ID in the specified sort order"
+                - name: "limit"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Maximum number of jobs to return"
+                - name: "order"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Sort order for jobs by creation time. 'asc' for oldest first, 'desc' for newest first"
+                - name: "order_by"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Field to sort by"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "messages-batches-by-id"
+          path: "/v1/messages/batches/{batch_id}"
+          operations:
+            - name: "retrieve_batch"
+              method: GET
+              description: "Retrieve Batch"
+              inputParameters:
+                - name: "batch_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "batch_id parameter"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "messages-batches-by-id-messages"
+          path: "/v1/messages/batches/{batch_id}/messages"
+          operations:
+            - name: "list_messages_for_batch"
+              method: GET
+              description: "List Messages for Batch"
+              inputParameters:
+                - name: "batch_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "batch_id parameter"
+                - name: "before"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Message ID cursor for pagination. Returns messages that come before this message ID in the specified sort order"
+                - name: "after"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Message ID cursor for pagination. Returns messages that come after this message ID in the specified sort order"
+                - name: "limit"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Maximum number of messages to return"
+                - name: "order"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Sort order for messages by creation time. 'asc' for oldest first, 'desc' for newest first"
+                - name: "order_by"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Field to sort by"
+                - name: "agent_id"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Filter messages by agent ID"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "messages-batches-by-id-cancel"
+          path: "/v1/messages/batches/{batch_id}/cancel"
+          operations:
+            - name: "cancel_batch"
+              method: PATCH
+              description: "Cancel Batch"
+              inputParameters:
+                - name: "batch_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "batch_id parameter"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "messages-by-id"
+          path: "/v1/messages/{message_id}"
+          operations:
+            - name: "retrieve_message"
+              method: GET
+              description: "Retrieve Message"
+              inputParameters:
+                - name: "message_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "The ID of the message in the format 'message-<uuid4>'"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  exposes:
+    - type: rest
+      namespace: "letta-messages-rest"
+      port: 8080
+      description: "REST adapter for Letta API — Messages. One Spectral-compliant resource per consumed operation."
+      resources:
+        - path: "/v1/messages/"
+          name: "messages"
+          description: "REST surface for messages."
+          operations:
+            - method: GET
+              name: "list_all_messages"
+              description: "List All Messages"
+              call: "letta-messages.list_all_messages"
+              with:
+                "before": "rest.before"
+                "after": "rest.after"
+                "limit": "rest.limit"
+                "order": "rest.order"
+                "conversation_id": "rest.conversation_id"
+                "include_return_message_types": "rest.include_return_message_types"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/messages/search"
+          name: "messages-search"
+          description: "REST surface for messages-search."
+          operations:
+            - method: POST
+              name: "search_all_messages"
+              description: "Search All Messages"
+              call: "letta-messages.search_all_messages"
+              with:
+                "body": "rest.body"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/messages/batches"
+          name: "messages-batches"
+          description: "REST surface for messages-batches."
+          operations:
+            - method: POST
+              name: "create_batch"
+              description: "Create Batch"
+              call: "letta-messages.create_batch"
+              with:
+                "body": "rest.body"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: GET
+              name: "list_batches"
+              description: "List Batches"
+              call: "letta-messages.list_batches"
+              with:
+                "before": "rest.before"
+                "after": "rest.after"
+                "limit": "rest.limit"
+                "order": "rest.order"
+                "order_by": "rest.order_by"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/messages/batches/{batch-id}"
+          name: "messages-batches-by-id"
+          description: "REST surface for messages-batches-by-id."
+          operations:
+            - method: GET
+              name: "retrieve_batch"
+              description: "Retrieve Batch"
+              call: "letta-messages.retrieve_batch"
+              with:
+                "batch_id": "rest.batch_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/messages/batches/{batch-id}/messages"
+          name: "messages-batches-by-id-messages"
+          description: "REST surface for messages-batches-by-id-messages."
+          operations:
+            - method: GET
+              name: "list_messages_for_batch"
+              description: "List Messages for Batch"
+              call: "letta-messages.list_messages_for_batch"
+              with:
+                "batch_id": "rest.batch_id"
+                "before": "rest.before"
+                "after": "rest.after"
+                "limit": "rest.limit"
+                "order": "rest.order"
+                "order_by": "rest.order_by"
+                "agent_id": "rest.agent_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/messages/batches/{batch-id}/cancel"
+          name: "messages-batches-by-id-cancel"
+          description: "REST surface for messages-batches-by-id-cancel."
+          operations:
+            - method: PATCH
+              name: "cancel_batch"
+              description: "Cancel Batch"
+              call: "letta-messages.cancel_batch"
+              with:
+                "batch_id": "rest.batch_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/messages/{message-id}"
+          name: "messages-by-id"
+          description: "REST surface for messages-by-id."
+          operations:
+            - method: GET
+              name: "retrieve_message"
+              description: "Retrieve Message"
+              call: "letta-messages.retrieve_message"
+              with:
+                "message_id": "rest.message_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+    - type: mcp
+      namespace: "letta-messages-mcp"
+      port: 9090
+      transport: http
+      description: "MCP adapter for Letta API — Messages. One verb-noun tool per consumed operation."
+      tools:
+        - name: "list-all-messages"
+          description: "List All Messages"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "letta-messages.list_all_messages"
+          with:
+            "before": "tools.before"
+            "after": "tools.after"
+            "limit": "tools.limit"
+            "order": "tools.order"
+            "conversation_id": "tools.conversation_id"
+            "include_return_message_types": "tools.include_return_message_types"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "search-all-messages"
+          description: "Search All Messages"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: false
+          call: "letta-messages.search_all_messages"
+          with:
+            "body": "tools.body"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "create-batch"
+          description: "Create Batch"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "letta-messages.create_batch"
+          with:
+            "body": "tools.body"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "list-batches"
+          description: "List Batches"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "letta-messages.list_batches"
+          with:
+            "before": "tools.before"
+            "after": "tools.after"
+            "limit": "tools.limit"
+            "order": "tools.order"
+            "order_by": "tools.order_by"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "retrieve-batch"
+          description: "Retrieve Batch"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "letta-messages.retrieve_batch"
+          with:
+            "batch_id": "tools.batch_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "list-messages-batch"
+          description: "List Messages for Batch"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "letta-messages.list_messages_for_batch"
+          with:
+            "batch_id": "tools.batch_id"
+            "before": "tools.before"
+            "after": "tools.after"
+            "limit": "tools.limit"
+            "order": "tools.order"
+            "order_by": "tools.order_by"
+            "agent_id": "tools.agent_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "cancel-batch"
+          description: "Cancel Batch"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: true
+          call: "letta-messages.cancel_batch"
+          with:
+            "batch_id": "tools.batch_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "retrieve-message"
+          description: "Retrieve Message"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "letta-messages.retrieve_message"
+          with:
+            "message_id": "tools.message_id"
+          outputParameters:
+            - type: object
+              mapping: "$."

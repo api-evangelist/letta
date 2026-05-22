@@ -1,0 +1,30 @@
+{
+  "operation": "Run Tool From Source",
+  "method": "POST",
+  "path": "/v1/tools/run",
+  "auth": "Bearer token (LETTA_API_KEY)",
+  "request": {
+    "method": "POST",
+    "path": "/v1/tools/run",
+    "headers": {
+      "Authorization": "Bearer $LETTA_API_KEY",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "source_code": "def greet(name): return f\"hello {name}\"",
+      "source_type": "python",
+      "args": {
+        "name": "kin"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "tool_return": "hello kin",
+      "status": "success",
+      "stdout": "",
+      "stderr": ""
+    }
+  }
+}

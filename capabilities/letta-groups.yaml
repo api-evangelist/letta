@@ -1,0 +1,627 @@
+naftiko: "1.0.0-alpha2"
+
+info:
+  label: "Letta API — Groups"
+  description: >-
+    Multi-agent groups — coordinate supervisor/worker, round-robin, and sleep-time agent collectives. 11 operations. Lead operation: List Groups. Self-contained Naftiko capability covering one Letta business surface.
+  tags:
+    - Letta
+    - Stateful Agents
+    - Groups
+  created: "2026-05-08"
+  modified: "2026-05-22"
+
+binds:
+  - namespace: env
+    keys:
+      LETTA_API_KEY: LETTA_API_KEY
+
+capability:
+
+  consumes:
+    - type: http
+      namespace: "letta-groups"
+      baseUri: "https://api.letta.com"
+      description: "Letta API — Groups business capability. Self-contained, no shared references."
+      authentication:
+        type: bearer
+        token: "{{env.LETTA_API_KEY}}"
+      resources:
+        - name: "groups"
+          path: "/v1/groups/"
+          operations:
+            - name: "list_groups"
+              method: GET
+              description: "List Groups"
+              inputParameters:
+                - name: "manager_type"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Search groups by manager type"
+                - name: "before"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Group ID cursor for pagination. Returns groups that come before this group ID in the specified sort order"
+                - name: "after"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Group ID cursor for pagination. Returns groups that come after this group ID in the specified sort order"
+                - name: "limit"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Maximum number of groups to return"
+                - name: "order"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Sort order for groups by creation time. 'asc' for oldest first, 'desc' for newest first"
+                - name: "order_by"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Field to sort by"
+                - name: "project_id"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Search groups by project id"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: "create_group"
+              method: POST
+              description: "Create Group"
+              inputParameters:
+                - name: "X-Project"
+                  in: header
+                  type: string
+                  required: false
+                  description: "The project slug to associate with the group (cloud only)."
+                - name: "body"
+                  in: body
+                  type: object
+                  required: true
+                  description: "Request payload"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "groups-count"
+          path: "/v1/groups/count"
+          operations:
+            - name: "count_groups"
+              method: GET
+              description: "Count Groups"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "groups-by-id"
+          path: "/v1/groups/{group_id}"
+          operations:
+            - name: "retrieve_group"
+              method: GET
+              description: "Retrieve Group"
+              inputParameters:
+                - name: "group_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "The ID of the group in the format 'group-<uuid4>'"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: "modify_group"
+              method: PATCH
+              description: "Modify Group"
+              inputParameters:
+                - name: "group_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "The ID of the group in the format 'group-<uuid4>'"
+                - name: "X-Project"
+                  in: header
+                  type: string
+                  required: false
+                  description: "The project slug to associate with the group (cloud only)."
+                - name: "body"
+                  in: body
+                  type: object
+                  required: true
+                  description: "Request payload"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: "delete_group"
+              method: DELETE
+              description: "Delete Group"
+              inputParameters:
+                - name: "group_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "The ID of the group in the format 'group-<uuid4>'"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "groups-by-id-messages-by-id"
+          path: "/v1/groups/{group_id}/messages/{message_id}"
+          operations:
+            - name: "modify_group_message"
+              method: PATCH
+              description: "Modify Group Message"
+              inputParameters:
+                - name: "group_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "The ID of the group in the format 'group-<uuid4>'"
+                - name: "message_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "The ID of the message in the format 'message-<uuid4>'"
+                - name: "body"
+                  in: body
+                  type: object
+                  required: true
+                  description: "Request payload"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "groups-by-id-messages"
+          path: "/v1/groups/{group_id}/messages"
+          operations:
+            - name: "list_group_messages"
+              method: GET
+              description: "List Group Messages"
+              inputParameters:
+                - name: "group_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "The ID of the group in the format 'group-<uuid4>'"
+                - name: "before"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Message ID cursor for pagination. Returns messages that come before this message ID in the specified sort order"
+                - name: "after"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Message ID cursor for pagination. Returns messages that come after this message ID in the specified sort order"
+                - name: "limit"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Maximum number of messages to retrieve"
+                - name: "order"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Sort order for messages by creation time. 'asc' for oldest first, 'desc' for newest first"
+                - name: "order_by"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Field to sort by"
+                - name: "use_assistant_message"
+                  in: query
+                  type: boolean
+                  required: false
+                  description: "Whether to use assistant messages"
+                - name: "assistant_message_tool_name"
+                  in: query
+                  type: string
+                  required: false
+                  description: "The name of the designated message tool."
+                - name: "assistant_message_tool_kwarg"
+                  in: query
+                  type: string
+                  required: false
+                  description: "The name of the message argument."
+                - name: "include_return_message_types"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Message types to include in response. When null, all message types are returned."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "groups-by-id-reset-messages"
+          path: "/v1/groups/{group_id}/reset-messages"
+          operations:
+            - name: "reset_group_messages"
+              method: PATCH
+              description: "Reset Group Messages"
+              inputParameters:
+                - name: "group_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "The ID of the group in the format 'group-<uuid4>'"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "groups-by-id-blocks-attach-by-id"
+          path: "/v1/groups/{group_id}/blocks/attach/{block_id}"
+          operations:
+            - name: "attach_block_to_group"
+              method: PATCH
+              description: "Attach Block to Group"
+              inputParameters:
+                - name: "block_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "block_id parameter"
+                - name: "group_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "The ID of the group in the format 'group-<uuid4>'"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "groups-by-id-blocks-detach-by-id"
+          path: "/v1/groups/{group_id}/blocks/detach/{block_id}"
+          operations:
+            - name: "detach_block_from_group"
+              method: PATCH
+              description: "Detach Block from Group"
+              inputParameters:
+                - name: "block_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "block_id parameter"
+                - name: "group_id"
+                  in: path
+                  type: string
+                  required: true
+                  description: "The ID of the group in the format 'group-<uuid4>'"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  exposes:
+    - type: rest
+      namespace: "letta-groups-rest"
+      port: 8080
+      description: "REST adapter for Letta API — Groups. One Spectral-compliant resource per consumed operation."
+      resources:
+        - path: "/v1/groups/"
+          name: "groups"
+          description: "REST surface for groups."
+          operations:
+            - method: GET
+              name: "list_groups"
+              description: "List Groups"
+              call: "letta-groups.list_groups"
+              with:
+                "manager_type": "rest.manager_type"
+                "before": "rest.before"
+                "after": "rest.after"
+                "limit": "rest.limit"
+                "order": "rest.order"
+                "order_by": "rest.order_by"
+                "project_id": "rest.project_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: "create_group"
+              description: "Create Group"
+              call: "letta-groups.create_group"
+              with:
+                "X-Project": "rest.X-Project"
+                "body": "rest.body"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/groups/count"
+          name: "groups-count"
+          description: "REST surface for groups-count."
+          operations:
+            - method: GET
+              name: "count_groups"
+              description: "Count Groups"
+              call: "letta-groups.count_groups"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/groups/{group-id}"
+          name: "groups-by-id"
+          description: "REST surface for groups-by-id."
+          operations:
+            - method: GET
+              name: "retrieve_group"
+              description: "Retrieve Group"
+              call: "letta-groups.retrieve_group"
+              with:
+                "group_id": "rest.group_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: PATCH
+              name: "modify_group"
+              description: "Modify Group"
+              call: "letta-groups.modify_group"
+              with:
+                "group_id": "rest.group_id"
+                "X-Project": "rest.X-Project"
+                "body": "rest.body"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: DELETE
+              name: "delete_group"
+              description: "Delete Group"
+              call: "letta-groups.delete_group"
+              with:
+                "group_id": "rest.group_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/groups/{group-id}/messages/{message-id}"
+          name: "groups-by-id-messages-by-id"
+          description: "REST surface for groups-by-id-messages-by-id."
+          operations:
+            - method: PATCH
+              name: "modify_group_message"
+              description: "Modify Group Message"
+              call: "letta-groups.modify_group_message"
+              with:
+                "group_id": "rest.group_id"
+                "message_id": "rest.message_id"
+                "body": "rest.body"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/groups/{group-id}/messages"
+          name: "groups-by-id-messages"
+          description: "REST surface for groups-by-id-messages."
+          operations:
+            - method: GET
+              name: "list_group_messages"
+              description: "List Group Messages"
+              call: "letta-groups.list_group_messages"
+              with:
+                "group_id": "rest.group_id"
+                "before": "rest.before"
+                "after": "rest.after"
+                "limit": "rest.limit"
+                "order": "rest.order"
+                "order_by": "rest.order_by"
+                "use_assistant_message": "rest.use_assistant_message"
+                "assistant_message_tool_name": "rest.assistant_message_tool_name"
+                "assistant_message_tool_kwarg": "rest.assistant_message_tool_kwarg"
+                "include_return_message_types": "rest.include_return_message_types"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/groups/{group-id}/reset-messages"
+          name: "groups-by-id-reset-messages"
+          description: "REST surface for groups-by-id-reset-messages."
+          operations:
+            - method: PATCH
+              name: "reset_group_messages"
+              description: "Reset Group Messages"
+              call: "letta-groups.reset_group_messages"
+              with:
+                "group_id": "rest.group_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/groups/{group-id}/blocks/attach/{block-id}"
+          name: "groups-by-id-blocks-attach-by-id"
+          description: "REST surface for groups-by-id-blocks-attach-by-id."
+          operations:
+            - method: PATCH
+              name: "attach_block_to_group"
+              description: "Attach Block to Group"
+              call: "letta-groups.attach_block_to_group"
+              with:
+                "block_id": "rest.block_id"
+                "group_id": "rest.group_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/groups/{group-id}/blocks/detach/{block-id}"
+          name: "groups-by-id-blocks-detach-by-id"
+          description: "REST surface for groups-by-id-blocks-detach-by-id."
+          operations:
+            - method: PATCH
+              name: "detach_block_from_group"
+              description: "Detach Block from Group"
+              call: "letta-groups.detach_block_from_group"
+              with:
+                "block_id": "rest.block_id"
+                "group_id": "rest.group_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+    - type: mcp
+      namespace: "letta-groups-mcp"
+      port: 9090
+      transport: http
+      description: "MCP adapter for Letta API — Groups. One verb-noun tool per consumed operation."
+      tools:
+        - name: "list-groups"
+          description: "List Groups"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "letta-groups.list_groups"
+          with:
+            "manager_type": "tools.manager_type"
+            "before": "tools.before"
+            "after": "tools.after"
+            "limit": "tools.limit"
+            "order": "tools.order"
+            "order_by": "tools.order_by"
+            "project_id": "tools.project_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "create-group"
+          description: "Create Group"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "letta-groups.create_group"
+          with:
+            "X-Project": "tools.X-Project"
+            "body": "tools.body"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "count-groups"
+          description: "Count Groups"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "letta-groups.count_groups"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "retrieve-group"
+          description: "Retrieve Group"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "letta-groups.retrieve_group"
+          with:
+            "group_id": "tools.group_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "modify-group"
+          description: "Modify Group"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: true
+          call: "letta-groups.modify_group"
+          with:
+            "group_id": "tools.group_id"
+            "X-Project": "tools.X-Project"
+            "body": "tools.body"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "delete-group"
+          description: "Delete Group"
+          hints:
+            readOnly: false
+            destructive: true
+            idempotent: true
+          call: "letta-groups.delete_group"
+          with:
+            "group_id": "tools.group_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "modify-group-message"
+          description: "Modify Group Message"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: true
+          call: "letta-groups.modify_group_message"
+          with:
+            "group_id": "tools.group_id"
+            "message_id": "tools.message_id"
+            "body": "tools.body"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "list-group-messages"
+          description: "List Group Messages"
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "letta-groups.list_group_messages"
+          with:
+            "group_id": "tools.group_id"
+            "before": "tools.before"
+            "after": "tools.after"
+            "limit": "tools.limit"
+            "order": "tools.order"
+            "order_by": "tools.order_by"
+            "use_assistant_message": "tools.use_assistant_message"
+            "assistant_message_tool_name": "tools.assistant_message_tool_name"
+            "assistant_message_tool_kwarg": "tools.assistant_message_tool_kwarg"
+            "include_return_message_types": "tools.include_return_message_types"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "reset-group-messages"
+          description: "Reset Group Messages"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: true
+          call: "letta-groups.reset_group_messages"
+          with:
+            "group_id": "tools.group_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "attach-block-group"
+          description: "Attach Block to Group"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: true
+          call: "letta-groups.attach_block_to_group"
+          with:
+            "block_id": "tools.block_id"
+            "group_id": "tools.group_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "detach-block-group"
+          description: "Detach Block from Group"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: true
+          call: "letta-groups.detach_block_from_group"
+          with:
+            "block_id": "tools.block_id"
+            "group_id": "tools.group_id"
+          outputParameters:
+            - type: object
+              mapping: "$."

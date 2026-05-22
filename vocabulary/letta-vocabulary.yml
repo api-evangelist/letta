@@ -1,0 +1,240 @@
+vocabulary: "0.1"
+name: letta-vocabulary
+title: Letta Vocabulary
+description: >-
+  Domain vocabulary for Letta — the stateful AI agents platform (formerly MemGPT).
+  Captures the canonical nouns, verbs, classifications, and operational dimensions
+  used across the Letta API, ADE (Agent Development Environment), Letta Code,
+  and the open-source Letta server.
+source:
+  openapi: openapi/letta-openapi.json
+  docs: https://docs.letta.com/
+  github: https://github.com/letta-ai/letta
+modified: "2026-05-22"
+
+# --- Core nouns (Letta domain entities) ---
+entities:
+  - id: agent
+    label: Agent
+    definition: >-
+      A stateful AI agent with persistent memory, tools, and a deterministic
+      step-loop. Every conversation, tool call, and memory edit is anchored to
+      a specific agent record.
+    schema: json-schema/letta-agent-schema.json
+    synonyms: [MemGPT agent, stateful agent]
+
+  - id: block
+    label: Memory Block
+    definition: >-
+      A labeled, character-limited chunk of in-context "core" memory
+      (e.g., `persona`, `human`). Blocks are first-class objects and can be
+      shared across agents to coordinate multi-agent state.
+    schema: json-schema/letta-block-schema.json
+
+  - id: archive
+    label: Archive
+    definition: >-
+      A long-term archival memory store. Agents read/write Passages here when
+      core memory is too small. Powers RAG-style recall over historical
+      conversations and ingested Sources.
+    schema: json-schema/letta-archive-schema.json
+
+  - id: passage
+    label: Passage
+    definition: >-
+      An individual chunk of archival memory — a vector-indexed snippet
+      retrievable by semantic search.
+    schema: json-schema/letta-passage-schema.json
+
+  - id: source
+    label: Source
+    definition: >-
+      A document ingestion surface (file, URL, dataset). Uploaded files are
+      chunked into Passages and attached to agent archives for RAG.
+    schema: json-schema/letta-source-schema.json
+
+  - id: tool
+    label: Tool
+    definition: >-
+      A callable function an agent can invoke. Three execution modes —
+      `sandboxed` (Letta-hosted Python), `client-side` (your app executes),
+      and `MCP` (delegated to a registered MCP server).
+    schema: json-schema/letta-tool-schema.json
+
+  - id: mcp_server
+    label: MCP Server
+    definition: >-
+      A registered external Model Context Protocol server. Letta consumes its
+      tools and lets agents invoke them as first-class tools without owning
+      the execution.
+    transports: [streamable_http, sse, stdio]
+
+  - id: group
+    label: Group
+    definition: >-
+      A multi-agent collective. Manager configs include `supervisor`,
+      `round_robin`, `dynamic`, and `sleep_time`. Groups can share memory
+      blocks for collective state.
+    schema: json-schema/letta-group-schema.json
+
+  - id: identity
+    label: Identity
+    definition: >-
+      A mapping between an external end-user and per-user agents and memory
+      contexts. Lets one Letta deployment serve many distinct users with
+      isolated state.
+    schema: json-schema/letta-identity-schema.json
+
+  - id: run
+    label: Run
+    definition: >-
+      One agent execution — the trace from a user message through tool calls,
+      memory edits, and the final assistant reply. Bounded by step count and
+      token usage.
+    schema: json-schema/letta-run-schema.json
+
+  - id: job
+    label: Job
+    definition: >-
+      A long-running background task (e.g., source file ingestion, agent
+      export).
+    schema: json-schema/letta-job-schema.json
+
+  - id: message
+    label: Message
+    definition: >-
+      A single utterance — user, assistant, system, reasoning, tool_call,
+      or tool_return — inside a run or conversation history.
+    schema: json-schema/letta-message-schema.json
+    message_types: [user_message, assistant_message, reasoning_message, tool_call_message, tool_return_message, system_message]
+
+  - id: scheduled_message
+    label: Scheduled Message
+    definition: >-
+      A one-time or cron-recurring message that drives an agent at a future
+      time without a human in the loop.
+
+  - id: llm_config
+    label: LLM Config
+    definition: >-
+      Per-agent language model selection — endpoint type, model name,
+      context window, temperature, max tokens.
+    schema: json-schema/letta-llm-config-schema.json
+
+  - id: embedding_config
+    label: Embedding Config
+    definition: >-
+      Per-agent embedding model selection — dimensionality and endpoint.
+    schema: json-schema/letta-embedding-config-schema.json
+
+  - id: provider
+    label: Provider
+    definition: >-
+      An LLM provider credential record — OpenAI, Anthropic, Azure, Google
+      AI, Ollama, vLLM, etc. Letta routes model calls through these.
+    schema: json-schema/letta-provider-schema.json
+
+# --- Concepts (Letta-specific patterns) ---
+concepts:
+  - id: stateful_agent
+    label: Stateful Agent
+    definition: >-
+      An agent whose identity persists across runs — its memory, tools, and
+      configuration outlive any single LLM context window. Differentiator
+      vs. stateless agent frameworks.
+
+  - id: sleep_time_agent
+    label: Sleep-Time Agent
+    definition: >-
+      A background agent that shares memory with primary agents and runs
+      asynchronously to clean, consolidate, and rewrite their memory. Enabled
+      via `enable_sleeptime: true`.
+
+  - id: memgpt
+    label: MemGPT
+    definition: >-
+      The original 2023 academic paper / project that introduced
+      virtual-context-management for LLM agents. Letta is the production
+      framework that grew out of MemGPT.
+
+  - id: agent_file
+    label: Agent File (.af)
+    definition: >-
+      Open file format for serializing a stateful agent (memory + tools +
+      config) for export, sharing, version control, and migration between
+      self-hosted and cloud. Repo: github.com/letta-ai/agent-file.
+
+  - id: ade
+    label: Agent Development Environment (ADE)
+    definition: >-
+      Letta's web UI for inspecting an agent's context window, memory blocks,
+      archival memory, tool calls, and run history — "the ADE bridges the gap
+      between development and deployment, providing complete transparency,
+      state control, rapid prototyping, and robust debugging."
+
+  - id: letta_code
+    label: Letta Code
+    definition: >-
+      Letta's memory-first coding agent (CLI + desktop app) — analogous to
+      Claude Code but with persistent agent memory and skill learning.
+
+  - id: continual_learning
+    label: Continual Learning
+    definition: >-
+      Letta's framing for agents that improve over time by rewriting their
+      own memory and adding learned skills, rather than being fine-tuned.
+
+  - id: context_constitution
+    label: Context Constitution
+    definition: >-
+      A Letta primitive (Apr 2026) defining invariants and policies the
+      agent must respect when editing its own memory and context.
+
+  - id: skills
+    label: Skills
+    definition: >-
+      Reusable agent capabilities packaged for sharing across Letta Code,
+      Claude Code, Codex CLI, and other agents. Repo: github.com/letta-ai/skills.
+
+# --- Operational dimensions ---
+dimensions:
+  deployment:
+    - cloud
+    - self_hosted
+  pricing_meters:
+    - per_active_agent_per_month
+    - per_second_tool_execution
+    - llm_passthrough_tokens
+  manager_types:
+    - supervisor
+    - round_robin
+    - dynamic
+    - sleep_time
+  agent_types:
+    - memgpt_agent
+    - split_thread_agent
+    - sleeptime_agent
+    - workflow_agent
+  mcp_transports:
+    - streamable_http
+    - sse
+    - stdio
+  run_statuses:
+    - queued
+    - running
+    - completed
+    - failed
+    - cancelled
+
+# --- Cross-reference vocabularies ---
+crossReferences:
+  - vocab: schema.org
+    mappings:
+      Agent: schema:SoftwareApplication
+      Tool: schema:Action
+      Source: schema:DataDownload
+      Message: schema:Message
+  - vocab: Naftiko
+    mappings:
+      capability: capabilities/letta-*.yaml
+      mcpServer: letta:MCPServer
