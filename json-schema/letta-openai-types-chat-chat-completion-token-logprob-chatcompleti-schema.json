@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/openai__types__chat__chat_completion_token_logprob__ChatCompletionTokenLogprob",
+  "title": "ChatCompletionTokenLogprob",
+  "properties": {
+    "token": {
+      "type": "string",
+      "title": "Token"
+    },
+    "bytes": {
+      "anyOf": [
+        {
+          "items": {
+            "type": "integer"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Bytes"
+    },
+    "logprob": {
+      "type": "number",
+      "title": "Logprob"
+    },
+    "top_logprobs": {
+      "items": {
+        "$ref": "#/components/schemas/openai__types__chat__chat_completion_token_logprob__TopLogprob"
+      },
+      "type": "array",
+      "title": "Top Logprobs"
+    }
+  },
+  "additionalProperties": true,
+  "type": "object",
+  "required": [
+    "token",
+    "logprob",
+    "top_logprobs"
+  ]
+}

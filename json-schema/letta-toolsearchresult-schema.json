@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ToolSearchResult",
+  "title": "ToolSearchResult",
+  "properties": {
+    "tool": {
+      "$ref": "#/components/schemas/Tool",
+      "description": "The matched tool."
+    },
+    "embedded_text": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Embedded Text",
+      "description": "The embedded text content used for matching."
+    },
+    "fts_rank": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Fts Rank",
+      "description": "Full-text search rank position."
+    },
+    "vector_rank": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Vector Rank",
+      "description": "Vector search rank position."
+    },
+    "combined_score": {
+      "type": "number",
+      "title": "Combined Score",
+      "description": "Combined relevance score (RRF for hybrid mode)."
+    }
+  },
+  "additionalProperties": false,
+  "type": "object",
+  "required": [
+    "tool",
+    "combined_score"
+  ],
+  "description": "Result from a tool search operation."
+}

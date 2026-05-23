@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/OmittedReasoningContent",
+  "title": "OmittedReasoningContent",
+  "properties": {
+    "type": {
+      "type": "string",
+      "const": "omitted_reasoning",
+      "title": "Type",
+      "description": "Indicates this is an omitted reasoning step.",
+      "default": "omitted_reasoning"
+    },
+    "signature": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Signature",
+      "description": "A unique identifier for this reasoning step."
+    }
+  },
+  "type": "object",
+  "description": "A placeholder for reasoning content we know is present, but isn't returned by the provider (e.g. OpenAI GPT-5 on ChatCompletions)"
+}

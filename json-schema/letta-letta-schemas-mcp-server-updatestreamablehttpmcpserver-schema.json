@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/letta__schemas__mcp_server__UpdateStreamableHTTPMCPServer",
+  "title": "UpdateStreamableHTTPMCPServer",
+  "properties": {
+    "mcp_server_type": {
+      "type": "string",
+      "const": "streamable_http",
+      "title": "Mcp Server Type",
+      "default": "streamable_http"
+    },
+    "server_url": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Server Url",
+      "description": "The URL of the server"
+    },
+    "auth_header": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Auth Header",
+      "description": "The name of the authentication header (e.g., 'Authorization')"
+    },
+    "auth_token": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Auth Token",
+      "description": "The authentication token or API key value"
+    },
+    "custom_headers": {
+      "anyOf": [
+        {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Custom Headers",
+      "description": "Custom HTTP headers to include with requests"
+    }
+  },
+  "additionalProperties": false,
+  "type": "object",
+  "required": [
+    "server_url"
+  ],
+  "description": "Update schema for Streamable HTTP MCP server - all fields optional"
+}

@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CreateArchivalMemory",
+  "title": "CreateArchivalMemory",
+  "properties": {
+    "text": {
+      "type": "string",
+      "title": "Text",
+      "description": "Text to write to archival memory."
+    },
+    "tags": {
+      "anyOf": [
+        {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Tags",
+      "description": "Optional list of tags to attach to the memory."
+    },
+    "created_at": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "date-time"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Created At",
+      "description": "Optional timestamp for the memory (defaults to current UTC time)."
+    }
+  },
+  "type": "object",
+  "required": [
+    "text"
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/UserUpdate",
+  "title": "UserUpdate",
+  "properties": {
+    "id": {
+      "type": "string",
+      "maxLength": 41,
+      "minLength": 41,
+      "pattern": "^user-[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
+      "title": "Id",
+      "description": "The id of the user to update.",
+      "examples": [
+        "user-123e4567-e89b-42d3-8456-426614174000"
+      ]
+    },
+    "name": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Name",
+      "description": "The new name of the user."
+    }
+  },
+  "additionalProperties": false,
+  "type": "object",
+  "required": [
+    "id"
+  ]
+}

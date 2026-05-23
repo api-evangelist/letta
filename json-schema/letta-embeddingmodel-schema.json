@@ -1,0 +1,166 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/EmbeddingModel",
+  "title": "EmbeddingModel",
+  "properties": {
+    "handle": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Handle",
+      "description": "The handle for this config, in the format provider/model-name."
+    },
+    "name": {
+      "type": "string",
+      "title": "Name",
+      "description": "The actual model name used by the provider"
+    },
+    "display_name": {
+      "type": "string",
+      "title": "Display Name",
+      "description": "Display name for the model shown in UI"
+    },
+    "provider_type": {
+      "$ref": "#/components/schemas/ProviderType",
+      "description": "The type of the provider"
+    },
+    "provider_name": {
+      "type": "string",
+      "title": "Provider Name",
+      "description": "The name of the provider"
+    },
+    "model_type": {
+      "type": "string",
+      "const": "embedding",
+      "title": "Model Type",
+      "description": "Type of model (llm or embedding)",
+      "default": "embedding"
+    },
+    "embedding_endpoint_type": {
+      "type": "string",
+      "enum": [
+        "openai",
+        "anthropic",
+        "bedrock",
+        "google_ai",
+        "google_vertex",
+        "azure",
+        "groq",
+        "ollama",
+        "webui",
+        "webui-legacy",
+        "lmstudio",
+        "lmstudio-legacy",
+        "llamacpp",
+        "koboldcpp",
+        "vllm",
+        "hugging-face",
+        "mistral",
+        "together",
+        "pinecone"
+      ],
+      "title": "Embedding Endpoint Type",
+      "description": "Deprecated: Use 'provider_type' field instead. The endpoint type for the embedding model.",
+      "deprecated": true
+    },
+    "embedding_endpoint": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Embedding Endpoint",
+      "description": "Deprecated: The endpoint for the model.",
+      "deprecated": true
+    },
+    "embedding_model": {
+      "type": "string",
+      "title": "Embedding Model",
+      "description": "Deprecated: Use 'name' field instead. Embedding model name.",
+      "deprecated": true
+    },
+    "embedding_dim": {
+      "type": "integer",
+      "title": "Embedding Dim",
+      "description": "The dimension of the embedding"
+    },
+    "embedding_chunk_size": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Embedding Chunk Size",
+      "description": "Deprecated: The chunk size of the embedding.",
+      "default": 300,
+      "deprecated": true
+    },
+    "batch_size": {
+      "type": "integer",
+      "title": "Batch Size",
+      "description": "Deprecated: The maximum batch size for processing embeddings.",
+      "default": 32,
+      "deprecated": true
+    },
+    "azure_endpoint": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Azure Endpoint",
+      "description": "Deprecated: The Azure endpoint for the model.",
+      "deprecated": true
+    },
+    "azure_version": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Azure Version",
+      "description": "Deprecated: The Azure version for the model.",
+      "deprecated": true
+    },
+    "azure_deployment": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Azure Deployment",
+      "description": "Deprecated: The Azure deployment for the model.",
+      "deprecated": true
+    }
+  },
+  "type": "object",
+  "required": [
+    "name",
+    "display_name",
+    "provider_type",
+    "provider_name",
+    "embedding_endpoint_type",
+    "embedding_model",
+    "embedding_dim"
+  ]
+}

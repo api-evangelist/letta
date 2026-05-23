@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/GenerateToolInput",
+  "title": "GenerateToolInput",
+  "properties": {
+    "tool_name": {
+      "type": "string",
+      "title": "Tool Name",
+      "description": "Name of the tool to generate code for"
+    },
+    "prompt": {
+      "type": "string",
+      "title": "Prompt",
+      "description": "User prompt to generate code"
+    },
+    "handle": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Handle",
+      "description": "Handle of the tool to generate code for"
+    },
+    "starter_code": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Starter Code",
+      "description": "Python source code to parse for JSON schema"
+    },
+    "validation_errors": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array",
+      "title": "Validation Errors",
+      "description": "List of validation errors"
+    }
+  },
+  "type": "object",
+  "required": [
+    "tool_name",
+    "prompt",
+    "validation_errors"
+  ]
+}

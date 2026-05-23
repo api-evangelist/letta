@@ -1,0 +1,170 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ChatCompletionRequest",
+  "title": "ChatCompletionRequest",
+  "properties": {
+    "model": {
+      "type": "string",
+      "title": "Model",
+      "description": "ID of the model to use"
+    },
+    "messages": {
+      "items": {
+        "anyOf": [
+          {
+            "$ref": "#/components/schemas/ChatCompletionDeveloperMessageParam"
+          },
+          {
+            "$ref": "#/components/schemas/ChatCompletionSystemMessageParam"
+          },
+          {
+            "$ref": "#/components/schemas/ChatCompletionUserMessageParam"
+          },
+          {
+            "$ref": "#/components/schemas/ChatCompletionAssistantMessageParam"
+          },
+          {
+            "$ref": "#/components/schemas/ChatCompletionToolMessageParam"
+          },
+          {
+            "$ref": "#/components/schemas/ChatCompletionFunctionMessageParam"
+          }
+        ]
+      },
+      "type": "array",
+      "title": "Messages",
+      "description": "Messages comprising the conversation so far"
+    },
+    "temperature": {
+      "anyOf": [
+        {
+          "type": "number",
+          "maximum": 2,
+          "minimum": 0
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Temperature",
+      "description": "Sampling temperature"
+    },
+    "top_p": {
+      "anyOf": [
+        {
+          "type": "number",
+          "maximum": 1,
+          "minimum": 0
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Top P",
+      "description": "Nucleus sampling parameter"
+    },
+    "n": {
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 1
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "N",
+      "description": "Number of chat completion choices to generate",
+      "default": 1
+    },
+    "stream": {
+      "anyOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Stream",
+      "description": "Whether to stream back partial progress",
+      "default": false
+    },
+    "stop": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Stop",
+      "description": "Sequences where the API will stop generating"
+    },
+    "max_tokens": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Max Tokens",
+      "description": "Maximum number of tokens to generate"
+    },
+    "presence_penalty": {
+      "anyOf": [
+        {
+          "type": "number",
+          "maximum": 2,
+          "minimum": -2
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Presence Penalty",
+      "description": "Presence penalty"
+    },
+    "frequency_penalty": {
+      "anyOf": [
+        {
+          "type": "number",
+          "maximum": 2,
+          "minimum": -2
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Frequency Penalty",
+      "description": "Frequency penalty"
+    },
+    "user": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "User",
+      "description": "A unique identifier representing your end-user"
+    }
+  },
+  "type": "object",
+  "required": [
+    "model",
+    "messages"
+  ],
+  "description": "OpenAI-compatible chat completion request - exactly matching OpenAI's schema."
+}

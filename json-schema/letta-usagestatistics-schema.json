@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/UsageStatistics",
+  "title": "UsageStatistics",
+  "properties": {
+    "completion_tokens": {
+      "type": "integer",
+      "title": "Completion Tokens",
+      "default": 0
+    },
+    "prompt_tokens": {
+      "type": "integer",
+      "title": "Prompt Tokens",
+      "default": 0
+    },
+    "total_tokens": {
+      "type": "integer",
+      "title": "Total Tokens",
+      "default": 0
+    },
+    "prompt_tokens_details": {
+      "anyOf": [
+        {
+          "$ref": "#/components/schemas/UsageStatisticsPromptTokenDetails"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "completion_tokens_details": {
+      "anyOf": [
+        {
+          "$ref": "#/components/schemas/UsageStatisticsCompletionTokenDetails"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "type": "object"
+}

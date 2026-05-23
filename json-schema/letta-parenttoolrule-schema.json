@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ParentToolRule",
+  "title": "ParentToolRule",
+  "properties": {
+    "tool_name": {
+      "type": "string",
+      "title": "Tool Name",
+      "description": "The name of the tool. Must exist in the database for the user's organization."
+    },
+    "type": {
+      "type": "string",
+      "const": "parent_last_tool",
+      "title": "Type",
+      "default": "parent_last_tool"
+    },
+    "prompt_template": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Prompt Template",
+      "description": "Optional template string (ignored)."
+    },
+    "children": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array",
+      "title": "Children",
+      "description": "The children tools that can be invoked."
+    }
+  },
+  "additionalProperties": false,
+  "type": "object",
+  "required": [
+    "tool_name",
+    "children"
+  ],
+  "description": "A ToolRule that only allows a child tool to be called if the parent has been called."
+}

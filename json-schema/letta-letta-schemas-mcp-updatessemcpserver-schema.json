@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/letta__schemas__mcp__UpdateSSEMCPServer",
+  "title": "UpdateSSEMCPServer",
+  "properties": {
+    "server_name": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Server Name",
+      "description": "The name of the MCP server"
+    },
+    "server_url": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Server Url",
+      "description": "The URL of the server (MCP SSE client will connect to this URL)"
+    },
+    "token": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Token",
+      "description": "The access token or API key for the MCP server (used for SSE authentication)"
+    },
+    "custom_headers": {
+      "anyOf": [
+        {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Custom Headers",
+      "description": "Custom authentication headers as key-value pairs"
+    }
+  },
+  "additionalProperties": false,
+  "type": "object",
+  "description": "Update an SSE MCP server"
+}

@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/PassageSearchResult",
+  "title": "PassageSearchResult",
+  "properties": {
+    "passage": {
+      "$ref": "#/components/schemas/Passage",
+      "description": "The passage object"
+    },
+    "score": {
+      "type": "number",
+      "title": "Score",
+      "description": "Relevance score"
+    },
+    "metadata": {
+      "additionalProperties": true,
+      "type": "object",
+      "title": "Metadata",
+      "description": "Additional metadata about the search result"
+    }
+  },
+  "type": "object",
+  "required": [
+    "passage",
+    "score"
+  ],
+  "description": "Result from a passage search operation with scoring details."
+}

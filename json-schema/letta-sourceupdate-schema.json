@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/SourceUpdate",
+  "title": "SourceUpdate",
+  "properties": {
+    "name": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Name",
+      "description": "The name of the source."
+    },
+    "description": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Description",
+      "description": "The description of the source."
+    },
+    "instructions": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Instructions",
+      "description": "Instructions for how to use the source."
+    },
+    "metadata": {
+      "anyOf": [
+        {
+          "additionalProperties": true,
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Metadata",
+      "description": "Metadata associated with the source."
+    },
+    "embedding_config": {
+      "anyOf": [
+        {
+          "$ref": "#/components/schemas/EmbeddingConfig"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "The embedding configuration used by the source."
+    }
+  },
+  "additionalProperties": false,
+  "type": "object",
+  "description": "Schema for updating an existing Source."
+}

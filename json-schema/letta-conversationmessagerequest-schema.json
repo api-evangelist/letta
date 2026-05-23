@@ -1,0 +1,259 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ConversationMessageRequest",
+  "title": "ConversationMessageRequest",
+  "properties": {
+    "messages": {
+      "anyOf": [
+        {
+          "items": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/MessageCreate"
+              },
+              {
+                "$ref": "#/components/schemas/ApprovalCreate"
+              },
+              {
+                "$ref": "#/components/schemas/ToolReturnCreate"
+              }
+            ]
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Messages",
+      "description": "The messages to be sent to the agent."
+    },
+    "input": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "items": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/TextContent"
+              },
+              {
+                "$ref": "#/components/schemas/ImageContent"
+              },
+              {
+                "$ref": "#/components/schemas/ToolCallContent"
+              },
+              {
+                "$ref": "#/components/schemas/ToolReturnContent"
+              },
+              {
+                "$ref": "#/components/schemas/ReasoningContent"
+              },
+              {
+                "$ref": "#/components/schemas/RedactedReasoningContent"
+              },
+              {
+                "$ref": "#/components/schemas/OmittedReasoningContent"
+              },
+              {
+                "$ref": "#/components/schemas/SummarizedReasoningContent"
+              }
+            ],
+            "discriminator": {
+              "propertyName": "type",
+              "mapping": {
+                "image": "#/components/schemas/ImageContent",
+                "omitted_reasoning": "#/components/schemas/OmittedReasoningContent",
+                "reasoning": "#/components/schemas/ReasoningContent",
+                "redacted_reasoning": "#/components/schemas/RedactedReasoningContent",
+                "summarized_reasoning": "#/components/schemas/SummarizedReasoningContent",
+                "text": "#/components/schemas/TextContent",
+                "tool_call": "#/components/schemas/ToolCallContent",
+                "tool_return": "#/components/schemas/ToolReturnContent"
+              }
+            }
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Input",
+      "description": "Syntactic sugar for a single user message. Equivalent to messages=[{'role': 'user', 'content': input}]."
+    },
+    "max_steps": {
+      "type": "integer",
+      "title": "Max Steps",
+      "description": "Maximum number of steps the agent should take to process the request.",
+      "default": 50
+    },
+    "use_assistant_message": {
+      "type": "boolean",
+      "title": "Use Assistant Message",
+      "description": "Whether the server should parse specific tool call arguments (default `send_message`) as `AssistantMessage` objects. Still supported for legacy agent types, but deprecated for letta_v1_agent onward.",
+      "default": true,
+      "deprecated": true
+    },
+    "assistant_message_tool_name": {
+      "type": "string",
+      "title": "Assistant Message Tool Name",
+      "description": "The name of the designated message tool. Still supported for legacy agent types, but deprecated for letta_v1_agent onward.",
+      "default": "send_message",
+      "deprecated": true
+    },
+    "assistant_message_tool_kwarg": {
+      "type": "string",
+      "title": "Assistant Message Tool Kwarg",
+      "description": "The name of the message argument in the designated message tool. Still supported for legacy agent types, but deprecated for letta_v1_agent onward.",
+      "default": "message",
+      "deprecated": true
+    },
+    "include_return_message_types": {
+      "anyOf": [
+        {
+          "items": {
+            "$ref": "#/components/schemas/MessageType"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Include Return Message Types",
+      "description": "Only return specified message types in the response. If `None` (default) returns all messages."
+    },
+    "enable_thinking": {
+      "type": "string",
+      "title": "Enable Thinking",
+      "description": "If set to True, enables reasoning before responses or tool calls from the agent.",
+      "default": true,
+      "deprecated": true
+    },
+    "client_tools": {
+      "anyOf": [
+        {
+          "items": {
+            "$ref": "#/components/schemas/ClientToolSchema"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Client Tools",
+      "description": "Client-side tools that the agent can call. When the agent calls a client-side tool, execution pauses and returns control to the client to execute the tool and provide the result via a ToolReturn."
+    },
+    "client_skills": {
+      "anyOf": [
+        {
+          "items": {
+            "$ref": "#/components/schemas/ClientSkillSchema"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Client Skills",
+      "description": "Client-side skills available in the environment. These are rendered in the system prompt's available skills section alongside agent-scoped skills from MemFS."
+    },
+    "override_model": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Override Model",
+      "description": "Model handle to use for this request instead of the agent's default model. This allows sending a message to a different model without changing the agent's configuration."
+    },
+    "include_compaction_messages": {
+      "type": "boolean",
+      "title": "Include Compaction Messages",
+      "description": "If True, compaction events emit structured `SummaryMessage` and `EventMessage` types. If False (default), compaction messages are not included in the response.",
+      "default": false
+    },
+    "return_logprobs": {
+      "type": "boolean",
+      "title": "Return Logprobs",
+      "description": "If True, returns log probabilities of the output tokens in the response. Useful for RL training. Only supported for OpenAI-compatible providers (including SGLang).",
+      "default": false
+    },
+    "top_logprobs": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Top Logprobs",
+      "description": "Number of most likely tokens to return at each position (0-20). Requires return_logprobs=True."
+    },
+    "return_token_ids": {
+      "type": "boolean",
+      "title": "Return Token Ids",
+      "description": "If True, returns token IDs and logprobs for ALL LLM generations in the agent step, not just the last one. Uses SGLang native /generate endpoint. Returns 'turns' field with TurnTokenData for each assistant/tool turn. Required for proper multi-turn RL training with loss masking.",
+      "default": false
+    },
+    "override_system": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Override System",
+      "description": "Optional per-request system prompt override. When set, this is passed directly to the underlying LLM request and bypasses the persisted/compiled system message for that request."
+    },
+    "agent_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Agent Id",
+      "description": "Agent ID for agent-direct mode with 'default' conversation. Use with conversation_id='default' in the URL path."
+    },
+    "streaming": {
+      "type": "boolean",
+      "title": "Streaming",
+      "description": "If True (default), returns a streaming response (Server-Sent Events). If False, returns a complete JSON response.",
+      "default": true
+    },
+    "stream_tokens": {
+      "type": "boolean",
+      "title": "Stream Tokens",
+      "description": "Flag to determine if individual tokens should be streamed, rather than streaming per step (only used when streaming=true).",
+      "default": false
+    },
+    "include_pings": {
+      "type": "boolean",
+      "title": "Include Pings",
+      "description": "Whether to include periodic keepalive ping messages in the stream to prevent connection timeouts (only used when streaming=true).",
+      "default": true
+    },
+    "background": {
+      "type": "boolean",
+      "title": "Background",
+      "description": "Whether to process the request in the background (only used when streaming=true).",
+      "default": false
+    }
+  },
+  "type": "object",
+  "description": "Request for sending messages to a conversation. Streams by default."
+}

@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/MaxCountPerStepToolRule",
+  "title": "MaxCountPerStepToolRule",
+  "properties": {
+    "tool_name": {
+      "type": "string",
+      "title": "Tool Name",
+      "description": "The name of the tool. Must exist in the database for the user's organization."
+    },
+    "type": {
+      "type": "string",
+      "const": "max_count_per_step",
+      "title": "Type",
+      "default": "max_count_per_step"
+    },
+    "prompt_template": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Prompt Template",
+      "description": "Optional template string (ignored)."
+    },
+    "max_count_limit": {
+      "type": "integer",
+      "title": "Max Count Limit",
+      "description": "The max limit for the total number of times this tool can be invoked in a single step."
+    }
+  },
+  "additionalProperties": false,
+  "type": "object",
+  "required": [
+    "tool_name",
+    "max_count_limit"
+  ],
+  "description": "Represents a tool rule configuration which constrains the total number of times this tool can be invoked in a single step."
+}

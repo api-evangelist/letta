@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/UpdateMCPServerRequest",
+  "title": "UpdateMCPServerRequest",
+  "properties": {
+    "server_name": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Server Name",
+      "description": "The name of the MCP server"
+    },
+    "config": {
+      "oneOf": [
+        {
+          "$ref": "#/components/schemas/letta__schemas__mcp_server__UpdateStdioMCPServer"
+        },
+        {
+          "$ref": "#/components/schemas/letta__schemas__mcp_server__UpdateSSEMCPServer"
+        },
+        {
+          "$ref": "#/components/schemas/letta__schemas__mcp_server__UpdateStreamableHTTPMCPServer"
+        }
+      ],
+      "title": "Config",
+      "description": "The MCP server configuration updates (Stdio, SSE, or Streamable HTTP)",
+      "discriminator": {
+        "propertyName": "mcp_server_type",
+        "mapping": {
+          "sse": "#/components/schemas/letta__schemas__mcp_server__UpdateSSEMCPServer",
+          "stdio": "#/components/schemas/letta__schemas__mcp_server__UpdateStdioMCPServer",
+          "streamable_http": "#/components/schemas/letta__schemas__mcp_server__UpdateStreamableHTTPMCPServer"
+        }
+      }
+    }
+  },
+  "additionalProperties": false,
+  "type": "object",
+  "required": [
+    "config"
+  ],
+  "description": "Request to update an existing MCP server configuration."
+}

@@ -1,0 +1,99 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/GroupSchema",
+  "title": "GroupSchema",
+  "properties": {
+    "agent_ids": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array",
+      "title": "Agent Ids",
+      "description": "List of agent IDs in this group"
+    },
+    "description": {
+      "type": "string",
+      "title": "Description",
+      "description": ""
+    },
+    "manager_config": {
+      "oneOf": [
+        {
+          "$ref": "#/components/schemas/RoundRobinManager"
+        },
+        {
+          "$ref": "#/components/schemas/SupervisorManagerSchema"
+        },
+        {
+          "$ref": "#/components/schemas/DynamicManagerSchema"
+        },
+        {
+          "$ref": "#/components/schemas/SleeptimeManagerSchema"
+        },
+        {
+          "$ref": "#/components/schemas/VoiceSleeptimeManagerSchema"
+        }
+      ],
+      "title": "Manager Config",
+      "description": "",
+      "default": {
+        "manager_type": "round_robin"
+      },
+      "discriminator": {
+        "propertyName": "manager_type",
+        "mapping": {
+          "dynamic": "#/components/schemas/DynamicManagerSchema",
+          "round_robin": "#/components/schemas/RoundRobinManager",
+          "sleeptime": "#/components/schemas/SleeptimeManagerSchema",
+          "supervisor": "#/components/schemas/SupervisorManagerSchema",
+          "voice_sleeptime": "#/components/schemas/VoiceSleeptimeManagerSchema"
+        }
+      }
+    },
+    "project_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Project Id",
+      "description": "The associated project id."
+    },
+    "shared_block_ids": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array",
+      "title": "Shared Block Ids",
+      "description": "List of shared block IDs",
+      "default": []
+    },
+    "hidden": {
+      "anyOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Hidden",
+      "description": "If set to True, the group will be hidden."
+    },
+    "id": {
+      "type": "string",
+      "title": "Id",
+      "description": "Human-readable identifier for this group in the file"
+    }
+  },
+  "type": "object",
+  "required": [
+    "agent_ids",
+    "description",
+    "id"
+  ],
+  "description": "Group with human-readable ID for agent file"
+}

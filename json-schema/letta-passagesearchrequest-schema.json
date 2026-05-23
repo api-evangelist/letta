@@ -1,0 +1,104 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/PassageSearchRequest",
+  "title": "PassageSearchRequest",
+  "properties": {
+    "query": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Query",
+      "description": "Text query for semantic search"
+    },
+    "agent_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Agent Id",
+      "description": "Filter passages by agent ID"
+    },
+    "archive_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Archive Id",
+      "description": "Filter passages by archive ID"
+    },
+    "tags": {
+      "anyOf": [
+        {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Tags",
+      "description": "Optional list of tags to filter search results"
+    },
+    "tag_match_mode": {
+      "type": "string",
+      "enum": [
+        "any",
+        "all"
+      ],
+      "title": "Tag Match Mode",
+      "description": "How to match tags - 'any' to match passages with any of the tags, 'all' to match only passages with all tags",
+      "default": "any"
+    },
+    "limit": {
+      "type": "integer",
+      "maximum": 100,
+      "minimum": 1,
+      "title": "Limit",
+      "description": "Maximum number of results to return",
+      "default": 50
+    },
+    "start_date": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "date-time"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Start Date",
+      "description": "Filter results to passages created after this datetime"
+    },
+    "end_date": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "date-time"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "End Date",
+      "description": "Filter results to passages created before this datetime"
+    }
+  },
+  "type": "object",
+  "description": "Request model for searching passages across archives."
+}

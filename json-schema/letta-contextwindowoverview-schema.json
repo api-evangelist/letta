@@ -1,0 +1,186 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ContextWindowOverview",
+  "title": "ContextWindowOverview",
+  "properties": {
+    "context_window_size_max": {
+      "type": "integer",
+      "title": "Context Window Size Max",
+      "description": "The maximum amount of tokens the context window can hold."
+    },
+    "context_window_size_current": {
+      "type": "integer",
+      "title": "Context Window Size Current",
+      "description": "The current number of tokens in the context window."
+    },
+    "num_messages": {
+      "type": "integer",
+      "title": "Num Messages",
+      "description": "The number of messages in the context window."
+    },
+    "num_archival_memory": {
+      "type": "integer",
+      "title": "Num Archival Memory",
+      "description": "The number of messages in the archival memory."
+    },
+    "num_recall_memory": {
+      "type": "integer",
+      "title": "Num Recall Memory",
+      "description": "The number of messages in the recall memory."
+    },
+    "num_tokens_external_memory_summary": {
+      "type": "integer",
+      "title": "Num Tokens External Memory Summary",
+      "description": "The number of tokens in the external memory summary (archival + recall metadata)."
+    },
+    "external_memory_summary": {
+      "type": "string",
+      "title": "External Memory Summary",
+      "description": "The metadata summary of the external memory sources (archival + recall metadata)."
+    },
+    "num_tokens_system": {
+      "type": "integer",
+      "title": "Num Tokens System",
+      "description": "The number of tokens in the system prompt."
+    },
+    "system_prompt": {
+      "type": "string",
+      "title": "System Prompt",
+      "description": "The content of the system prompt."
+    },
+    "num_tokens_core_memory": {
+      "type": "integer",
+      "title": "Num Tokens Core Memory",
+      "description": "The number of tokens in the core memory."
+    },
+    "core_memory": {
+      "type": "string",
+      "title": "Core Memory",
+      "description": "The content of the core memory."
+    },
+    "num_tokens_memory_filesystem": {
+      "type": "integer",
+      "title": "Num Tokens Memory Filesystem",
+      "description": "The number of tokens in the memory filesystem section (git-enabled agents only).",
+      "default": 0
+    },
+    "memory_filesystem": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Memory Filesystem",
+      "description": "The content of the memory filesystem section."
+    },
+    "num_tokens_tool_usage_rules": {
+      "type": "integer",
+      "title": "Num Tokens Tool Usage Rules",
+      "description": "The number of tokens in the tool usage rules section.",
+      "default": 0
+    },
+    "tool_usage_rules": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Tool Usage Rules",
+      "description": "The content of the tool usage rules section."
+    },
+    "num_tokens_directories": {
+      "type": "integer",
+      "title": "Num Tokens Directories",
+      "description": "The number of tokens in the directories section (attached sources).",
+      "default": 0
+    },
+    "directories": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Directories",
+      "description": "The content of the directories section."
+    },
+    "num_tokens_summary_memory": {
+      "type": "integer",
+      "title": "Num Tokens Summary Memory",
+      "description": "The number of tokens in the summary memory."
+    },
+    "summary_memory": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Summary Memory",
+      "description": "The content of the summary memory."
+    },
+    "num_tokens_functions_definitions": {
+      "type": "integer",
+      "title": "Num Tokens Functions Definitions",
+      "description": "The number of tokens in the functions definitions."
+    },
+    "functions_definitions": {
+      "anyOf": [
+        {
+          "items": {
+            "$ref": "#/components/schemas/FunctionTool"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Functions Definitions",
+      "description": "The content of the functions definitions."
+    },
+    "num_tokens_messages": {
+      "type": "integer",
+      "title": "Num Tokens Messages",
+      "description": "The number of tokens in the messages list."
+    },
+    "messages": {
+      "items": {
+        "$ref": "#/components/schemas/Message"
+      },
+      "type": "array",
+      "title": "Messages",
+      "description": "The messages in the context window."
+    }
+  },
+  "type": "object",
+  "required": [
+    "context_window_size_max",
+    "context_window_size_current",
+    "num_messages",
+    "num_archival_memory",
+    "num_recall_memory",
+    "num_tokens_external_memory_summary",
+    "external_memory_summary",
+    "num_tokens_system",
+    "system_prompt",
+    "num_tokens_core_memory",
+    "core_memory",
+    "num_tokens_summary_memory",
+    "num_tokens_functions_definitions",
+    "functions_definitions",
+    "num_tokens_messages",
+    "messages"
+  ],
+  "description": "Overview of the context window, including the number of messages and tokens."
+}

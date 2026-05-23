@@ -1,0 +1,202 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ProviderTrace",
+  "title": "ProviderTrace",
+  "properties": {
+    "created_by_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Created By Id",
+      "description": "The id of the user that made this object."
+    },
+    "last_updated_by_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Last Updated By Id",
+      "description": "The id of the user that made this object."
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Created At",
+      "description": "The timestamp when the object was created."
+    },
+    "updated_at": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "date-time"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Updated At",
+      "description": "The timestamp when the object was last updated."
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^provider_trace-[a-fA-F0-9]{8}",
+      "title": "Id",
+      "description": "The human-friendly ID of the Provider_trace",
+      "examples": [
+        "provider_trace-123e4567-e89b-12d3-a456-426614174000"
+      ]
+    },
+    "request_json": {
+      "additionalProperties": true,
+      "type": "object",
+      "title": "Request Json",
+      "description": "JSON content of the provider request"
+    },
+    "response_json": {
+      "additionalProperties": true,
+      "type": "object",
+      "title": "Response Json",
+      "description": "JSON content of the provider response"
+    },
+    "step_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Step Id",
+      "description": "ID of the step that this trace is associated with"
+    },
+    "agent_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Agent Id",
+      "description": "ID of the agent that generated this trace"
+    },
+    "agent_tags": {
+      "anyOf": [
+        {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Agent Tags",
+      "description": "Tags associated with the agent for filtering"
+    },
+    "call_type": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Call Type",
+      "description": "Type of call (agent_step, summarization, etc.)"
+    },
+    "run_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Run Id",
+      "description": "ID of the run this trace is associated with"
+    },
+    "source": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Source",
+      "description": "Source service that generated this trace (memgpt-server, lettuce-py)"
+    },
+    "org_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Org Id",
+      "description": "ID of the organization"
+    },
+    "compaction_settings": {
+      "anyOf": [
+        {
+          "additionalProperties": true,
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Compaction Settings",
+      "description": "Compaction/summarization settings (summarization calls only)"
+    },
+    "llm_config": {
+      "anyOf": [
+        {
+          "additionalProperties": true,
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Llm Config",
+      "description": "LLM configuration used for this call (non-summarization calls only)"
+    },
+    "billing_context": {
+      "anyOf": [
+        {
+          "$ref": "#/components/schemas/BillingContext"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "Billing context from request headers"
+    }
+  },
+  "additionalProperties": false,
+  "type": "object",
+  "required": [
+    "request_json",
+    "response_json"
+  ],
+  "description": "Letta's internal representation of a provider trace.\n\nAttributes:\n    id (str): The unique identifier of the provider trace.\n    request_json (Dict[str, Any]): JSON content of the provider request.\n    response_json (Dict[str, Any]): JSON content of the provider response.\n    step_id (str): ID of the step that this trace is associated with.\n    agent_id (str): ID of the agent that generated this trace.\n    agent_tags (list[str]): Tags associated with the agent for filtering.\n    call_type (str): Type of call (agent_step, summarization, etc.).\n    run_id (str): ID of the run this trace is associated with.\n    source (str): Source service that generated this trace (memgpt-server, lettuce-py).\n    organization_id (str): The unique identifier of the organization.\n    user_id (str): The unique identifier of the user who initiated the request.\n    compaction_settings (Dict[str, Any]): Compaction/summarization settings (only for summarization calls).\n    llm_config (Dict[str, Any]): LLM configuration used for this call (only for non-summarization calls).\n    created_at (datetime): The timestamp when the object was created."
+}

@@ -1,0 +1,112 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ToolRunFromSource",
+  "title": "ToolRunFromSource",
+  "properties": {
+    "source_code": {
+      "type": "string",
+      "title": "Source Code",
+      "description": "The source code of the function."
+    },
+    "args": {
+      "additionalProperties": true,
+      "type": "object",
+      "title": "Args",
+      "description": "The arguments to pass to the tool."
+    },
+    "env_vars": {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "type": "object",
+      "title": "Env Vars",
+      "description": "The environment variables to pass to the tool."
+    },
+    "name": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Name",
+      "description": "The name of the tool to run."
+    },
+    "source_type": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Source Type",
+      "description": "The type of the source code."
+    },
+    "args_json_schema": {
+      "anyOf": [
+        {
+          "additionalProperties": true,
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Args Json Schema",
+      "description": "The args JSON schema of the function."
+    },
+    "json_schema": {
+      "anyOf": [
+        {
+          "additionalProperties": true,
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Json Schema",
+      "description": "The JSON schema of the function (auto-generated from source_code if not provided)"
+    },
+    "pip_requirements": {
+      "anyOf": [
+        {
+          "items": {
+            "$ref": "#/components/schemas/PipRequirement"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Pip Requirements",
+      "description": "Optional list of pip packages required by this tool."
+    },
+    "npm_requirements": {
+      "anyOf": [
+        {
+          "items": {
+            "$ref": "#/components/schemas/NpmRequirement"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Npm Requirements",
+      "description": "Optional list of npm packages required by this tool."
+    }
+  },
+  "additionalProperties": false,
+  "type": "object",
+  "required": [
+    "source_code",
+    "args"
+  ]
+}

@@ -1,0 +1,5610 @@
+{
+  "provider": "Letta",
+  "providerId": "letta",
+  "kind": "json-structure",
+  "description": "Structural overview of the Letta API surface; extracted from openapi/.",
+  "schemaCount": 347,
+  "operationCount": 302,
+  "schemas": [
+    {
+      "name": "AgentEnvironmentVariable",
+      "type": "object",
+      "propertyCount": 10,
+      "required": [
+        "key",
+        "value",
+        "agent_id"
+      ]
+    },
+    {
+      "name": "AgentFileAttachment",
+      "type": "object",
+      "propertyCount": 10,
+      "required": [
+        "id",
+        "file_id",
+        "file_name",
+        "folder_id",
+        "folder_name",
+        "is_open"
+      ]
+    },
+    {
+      "name": "AgentFileSchema",
+      "type": "object",
+      "propertyCount": 10,
+      "required": [
+        "agents",
+        "groups",
+        "blocks",
+        "files",
+        "sources",
+        "tools",
+        "mcp_servers"
+      ]
+    },
+    {
+      "name": "AgentState",
+      "type": "object",
+      "propertyCount": 45,
+      "required": [
+        "id",
+        "name",
+        "system",
+        "agent_type",
+        "llm_config",
+        "memory",
+        "blocks",
+        "tools",
+        "sources",
+        "tags"
+      ]
+    },
+    {
+      "name": "AgentType",
+      "type": "string",
+      "propertyCount": 0,
+      "required": []
+    },
+    {
+      "name": "Annotation",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "type",
+        "url_citation"
+      ]
+    },
+    {
+      "name": "AnnotationURLCitation",
+      "type": "object",
+      "propertyCount": 4,
+      "required": [
+        "end_index",
+        "start_index",
+        "title",
+        "url"
+      ]
+    },
+    {
+      "name": "AnthropicModelSettings",
+      "type": "object",
+      "propertyCount": 9,
+      "required": []
+    },
+    {
+      "name": "AnthropicThinking",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "ApprovalCreate",
+      "type": "object",
+      "propertyCount": 7,
+      "required": []
+    },
+    {
+      "name": "ApprovalRequestMessage",
+      "type": "object",
+      "propertyCount": 12,
+      "required": [
+        "id",
+        "date",
+        "tool_call"
+      ]
+    },
+    {
+      "name": "ApprovalResponseMessage",
+      "type": "object",
+      "propertyCount": 14,
+      "required": [
+        "id",
+        "date"
+      ]
+    },
+    {
+      "name": "ApprovalReturn",
+      "type": "object",
+      "propertyCount": 4,
+      "required": [
+        "tool_call_id",
+        "approve"
+      ]
+    },
+    {
+      "name": "ArchivalMemorySearchResponse",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "results",
+        "count"
+      ]
+    },
+    {
+      "name": "ArchivalMemorySearchResult",
+      "type": "object",
+      "propertyCount": 4,
+      "required": [
+        "id",
+        "timestamp",
+        "content"
+      ]
+    },
+    {
+      "name": "Archive",
+      "type": "object",
+      "propertyCount": 10,
+      "required": [
+        "created_at",
+        "name",
+        "organization_id"
+      ]
+    },
+    {
+      "name": "ArchiveCreateRequest",
+      "type": "object",
+      "propertyCount": 4,
+      "required": [
+        "name"
+      ]
+    },
+    {
+      "name": "ArchiveUpdateRequest",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "AssistantMessage",
+      "type": "object",
+      "propertyCount": 11,
+      "required": [
+        "id",
+        "date",
+        "content"
+      ]
+    },
+    {
+      "name": "AssistantMessageListResult",
+      "type": "object",
+      "propertyCount": 6,
+      "required": [
+        "content",
+        "message_id",
+        "created_at"
+      ]
+    },
+    {
+      "name": "Audio",
+      "type": "object",
+      "propertyCount": 1,
+      "required": [
+        "id"
+      ]
+    },
+    {
+      "name": "AuthRequest",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "AuthResponse",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "uuid"
+      ]
+    },
+    {
+      "name": "AzureModelSettings",
+      "type": "object",
+      "propertyCount": 5,
+      "required": []
+    },
+    {
+      "name": "Base64Image",
+      "type": "object",
+      "propertyCount": 4,
+      "required": [
+        "media_type",
+        "data"
+      ]
+    },
+    {
+      "name": "BaseToolRuleSchema",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "tool_name",
+        "type"
+      ]
+    },
+    {
+      "name": "BasetenModelSettings",
+      "type": "object",
+      "propertyCount": 4,
+      "required": []
+    },
+    {
+      "name": "BatchJob",
+      "type": "object",
+      "propertyCount": 18,
+      "required": []
+    },
+    {
+      "name": "BedrockModelSettings",
+      "type": "object",
+      "propertyCount": 5,
+      "required": []
+    },
+    {
+      "name": "BillingContext",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "Block",
+      "type": "object",
+      "propertyCount": 19,
+      "required": [
+        "value"
+      ]
+    },
+    {
+      "name": "BlockResponse",
+      "type": "object",
+      "propertyCount": 19,
+      "required": [
+        "value",
+        "id"
+      ]
+    },
+    {
+      "name": "BlockSchema",
+      "type": "object",
+      "propertyCount": 17,
+      "required": [
+        "value",
+        "label",
+        "id"
+      ]
+    },
+    {
+      "name": "BlockUpdate",
+      "type": "object",
+      "propertyCount": 16,
+      "required": []
+    },
+    {
+      "name": "Body_export_agent",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "Body_import_agent",
+      "type": "object",
+      "propertyCount": 13,
+      "required": [
+        "file"
+      ]
+    },
+    {
+      "name": "Body_upload_file_to_folder",
+      "type": "object",
+      "propertyCount": 1,
+      "required": [
+        "file"
+      ]
+    },
+    {
+      "name": "Body_upload_file_to_source",
+      "type": "object",
+      "propertyCount": 1,
+      "required": [
+        "file"
+      ]
+    },
+    {
+      "name": "CancelAgentRunRequest",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "ChatCompletion",
+      "type": "object",
+      "propertyCount": 8,
+      "required": [
+        "id",
+        "choices",
+        "created",
+        "model",
+        "object"
+      ]
+    },
+    {
+      "name": "ChatCompletionAssistantMessageParam",
+      "type": "object",
+      "propertyCount": 7,
+      "required": [
+        "role"
+      ]
+    },
+    {
+      "name": "ChatCompletionAudio",
+      "type": "object",
+      "propertyCount": 4,
+      "required": [
+        "id",
+        "data",
+        "expires_at",
+        "transcript"
+      ]
+    },
+    {
+      "name": "ChatCompletionContentPartImageParam",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "image_url",
+        "type"
+      ]
+    },
+    {
+      "name": "ChatCompletionContentPartInputAudioParam",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "input_audio",
+        "type"
+      ]
+    },
+    {
+      "name": "ChatCompletionContentPartRefusalParam",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "refusal",
+        "type"
+      ]
+    },
+    {
+      "name": "ChatCompletionContentPartTextParam",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "text",
+        "type"
+      ]
+    },
+    {
+      "name": "ChatCompletionDeveloperMessageParam",
+      "type": "object",
+      "propertyCount": 3,
+      "required": [
+        "content",
+        "role"
+      ]
+    },
+    {
+      "name": "ChatCompletionFunctionMessageParam",
+      "type": "object",
+      "propertyCount": 3,
+      "required": [
+        "content",
+        "name",
+        "role"
+      ]
+    },
+    {
+      "name": "ChatCompletionMessage",
+      "type": "object",
+      "propertyCount": 7,
+      "required": [
+        "role"
+      ]
+    },
+    {
+      "name": "ChatCompletionMessageCustomToolCall",
+      "type": "object",
+      "propertyCount": 3,
+      "required": [
+        "id",
+        "custom",
+        "type"
+      ]
+    },
+    {
+      "name": "ChatCompletionMessageCustomToolCallParam",
+      "type": "object",
+      "propertyCount": 3,
+      "required": [
+        "id",
+        "custom",
+        "type"
+      ]
+    },
+    {
+      "name": "ChatCompletionMessageFunctionToolCall-Input",
+      "type": "object",
+      "propertyCount": 3,
+      "required": [
+        "id",
+        "function",
+        "type"
+      ]
+    },
+    {
+      "name": "ChatCompletionMessageFunctionToolCall-Output",
+      "type": "object",
+      "propertyCount": 3,
+      "required": [
+        "id",
+        "function",
+        "type"
+      ]
+    },
+    {
+      "name": "ChatCompletionMessageFunctionToolCallParam",
+      "type": "object",
+      "propertyCount": 3,
+      "required": [
+        "id",
+        "function",
+        "type"
+      ]
+    },
+    {
+      "name": "ChatCompletionRequest",
+      "type": "object",
+      "propertyCount": 11,
+      "required": [
+        "model",
+        "messages"
+      ]
+    },
+    {
+      "name": "ChatCompletionSystemMessageParam",
+      "type": "object",
+      "propertyCount": 3,
+      "required": [
+        "content",
+        "role"
+      ]
+    },
+    {
+      "name": "ChatCompletionToolMessageParam",
+      "type": "object",
+      "propertyCount": 3,
+      "required": [
+        "content",
+        "role",
+        "tool_call_id"
+      ]
+    },
+    {
+      "name": "ChatCompletionUserMessageParam",
+      "type": "object",
+      "propertyCount": 3,
+      "required": [
+        "content",
+        "role"
+      ]
+    },
+    {
+      "name": "ChatGPTOAuthModelSettings",
+      "type": "object",
+      "propertyCount": 5,
+      "required": []
+    },
+    {
+      "name": "ChatGPTOAuthReasoning",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "ChildToolRule",
+      "type": "object",
+      "propertyCount": 5,
+      "required": [
+        "tool_name",
+        "children"
+      ]
+    },
+    {
+      "name": "ChildToolRuleSchema",
+      "type": "object",
+      "propertyCount": 3,
+      "required": [
+        "tool_name",
+        "type",
+        "children"
+      ]
+    },
+    {
+      "name": "Choice",
+      "type": "object",
+      "propertyCount": 4,
+      "required": [
+        "finish_reason",
+        "index",
+        "message"
+      ]
+    },
+    {
+      "name": "ClientSkillSchema",
+      "type": "object",
+      "propertyCount": 3,
+      "required": [
+        "name",
+        "description",
+        "location"
+      ]
+    },
+    {
+      "name": "ClientToolSchema",
+      "type": "object",
+      "propertyCount": 3,
+      "required": [
+        "name"
+      ]
+    },
+    {
+      "name": "CodeInput",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "code"
+      ]
+    },
+    {
+      "name": "CompactionResponse",
+      "type": "object",
+      "propertyCount": 3,
+      "required": [
+        "summary",
+        "num_messages_before",
+        "num_messages_after"
+      ]
+    },
+    {
+      "name": "CompactionSettings-Input",
+      "type": "object",
+      "propertyCount": 7,
+      "required": []
+    },
+    {
+      "name": "CompactionSettings-Output",
+      "type": "object",
+      "propertyCount": 7,
+      "required": []
+    },
+    {
+      "name": "CompactionStats",
+      "type": "object",
+      "propertyCount": 6,
+      "required": [
+        "trigger",
+        "context_window",
+        "messages_count_before",
+        "messages_count_after"
+      ]
+    },
+    {
+      "name": "ComparisonOperator",
+      "type": "string",
+      "propertyCount": 0,
+      "required": []
+    },
+    {
+      "name": "CompletionTokensDetails",
+      "type": "object",
+      "propertyCount": 4,
+      "required": []
+    },
+    {
+      "name": "CompletionUsage",
+      "type": "object",
+      "propertyCount": 5,
+      "required": [
+        "completion_tokens",
+        "prompt_tokens",
+        "total_tokens"
+      ]
+    },
+    {
+      "name": "ConditionalToolRule",
+      "type": "object",
+      "propertyCount": 6,
+      "required": [
+        "tool_name",
+        "child_output_mapping"
+      ]
+    },
+    {
+      "name": "ConditionalToolRuleSchema",
+      "type": "object",
+      "propertyCount": 5,
+      "required": [
+        "tool_name",
+        "type",
+        "default_child",
+        "child_output_mapping",
+        "require_output_mapping"
+      ]
+    },
+    {
+      "name": "ContextWindowOverview",
+      "type": "object",
+      "propertyCount": 23,
+      "required": [
+        "context_window_size_max",
+        "context_window_size_current",
+        "num_messages",
+        "num_archival_memory",
+        "num_recall_memory",
+        "num_tokens_external_memory_summary",
+        "external_memory_summary",
+        "num_tokens_system",
+        "system_prompt",
+        "num_tokens_core_memory",
+        "core_memory",
+        "num_tokens_summary_memory",
+        "num_tokens_functions_definitions",
+        "functions_definitions",
+        "num_tokens_messages",
+        "messages"
+      ]
+    },
+    {
+      "name": "ContinueToolRule",
+      "type": "object",
+      "propertyCount": 3,
+      "required": [
+        "tool_name"
+      ]
+    },
+    {
+      "name": "Conversation",
+      "type": "object",
+      "propertyCount": 12,
+      "required": [
+        "id",
+        "agent_id"
+      ]
+    },
+    {
+      "name": "ConversationMessageRequest",
+      "type": "object",
+      "propertyCount": 21,
+      "required": []
+    },
+    {
+      "name": "CoreMemoryBlockSchema",
+      "type": "object",
+      "propertyCount": 9,
+      "required": [
+        "created_at",
+        "description",
+        "is_template",
+        "label",
+        "limit",
+        "template_name",
+        "updated_at",
+        "value"
+      ]
+    },
+    {
+      "name": "CreateAgentRequest",
+      "type": "object",
+      "propertyCount": 48,
+      "required": []
+    },
+    {
+      "name": "CreateArchivalMemory",
+      "type": "object",
+      "propertyCount": 3,
+      "required": [
+        "text"
+      ]
+    },
+    {
+      "name": "CreateBatch",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "requests"
+      ]
+    },
+    {
+      "name": "CreateBlock",
+      "type": "object",
+      "propertyCount": 16,
+      "required": [
+        "value",
+        "label"
+      ]
+    },
+    {
+      "name": "CreateConversation",
+      "type": "object",
+      "propertyCount": 4,
+      "required": []
+    },
+    {
+      "name": "CreateMCPServerRequest",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "server_name",
+        "config"
+      ]
+    },
+    {
+      "name": "CreateSSEMCPServer",
+      "type": "object",
+      "propertyCount": 5,
+      "required": [
+        "server_url"
+      ]
+    },
+    {
+      "name": "CreateStdioMCPServer",
+      "type": "object",
+      "propertyCount": 4,
+      "required": [
+        "command",
+        "args"
+      ]
+    },
+    {
+      "name": "CreateStreamableHTTPMCPServer",
+      "type": "object",
+      "propertyCount": 5,
+      "required": [
+        "server_url"
+      ]
+    },
+    {
+      "name": "Custom-Input",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "input",
+        "name"
+      ]
+    },
+    {
+      "name": "Custom-Output",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "input",
+        "name"
+      ]
+    },
+    {
+      "name": "DeepseekModelSettings",
+      "type": "object",
+      "propertyCount": 5,
+      "required": []
+    },
+    {
+      "name": "DeleteDeploymentResponse",
+      "type": "object",
+      "propertyCount": 4,
+      "required": [
+        "message"
+      ]
+    },
+    {
+      "name": "DeploymentEntity",
+      "type": "object",
+      "propertyCount": 6,
+      "required": [
+        "id",
+        "type"
+      ]
+    },
+    {
+      "name": "DuplicateFileHandling",
+      "type": "string",
+      "propertyCount": 0,
+      "required": []
+    },
+    {
+      "name": "DynamicManager",
+      "type": "object",
+      "propertyCount": 4,
+      "required": [
+        "manager_agent_id"
+      ]
+    },
+    {
+      "name": "DynamicManagerSchema",
+      "type": "object",
+      "propertyCount": 4,
+      "required": [
+        "manager_agent_id"
+      ]
+    },
+    {
+      "name": "DynamicManagerUpdate",
+      "type": "object",
+      "propertyCount": 4,
+      "required": []
+    },
+    {
+      "name": "E2BSandboxConfig",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "EmbeddingConfig",
+      "type": "object",
+      "propertyCount": 10,
+      "required": [
+        "embedding_endpoint_type",
+        "embedding_model",
+        "embedding_dim"
+      ]
+    },
+    {
+      "name": "EmbeddingModel",
+      "type": "object",
+      "propertyCount": 15,
+      "required": [
+        "name",
+        "display_name",
+        "provider_type",
+        "provider_name",
+        "embedding_endpoint_type",
+        "embedding_model",
+        "embedding_dim"
+      ]
+    },
+    {
+      "name": "EventMessage",
+      "type": "object",
+      "propertyCount": 12,
+      "required": [
+        "id",
+        "date",
+        "event_type",
+        "event_data"
+      ]
+    },
+    {
+      "name": "ExportAgentRequest",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "FeedbackType",
+      "type": "string",
+      "propertyCount": 0,
+      "required": []
+    },
+    {
+      "name": "File",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "file",
+        "type"
+      ]
+    },
+    {
+      "name": "FileAgentSchema",
+      "type": "object",
+      "propertyCount": 10,
+      "required": [
+        "agent_id",
+        "file_id",
+        "source_id",
+        "file_name",
+        "id"
+      ]
+    },
+    {
+      "name": "FileBlock",
+      "type": "object",
+      "propertyCount": 23,
+      "required": [
+        "value",
+        "file_id",
+        "source_id",
+        "is_open"
+      ]
+    },
+    {
+      "name": "FileFile",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "FileMetadata",
+      "type": "object",
+      "propertyCount": 16,
+      "required": [
+        "source_id"
+      ]
+    },
+    {
+      "name": "FileProcessingStatus",
+      "type": "string",
+      "propertyCount": 0,
+      "required": []
+    },
+    {
+      "name": "FileSchema",
+      "type": "object",
+      "propertyCount": 14,
+      "required": [
+        "source_id",
+        "id"
+      ]
+    },
+    {
+      "name": "FileStats",
+      "type": "object",
+      "propertyCount": 3,
+      "required": [
+        "file_id",
+        "file_name"
+      ]
+    },
+    {
+      "name": "Folder",
+      "type": "object",
+      "propertyCount": 10,
+      "required": [
+        "name",
+        "embedding_config"
+      ]
+    },
+    {
+      "name": "Function-Output",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "arguments",
+        "name"
+      ]
+    },
+    {
+      "name": "FunctionCall-Input",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "arguments",
+        "name"
+      ]
+    },
+    {
+      "name": "FunctionCall-Output",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "arguments",
+        "name"
+      ]
+    },
+    {
+      "name": "FunctionDefinition",
+      "type": "object",
+      "propertyCount": 4,
+      "required": [
+        "name"
+      ]
+    },
+    {
+      "name": "FunctionTool",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "function",
+        "type"
+      ]
+    },
+    {
+      "name": "GeminiThinkingConfig",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "GenerateRequest",
+      "type": "object",
+      "propertyCount": 4,
+      "required": [
+        "prompt"
+      ]
+    },
+    {
+      "name": "GenerateResponse",
+      "type": "object",
+      "propertyCount": 3,
+      "required": [
+        "content",
+        "model",
+        "usage"
+      ]
+    },
+    {
+      "name": "GenerateToolInput",
+      "type": "object",
+      "propertyCount": 5,
+      "required": [
+        "tool_name",
+        "prompt",
+        "validation_errors"
+      ]
+    },
+    {
+      "name": "GenerateToolOutput",
+      "type": "object",
+      "propertyCount": 3,
+      "required": [
+        "tool",
+        "sample_args",
+        "response"
+      ]
+    },
+    {
+      "name": "GoogleAIModelSettings",
+      "type": "object",
+      "propertyCount": 6,
+      "required": []
+    },
+    {
+      "name": "GoogleVertexModelSettings",
+      "type": "object",
+      "propertyCount": 6,
+      "required": []
+    },
+    {
+      "name": "GroqModelSettings",
+      "type": "object",
+      "propertyCount": 5,
+      "required": []
+    },
+    {
+      "name": "Group",
+      "type": "object",
+      "propertyCount": 18,
+      "required": [
+        "id",
+        "manager_type",
+        "agent_ids",
+        "description"
+      ]
+    },
+    {
+      "name": "GroupCreate",
+      "type": "object",
+      "propertyCount": 6,
+      "required": [
+        "agent_ids",
+        "description"
+      ]
+    },
+    {
+      "name": "GroupSchema",
+      "type": "object",
+      "propertyCount": 7,
+      "required": [
+        "agent_ids",
+        "description",
+        "id"
+      ]
+    },
+    {
+      "name": "GroupUpdate",
+      "type": "object",
+      "propertyCount": 5,
+      "required": []
+    },
+    {
+      "name": "HTTPValidationError",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "Health",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "version",
+        "status"
+      ]
+    },
+    {
+      "name": "HiddenReasoningMessage",
+      "type": "object",
+      "propertyCount": 12,
+      "required": [
+        "id",
+        "date",
+        "state"
+      ]
+    },
+    {
+      "name": "Identity",
+      "type": "object",
+      "propertyCount": 8,
+      "required": [
+        "identifier_key",
+        "name",
+        "identity_type",
+        "agent_ids",
+        "block_ids"
+      ]
+    },
+    {
+      "name": "IdentityCreate",
+      "type": "object",
+      "propertyCount": 7,
+      "required": [
+        "identifier_key",
+        "name",
+        "identity_type"
+      ]
+    },
+    {
+      "name": "IdentityProperty",
+      "type": "object",
+      "propertyCount": 3,
+      "required": [
+        "key",
+        "value",
+        "type"
+      ]
+    },
+    {
+      "name": "IdentityPropertyType",
+      "type": "string",
+      "propertyCount": 0,
+      "required": []
+    },
+    {
+      "name": "IdentityType",
+      "type": "string",
+      "propertyCount": 0,
+      "required": []
+    },
+    {
+      "name": "IdentityUpdate",
+      "type": "object",
+      "propertyCount": 6,
+      "required": []
+    },
+    {
+      "name": "IdentityUpsert",
+      "type": "object",
+      "propertyCount": 7,
+      "required": [
+        "identifier_key",
+        "name",
+        "identity_type"
+      ]
+    },
+    {
+      "name": "ImageContent",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "source"
+      ]
+    },
+    {
+      "name": "ImageURL",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "url"
+      ]
+    },
+    {
+      "name": "ImportedAgentsResponse",
+      "type": "object",
+      "propertyCount": 1,
+      "required": [
+        "agent_ids"
+      ]
+    },
+    {
+      "name": "InitToolRule",
+      "type": "object",
+      "propertyCount": 4,
+      "required": [
+        "tool_name"
+      ]
+    },
+    {
+      "name": "InputAudio",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "data",
+        "format"
+      ]
+    },
+    {
+      "name": "InternalTemplateAgentCreate",
+      "type": "object",
+      "propertyCount": 50,
+      "required": [
+        "template_id",
+        "base_template_id",
+        "deployment_id",
+        "entity_id"
+      ]
+    },
+    {
+      "name": "InternalTemplateBlockCreate",
+      "type": "object",
+      "propertyCount": 16,
+      "required": [
+        "value",
+        "template_id",
+        "base_template_id",
+        "deployment_id",
+        "entity_id",
+        "label"
+      ]
+    },
+    {
+      "name": "InternalTemplateGroupCreate",
+      "type": "object",
+      "propertyCount": 9,
+      "required": [
+        "agent_ids",
+        "description",
+        "base_template_id",
+        "template_id",
+        "deployment_id"
+      ]
+    },
+    {
+      "name": "Job",
+      "type": "object",
+      "propertyCount": 18,
+      "required": []
+    },
+    {
+      "name": "JobStatus",
+      "type": "string",
+      "propertyCount": 0,
+      "required": []
+    },
+    {
+      "name": "JobType",
+      "type": "string",
+      "propertyCount": 0,
+      "required": []
+    },
+    {
+      "name": "JsonObjectResponseFormat",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "JsonSchemaResponseFormat",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "json_schema"
+      ]
+    },
+    {
+      "name": "LLMConfig",
+      "type": "object",
+      "propertyCount": 27,
+      "required": [
+        "model",
+        "model_endpoint_type",
+        "context_window"
+      ]
+    },
+    {
+      "name": "LettaAsyncRequest",
+      "type": "object",
+      "propertyCount": 17,
+      "required": []
+    },
+    {
+      "name": "LettaBatchMessages",
+      "type": "object",
+      "propertyCount": 1,
+      "required": [
+        "messages"
+      ]
+    },
+    {
+      "name": "LettaBatchRequest",
+      "type": "object",
+      "propertyCount": 17,
+      "required": [
+        "agent_id"
+      ]
+    },
+    {
+      "name": "LettaErrorMessage",
+      "type": "object",
+      "propertyCount": 6,
+      "required": [
+        "message_type",
+        "run_id",
+        "error_type",
+        "message"
+      ]
+    },
+    {
+      "name": "LettaImage",
+      "type": "object",
+      "propertyCount": 5,
+      "required": [
+        "file_id"
+      ]
+    },
+    {
+      "name": "LettaPing",
+      "type": "object",
+      "propertyCount": 10,
+      "required": [
+        "id",
+        "date"
+      ]
+    },
+    {
+      "name": "LettaRequest",
+      "type": "object",
+      "propertyCount": 16,
+      "required": []
+    },
+    {
+      "name": "LettaRequestConfig",
+      "type": "object",
+      "propertyCount": 4,
+      "required": []
+    },
+    {
+      "name": "LettaResponse",
+      "type": "object",
+      "propertyCount": 5,
+      "required": [
+        "messages",
+        "stop_reason",
+        "usage"
+      ]
+    },
+    {
+      "name": "LettaStopReason",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "stop_reason"
+      ]
+    },
+    {
+      "name": "LettaStreamingRequest",
+      "type": "object",
+      "propertyCount": 20,
+      "required": []
+    },
+    {
+      "name": "LettaStreamingResponse",
+      "type": null,
+      "propertyCount": 0,
+      "required": []
+    },
+    {
+      "name": "LettaUsageStatistics",
+      "type": "object",
+      "propertyCount": 10,
+      "required": []
+    },
+    {
+      "name": "ListDeploymentEntitiesResponse",
+      "type": "object",
+      "propertyCount": 4,
+      "required": [
+        "total_count",
+        "deployment_id",
+        "message"
+      ]
+    },
+    {
+      "name": "LocalSandboxConfig",
+      "type": "object",
+      "propertyCount": 4,
+      "required": []
+    },
+    {
+      "name": "MCPServerSchema",
+      "type": "object",
+      "propertyCount": 6,
+      "required": [
+        "id",
+        "server_type",
+        "server_name"
+      ]
+    },
+    {
+      "name": "MCPServerType",
+      "type": "string",
+      "propertyCount": 0,
+      "required": []
+    },
+    {
+      "name": "MCPTool",
+      "type": "object",
+      "propertyCount": 8,
+      "required": [
+        "name",
+        "inputSchema"
+      ]
+    },
+    {
+      "name": "MCPToolHealth",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "status"
+      ]
+    },
+    {
+      "name": "ManagerType",
+      "type": "string",
+      "propertyCount": 0,
+      "required": []
+    },
+    {
+      "name": "MaxCountPerStepToolRule",
+      "type": "object",
+      "propertyCount": 4,
+      "required": [
+        "tool_name",
+        "max_count_limit"
+      ]
+    },
+    {
+      "name": "MaxCountPerStepToolRuleSchema",
+      "type": "object",
+      "propertyCount": 3,
+      "required": [
+        "tool_name",
+        "type",
+        "max_count_limit"
+      ]
+    },
+    {
+      "name": "Memory",
+      "type": "object",
+      "propertyCount": 5,
+      "required": [
+        "blocks"
+      ]
+    },
+    {
+      "name": "Message",
+      "type": "object",
+      "propertyCount": 25,
+      "required": [
+        "role"
+      ]
+    },
+    {
+      "name": "MessageCreate",
+      "type": "object",
+      "propertyCount": 8,
+      "required": [
+        "role",
+        "content"
+      ]
+    },
+    {
+      "name": "MessageRole",
+      "type": "string",
+      "propertyCount": 0,
+      "required": []
+    },
+    {
+      "name": "MessageSearchCacheWarmScope",
+      "type": "object",
+      "propertyCount": 0,
+      "required": []
+    },
+    {
+      "name": "MessageSearchRequest",
+      "type": "object",
+      "propertyCount": 10,
+      "required": []
+    },
+    {
+      "name": "MessageSearchResult",
+      "type": "object",
+      "propertyCount": 5,
+      "required": [
+        "embedded_text",
+        "message",
+        "rrf_score"
+      ]
+    },
+    {
+      "name": "MessageType",
+      "type": "string",
+      "propertyCount": 0,
+      "required": []
+    },
+    {
+      "name": "ModalSandboxConfig",
+      "type": "object",
+      "propertyCount": 4,
+      "required": []
+    },
+    {
+      "name": "Model",
+      "type": "object",
+      "propertyCount": 31,
+      "required": [
+        "name",
+        "provider_type",
+        "model",
+        "model_endpoint_type",
+        "context_window",
+        "max_context_window"
+      ]
+    },
+    {
+      "name": "ModifyApprovalRequest",
+      "type": "object",
+      "propertyCount": 1,
+      "required": [
+        "requires_approval"
+      ]
+    },
+    {
+      "name": "ModifyFeedbackRequest",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "NpmRequirement",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "name"
+      ]
+    },
+    {
+      "name": "OmittedReasoningContent",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "OpenAIModelSettings",
+      "type": "object",
+      "propertyCount": 7,
+      "required": []
+    },
+    {
+      "name": "OpenAIReasoning",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "OpenRouterModelSettings",
+      "type": "object",
+      "propertyCount": 5,
+      "required": []
+    },
+    {
+      "name": "Organization",
+      "type": "object",
+      "propertyCount": 4,
+      "required": []
+    },
+    {
+      "name": "OrganizationCreate",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "OrganizationSourcesStats",
+      "type": "object",
+      "propertyCount": 4,
+      "required": []
+    },
+    {
+      "name": "OrganizationUpdate",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "PaginatedAgentFiles",
+      "type": "object",
+      "propertyCount": 3,
+      "required": [
+        "files",
+        "has_more"
+      ]
+    },
+    {
+      "name": "ParameterProperties",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "type"
+      ]
+    },
+    {
+      "name": "ParametersSchema",
+      "type": "object",
+      "propertyCount": 3,
+      "required": [
+        "properties"
+      ]
+    },
+    {
+      "name": "ParentToolRule",
+      "type": "object",
+      "propertyCount": 4,
+      "required": [
+        "tool_name",
+        "children"
+      ]
+    },
+    {
+      "name": "Passage",
+      "type": "object",
+      "propertyCount": 15,
+      "required": [
+        "text",
+        "embedding",
+        "embedding_config"
+      ]
+    },
+    {
+      "name": "PassageBatchCreateRequest",
+      "type": "object",
+      "propertyCount": 1,
+      "required": [
+        "passages"
+      ]
+    },
+    {
+      "name": "PassageCreateRequest",
+      "type": "object",
+      "propertyCount": 4,
+      "required": [
+        "text"
+      ]
+    },
+    {
+      "name": "PassageSearchRequest",
+      "type": "object",
+      "propertyCount": 8,
+      "required": []
+    },
+    {
+      "name": "PassageSearchResult",
+      "type": "object",
+      "propertyCount": 3,
+      "required": [
+        "passage",
+        "score"
+      ]
+    },
+    {
+      "name": "PipRequirement",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "name"
+      ]
+    },
+    {
+      "name": "PromptTokensDetails",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "Provider",
+      "type": "object",
+      "propertyCount": 13,
+      "required": [
+        "name",
+        "provider_type",
+        "provider_category"
+      ]
+    },
+    {
+      "name": "ProviderCategory",
+      "type": "string",
+      "propertyCount": 0,
+      "required": []
+    },
+    {
+      "name": "ProviderCheck",
+      "type": "object",
+      "propertyCount": 6,
+      "required": [
+        "provider_type",
+        "api_key"
+      ]
+    },
+    {
+      "name": "ProviderCreate",
+      "type": "object",
+      "propertyCount": 7,
+      "required": [
+        "name",
+        "provider_type",
+        "api_key"
+      ]
+    },
+    {
+      "name": "ProviderTrace",
+      "type": "object",
+      "propertyCount": 17,
+      "required": [
+        "request_json",
+        "response_json"
+      ]
+    },
+    {
+      "name": "ProviderType",
+      "type": "string",
+      "propertyCount": 0,
+      "required": []
+    },
+    {
+      "name": "ProviderUpdate",
+      "type": "object",
+      "propertyCount": 5,
+      "required": [
+        "api_key"
+      ]
+    },
+    {
+      "name": "ReasoningContent",
+      "type": "object",
+      "propertyCount": 4,
+      "required": [
+        "is_native",
+        "reasoning"
+      ]
+    },
+    {
+      "name": "ReasoningMessage",
+      "type": "object",
+      "propertyCount": 13,
+      "required": [
+        "id",
+        "date",
+        "reasoning"
+      ]
+    },
+    {
+      "name": "ReasoningMessageListResult",
+      "type": "object",
+      "propertyCount": 6,
+      "required": [
+        "reasoning",
+        "message_id",
+        "created_at"
+      ]
+    },
+    {
+      "name": "RedactedReasoningContent",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "data"
+      ]
+    },
+    {
+      "name": "RequiredBeforeExitToolRule",
+      "type": "object",
+      "propertyCount": 3,
+      "required": [
+        "tool_name"
+      ]
+    },
+    {
+      "name": "RequiresApprovalToolRule",
+      "type": "object",
+      "propertyCount": 3,
+      "required": [
+        "tool_name"
+      ]
+    },
+    {
+      "name": "ResetMessagesRequest",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "RetrieveStreamRequest",
+      "type": "object",
+      "propertyCount": 7,
+      "required": []
+    },
+    {
+      "name": "RoundRobinManager",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "RoundRobinManagerUpdate",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "Run",
+      "type": "object",
+      "propertyCount": 17,
+      "required": [
+        "agent_id"
+      ]
+    },
+    {
+      "name": "RunMetrics",
+      "type": "object",
+      "propertyCount": 9,
+      "required": [
+        "id"
+      ]
+    },
+    {
+      "name": "RunStatus",
+      "type": "string",
+      "propertyCount": 0,
+      "required": []
+    },
+    {
+      "name": "SGLangModelSettings",
+      "type": "object",
+      "propertyCount": 8,
+      "required": []
+    },
+    {
+      "name": "SSEMCPServer",
+      "type": "object",
+      "propertyCount": 7,
+      "required": [
+        "server_url",
+        "server_name"
+      ]
+    },
+    {
+      "name": "SSEServerConfig",
+      "type": "object",
+      "propertyCount": 6,
+      "required": [
+        "server_name",
+        "server_url"
+      ]
+    },
+    {
+      "name": "SandboxConfig",
+      "type": "object",
+      "propertyCount": 7,
+      "required": []
+    },
+    {
+      "name": "SandboxConfigCreate",
+      "type": "object",
+      "propertyCount": 1,
+      "required": [
+        "config"
+      ]
+    },
+    {
+      "name": "SandboxConfigUpdate",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "SandboxEnvironmentVariable",
+      "type": "object",
+      "propertyCount": 10,
+      "required": [
+        "key",
+        "value",
+        "sandbox_config_id"
+      ]
+    },
+    {
+      "name": "SandboxEnvironmentVariableCreate",
+      "type": "object",
+      "propertyCount": 3,
+      "required": [
+        "key",
+        "value"
+      ]
+    },
+    {
+      "name": "SandboxEnvironmentVariableUpdate",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "SandboxType",
+      "type": "string",
+      "propertyCount": 0,
+      "required": []
+    },
+    {
+      "name": "SearchAllMessagesRequest",
+      "type": "object",
+      "propertyCount": 7,
+      "required": [
+        "query"
+      ]
+    },
+    {
+      "name": "SearchCacheWarmRequest",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "collection",
+        "scope"
+      ]
+    },
+    {
+      "name": "SearchCacheWarmResponse",
+      "type": "object",
+      "propertyCount": 3,
+      "required": [
+        "collection",
+        "status",
+        "warmed"
+      ]
+    },
+    {
+      "name": "SkillSchema",
+      "type": "object",
+      "propertyCount": 3,
+      "required": [
+        "name"
+      ]
+    },
+    {
+      "name": "SleeptimeManager",
+      "type": "object",
+      "propertyCount": 3,
+      "required": [
+        "manager_agent_id"
+      ]
+    },
+    {
+      "name": "SleeptimeManagerSchema",
+      "type": "object",
+      "propertyCount": 3,
+      "required": [
+        "manager_agent_id"
+      ]
+    },
+    {
+      "name": "SleeptimeManagerUpdate",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "Source",
+      "type": "object",
+      "propertyCount": 11,
+      "required": [
+        "name",
+        "embedding_config"
+      ]
+    },
+    {
+      "name": "SourceCreate",
+      "type": "object",
+      "propertyCount": 7,
+      "required": [
+        "name"
+      ]
+    },
+    {
+      "name": "SourceSchema",
+      "type": "object",
+      "propertyCount": 8,
+      "required": [
+        "name",
+        "id"
+      ]
+    },
+    {
+      "name": "SourceStats",
+      "type": "object",
+      "propertyCount": 5,
+      "required": [
+        "source_id",
+        "source_name"
+      ]
+    },
+    {
+      "name": "SourceUpdate",
+      "type": "object",
+      "propertyCount": 5,
+      "required": []
+    },
+    {
+      "name": "StdioMCPServer",
+      "type": "object",
+      "propertyCount": 6,
+      "required": [
+        "command",
+        "args",
+        "server_name"
+      ]
+    },
+    {
+      "name": "StdioServerConfig",
+      "type": "object",
+      "propertyCount": 5,
+      "required": [
+        "server_name",
+        "command",
+        "args"
+      ]
+    },
+    {
+      "name": "Step",
+      "type": "object",
+      "propertyCount": 30,
+      "required": [
+        "id"
+      ]
+    },
+    {
+      "name": "StepMetrics",
+      "type": "object",
+      "propertyCount": 12,
+      "required": [
+        "id"
+      ]
+    },
+    {
+      "name": "StepStatus",
+      "type": "string",
+      "propertyCount": 0,
+      "required": []
+    },
+    {
+      "name": "StopReasonType",
+      "type": "string",
+      "propertyCount": 0,
+      "required": []
+    },
+    {
+      "name": "StreamableHTTPMCPServer",
+      "type": "object",
+      "propertyCount": 7,
+      "required": [
+        "server_url",
+        "server_name"
+      ]
+    },
+    {
+      "name": "StreamableHTTPServerConfig",
+      "type": "object",
+      "propertyCount": 6,
+      "required": [
+        "server_name",
+        "server_url"
+      ]
+    },
+    {
+      "name": "SummarizedReasoningContent",
+      "type": "object",
+      "propertyCount": 4,
+      "required": [
+        "id",
+        "summary"
+      ]
+    },
+    {
+      "name": "SummarizedReasoningContentPart",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "index",
+        "text"
+      ]
+    },
+    {
+      "name": "SummaryMessage",
+      "type": "object",
+      "propertyCount": 12,
+      "required": [
+        "id",
+        "date",
+        "summary"
+      ]
+    },
+    {
+      "name": "SupervisorManager",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "manager_agent_id"
+      ]
+    },
+    {
+      "name": "SupervisorManagerSchema",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "manager_agent_id"
+      ]
+    },
+    {
+      "name": "SupervisorManagerUpdate",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "manager_agent_id"
+      ]
+    },
+    {
+      "name": "SystemMessage",
+      "type": "object",
+      "propertyCount": 11,
+      "required": [
+        "id",
+        "date",
+        "content"
+      ]
+    },
+    {
+      "name": "SystemMessageListResult",
+      "type": "object",
+      "propertyCount": 6,
+      "required": [
+        "content",
+        "message_id",
+        "created_at"
+      ]
+    },
+    {
+      "name": "TagSchema",
+      "type": "object",
+      "propertyCount": 1,
+      "required": [
+        "tag"
+      ]
+    },
+    {
+      "name": "TerminalToolRule",
+      "type": "object",
+      "propertyCount": 3,
+      "required": [
+        "tool_name"
+      ]
+    },
+    {
+      "name": "TextContent",
+      "type": "object",
+      "propertyCount": 3,
+      "required": [
+        "text"
+      ]
+    },
+    {
+      "name": "TextResponseFormat",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "TogetherModelSettings",
+      "type": "object",
+      "propertyCount": 5,
+      "required": []
+    },
+    {
+      "name": "Tool",
+      "type": "object",
+      "propertyCount": 18,
+      "required": []
+    },
+    {
+      "name": "ToolAnnotations",
+      "type": "object",
+      "propertyCount": 5,
+      "required": []
+    },
+    {
+      "name": "ToolCall",
+      "type": "object",
+      "propertyCount": 3,
+      "required": [
+        "name",
+        "arguments",
+        "tool_call_id"
+      ]
+    },
+    {
+      "name": "ToolCallContent",
+      "type": "object",
+      "propertyCount": 5,
+      "required": [
+        "id",
+        "name",
+        "input"
+      ]
+    },
+    {
+      "name": "ToolCallDelta",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "ToolCallMessage",
+      "type": "object",
+      "propertyCount": 12,
+      "required": [
+        "id",
+        "date",
+        "tool_call"
+      ]
+    },
+    {
+      "name": "ToolCallNode",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "name"
+      ]
+    },
+    {
+      "name": "ToolCreate",
+      "type": "object",
+      "propertyCount": 11,
+      "required": [
+        "source_code"
+      ]
+    },
+    {
+      "name": "ToolEnvVarSchema",
+      "type": "object",
+      "propertyCount": 5,
+      "required": [
+        "created_at",
+        "description",
+        "key",
+        "updated_at",
+        "value"
+      ]
+    },
+    {
+      "name": "ToolExecutionResult",
+      "type": "object",
+      "propertyCount": 6,
+      "required": [
+        "status"
+      ]
+    },
+    {
+      "name": "ToolJSONSchema",
+      "type": "object",
+      "propertyCount": 5,
+      "required": [
+        "name",
+        "description",
+        "parameters"
+      ]
+    },
+    {
+      "name": "ToolReturnContent",
+      "type": "object",
+      "propertyCount": 4,
+      "required": [
+        "tool_call_id",
+        "content",
+        "is_error"
+      ]
+    },
+    {
+      "name": "ToolReturnCreate",
+      "type": "object",
+      "propertyCount": 4,
+      "required": [
+        "tool_returns"
+      ]
+    },
+    {
+      "name": "ToolReturnMessage",
+      "type": "object",
+      "propertyCount": 16,
+      "required": [
+        "id",
+        "date",
+        "tool_return",
+        "status",
+        "tool_call_id"
+      ]
+    },
+    {
+      "name": "ToolRunFromSource",
+      "type": "object",
+      "propertyCount": 9,
+      "required": [
+        "source_code",
+        "args"
+      ]
+    },
+    {
+      "name": "ToolSearchRequest",
+      "type": "object",
+      "propertyCount": 5,
+      "required": []
+    },
+    {
+      "name": "ToolSearchResult",
+      "type": "object",
+      "propertyCount": 5,
+      "required": [
+        "tool",
+        "combined_score"
+      ]
+    },
+    {
+      "name": "ToolType",
+      "type": "string",
+      "propertyCount": 0,
+      "required": []
+    },
+    {
+      "name": "ToolUpdate",
+      "type": "object",
+      "propertyCount": 12,
+      "required": []
+    },
+    {
+      "name": "TurnTokenData",
+      "type": "object",
+      "propertyCount": 5,
+      "required": [
+        "role"
+      ]
+    },
+    {
+      "name": "UpdateAgent",
+      "type": "object",
+      "propertyCount": 37,
+      "required": []
+    },
+    {
+      "name": "UpdateAssistantMessage",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "content"
+      ]
+    },
+    {
+      "name": "UpdateConversation",
+      "type": "object",
+      "propertyCount": 4,
+      "required": []
+    },
+    {
+      "name": "UpdateMCPServerRequest",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "config"
+      ]
+    },
+    {
+      "name": "UpdateReasoningMessage",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "reasoning"
+      ]
+    },
+    {
+      "name": "UpdateSystemMessage",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "content"
+      ]
+    },
+    {
+      "name": "UpdateUserMessage",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "content"
+      ]
+    },
+    {
+      "name": "UrlImage",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "url"
+      ]
+    },
+    {
+      "name": "UsageStatistics",
+      "type": "object",
+      "propertyCount": 5,
+      "required": []
+    },
+    {
+      "name": "UsageStatisticsCompletionTokenDetails",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "UsageStatisticsPromptTokenDetails",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "User",
+      "type": "object",
+      "propertyCount": 5,
+      "required": [
+        "name"
+      ]
+    },
+    {
+      "name": "UserCreate",
+      "type": "object",
+      "propertyCount": 1,
+      "required": [
+        "name",
+        "organization_id"
+      ]
+    },
+    {
+      "name": "UserMessage",
+      "type": "object",
+      "propertyCount": 11,
+      "required": [
+        "id",
+        "date",
+        "content"
+      ]
+    },
+    {
+      "name": "UserMessageListResult",
+      "type": "object",
+      "propertyCount": 6,
+      "required": [
+        "content",
+        "message_id",
+        "created_at"
+      ]
+    },
+    {
+      "name": "UserUpdate",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "id"
+      ]
+    },
+    {
+      "name": "ValidationError",
+      "type": "object",
+      "propertyCount": 3,
+      "required": [
+        "loc",
+        "msg",
+        "type"
+      ]
+    },
+    {
+      "name": "VectorDBProvider",
+      "type": "string",
+      "propertyCount": 0,
+      "required": []
+    },
+    {
+      "name": "VoiceSleeptimeManager",
+      "type": "object",
+      "propertyCount": 4,
+      "required": [
+        "manager_agent_id"
+      ]
+    },
+    {
+      "name": "VoiceSleeptimeManagerSchema",
+      "type": "object",
+      "propertyCount": 4,
+      "required": [
+        "manager_agent_id"
+      ]
+    },
+    {
+      "name": "VoiceSleeptimeManagerUpdate",
+      "type": "object",
+      "propertyCount": 4,
+      "required": []
+    },
+    {
+      "name": "XAIModelSettings",
+      "type": "object",
+      "propertyCount": 5,
+      "required": []
+    },
+    {
+      "name": "ZAIModelSettings",
+      "type": "object",
+      "propertyCount": 6,
+      "required": []
+    },
+    {
+      "name": "ZAIThinking",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "letta__schemas__agent_file__AgentSchema",
+      "type": "object",
+      "propertyCount": 53,
+      "required": [
+        "id"
+      ]
+    },
+    {
+      "name": "letta__schemas__agent_file__MessageSchema",
+      "type": "object",
+      "propertyCount": 19,
+      "required": [
+        "role",
+        "content",
+        "id"
+      ]
+    },
+    {
+      "name": "letta__schemas__agent_file__ToolSchema",
+      "type": "object",
+      "propertyCount": 18,
+      "required": [
+        "id"
+      ]
+    },
+    {
+      "name": "letta__schemas__letta_message__ToolReturn",
+      "type": "object",
+      "propertyCount": 6,
+      "required": [
+        "tool_return",
+        "status",
+        "tool_call_id"
+      ]
+    },
+    {
+      "name": "letta__schemas__mcp__UpdateSSEMCPServer",
+      "type": "object",
+      "propertyCount": 4,
+      "required": []
+    },
+    {
+      "name": "letta__schemas__mcp__UpdateStdioMCPServer",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "letta__schemas__mcp__UpdateStreamableHTTPMCPServer",
+      "type": "object",
+      "propertyCount": 5,
+      "required": []
+    },
+    {
+      "name": "letta__schemas__mcp_server__ToolExecuteRequest",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "letta__schemas__mcp_server__UpdateSSEMCPServer",
+      "type": "object",
+      "propertyCount": 5,
+      "required": [
+        "server_url"
+      ]
+    },
+    {
+      "name": "letta__schemas__mcp_server__UpdateStdioMCPServer",
+      "type": "object",
+      "propertyCount": 4,
+      "required": [
+        "command",
+        "args"
+      ]
+    },
+    {
+      "name": "letta__schemas__mcp_server__UpdateStreamableHTTPMCPServer",
+      "type": "object",
+      "propertyCount": 5,
+      "required": [
+        "server_url"
+      ]
+    },
+    {
+      "name": "letta__schemas__message__ToolReturn-Input",
+      "type": "object",
+      "propertyCount": 5,
+      "required": [
+        "status"
+      ]
+    },
+    {
+      "name": "letta__schemas__message__ToolReturn-Output",
+      "type": "object",
+      "propertyCount": 5,
+      "required": [
+        "status"
+      ]
+    },
+    {
+      "name": "letta__schemas__openai__chat_completion_response__ChatCompletionTokenLogprob",
+      "type": "object",
+      "propertyCount": 4,
+      "required": [
+        "token",
+        "logprob",
+        "top_logprobs"
+      ]
+    },
+    {
+      "name": "letta__schemas__openai__chat_completion_response__ChoiceLogprobs",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "letta__schemas__openai__chat_completion_response__TopLogprob",
+      "type": "object",
+      "propertyCount": 3,
+      "required": [
+        "token",
+        "logprob"
+      ]
+    },
+    {
+      "name": "letta__serialize_schemas__pydantic_agent_schema__AgentSchema",
+      "type": "object",
+      "propertyCount": 19,
+      "required": [
+        "agent_type",
+        "core_memory",
+        "created_at",
+        "description",
+        "embedding_config",
+        "llm_config",
+        "message_buffer_autoclear",
+        "in_context_message_indices",
+        "messages",
+        "multi_agent_group",
+        "name",
+        "system",
+        "tags",
+        "tool_exec_environment_variables",
+        "tool_rules",
+        "tools",
+        "updated_at",
+        "version"
+      ]
+    },
+    {
+      "name": "letta__serialize_schemas__pydantic_agent_schema__MessageSchema",
+      "type": "object",
+      "propertyCount": 10,
+      "required": [
+        "created_at",
+        "group_id",
+        "model",
+        "name",
+        "role",
+        "content",
+        "tool_call_id",
+        "tool_calls",
+        "tool_returns",
+        "updated_at"
+      ]
+    },
+    {
+      "name": "letta__serialize_schemas__pydantic_agent_schema__ToolSchema",
+      "type": "object",
+      "propertyCount": 12,
+      "required": [
+        "args_json_schema",
+        "created_at",
+        "description",
+        "json_schema",
+        "name",
+        "return_char_limit",
+        "source_code",
+        "source_type",
+        "tags",
+        "tool_type",
+        "updated_at"
+      ]
+    },
+    {
+      "name": "letta__server__rest_api__routers__v1__agents__CompactionRequest",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "letta__server__rest_api__routers__v1__conversations__CompactionRequest",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "letta__server__rest_api__routers__v1__tools__ToolExecuteRequest",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "openai__types__chat__chat_completion__ChoiceLogprobs",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "openai__types__chat__chat_completion_message_function_tool_call__Function",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "arguments",
+        "name"
+      ]
+    },
+    {
+      "name": "openai__types__chat__chat_completion_message_function_tool_call_param__Function",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "arguments",
+        "name"
+      ]
+    },
+    {
+      "name": "openai__types__chat__chat_completion_token_logprob__ChatCompletionTokenLogprob",
+      "type": "object",
+      "propertyCount": 4,
+      "required": [
+        "token",
+        "logprob",
+        "top_logprobs"
+      ]
+    },
+    {
+      "name": "openai__types__chat__chat_completion_token_logprob__TopLogprob",
+      "type": "object",
+      "propertyCount": 3,
+      "required": [
+        "token",
+        "logprob"
+      ]
+    },
+    {
+      "name": "LettaMessageUnion",
+      "type": null,
+      "propertyCount": 0,
+      "required": []
+    },
+    {
+      "name": "LettaMessageContentUnion",
+      "type": null,
+      "propertyCount": 0,
+      "required": []
+    },
+    {
+      "name": "LettaAssistantMessageContentUnion",
+      "type": null,
+      "propertyCount": 0,
+      "required": []
+    },
+    {
+      "name": "LettaToolReturnContentUnion",
+      "type": null,
+      "propertyCount": 0,
+      "required": []
+    },
+    {
+      "name": "LettaUserMessageContentUnion",
+      "type": null,
+      "propertyCount": 0,
+      "required": []
+    }
+  ],
+  "operations": [
+    {
+      "method": "GET",
+      "path": "/v1/archives/",
+      "operationId": "list_archives",
+      "summary": "List Archives",
+      "tags": [
+        "Archives"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/archives/",
+      "operationId": "create_archive",
+      "summary": "Create Archive",
+      "tags": [
+        "Archives"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/archives/{archive_id}",
+      "operationId": "retrieve_archive",
+      "summary": "Retrieve Archive",
+      "tags": [
+        "Archives"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/v1/archives/{archive_id}",
+      "operationId": "delete_archive",
+      "summary": "Delete Archive",
+      "tags": [
+        "Archives"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/v1/archives/{archive_id}",
+      "operationId": "modify_archive",
+      "summary": "Modify Archive",
+      "tags": [
+        "Archives"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/archives/{archive_id}/agents",
+      "operationId": "list_agents_for_archive",
+      "summary": "List Agents for Archive",
+      "tags": [
+        "Archives"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/archives/{archive_id}/passages",
+      "operationId": "create_passage_in_archive",
+      "summary": "Create Passage in Archive",
+      "tags": [
+        "Archives"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/archives/{archive_id}/passages/batch",
+      "operationId": "create_passages_in_archive",
+      "summary": "Create Passages in Archive",
+      "tags": [
+        "Archives"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/v1/archives/{archive_id}/passages/{passage_id}",
+      "operationId": "delete_passage_from_archive",
+      "summary": "Delete Passage from Archive",
+      "tags": [
+        "Archives"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/tools/{tool_id}",
+      "operationId": "retrieve_tool",
+      "summary": "Retrieve Tool",
+      "tags": [
+        "Tools"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/v1/tools/{tool_id}",
+      "operationId": "delete_tool",
+      "summary": "Delete Tool",
+      "tags": [
+        "Tools"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/v1/tools/{tool_id}",
+      "operationId": "modify_tool",
+      "summary": "Modify Tool",
+      "tags": [
+        "Tools"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/tools/count",
+      "operationId": "count_tools",
+      "summary": "Count Tools",
+      "tags": [
+        "Tools"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/tools/",
+      "operationId": "list_tools",
+      "summary": "List Tools",
+      "tags": [
+        "Tools"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/tools/",
+      "operationId": "create_tool",
+      "summary": "Create Tool",
+      "tags": [
+        "Tools"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/v1/tools/",
+      "operationId": "upsert_tool",
+      "summary": "Upsert Tool",
+      "tags": [
+        "Tools"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/tools/search",
+      "operationId": "search_tools",
+      "summary": "Search Tools",
+      "tags": [
+        "Tools"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/tools/add-base-tools",
+      "operationId": "add_base_tools",
+      "summary": "Upsert Base Tools",
+      "tags": [
+        "Tools"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/tools/run",
+      "operationId": "run_tool_from_source",
+      "summary": "Run Tool from Source",
+      "tags": [
+        "Tools"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/tools/mcp/servers",
+      "operationId": "list_mcp_servers",
+      "summary": "List MCP Servers",
+      "tags": [
+        "Tools"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/v1/tools/mcp/servers",
+      "operationId": "add_mcp_server",
+      "summary": "Add MCP Server to Config",
+      "tags": [
+        "Tools"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/tools/mcp/servers/{mcp_server_name}/tools",
+      "operationId": "list_mcp_tools_by_server",
+      "summary": "List MCP Tools by Server",
+      "tags": [
+        "Tools"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/tools/mcp/servers/{mcp_server_name}/resync",
+      "operationId": "resync_mcp_server_tools",
+      "summary": "Resync MCP Server Tools",
+      "tags": [
+        "Tools"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/tools/mcp/servers/{mcp_server_name}/{mcp_tool_name}",
+      "operationId": "add_mcp_tool",
+      "summary": "Add MCP Tool",
+      "tags": [
+        "Tools"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/v1/tools/mcp/servers/{mcp_server_name}",
+      "operationId": "delete_mcp_server",
+      "summary": "Delete MCP Server from Config",
+      "tags": [
+        "Tools"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/v1/tools/mcp/servers/{mcp_server_name}",
+      "operationId": "update_mcp_server",
+      "summary": "Update MCP Server",
+      "tags": [
+        "Tools"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/tools/mcp/servers/test",
+      "operationId": "test_mcp_server",
+      "summary": "Test MCP Server",
+      "tags": [
+        "Tools"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/tools/mcp/servers/connect",
+      "operationId": "connect_mcp_server",
+      "summary": "Connect MCP Server",
+      "tags": [
+        "Tools"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/tools/mcp/servers/{mcp_server_name}/tools/{tool_name}/execute",
+      "operationId": "execute_mcp_tool",
+      "summary": "Execute MCP Tool",
+      "tags": [
+        "Tools"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/tools/mcp/oauth/callback",
+      "operationId": "mcp_oauth_callback",
+      "summary": "MCP Oauth Callback",
+      "tags": [
+        "Tools"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/sources/count",
+      "operationId": "count_sources",
+      "summary": "Count Sources",
+      "tags": [
+        "Sources"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/sources/{source_id}",
+      "operationId": "retrieve_source",
+      "summary": "Retrieve Source",
+      "tags": [
+        "Sources"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/v1/sources/{source_id}",
+      "operationId": "delete_source",
+      "summary": "Delete Source",
+      "tags": [
+        "Sources"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/v1/sources/{source_id}",
+      "operationId": "modify_source",
+      "summary": "Modify Source",
+      "tags": [
+        "Sources"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/sources/name/{source_name}",
+      "operationId": "get_source_id_by_name",
+      "summary": "Get Source ID by Name",
+      "tags": [
+        "Sources"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/sources/metadata",
+      "operationId": "get_sources_metadata",
+      "summary": "Get Sources Metadata",
+      "tags": [
+        "Sources"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/sources/",
+      "operationId": "list_sources",
+      "summary": "List Sources",
+      "tags": [
+        "Sources"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/sources/",
+      "operationId": "create_source",
+      "summary": "Create Source",
+      "tags": [
+        "Sources"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/sources/{source_id}/upload",
+      "operationId": "upload_file_to_source",
+      "summary": "Upload File to Source",
+      "tags": [
+        "Sources"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/sources/{source_id}/agents",
+      "operationId": "get_agents_for_source",
+      "summary": "Get Agents for Source",
+      "tags": [
+        "Sources"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/sources/{source_id}/passages",
+      "operationId": "list_source_passages",
+      "summary": "List Source Passages",
+      "tags": [
+        "Sources"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/sources/{source_id}/files",
+      "operationId": "list_source_files",
+      "summary": "List Source Files",
+      "tags": [
+        "Sources"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/sources/{source_id}/files/{file_id}",
+      "operationId": "get_file_metadata",
+      "summary": "Get File Metadata",
+      "tags": [
+        "Sources"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/v1/sources/{source_id}/{file_id}",
+      "operationId": "delete_file_from_source",
+      "summary": "Delete File from Source",
+      "tags": [
+        "Sources"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/folders/count",
+      "operationId": "count_folders",
+      "summary": "Count Folders",
+      "tags": [
+        "Folders"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/folders/{folder_id}",
+      "operationId": "retrieve_folder",
+      "summary": "Retrieve Folder",
+      "tags": [
+        "Folders"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/v1/folders/{folder_id}",
+      "operationId": "delete_folder",
+      "summary": "Delete Folder",
+      "tags": [
+        "Folders"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/v1/folders/{folder_id}",
+      "operationId": "modify_folder",
+      "summary": "Modify Folder",
+      "tags": [
+        "Folders"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/folders/name/{folder_name}",
+      "operationId": "get_folder_by_name",
+      "summary": "Get Folder by Name",
+      "tags": [
+        "Folders"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/folders/metadata",
+      "operationId": "retrieve_metadata",
+      "summary": "Retrieve Metadata",
+      "tags": [
+        "Folders"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/folders/",
+      "operationId": "list_folders",
+      "summary": "List Folders",
+      "tags": [
+        "Folders"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/folders/",
+      "operationId": "create_folder",
+      "summary": "Create Folder",
+      "tags": [
+        "Folders"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/folders/{folder_id}/upload",
+      "operationId": "upload_file_to_folder",
+      "summary": "Upload File to Folder",
+      "tags": [
+        "Folders"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/folders/{folder_id}/agents",
+      "operationId": "list_agents_for_folder",
+      "summary": "List Agents for Folder",
+      "tags": [
+        "Folders"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/folders/{folder_id}/passages",
+      "operationId": "list_folder_passages",
+      "summary": "List Folder Passages",
+      "tags": [
+        "Folders"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/folders/{folder_id}/files",
+      "operationId": "list_files_for_folder",
+      "summary": "List Files for Folder",
+      "tags": [
+        "Folders"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/folders/{folder_id}/files/{file_id}",
+      "operationId": "retrieve_file",
+      "summary": "Retrieve File",
+      "tags": [
+        "Folders"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/v1/folders/{folder_id}/{file_id}",
+      "operationId": "delete_file_from_folder",
+      "summary": "Delete File from Folder",
+      "tags": [
+        "Folders"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/agents/",
+      "operationId": "list_agents",
+      "summary": "List Agents",
+      "tags": [
+        "Agents"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/agents/",
+      "operationId": "create_agent",
+      "summary": "Create Agent",
+      "tags": [
+        "Agents"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/agents/count",
+      "operationId": "count_agents",
+      "summary": "Count Agents",
+      "tags": [
+        "Agents"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/agents/{agent_id}/export",
+      "operationId": "export_agent",
+      "summary": "Export Agent",
+      "tags": [
+        "Agents"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/agents/{agent_id}/export",
+      "operationId": "export_agent_with_skills",
+      "summary": "Export Agent with Skills",
+      "tags": [
+        "Agents"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/agents/import",
+      "operationId": "import_agent",
+      "summary": "Import Agent",
+      "tags": [
+        "Agents"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/agents/{agent_id}/context",
+      "operationId": "retrieve_agent_context_window",
+      "summary": "Retrieve Agent Context Window",
+      "tags": [
+        "Agents"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/agents/{agent_id}",
+      "operationId": "retrieve_agent",
+      "summary": "Retrieve Agent",
+      "tags": [
+        "Agents"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/v1/agents/{agent_id}",
+      "operationId": "delete_agent",
+      "summary": "Delete Agent",
+      "tags": [
+        "Agents"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/v1/agents/{agent_id}",
+      "operationId": "modify_agent",
+      "summary": "Modify Agent",
+      "tags": [
+        "Agents"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/agents/{agent_id}/tools",
+      "operationId": "list_tools_for_agent",
+      "summary": "List Tools for Agent",
+      "tags": [
+        "Agents"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/v1/agents/{agent_id}/tools/attach/{tool_id}",
+      "operationId": "attach_tool_to_agent",
+      "summary": "Attach Tool to Agent",
+      "tags": [
+        "Agents"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/v1/agents/{agent_id}/tools/detach/{tool_id}",
+      "operationId": "detach_tool_from_agent",
+      "summary": "Detach Tool from Agent",
+      "tags": [
+        "Agents"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/v1/agents/{agent_id}/tools/approval/{tool_name}",
+      "operationId": "modify_approval_for_tool",
+      "summary": "Modify Approval for Tool",
+      "tags": [
+        "Agents"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/agents/{agent_id}/tools/{tool_name}/run",
+      "operationId": "run_tool_for_agent",
+      "summary": "Run Tool for Agent",
+      "tags": [
+        "Agents"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/v1/agents/{agent_id}/sources/attach/{source_id}",
+      "operationId": "attach_source_to_agent",
+      "summary": "Attach Source",
+      "tags": [
+        "Agents"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/v1/agents/{agent_id}/folders/attach/{folder_id}",
+      "operationId": "attach_folder_to_agent",
+      "summary": "Attach Folder to Agent",
+      "tags": [
+        "Agents"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/v1/agents/{agent_id}/sources/detach/{source_id}",
+      "operationId": "detach_source_from_agent",
+      "summary": "Detach Source",
+      "tags": [
+        "Agents"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/v1/agents/{agent_id}/folders/detach/{folder_id}",
+      "operationId": "detach_folder_from_agent",
+      "summary": "Detach Folder from Agent",
+      "tags": [
+        "Agents"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/v1/agents/{agent_id}/files/close-all",
+      "operationId": "close_all_files_for_agent",
+      "summary": "Close All Files for Agent",
+      "tags": [
+        "Agents"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/v1/agents/{agent_id}/files/{file_id}/open",
+      "operationId": "open_file_for_agent",
+      "summary": "Open File for Agent",
+      "tags": [
+        "Agents"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/v1/agents/{agent_id}/files/{file_id}/close",
+      "operationId": "close_file_for_agent",
+      "summary": "Close File for Agent",
+      "tags": [
+        "Agents"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/agents/{agent_id}/sources",
+      "operationId": "list_agent_sources",
+      "summary": "List Agent Sources",
+      "tags": [
+        "Agents"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/agents/{agent_id}/folders",
+      "operationId": "list_folders_for_agent",
+      "summary": "List Folders for Agent",
+      "tags": [
+        "Agents"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/agents/{agent_id}/files",
+      "operationId": "list_files_for_agent",
+      "summary": "List Files for Agent",
+      "tags": [
+        "Agents"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/agents/{agent_id}/core-memory",
+      "operationId": "retrieve_agent_memory",
+      "summary": "Retrieve Agent Memory",
+      "tags": [
+        "Agents"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/agents/{agent_id}/core-memory/blocks/{block_label}",
+      "operationId": "retrieve_core_memory_block",
+      "summary": "Retrieve Block for Agent",
+      "tags": [
+        "Agents"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/v1/agents/{agent_id}/core-memory/blocks/{block_label}",
+      "operationId": "modify_core_memory_block",
+      "summary": "Modify Block for Agent",
+      "tags": [
+        "Agents"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/agents/{agent_id}/core-memory/blocks",
+      "operationId": "list_core_memory_blocks",
+      "summary": "List Blocks for Agent",
+      "tags": [
+        "Agents"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/agents/{agent_id}/recompile",
+      "operationId": "recompile_agent",
+      "summary": "Recompile Agent",
+      "tags": [
+        "Agents"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/agents/{agent_id}/system-prompt/recompile",
+      "operationId": "recompile_agent_system_prompt",
+      "summary": "Recompile Agent System Prompt",
+      "tags": [
+        "Agents"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/v1/agents/{agent_id}/core-memory/blocks/attach/{block_id}",
+      "operationId": "attach_core_memory_block",
+      "summary": "Attach Block to Agent",
+      "tags": [
+        "Agents"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/v1/agents/{agent_id}/core-memory/blocks/detach/{block_id}",
+      "operationId": "detach_core_memory_block",
+      "summary": "Detach Block from Agent",
+      "tags": [
+        "Agents"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/v1/agents/{agent_id}/archives/attach/{archive_id}",
+      "operationId": "attach_archive_to_agent",
+      "summary": "Attach Archive to Agent",
+      "tags": [
+        "Agents"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/v1/agents/{agent_id}/archives/detach/{archive_id}",
+      "operationId": "detach_archive_from_agent",
+      "summary": "Detach Archive from Agent",
+      "tags": [
+        "Agents"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/v1/agents/{agent_id}/identities/attach/{identity_id}",
+      "operationId": "attach_identity_to_agent",
+      "summary": "Attach Identity to Agent",
+      "tags": [
+        "Agents"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/v1/agents/{agent_id}/identities/detach/{identity_id}",
+      "operationId": "detach_identity_from_agent",
+      "summary": "Detach Identity from Agent",
+      "tags": [
+        "Agents"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/agents/{agent_id}/archival-memory",
+      "operationId": "list_passages",
+      "summary": "List Passages",
+      "tags": [
+        "Agents"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/agents/{agent_id}/archival-memory",
+      "operationId": "create_passage",
+      "summary": "Create Passage",
+      "tags": [
+        "Agents"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/agents/{agent_id}/archival-memory/search",
+      "operationId": "search_archival_memory",
+      "summary": "Search Archival Memory",
+      "tags": [
+        "Agents"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/v1/agents/{agent_id}/archival-memory/{memory_id}",
+      "operationId": "delete_passage",
+      "summary": "Delete Passage",
+      "tags": [
+        "Agents"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/agents/{agent_id}/messages",
+      "operationId": "list_messages",
+      "summary": "List Messages",
+      "tags": [
+        "Agents"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/agents/{agent_id}/messages",
+      "operationId": "send_message",
+      "summary": "Send Message",
+      "tags": [
+        "Agents"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/v1/agents/{agent_id}/messages/{message_id}",
+      "operationId": "modify_message",
+      "summary": "Modify Message",
+      "tags": [
+        "Agents"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/agents/{agent_id}/messages/stream",
+      "operationId": "create_agent_message_stream",
+      "summary": "Send Message Streaming",
+      "tags": [
+        "Agents"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/agents/{agent_id}/messages/cancel",
+      "operationId": "cancel_message",
+      "summary": "Cancel Message",
+      "tags": [
+        "Agents"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/agents/{agent_id}/generate",
+      "operationId": "generate_completion",
+      "summary": "Generate Completion",
+      "tags": [
+        "Agents"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/agents/messages/search",
+      "operationId": "search_messages",
+      "summary": "Search Messages",
+      "tags": [
+        "Agents"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/agents/{agent_id}/messages/async",
+      "operationId": "create_agent_message_async",
+      "summary": "Send Message Async",
+      "tags": [
+        "Agents"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/v1/agents/{agent_id}/reset-messages",
+      "operationId": "reset_messages",
+      "summary": "Reset Messages",
+      "tags": [
+        "Agents"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/agents/{agent_id}/groups",
+      "operationId": "list_groups_for_agent",
+      "summary": "List Groups for Agent",
+      "tags": [
+        "Agents"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/agents/{agent_id}/messages/preview-raw-payload",
+      "operationId": "preview_model_request",
+      "summary": "Preview Model Request",
+      "tags": [
+        "Agents"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/agents/{agent_id}/summarize",
+      "operationId": "summarize_messages",
+      "summary": "Summarize Messages",
+      "tags": [
+        "Agents"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/conversations/",
+      "operationId": "list_conversations",
+      "summary": "List Conversations",
+      "tags": [
+        "Conversations"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/conversations/",
+      "operationId": "create_conversation",
+      "summary": "Create Conversation",
+      "tags": [
+        "Conversations"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/conversations/{conversation_id}",
+      "operationId": "retrieve_conversation",
+      "summary": "Retrieve Conversation",
+      "tags": [
+        "Conversations"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/v1/conversations/{conversation_id}",
+      "operationId": "delete_conversation",
+      "summary": "Delete Conversation",
+      "tags": [
+        "Conversations"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/v1/conversations/{conversation_id}",
+      "operationId": "update_conversation",
+      "summary": "Update Conversation",
+      "tags": [
+        "Conversations"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/conversations/{conversation_id}/fork",
+      "operationId": "fork_conversation",
+      "summary": "Fork Conversation",
+      "tags": [
+        "Conversations"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/conversations/{conversation_id}/messages",
+      "operationId": "list_conversation_messages",
+      "summary": "List Conversation Messages",
+      "tags": [
+        "Conversations"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/conversations/{conversation_id}/messages",
+      "operationId": "send_conversation_message",
+      "summary": "Send Conversation Message",
+      "tags": [
+        "Conversations"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/conversations/{conversation_id}/messages/preview-raw-payload",
+      "operationId": "preview_conversation_model_request",
+      "summary": "Preview Conversation Model Request",
+      "tags": [
+        "Conversations"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/conversations/{conversation_id}/stream",
+      "operationId": "retrieve_conversation_stream",
+      "summary": "Retrieve Conversation Stream",
+      "tags": [
+        "Conversations"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/conversations/{conversation_id}/cancel",
+      "operationId": "cancel_conversation",
+      "summary": "Cancel Conversation",
+      "tags": [
+        "Conversations"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/conversations/{conversation_id}/recompile",
+      "operationId": "recompile_conversation",
+      "summary": "Recompile Conversation",
+      "tags": [
+        "Conversations"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/conversations/{conversation_id}/compact",
+      "operationId": "compact_conversation",
+      "summary": "Compact Conversation",
+      "tags": [
+        "Conversations"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/chat/completions",
+      "operationId": "create_chat_completion",
+      "summary": "Create Chat Completion",
+      "tags": [
+        "Chat"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/groups/",
+      "operationId": "list_groups",
+      "summary": "List Groups",
+      "tags": [
+        "Groups"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/groups/",
+      "operationId": "create_group",
+      "summary": "Create Group",
+      "tags": [
+        "Groups"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/groups/count",
+      "operationId": "count_groups",
+      "summary": "Count Groups",
+      "tags": [
+        "Groups"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/groups/{group_id}",
+      "operationId": "retrieve_group",
+      "summary": "Retrieve Group",
+      "tags": [
+        "Groups"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/v1/groups/{group_id}",
+      "operationId": "delete_group",
+      "summary": "Delete Group",
+      "tags": [
+        "Groups"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/v1/groups/{group_id}",
+      "operationId": "modify_group",
+      "summary": "Modify Group",
+      "tags": [
+        "Groups"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/v1/groups/{group_id}/messages/{message_id}",
+      "operationId": "modify_group_message",
+      "summary": "Modify Group Message",
+      "tags": [
+        "Groups"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/groups/{group_id}/messages",
+      "operationId": "list_group_messages",
+      "summary": "List Group Messages",
+      "tags": [
+        "Groups"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/v1/groups/{group_id}/reset-messages",
+      "operationId": "reset_group_messages",
+      "summary": "Reset Group Messages",
+      "tags": [
+        "Groups"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/v1/groups/{group_id}/blocks/attach/{block_id}",
+      "operationId": "attach_block_to_group",
+      "summary": "Attach Block to Group",
+      "tags": [
+        "Groups"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/v1/groups/{group_id}/blocks/detach/{block_id}",
+      "operationId": "detach_block_from_group",
+      "summary": "Detach Block from Group",
+      "tags": [
+        "Groups"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/identities/",
+      "operationId": "list_identities",
+      "summary": "List Identities",
+      "tags": [
+        "Identities",
+        "Identities"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/identities/",
+      "operationId": "create_identity",
+      "summary": "Create Identity",
+      "tags": [
+        "Identities",
+        "Identities"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/v1/identities/",
+      "operationId": "upsert_identity",
+      "summary": "Upsert Identity",
+      "tags": [
+        "Identities",
+        "Identities"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/identities/count",
+      "operationId": "count_identities",
+      "summary": "Count Identities",
+      "tags": [
+        "Identities",
+        "Identities"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/identities/{identity_id}",
+      "operationId": "retrieve_identity",
+      "summary": "Retrieve Identity",
+      "tags": [
+        "Identities",
+        "Identities"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/v1/identities/{identity_id}",
+      "operationId": "delete_identity",
+      "summary": "Delete Identity",
+      "tags": [
+        "Identities",
+        "Identities"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/v1/identities/{identity_id}",
+      "operationId": "update_identity",
+      "summary": "Modify Identity",
+      "tags": [
+        "Identities",
+        "Identities"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/v1/identities/{identity_id}/properties",
+      "operationId": "upsert_properties_for_identity",
+      "summary": "Upsert Properties for Identity",
+      "tags": [
+        "Identities",
+        "Identities"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/identities/{identity_id}/agents",
+      "operationId": "list_agents_for_identity",
+      "summary": "List Agents for Identity",
+      "tags": [
+        "Identities"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/identities/{identity_id}/blocks",
+      "operationId": "list_blocks_for_identity",
+      "summary": "List Blocks for Identity",
+      "tags": [
+        "Identities"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/_internal_agents/count",
+      "operationId": "count_internal_agents",
+      "summary": "Count Agents",
+      "tags": [
+        "Internal Agents"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/v1/_internal_agents/{agent_id}/core-memory/blocks/{block_label}",
+      "operationId": "modify_internal_core_memory_block",
+      "summary": "Modify Block for Agent",
+      "tags": [
+        "Internal Agents"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/_internal_blocks/",
+      "operationId": "list_internal_blocks",
+      "summary": "List Blocks",
+      "tags": [
+        "Internal Blocks"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/_internal_blocks/",
+      "operationId": "create_internal_block",
+      "summary": "Create Block",
+      "tags": [
+        "Internal Blocks"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/v1/_internal_blocks/{block_id}",
+      "operationId": "delete_internal_block",
+      "summary": "Delete Block",
+      "tags": [
+        "Internal Blocks"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/_internal_blocks/{block_id}/agents",
+      "operationId": "list_agents_for_internal_block",
+      "summary": "List Agents for Block",
+      "tags": [
+        "Internal Blocks"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/_internal_runs/",
+      "operationId": "list_internal_runs",
+      "summary": "List Runs",
+      "tags": [
+        "Internal Runs"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/_internal_templates/groups",
+      "operationId": "create_internal_template_group",
+      "summary": "Create Group",
+      "tags": [
+        "Internal Templates"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/_internal_templates/agents",
+      "operationId": "create_internal_template_agent",
+      "summary": "Create Agent",
+      "tags": [
+        "Internal Templates"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/_internal_templates/blocks",
+      "operationId": "create_internal_template_block",
+      "summary": "Create Block",
+      "tags": [
+        "Internal Templates"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/_internal_templates/blocks/batch",
+      "operationId": "create_internal_template_blocks_batch",
+      "summary": "Create Blocks Batch",
+      "tags": [
+        "Internal Templates"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/_internal_templates/deployment/{deployment_id}",
+      "operationId": "list_deployment_entities",
+      "summary": "List Deployment Entities",
+      "tags": [
+        "Internal Templates"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/v1/_internal_templates/deployment/{deployment_id}",
+      "operationId": "delete_deployment",
+      "summary": "Delete Deployment",
+      "tags": [
+        "Internal Templates"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/models/",
+      "operationId": "list_models",
+      "summary": "List LLM Models",
+      "tags": [
+        "Models",
+        "LLMs"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/models/embedding",
+      "operationId": "list_embedding_models",
+      "summary": "List Embedding Models",
+      "tags": [
+        "Models",
+        "LLMs"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/mcp-servers/",
+      "operationId": "mcp_list_mcp_servers",
+      "summary": "List MCP Servers",
+      "tags": [
+        "MCP Servers"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/mcp-servers/",
+      "operationId": "mcp_create_mcp_server",
+      "summary": "Create MCP Server",
+      "tags": [
+        "MCP Servers"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/mcp-servers/{mcp_server_id}",
+      "operationId": "mcp_retrieve_mcp_server",
+      "summary": "Retrieve MCP Server",
+      "tags": [
+        "MCP Servers"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/v1/mcp-servers/{mcp_server_id}",
+      "operationId": "mcp_delete_mcp_server",
+      "summary": "Delete MCP Server",
+      "tags": [
+        "MCP Servers"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/v1/mcp-servers/{mcp_server_id}",
+      "operationId": "mcp_update_mcp_server",
+      "summary": "Update MCP Server",
+      "tags": [
+        "MCP Servers"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/mcp-servers/{mcp_server_id}/tools",
+      "operationId": "mcp_list_tools_for_mcp_server",
+      "summary": "List Tools for MCP Server",
+      "tags": [
+        "MCP Servers"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/mcp-servers/{mcp_server_id}/tools/{tool_id}",
+      "operationId": "mcp_retrieve_mcp_tool",
+      "summary": "Retrieve MCP Tool",
+      "tags": [
+        "MCP Servers"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/mcp-servers/{mcp_server_id}/tools/{tool_id}/run",
+      "operationId": "mcp_run_tool",
+      "summary": "Run MCP Tool",
+      "tags": [
+        "MCP Servers"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/v1/mcp-servers/{mcp_server_id}/refresh",
+      "operationId": "mcp_refresh_mcp_server_tools",
+      "summary": "Refresh MCP Server Tools",
+      "tags": [
+        "MCP Servers"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/mcp-servers/connect/{mcp_server_id}",
+      "operationId": "mcp_connect_mcp_server",
+      "summary": "Connect MCP Server",
+      "tags": [
+        "MCP Servers"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/blocks/",
+      "operationId": "list_blocks",
+      "summary": "List Blocks",
+      "tags": [
+        "Blocks"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/blocks/",
+      "operationId": "create_block",
+      "summary": "Create Block",
+      "tags": [
+        "Blocks"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/blocks/count",
+      "operationId": "count_blocks",
+      "summary": "Count Blocks",
+      "tags": [
+        "Blocks"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/blocks/{block_id}",
+      "operationId": "retrieve_block",
+      "summary": "Retrieve Block",
+      "tags": [
+        "Blocks"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/v1/blocks/{block_id}",
+      "operationId": "delete_block",
+      "summary": "Delete Block",
+      "tags": [
+        "Blocks"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/v1/blocks/{block_id}",
+      "operationId": "modify_block",
+      "summary": "Modify Block",
+      "tags": [
+        "Blocks"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/blocks/{block_id}/agents",
+      "operationId": "list_agents_for_block",
+      "summary": "List Agents for Block",
+      "tags": [
+        "Blocks"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/v1/blocks/{block_id}/identities/attach/{identity_id}",
+      "operationId": "attach_identity_to_block",
+      "summary": "Attach Identity to Block",
+      "tags": [
+        "Blocks"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/v1/blocks/{block_id}/identities/detach/{identity_id}",
+      "operationId": "detach_identity_from_block",
+      "summary": "Detach Identity from Block",
+      "tags": [
+        "Blocks"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/",
+      "operationId": "list_jobs",
+      "summary": "List Jobs",
+      "tags": [
+        "Jobs"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/active",
+      "operationId": "list_active_jobs",
+      "summary": "List Active Jobs",
+      "tags": [
+        "Jobs"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/{job_id}",
+      "operationId": "retrieve_job",
+      "summary": "Retrieve Job",
+      "tags": [
+        "Jobs"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/v1/jobs/{job_id}",
+      "operationId": "delete_job",
+      "summary": "Delete Job",
+      "tags": [
+        "Jobs"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/v1/jobs/{job_id}/cancel",
+      "operationId": "cancel_job",
+      "summary": "Cancel Job",
+      "tags": [
+        "Jobs"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/health/",
+      "operationId": "check_health",
+      "summary": "Check Health",
+      "tags": [
+        "Health"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/ready/",
+      "operationId": "check_readiness",
+      "summary": "Check Readiness",
+      "tags": [
+        "Health"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/providers/",
+      "operationId": "list_providers",
+      "summary": "List Providers",
+      "tags": [
+        "Providers"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/providers/",
+      "operationId": "create_provider",
+      "summary": "Create Provider",
+      "tags": [
+        "Providers"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/providers/{provider_id}",
+      "operationId": "retrieve_provider",
+      "summary": "Retrieve Provider",
+      "tags": [
+        "Providers"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/v1/providers/{provider_id}",
+      "operationId": "delete_provider",
+      "summary": "Delete Provider",
+      "tags": [
+        "Providers"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/v1/providers/{provider_id}",
+      "operationId": "modify_provider",
+      "summary": "Modify Provider",
+      "tags": [
+        "Providers"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/providers/check",
+      "operationId": "check_provider",
+      "summary": "Check Provider",
+      "tags": [
+        "Providers"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/providers/{provider_id}/check",
+      "operationId": "check_existing_provider",
+      "summary": "Check Existing Provider",
+      "tags": [
+        "Providers"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/v1/providers/{provider_id}/refresh",
+      "operationId": "refresh_provider_models",
+      "summary": "Refresh Provider Models",
+      "tags": [
+        "Providers"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/runs/",
+      "operationId": "list_runs",
+      "summary": "List Runs",
+      "tags": [
+        "Runs"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/runs/active",
+      "operationId": "list_active_runs",
+      "summary": "List Active Runs",
+      "tags": [
+        "Runs"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/runs/{run_id}",
+      "operationId": "retrieve_run",
+      "summary": "Retrieve Run",
+      "tags": [
+        "Runs"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/v1/runs/{run_id}",
+      "operationId": "delete_run",
+      "summary": "Delete Run",
+      "tags": [
+        "Runs"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/runs/{run_id}/messages",
+      "operationId": "list_messages_for_run",
+      "summary": "List Messages for Run",
+      "tags": [
+        "Runs"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/runs/{run_id}/usage",
+      "operationId": "retrieve_usage_for_run",
+      "summary": "Retrieve Usage for Run",
+      "tags": [
+        "Runs"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/runs/{run_id}/metrics",
+      "operationId": "retrieve_metrics_for_run",
+      "summary": "Retrieve Metrics for Run",
+      "tags": [
+        "Runs"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/runs/{run_id}/steps",
+      "operationId": "list_steps_for_run",
+      "summary": "List Steps for Run",
+      "tags": [
+        "Runs"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/runs/{run_id}/trace",
+      "operationId": "retrieve_trace_for_run",
+      "summary": "Retrieve Trace for Run",
+      "tags": [
+        "Runs"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/runs/{run_id}/stream",
+      "operationId": "retrieve_stream_for_run",
+      "summary": "Retrieve Stream for Run",
+      "tags": [
+        "Runs"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/steps/",
+      "operationId": "list_steps",
+      "summary": "List Steps",
+      "tags": [
+        "Steps"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/steps/{step_id}",
+      "operationId": "retrieve_step",
+      "summary": "Retrieve Step",
+      "tags": [
+        "Steps"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/steps/{step_id}/metrics",
+      "operationId": "retrieve_metrics_for_step",
+      "summary": "Retrieve Metrics for Step",
+      "tags": [
+        "Steps"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/steps/{step_id}/trace",
+      "operationId": "retrieve_trace_for_step",
+      "summary": "Retrieve Trace for Step",
+      "tags": [
+        "Steps"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/v1/steps/{step_id}/feedback",
+      "operationId": "modify_feedback_for_step",
+      "summary": "Modify Feedback for Step",
+      "tags": [
+        "Steps"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/steps/{step_id}/messages",
+      "operationId": "list_messages_for_step",
+      "summary": "List Messages for Step",
+      "tags": [
+        "Steps"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/tags/",
+      "operationId": "list_tags",
+      "summary": "List Tags",
+      "tags": [
+        "Tag",
+        "Admin",
+        "Admin"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/telemetry/{step_id}",
+      "operationId": "retrieve_provider_trace",
+      "summary": "Retrieve Provider Trace",
+      "tags": [
+        "Telemetry"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/messages/",
+      "operationId": "list_all_messages",
+      "summary": "List All Messages",
+      "tags": [
+        "Messages"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/messages/search",
+      "operationId": "search_all_messages",
+      "summary": "Search All Messages",
+      "tags": [
+        "Messages"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/messages/batches",
+      "operationId": "list_batches",
+      "summary": "List Batches",
+      "tags": [
+        "Messages"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/messages/batches",
+      "operationId": "create_batch",
+      "summary": "Create Batch",
+      "tags": [
+        "Messages"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/messages/batches/{batch_id}",
+      "operationId": "retrieve_batch",
+      "summary": "Retrieve Batch",
+      "tags": [
+        "Messages"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/messages/batches/{batch_id}/messages",
+      "operationId": "list_messages_for_batch",
+      "summary": "List Messages for Batch",
+      "tags": [
+        "Messages"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/v1/messages/batches/{batch_id}/cancel",
+      "operationId": "cancel_batch",
+      "summary": "Cancel Batch",
+      "tags": [
+        "Messages"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/messages/{message_id}",
+      "operationId": "retrieve_message",
+      "summary": "Retrieve Message",
+      "tags": [
+        "Messages"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/passages/search",
+      "operationId": "search_passages",
+      "summary": "Search Passages",
+      "tags": [
+        "Passages"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/voice-beta/{agent_id}/chat/completions",
+      "operationId": "create_voice_chat_completions",
+      "summary": "Create Voice Chat Completions",
+      "tags": [
+        "Voice"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/embeddings/total_storage_size",
+      "operationId": "get_total_storage_size",
+      "summary": "Get Embeddings Total Storage Size",
+      "tags": [
+        "Embeddings"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/agents/search",
+      "operationId": "agents.searchDeployedAgents",
+      "summary": "Search Deployed Agents",
+      "tags": [
+        "Agents"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/agents/search/count",
+      "operationId": "agents.countDeployedAgents",
+      "summary": "Count Deployed Agents",
+      "tags": [
+        "Agents"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/agents/{agent_id}/core-memory/variables",
+      "operationId": "agents.getAgentVariables",
+      "summary": "Retrieve Memory Variables",
+      "tags": [
+        "Agents"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/models/embeddings",
+      "operationId": "models.listEmbeddingModels",
+      "summary": null,
+      "tags": [
+        "Models"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/templates/{project_id}/{template_version}/agents",
+      "operationId": "templates.createAgentsFromTemplate",
+      "summary": "Create Agents from Template",
+      "tags": [
+        "Templates"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/templates/{template_version}/agents",
+      "operationId": "templates.createAgentsFromTemplateNoProject",
+      "summary": "Create Agents from Template",
+      "tags": [
+        "Templates"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/templates",
+      "operationId": "templates.listTemplates",
+      "summary": "List Templates (Cloud-only)",
+      "tags": [
+        "Templates"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/templates",
+      "operationId": "templates.createTemplateNoProject",
+      "summary": "Create Template (Cloud-only)",
+      "tags": [
+        "Templates"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/templates/{template_name}/save",
+      "operationId": "templates.saveTemplateVersionNoProject",
+      "summary": "Save Template Version (Cloud-only)",
+      "tags": [
+        "Templates"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/templates/{project_id}/{template_name}",
+      "operationId": "templates.saveTemplateVersion",
+      "summary": "Save Template Version (Cloud-only)",
+      "tags": [
+        "Templates"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/v1/templates/{project_id}/{template_name}",
+      "operationId": "templates.deleteTemplate",
+      "summary": "Delete Template (Cloud-only)",
+      "tags": [
+        "Templates"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/templates/{project_id}/{template_version}/snapshot",
+      "operationId": "templates.getTemplateSnapshot",
+      "summary": "Get Template Snapshot (Cloud-only)",
+      "tags": [
+        "Templates"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/v1/templates/{project_id}/{template_version}/snapshot",
+      "operationId": "templates.setCurrentTemplateFromSnapshot",
+      "summary": "Set Current Template from Snapshot (Cloud-only)",
+      "tags": [
+        "Templates"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/templates/{project_id}/{template_version}/fork",
+      "operationId": "templates.forkTemplate",
+      "summary": "Fork Template (Cloud-only)",
+      "tags": [
+        "Templates"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/templates/{project_id}",
+      "operationId": "templates.createTemplate",
+      "summary": "Create Template (Cloud-only)",
+      "tags": [
+        "Templates"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/v1/templates/{template_name}",
+      "operationId": "templates.deleteTemplateNoProject",
+      "summary": "Delete Template (Cloud-only)",
+      "tags": [
+        "Templates"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/v1/templates/{template_name}",
+      "operationId": "templates.updateCurrentTemplateFromAgentFileNoProject",
+      "summary": "Update Current Template from Agent File (Cloud-only)",
+      "tags": [
+        "Templates"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/v1/templates/{project_id}/{template_name}/name",
+      "operationId": "templates.renameTemplate",
+      "summary": "Rename Template (Cloud-only)",
+      "tags": [
+        "Templates"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/v1/templates/{project_id}/{template_name}/description",
+      "operationId": "templates.updateTemplateDescription",
+      "summary": "Update Template Description (Cloud-only)",
+      "tags": [
+        "Templates"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/templates/{project_id}/{name}/versions",
+      "operationId": "templates.listTemplateVersions",
+      "summary": "List Template Versions (Cloud-only)",
+      "tags": [
+        "Templates"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/templates/{project_id}/{template_name}/deployments/{deployment_id}/migrate",
+      "operationId": "templates.migrateDeployment",
+      "summary": "Migrate Deployment to Template Version (Cloud-only)",
+      "tags": [
+        "Templates"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/templates/{template_name}/rollback",
+      "operationId": "templates.rollbackTemplateNoProject",
+      "summary": "Rollback Template to Previous Version (Cloud-only)",
+      "tags": [
+        "Templates"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/templates/{project_id}/{template_name}/rollback",
+      "operationId": "templates.rollbackTemplate",
+      "summary": "Rollback Template to Previous Version (Cloud-only)",
+      "tags": [
+        "Templates"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/v1/templates/{project_id}/{template_name}/agent-file",
+      "operationId": "templates.updateCurrentTemplateFromAgentFile",
+      "summary": "Update Current Template from Agent File (Cloud-only)",
+      "tags": [
+        "Templates"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/legacy-templates/{templateId}/migrates",
+      "operationId": "templates.legacyMigration",
+      "summary": "Migrate Template from Legacy Project (Cloud-only)",
+      "tags": [
+        "Templates"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/client-side-access-tokens",
+      "operationId": "clientSideAccessTokens.listClientSideAccessTokens",
+      "summary": "List Tokens (Cloud-only)",
+      "tags": [
+        "Client-Side Access Tokens"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/client-side-access-tokens",
+      "operationId": "clientSideAccessTokens.createClientSideAccessToken",
+      "summary": "Create Token (Cloud-only)",
+      "tags": [
+        "Client-Side Access Tokens"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/v1/client-side-access-tokens/{token}",
+      "operationId": "clientSideAccessTokens.deleteClientSideAccessToken",
+      "summary": "Delete Token (Cloud-only)",
+      "tags": [
+        "Client-Side Access Tokens"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/projects",
+      "operationId": "projects.listProjects",
+      "summary": "List Projects (Cloud-only)",
+      "tags": [
+        "Projects"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/projects",
+      "operationId": "projects.createProject",
+      "summary": "Create Project (Cloud-only)",
+      "tags": [
+        "Projects"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/v1/projects/{projectId}",
+      "operationId": "projects.deleteProject",
+      "summary": "Delete Project (Cloud-only)",
+      "tags": [
+        "Projects"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/metadata/balance",
+      "operationId": "metadata.retrieveCurrentBalances",
+      "summary": "Retrieve Current Organization Balance",
+      "tags": [
+        "Metadata"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/metadata/feedback",
+      "operationId": "metadata.sendFeedback",
+      "summary": "Send User Feedback",
+      "tags": [
+        "Metadata"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/metadata/telemetry",
+      "operationId": "metadata.sendTelemetry",
+      "summary": "Send Telemetry Event",
+      "tags": [
+        "Metadata"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/metadata/status",
+      "operationId": "metadata.getStatus",
+      "summary": "Gets Your Letta Cloud Status",
+      "tags": [
+        "Metadata"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/metadata/user",
+      "operationId": "metadata.getUser",
+      "summary": "Get Current User Information",
+      "tags": [
+        "Metadata"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/agents/{agent_id}/schedule",
+      "operationId": "scheduledMessages.listScheduledMessages",
+      "summary": "List Scheduled Agent Messages",
+      "tags": [
+        "Scheduled Messages"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/agents/{agent_id}/schedule",
+      "operationId": "scheduledMessages.scheduleAgentMessage",
+      "summary": "Schedule Agent Message",
+      "tags": [
+        "Scheduled Messages"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/agents/{agent_id}/schedule/{scheduled_message_id}",
+      "operationId": "scheduledMessages.retrieveScheduledMessage",
+      "summary": "Retrieve Scheduled Agent Message",
+      "tags": [
+        "Scheduled Messages"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/v1/agents/{agent_id}/schedule/{scheduled_message_id}",
+      "operationId": "scheduledMessages.deleteScheduledMessage",
+      "summary": "Delete Scheduled Agent Message",
+      "tags": [
+        "Scheduled Messages"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/feeds",
+      "operationId": "feeds.listFeeds",
+      "summary": "List Feeds",
+      "tags": [
+        "Feeds"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/feeds",
+      "operationId": "feeds.createFeed",
+      "summary": "Create Feed",
+      "tags": [
+        "Feeds"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/feeds/{feed_id}",
+      "operationId": "feeds.getFeed",
+      "summary": "Get Feed",
+      "tags": [
+        "Feeds"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/v1/feeds/{feed_id}",
+      "operationId": "feeds.deleteFeed",
+      "summary": "Delete Feed",
+      "tags": [
+        "Feeds"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/feeds/{feed_id}/messages",
+      "operationId": "feeds.listMessages",
+      "summary": "List Feed Messages",
+      "tags": [
+        "Feeds"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/feeds/{feed_id}/messages",
+      "operationId": "feeds.publishMessages",
+      "summary": "Publish Messages",
+      "tags": [
+        "Feeds"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/feeds/{feed_id}/messages/{message_id}",
+      "operationId": "feeds.getMessage",
+      "summary": "Get Feed Message",
+      "tags": [
+        "Feeds"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/feeds/{feed_id}/subscribe",
+      "operationId": "feeds.subscribeAgent",
+      "summary": "Subscribe Agent to Feed",
+      "tags": [
+        "Feeds"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/v1/feeds/{feed_id}/subscriptions/{subscription_id}",
+      "operationId": "feeds.deleteSubscription",
+      "summary": "Delete Subscription",
+      "tags": [
+        "Feeds"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/v1/feeds/{feed_id}/subscriptions/{subscription_id}",
+      "operationId": "feeds.updateSubscription",
+      "summary": "Update Subscription",
+      "tags": [
+        "Feeds"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/feeds/{feed_id}/unsubscribe",
+      "operationId": "feeds.unsubscribeAgent",
+      "summary": "Unsubscribe Agent from Feed",
+      "tags": [
+        "Feeds"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/feeds/{feed_id}/subscriptions/{subscription_id}/trigger",
+      "operationId": "feeds.triggerSubscription",
+      "summary": "Trigger Subscription",
+      "tags": [
+        "Feeds"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/feeds/{feed_id}/subscriptions/{subscription_id}/backfill",
+      "operationId": "feeds.backfillSubscription",
+      "summary": "Backfill Subscription",
+      "tags": [
+        "Feeds"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/feeds/{feed_id}/subscriptions/{subscription_id}/history",
+      "operationId": "feeds.listSubscriptionHistory",
+      "summary": "List Subscription History",
+      "tags": [
+        "Feeds"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/v1/feeds/{feed_id}/subscriptions/cron",
+      "operationId": "feeds.updateAllSubscriptionsCron",
+      "summary": "Update All Subscriptions Cron Schedule",
+      "tags": [
+        "Feeds"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/feeds/{feed_id}/subscriptions",
+      "operationId": "feeds.listSubscriptions",
+      "summary": "List Feed Subscriptions",
+      "tags": [
+        "Feeds"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/agents/{agent_id}/memory-files/directory",
+      "operationId": "memoryFiles.listDirectory",
+      "summary": "List Directory",
+      "tags": [
+        "Memory Files"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/agents/{agent_id}/memory-files/history",
+      "operationId": "memoryFiles.getFileHistory",
+      "summary": "Get File History",
+      "tags": [
+        "Memory Files"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/agents/{agent_id}/memory-files/content",
+      "operationId": "memoryFiles.readFileContent",
+      "summary": "Read File Content",
+      "tags": [
+        "Memory Files"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/pipelines",
+      "operationId": "pipelines.listPipelines",
+      "summary": "List Pipelines",
+      "tags": [
+        "Pipelines"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/pipelines",
+      "operationId": "pipelines.createPipeline",
+      "summary": "Create Pipeline",
+      "tags": [
+        "Pipelines"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/pipelines/count",
+      "operationId": "pipelines.countPipelines",
+      "summary": "Count Pipelines",
+      "tags": [
+        "Pipelines"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/pipelines/{pipeline_id}",
+      "operationId": "pipelines.getPipeline",
+      "summary": "Get Pipeline",
+      "tags": [
+        "Pipelines"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/v1/pipelines/{pipeline_id}",
+      "operationId": "pipelines.deletePipeline",
+      "summary": "Delete Pipeline",
+      "tags": [
+        "Pipelines"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/v1/pipelines/{pipeline_id}",
+      "operationId": "pipelines.updatePipeline",
+      "summary": "Update Pipeline",
+      "tags": [
+        "Pipelines"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/v1/pipelines/{pipeline_id}/config",
+      "operationId": "pipelines.updatePipelineProducerConfig",
+      "summary": "Update Pipeline Producer Config",
+      "tags": [
+        "Pipelines"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/pipelines/preview",
+      "operationId": "pipelines.previewPipeline",
+      "summary": "Preview Pipeline",
+      "tags": [
+        "Pipelines"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/pipelines/{pipeline_id}/sync",
+      "operationId": "pipelines.syncPipeline",
+      "summary": "Sync Pipeline",
+      "tags": [
+        "Pipelines"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/pipelines/{pipeline_id}/sync/history",
+      "operationId": "pipelines.listPipelineSyncHistory",
+      "summary": "List Pipeline Sync History",
+      "tags": [
+        "Pipelines"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/environments/register",
+      "operationId": "environments.register",
+      "summary": "Register Environment",
+      "tags": [
+        "Environments"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/environments/{deviceId}",
+      "operationId": "environments.getConnection",
+      "summary": "Get Environment Connection",
+      "tags": [
+        "Environments"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/environments",
+      "operationId": "environments.listConnections",
+      "summary": "List Environment Connections",
+      "tags": [
+        "Environments"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/environments/{connectionId}/messages",
+      "operationId": "environments.sendMessage",
+      "summary": "Send Message to Environment",
+      "tags": [
+        "Environments"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/v1/environments/{id}",
+      "operationId": "environments.deleteEnvironment",
+      "summary": "Delete Environment",
+      "tags": [
+        "Environments"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/sandboxes",
+      "operationId": "sandboxes.listSandboxes",
+      "summary": "List Sandboxes",
+      "tags": [
+        "Sandboxes"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/sandboxes",
+      "operationId": "sandboxes.createSandbox",
+      "summary": "Create Sandbox",
+      "tags": [
+        "Sandboxes"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/sandboxes/{sandboxId}/terminate",
+      "operationId": "sandboxes.terminateSandbox",
+      "summary": "Terminate Sandbox",
+      "tags": [
+        "Sandboxes"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/device-storage-key",
+      "operationId": "deviceStorage.getDeviceStorageKey",
+      "summary": "Get Device Storage Key",
+      "tags": [
+        "Device Storage"
+      ]
+    }
+  ]
+}

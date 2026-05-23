@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/BasetenModelSettings",
+  "title": "BasetenModelSettings",
+  "properties": {
+    "max_output_tokens": {
+      "type": "integer",
+      "title": "Max Output Tokens",
+      "description": "The maximum number of tokens the model can generate.",
+      "default": 4096
+    },
+    "parallel_tool_calls": {
+      "type": "boolean",
+      "title": "Parallel Tool Calls",
+      "description": "Whether to enable parallel tool calling.",
+      "default": true
+    },
+    "provider_type": {
+      "type": "string",
+      "const": "baseten",
+      "title": "Provider Type",
+      "description": "The type of the provider.",
+      "default": "baseten"
+    },
+    "temperature": {
+      "type": "number",
+      "title": "Temperature",
+      "description": "The temperature of the model.",
+      "default": 0.7
+    }
+  },
+  "type": "object",
+  "description": "Baseten model configuration (OpenAI-compatible)."
+}

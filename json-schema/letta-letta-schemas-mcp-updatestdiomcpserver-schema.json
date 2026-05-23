@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/letta__schemas__mcp__UpdateStdioMCPServer",
+  "title": "UpdateStdioMCPServer",
+  "properties": {
+    "server_name": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Server Name",
+      "description": "The name of the MCP server"
+    },
+    "stdio_config": {
+      "anyOf": [
+        {
+          "$ref": "#/components/schemas/StdioServerConfig"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "The configuration for the server (MCP 'local' client will run this command)"
+    }
+  },
+  "additionalProperties": false,
+  "type": "object",
+  "description": "Update a Stdio MCP server"
+}

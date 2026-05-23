@@ -1,0 +1,148 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Body_import_agent",
+  "title": "Body_import_agent",
+  "properties": {
+    "file": {
+      "type": "string",
+      "format": "binary",
+      "title": "File"
+    },
+    "override_existing_tools": {
+      "type": "boolean",
+      "title": "Override Existing Tools",
+      "description": "If set to True, existing tools can get their source code overwritten by the uploaded tool definitions. Note that Letta core tools can never be updated externally.",
+      "default": true
+    },
+    "strip_messages": {
+      "type": "boolean",
+      "title": "Strip Messages",
+      "description": "If set to True, strips all messages from the agent before importing.",
+      "default": false
+    },
+    "secrets": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Secrets",
+      "description": "Secrets as a JSON string to pass to the agent for tool execution."
+    },
+    "name": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Name",
+      "description": "If provided, overrides the agent name with this value."
+    },
+    "embedding": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Embedding",
+      "description": "Embedding handle to override with."
+    },
+    "model": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Model",
+      "description": "Model handle to override the agent's default model. This allows the imported agent to use a different model while keeping other defaults (e.g., context size) from the original configuration."
+    },
+    "append_copy_suffix": {
+      "type": "boolean",
+      "title": "Append Copy Suffix",
+      "description": "If set to True, appends \"_copy\" to the end of the agent name.",
+      "default": true,
+      "deprecated": true
+    },
+    "override_name": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Override Name",
+      "description": "If provided, overrides the agent name with this value. Use 'name' instead.",
+      "deprecated": true
+    },
+    "override_embedding_handle": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Override Embedding Handle",
+      "description": "Override import with specific embedding handle. Use 'embedding' instead.",
+      "deprecated": true
+    },
+    "override_model_handle": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Override Model Handle",
+      "description": "Model handle to override the agent's default model. Use 'model' instead.",
+      "deprecated": true
+    },
+    "project_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Project Id",
+      "description": "The project ID to associate the uploaded agent with. This is now passed via headers.",
+      "deprecated": true
+    },
+    "env_vars_json": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Env Vars Json",
+      "description": "Environment variables as a JSON string to pass to the agent for tool execution. Use 'secrets' instead.",
+      "deprecated": true
+    }
+  },
+  "type": "object",
+  "required": [
+    "file"
+  ]
+}

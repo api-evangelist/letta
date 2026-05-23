@@ -1,0 +1,103 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/AgentFileSchema",
+  "title": "AgentFileSchema",
+  "properties": {
+    "agents": {
+      "items": {
+        "$ref": "#/components/schemas/letta__schemas__agent_file__AgentSchema"
+      },
+      "type": "array",
+      "title": "Agents",
+      "description": "List of agents in this agent file"
+    },
+    "groups": {
+      "items": {
+        "$ref": "#/components/schemas/GroupSchema"
+      },
+      "type": "array",
+      "title": "Groups",
+      "description": "List of groups in this agent file"
+    },
+    "blocks": {
+      "items": {
+        "$ref": "#/components/schemas/BlockSchema"
+      },
+      "type": "array",
+      "title": "Blocks",
+      "description": "List of memory blocks in this agent file"
+    },
+    "files": {
+      "items": {
+        "$ref": "#/components/schemas/FileSchema"
+      },
+      "type": "array",
+      "title": "Files",
+      "description": "List of files in this agent file"
+    },
+    "sources": {
+      "items": {
+        "$ref": "#/components/schemas/SourceSchema"
+      },
+      "type": "array",
+      "title": "Sources",
+      "description": "List of sources in this agent file"
+    },
+    "tools": {
+      "items": {
+        "$ref": "#/components/schemas/letta__schemas__agent_file__ToolSchema"
+      },
+      "type": "array",
+      "title": "Tools",
+      "description": "List of tools in this agent file"
+    },
+    "mcp_servers": {
+      "items": {
+        "$ref": "#/components/schemas/MCPServerSchema"
+      },
+      "type": "array",
+      "title": "Mcp Servers",
+      "description": "List of MCP servers in this agent file"
+    },
+    "skills": {
+      "items": {
+        "$ref": "#/components/schemas/SkillSchema"
+      },
+      "type": "array",
+      "title": "Skills",
+      "description": "List of skills in this agent file"
+    },
+    "metadata": {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "type": "object",
+      "title": "Metadata",
+      "description": "Metadata for this agent file, including revision_id and other export information."
+    },
+    "created_at": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "date-time"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Created At",
+      "description": "The timestamp when the object was created."
+    }
+  },
+  "type": "object",
+  "required": [
+    "agents",
+    "groups",
+    "blocks",
+    "files",
+    "sources",
+    "tools",
+    "mcp_servers"
+  ],
+  "description": "Schema for serialized agent file that can be exported to JSON and imported into agent server."
+}

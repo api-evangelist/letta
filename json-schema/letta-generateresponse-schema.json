@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/GenerateResponse",
+  "title": "GenerateResponse",
+  "properties": {
+    "content": {
+      "type": "string",
+      "title": "Content",
+      "description": "The LLM's response text"
+    },
+    "model": {
+      "type": "string",
+      "title": "Model",
+      "description": "The model that generated this response"
+    },
+    "usage": {
+      "$ref": "#/components/schemas/LettaUsageStatistics",
+      "description": "Token usage statistics"
+    }
+  },
+  "type": "object",
+  "required": [
+    "content",
+    "model",
+    "usage"
+  ],
+  "description": "Response from direct LLM generation."
+}

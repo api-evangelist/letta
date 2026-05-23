@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/SleeptimeManager",
+  "title": "SleeptimeManager",
+  "properties": {
+    "manager_type": {
+      "type": "string",
+      "const": "sleeptime",
+      "title": "Manager Type",
+      "description": "",
+      "default": "sleeptime"
+    },
+    "manager_agent_id": {
+      "type": "string",
+      "maxLength": 42,
+      "minLength": 42,
+      "pattern": "^agent-[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
+      "title": "Manager Agent Id",
+      "description": "",
+      "examples": [
+        "agent-123e4567-e89b-42d3-8456-426614174000"
+      ]
+    },
+    "sleeptime_agent_frequency": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Sleeptime Agent Frequency",
+      "description": ""
+    }
+  },
+  "type": "object",
+  "required": [
+    "manager_agent_id"
+  ]
+}

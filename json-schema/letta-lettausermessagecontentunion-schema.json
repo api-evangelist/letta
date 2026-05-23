@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/LettaUserMessageContentUnion",
+  "title": "LettaUserMessageContentUnion",
+  "oneOf": [
+    {
+      "$ref": "#/components/schemas/TextContent"
+    },
+    {
+      "$ref": "#/components/schemas/ImageContent"
+    }
+  ],
+  "discriminator": {
+    "propertyName": "type",
+    "mapping": {
+      "text": "#/components/schemas/TextContent",
+      "image": "#/components/schemas/ImageContent"
+    }
+  }
+}

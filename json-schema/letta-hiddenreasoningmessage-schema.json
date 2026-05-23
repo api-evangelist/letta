@@ -1,0 +1,127 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/HiddenReasoningMessage",
+  "title": "HiddenReasoningMessage",
+  "properties": {
+    "id": {
+      "type": "string",
+      "title": "Id"
+    },
+    "date": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Date"
+    },
+    "name": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Name"
+    },
+    "message_type": {
+      "type": "string",
+      "const": "hidden_reasoning_message",
+      "title": "Message Type",
+      "description": "The type of the message.",
+      "default": "hidden_reasoning_message"
+    },
+    "otid": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Otid",
+      "description": "The offline threading id (OTID). Set by the client to deduplicate requests. Used for idempotency in background streaming mode \u2014 each message in a request must have a unique OTID. Retries of the same request should reuse the same OTIDs."
+    },
+    "sender_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Sender Id"
+    },
+    "step_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Step Id"
+    },
+    "is_err": {
+      "anyOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Is Err"
+    },
+    "seq_id": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Seq Id"
+    },
+    "run_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Run Id"
+    },
+    "state": {
+      "type": "string",
+      "enum": [
+        "redacted",
+        "omitted"
+      ],
+      "title": "State"
+    },
+    "hidden_reasoning": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Hidden Reasoning"
+    }
+  },
+  "type": "object",
+  "required": [
+    "id",
+    "date",
+    "state"
+  ],
+  "description": "Representation of an agent's internal reasoning where reasoning content\nhas been hidden from the response.\n\nArgs:\n    id (str): The ID of the message\n    date (datetime): The date the message was created in ISO format\n    name (Optional[str]): The name of the sender of the message\n    state (Literal[\"redacted\", \"omitted\"]): Whether the reasoning\n        content was redacted by the provider or simply omitted by the API\n    hidden_reasoning (Optional[str]): The internal reasoning of the agent"
+}

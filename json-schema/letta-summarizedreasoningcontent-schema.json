@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/SummarizedReasoningContent",
+  "title": "SummarizedReasoningContent",
+  "properties": {
+    "type": {
+      "type": "string",
+      "const": "summarized_reasoning",
+      "title": "Type",
+      "description": "Indicates this is a summarized reasoning step.",
+      "default": "summarized_reasoning"
+    },
+    "id": {
+      "type": "string",
+      "title": "Id",
+      "description": "The unique identifier for this reasoning step."
+    },
+    "summary": {
+      "items": {
+        "$ref": "#/components/schemas/SummarizedReasoningContentPart"
+      },
+      "type": "array",
+      "title": "Summary",
+      "description": "Summaries of the reasoning content."
+    },
+    "encrypted_content": {
+      "type": "string",
+      "title": "Encrypted Content",
+      "description": "The encrypted reasoning content."
+    }
+  },
+  "type": "object",
+  "required": [
+    "id",
+    "summary"
+  ],
+  "description": "The style of reasoning content returned by the OpenAI Responses API"
+}

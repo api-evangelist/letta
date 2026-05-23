@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/OrganizationSourcesStats",
+  "title": "OrganizationSourcesStats",
+  "properties": {
+    "total_sources": {
+      "type": "integer",
+      "title": "Total Sources",
+      "description": "Total number of sources",
+      "default": 0
+    },
+    "total_files": {
+      "type": "integer",
+      "title": "Total Files",
+      "description": "Total number of files across all sources",
+      "default": 0
+    },
+    "total_size": {
+      "type": "integer",
+      "title": "Total Size",
+      "description": "Total size of all files in bytes",
+      "default": 0
+    },
+    "sources": {
+      "items": {
+        "$ref": "#/components/schemas/SourceStats"
+      },
+      "type": "array",
+      "title": "Sources",
+      "description": "List of source metadata"
+    }
+  },
+  "additionalProperties": false,
+  "type": "object",
+  "description": "Complete metadata response for organization sources"
+}

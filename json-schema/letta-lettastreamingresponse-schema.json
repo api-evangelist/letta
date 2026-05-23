@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/LettaStreamingResponse",
+  "title": "LettaStreamingResponse",
+  "oneOf": [
+    {
+      "$ref": "#/components/schemas/SystemMessage"
+    },
+    {
+      "$ref": "#/components/schemas/UserMessage"
+    },
+    {
+      "$ref": "#/components/schemas/ReasoningMessage"
+    },
+    {
+      "$ref": "#/components/schemas/HiddenReasoningMessage"
+    },
+    {
+      "$ref": "#/components/schemas/ToolCallMessage"
+    },
+    {
+      "$ref": "#/components/schemas/ToolReturnMessage"
+    },
+    {
+      "$ref": "#/components/schemas/AssistantMessage"
+    },
+    {
+      "$ref": "#/components/schemas/ApprovalRequestMessage"
+    },
+    {
+      "$ref": "#/components/schemas/ApprovalResponseMessage"
+    },
+    {
+      "$ref": "#/components/schemas/LettaPing"
+    },
+    {
+      "$ref": "#/components/schemas/LettaErrorMessage"
+    },
+    {
+      "$ref": "#/components/schemas/LettaStopReason"
+    },
+    {
+      "$ref": "#/components/schemas/LettaUsageStatistics"
+    }
+  ],
+  "description": "Streaming response type for Server-Sent Events (SSE) endpoints.\nEach event in the stream will be one of these types.",
+  "discriminator": {
+    "propertyName": "message_type",
+    "mapping": {
+      "approval_request_message": "#/components/schemas/ApprovalRequestMessage",
+      "approval_response_message": "#/components/schemas/ApprovalResponseMessage",
+      "assistant_message": "#/components/schemas/AssistantMessage",
+      "error_message": "#/components/schemas/LettaErrorMessage",
+      "hidden_reasoning_message": "#/components/schemas/HiddenReasoningMessage",
+      "ping": "#/components/schemas/LettaPing",
+      "reasoning_message": "#/components/schemas/ReasoningMessage",
+      "stop_reason": "#/components/schemas/LettaStopReason",
+      "system_message": "#/components/schemas/SystemMessage",
+      "tool_call_message": "#/components/schemas/ToolCallMessage",
+      "tool_return_message": "#/components/schemas/ToolReturnMessage",
+      "usage_statistics": "#/components/schemas/LettaUsageStatistics",
+      "user_message": "#/components/schemas/UserMessage"
+    }
+  }
+}

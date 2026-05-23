@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/SupervisorManagerUpdate",
+  "title": "SupervisorManagerUpdate",
+  "properties": {
+    "manager_type": {
+      "type": "string",
+      "const": "supervisor",
+      "title": "Manager Type",
+      "description": "",
+      "default": "supervisor"
+    },
+    "manager_agent_id": {
+      "anyOf": [
+        {
+          "type": "string",
+          "maxLength": 42,
+          "minLength": 42,
+          "pattern": "^agent-[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
+          "description": "The ID of the agent in the format 'agent-<uuid4>'",
+          "examples": [
+            "agent-123e4567-e89b-42d3-8456-426614174000"
+          ]
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Manager Agent Id",
+      "description": ""
+    }
+  },
+  "type": "object",
+  "required": [
+    "manager_agent_id"
+  ]
+}

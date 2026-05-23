@@ -1,0 +1,121 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/SummaryMessage",
+  "title": "SummaryMessage",
+  "properties": {
+    "id": {
+      "type": "string",
+      "title": "Id"
+    },
+    "date": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Date"
+    },
+    "name": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Name"
+    },
+    "message_type": {
+      "type": "string",
+      "const": "summary_message",
+      "title": "Message Type",
+      "default": "summary_message"
+    },
+    "otid": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Otid",
+      "description": "The offline threading id (OTID). Set by the client to deduplicate requests. Used for idempotency in background streaming mode \u2014 each message in a request must have a unique OTID. Retries of the same request should reuse the same OTIDs."
+    },
+    "sender_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Sender Id"
+    },
+    "step_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Step Id"
+    },
+    "is_err": {
+      "anyOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Is Err"
+    },
+    "seq_id": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Seq Id"
+    },
+    "run_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Run Id"
+    },
+    "summary": {
+      "type": "string",
+      "title": "Summary"
+    },
+    "compaction_stats": {
+      "anyOf": [
+        {
+          "$ref": "#/components/schemas/CompactionStats"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "type": "object",
+  "required": [
+    "id",
+    "date",
+    "summary"
+  ],
+  "description": "A message representing a summary of the conversation. Sent to the LLM as a user or system message depending on the provider."
+}

@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/LettaRequestConfig",
+  "title": "LettaRequestConfig",
+  "properties": {
+    "use_assistant_message": {
+      "type": "boolean",
+      "title": "Use Assistant Message",
+      "description": "Whether the server should parse specific tool call arguments (default `send_message`) as `AssistantMessage` objects.",
+      "default": true
+    },
+    "assistant_message_tool_name": {
+      "type": "string",
+      "title": "Assistant Message Tool Name",
+      "description": "The name of the designated message tool.",
+      "default": "send_message"
+    },
+    "assistant_message_tool_kwarg": {
+      "type": "string",
+      "title": "Assistant Message Tool Kwarg",
+      "description": "The name of the message argument in the designated message tool.",
+      "default": "message"
+    },
+    "include_return_message_types": {
+      "anyOf": [
+        {
+          "items": {
+            "$ref": "#/components/schemas/MessageType"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Include Return Message Types",
+      "description": "Only return specified message types in the response. If `None` (default) returns all messages."
+    }
+  },
+  "type": "object"
+}

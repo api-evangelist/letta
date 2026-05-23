@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/VoiceSleeptimeManager",
+  "title": "VoiceSleeptimeManager",
+  "properties": {
+    "manager_type": {
+      "type": "string",
+      "const": "voice_sleeptime",
+      "title": "Manager Type",
+      "description": "",
+      "default": "voice_sleeptime"
+    },
+    "manager_agent_id": {
+      "type": "string",
+      "maxLength": 42,
+      "minLength": 42,
+      "pattern": "^agent-[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
+      "title": "Manager Agent Id",
+      "description": "",
+      "examples": [
+        "agent-123e4567-e89b-42d3-8456-426614174000"
+      ]
+    },
+    "max_message_buffer_length": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Max Message Buffer Length",
+      "description": "The desired maximum length of messages in the context window of the convo agent. This is a best effort, and may be off slightly due to user/assistant interleaving."
+    },
+    "min_message_buffer_length": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Min Message Buffer Length",
+      "description": "The desired minimum length of messages in the context window of the convo agent. This is a best effort, and may be off-by-one due to user/assistant interleaving."
+    }
+  },
+  "type": "object",
+  "required": [
+    "manager_agent_id"
+  ]
+}

@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/letta__schemas__letta_message__ToolReturn",
+  "title": "ToolReturn",
+  "properties": {
+    "type": {
+      "type": "string",
+      "const": "tool",
+      "title": "Type",
+      "description": "The message type to be created.",
+      "default": "tool"
+    },
+    "tool_return": {
+      "anyOf": [
+        {
+          "items": {
+            "$ref": "#/components/schemas/LettaToolReturnContentUnion"
+          },
+          "type": "array"
+        },
+        {
+          "type": "string"
+        }
+      ],
+      "title": "Tool Return",
+      "description": "The tool return value - either a string or list of content parts (text/image)"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "success",
+        "error"
+      ],
+      "title": "Status"
+    },
+    "tool_call_id": {
+      "type": "string",
+      "title": "Tool Call Id"
+    },
+    "stdout": {
+      "anyOf": [
+        {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Stdout"
+    },
+    "stderr": {
+      "anyOf": [
+        {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Stderr"
+    }
+  },
+  "type": "object",
+  "required": [
+    "tool_return",
+    "status",
+    "tool_call_id"
+  ]
+}

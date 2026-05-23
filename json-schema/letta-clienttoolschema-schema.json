@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ClientToolSchema",
+  "title": "ClientToolSchema",
+  "properties": {
+    "name": {
+      "type": "string",
+      "title": "Name",
+      "description": "The name of the tool function"
+    },
+    "description": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Description",
+      "description": "Description of what the tool does"
+    },
+    "parameters": {
+      "anyOf": [
+        {
+          "additionalProperties": true,
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Parameters",
+      "description": "JSON Schema for the function parameters"
+    }
+  },
+  "type": "object",
+  "required": [
+    "name"
+  ],
+  "description": "Schema for a client-side tool passed in the request.\n\nClient-side tools are executed by the client, not the server. When the agent\ncalls a client-side tool, execution pauses and returns control to the client\nto execute the tool and provide the result."
+}

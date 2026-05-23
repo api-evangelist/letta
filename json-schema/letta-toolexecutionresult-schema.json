@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ToolExecutionResult",
+  "title": "ToolExecutionResult",
+  "properties": {
+    "status": {
+      "type": "string",
+      "enum": [
+        "success",
+        "error"
+      ],
+      "title": "Status",
+      "description": "The status of the tool execution and return object"
+    },
+    "func_return": {
+      "anyOf": [
+        {},
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Func Return",
+      "description": "The function return object"
+    },
+    "agent_state": {
+      "anyOf": [
+        {
+          "$ref": "#/components/schemas/AgentState"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "The agent state",
+      "deprecated": true
+    },
+    "stdout": {
+      "anyOf": [
+        {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Stdout",
+      "description": "Captured stdout (prints, logs) from function invocation"
+    },
+    "stderr": {
+      "anyOf": [
+        {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Stderr",
+      "description": "Captured stderr from the function invocation"
+    },
+    "sandbox_config_fingerprint": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Sandbox Config Fingerprint",
+      "description": "The fingerprint of the config for the sandbox"
+    }
+  },
+  "type": "object",
+  "required": [
+    "status"
+  ]
+}

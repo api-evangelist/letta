@@ -1,0 +1,101 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/IdentityCreate",
+  "title": "IdentityCreate",
+  "properties": {
+    "identifier_key": {
+      "type": "string",
+      "title": "Identifier Key",
+      "description": "External, user-generated identifier key of the identity."
+    },
+    "name": {
+      "type": "string",
+      "title": "Name",
+      "description": "The name of the identity."
+    },
+    "identity_type": {
+      "$ref": "#/components/schemas/IdentityType",
+      "description": "The type of the identity."
+    },
+    "project_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Project Id",
+      "description": "The project id of the identity, if applicable."
+    },
+    "agent_ids": {
+      "anyOf": [
+        {
+          "items": {
+            "type": "string",
+            "maxLength": 42,
+            "minLength": 42,
+            "pattern": "^agent-[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
+            "description": "The ID of the agent in the format 'agent-<uuid4>'",
+            "examples": [
+              "agent-123e4567-e89b-42d3-8456-426614174000"
+            ]
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Agent Ids",
+      "description": "The agent ids that are associated with the identity.",
+      "deprecated": true
+    },
+    "block_ids": {
+      "anyOf": [
+        {
+          "items": {
+            "type": "string",
+            "maxLength": 42,
+            "minLength": 42,
+            "pattern": "^block-[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
+            "description": "The ID of the block in the format 'block-<uuid4>'",
+            "examples": [
+              "block-123e4567-e89b-42d3-8456-426614174000"
+            ]
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Block Ids",
+      "description": "The IDs of the blocks associated with the identity.",
+      "deprecated": true
+    },
+    "properties": {
+      "anyOf": [
+        {
+          "items": {
+            "$ref": "#/components/schemas/IdentityProperty"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Properties",
+      "description": "List of properties associated with the identity."
+    }
+  },
+  "additionalProperties": false,
+  "type": "object",
+  "required": [
+    "identifier_key",
+    "name",
+    "identity_type"
+  ]
+}

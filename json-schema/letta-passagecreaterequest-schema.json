@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/PassageCreateRequest",
+  "title": "PassageCreateRequest",
+  "properties": {
+    "text": {
+      "type": "string",
+      "title": "Text",
+      "description": "The text content of the passage"
+    },
+    "metadata": {
+      "anyOf": [
+        {
+          "additionalProperties": true,
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Metadata",
+      "description": "Optional metadata for the passage"
+    },
+    "tags": {
+      "anyOf": [
+        {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Tags",
+      "description": "Optional tags for categorizing the passage"
+    },
+    "created_at": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Created At",
+      "description": "Optional creation datetime for the passage (ISO 8601 format)"
+    }
+  },
+  "type": "object",
+  "required": [
+    "text"
+  ],
+  "description": "Request model for creating a passage in an archive."
+}

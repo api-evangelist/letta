@@ -1,0 +1,90 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/MCPTool",
+  "title": "MCPTool",
+  "properties": {
+    "name": {
+      "type": "string",
+      "title": "Name"
+    },
+    "title": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Title"
+    },
+    "description": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Description"
+    },
+    "inputSchema": {
+      "additionalProperties": true,
+      "type": "object",
+      "title": "Inputschema"
+    },
+    "outputSchema": {
+      "anyOf": [
+        {
+          "additionalProperties": true,
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Outputschema"
+    },
+    "annotations": {
+      "anyOf": [
+        {
+          "$ref": "#/components/schemas/ToolAnnotations"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "_meta": {
+      "anyOf": [
+        {
+          "additionalProperties": true,
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Meta"
+    },
+    "health": {
+      "anyOf": [
+        {
+          "$ref": "#/components/schemas/MCPToolHealth"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "Schema health status for OpenAI strict mode"
+    }
+  },
+  "additionalProperties": true,
+  "type": "object",
+  "required": [
+    "name",
+    "inputSchema"
+  ],
+  "description": "A simple wrapper around MCP's tool definition (to avoid conflict with our own)"
+}

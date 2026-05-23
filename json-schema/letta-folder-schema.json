@@ -1,0 +1,119 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Folder",
+  "title": "Folder",
+  "properties": {
+    "name": {
+      "type": "string",
+      "title": "Name",
+      "description": "The name of the folder."
+    },
+    "description": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Description",
+      "description": "The description of the folder."
+    },
+    "instructions": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Instructions",
+      "description": "Instructions for how to use the folder."
+    },
+    "metadata": {
+      "anyOf": [
+        {
+          "additionalProperties": true,
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Metadata",
+      "description": "Metadata associated with the folder."
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^source-[a-fA-F0-9]{8}",
+      "title": "Id",
+      "description": "The human-friendly ID of the Source",
+      "examples": [
+        "source-123e4567-e89b-12d3-a456-426614174000"
+      ]
+    },
+    "embedding_config": {
+      "$ref": "#/components/schemas/EmbeddingConfig",
+      "description": "The embedding configuration used by the folder."
+    },
+    "created_by_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Created By Id",
+      "description": "The id of the user that made this Tool."
+    },
+    "last_updated_by_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Last Updated By Id",
+      "description": "The id of the user that made this Tool."
+    },
+    "created_at": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "date-time"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Created At",
+      "description": "The timestamp when the folder was created."
+    },
+    "updated_at": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "date-time"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Updated At",
+      "description": "The timestamp when the folder was last updated."
+    }
+  },
+  "additionalProperties": false,
+  "type": "object",
+  "required": [
+    "name",
+    "embedding_config"
+  ],
+  "description": "Representation of a folder, which is a collection of files and passages."
+}

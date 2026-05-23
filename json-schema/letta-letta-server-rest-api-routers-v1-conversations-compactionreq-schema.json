@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/letta__server__rest_api__routers__v1__conversations__CompactionRequest",
+  "title": "CompactionRequest",
+  "properties": {
+    "agent_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Agent Id",
+      "description": "Agent ID for agent-direct mode with 'default' conversation. Use with conversation_id='default' in the URL path."
+    },
+    "compaction_settings": {
+      "anyOf": [
+        {
+          "$ref": "#/components/schemas/CompactionSettings-Input"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "Optional compaction settings to use for this summarization request. If not provided, the agent's default settings will be used."
+    }
+  },
+  "type": "object"
+}

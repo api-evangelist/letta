@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ToolCallNode",
+  "title": "ToolCallNode",
+  "properties": {
+    "name": {
+      "type": "string",
+      "title": "Name",
+      "description": "The name of the child tool to invoke next."
+    },
+    "args": {
+      "anyOf": [
+        {
+          "additionalProperties": true,
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Args",
+      "description": "Optional prefilled arguments for this child tool. Keys must match the tool's parameter names and values must satisfy the tool's JSON schema. Supports partial prefill; non-overlapping parameters are left to the model."
+    }
+  },
+  "type": "object",
+  "required": [
+    "name"
+  ],
+  "description": "Typed child override for prefilled arguments.\n\nWhen used in a ChildToolRule, if this child is selected next, its `args` will be\napplied as prefilled arguments (overriding overlapping LLM-provided values)."
+}

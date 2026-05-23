@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/SkillSchema",
+  "title": "SkillSchema",
+  "properties": {
+    "name": {
+      "type": "string",
+      "title": "Name",
+      "description": "Skill name, also serves as unique identifier (e.g., 'slack', 'pdf')"
+    },
+    "files": {
+      "anyOf": [
+        {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Files",
+      "description": "Skill files as path -> content mapping. Must include 'SKILL.md' key if provided."
+    },
+    "source_url": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Source Url",
+      "description": "Source URL for skill resolution (e.g., 'letta:slack', 'anthropic:pdf', 'owner/repo/path')"
+    }
+  },
+  "type": "object",
+  "required": [
+    "name"
+  ],
+  "description": "Skill schema for agent files.\n\nSkills are folders of instructions, scripts, and resources that agents can load.\nEither files (with SKILL.md) or source_url must be provided:\n- files with SKILL.md: inline skill content\n- source_url: reference to resolve later (e.g., 'letta:slack')\n- both: inline content with provenance tracking"
+}

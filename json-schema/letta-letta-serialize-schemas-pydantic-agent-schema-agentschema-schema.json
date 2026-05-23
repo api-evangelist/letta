@@ -1,0 +1,156 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/letta__serialize_schemas__pydantic_agent_schema__AgentSchema",
+  "title": "AgentSchema",
+  "properties": {
+    "agent_type": {
+      "type": "string",
+      "title": "Agent Type"
+    },
+    "core_memory": {
+      "items": {
+        "$ref": "#/components/schemas/CoreMemoryBlockSchema"
+      },
+      "type": "array",
+      "title": "Core Memory"
+    },
+    "created_at": {
+      "type": "string",
+      "title": "Created At"
+    },
+    "description": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Description"
+    },
+    "embedding_config": {
+      "$ref": "#/components/schemas/EmbeddingConfig"
+    },
+    "llm_config": {
+      "$ref": "#/components/schemas/LLMConfig"
+    },
+    "message_buffer_autoclear": {
+      "type": "boolean",
+      "title": "Message Buffer Autoclear"
+    },
+    "in_context_message_indices": {
+      "items": {
+        "type": "integer"
+      },
+      "type": "array",
+      "title": "In Context Message Indices"
+    },
+    "messages": {
+      "items": {
+        "$ref": "#/components/schemas/letta__serialize_schemas__pydantic_agent_schema__MessageSchema"
+      },
+      "type": "array",
+      "title": "Messages"
+    },
+    "metadata_": {
+      "anyOf": [
+        {
+          "additionalProperties": true,
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Metadata"
+    },
+    "multi_agent_group": {
+      "anyOf": [
+        {},
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Multi Agent Group"
+    },
+    "name": {
+      "type": "string",
+      "title": "Name"
+    },
+    "system": {
+      "type": "string",
+      "title": "System"
+    },
+    "tags": {
+      "items": {
+        "$ref": "#/components/schemas/TagSchema"
+      },
+      "type": "array",
+      "title": "Tags"
+    },
+    "tool_exec_environment_variables": {
+      "items": {
+        "$ref": "#/components/schemas/ToolEnvVarSchema"
+      },
+      "type": "array",
+      "title": "Tool Exec Environment Variables"
+    },
+    "tool_rules": {
+      "items": {
+        "anyOf": [
+          {
+            "$ref": "#/components/schemas/BaseToolRuleSchema"
+          },
+          {
+            "$ref": "#/components/schemas/ChildToolRuleSchema"
+          },
+          {
+            "$ref": "#/components/schemas/MaxCountPerStepToolRuleSchema"
+          },
+          {
+            "$ref": "#/components/schemas/ConditionalToolRuleSchema"
+          }
+        ]
+      },
+      "type": "array",
+      "title": "Tool Rules"
+    },
+    "tools": {
+      "items": {
+        "$ref": "#/components/schemas/letta__serialize_schemas__pydantic_agent_schema__ToolSchema"
+      },
+      "type": "array",
+      "title": "Tools"
+    },
+    "updated_at": {
+      "type": "string",
+      "title": "Updated At"
+    },
+    "version": {
+      "type": "string",
+      "title": "Version"
+    }
+  },
+  "type": "object",
+  "required": [
+    "agent_type",
+    "core_memory",
+    "created_at",
+    "description",
+    "embedding_config",
+    "llm_config",
+    "message_buffer_autoclear",
+    "in_context_message_indices",
+    "messages",
+    "multi_agent_group",
+    "name",
+    "system",
+    "tags",
+    "tool_exec_environment_variables",
+    "tool_rules",
+    "tools",
+    "updated_at",
+    "version"
+  ]
+}

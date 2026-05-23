@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CreateMCPServerRequest",
+  "title": "CreateMCPServerRequest",
+  "properties": {
+    "server_name": {
+      "type": "string",
+      "title": "Server Name",
+      "description": "The name of the MCP server"
+    },
+    "config": {
+      "oneOf": [
+        {
+          "$ref": "#/components/schemas/CreateStdioMCPServer"
+        },
+        {
+          "$ref": "#/components/schemas/CreateSSEMCPServer"
+        },
+        {
+          "$ref": "#/components/schemas/CreateStreamableHTTPMCPServer"
+        }
+      ],
+      "title": "Config",
+      "description": "The MCP server configuration (Stdio, SSE, or Streamable HTTP)",
+      "discriminator": {
+        "propertyName": "mcp_server_type",
+        "mapping": {
+          "sse": "#/components/schemas/CreateSSEMCPServer",
+          "stdio": "#/components/schemas/CreateStdioMCPServer",
+          "streamable_http": "#/components/schemas/CreateStreamableHTTPMCPServer"
+        }
+      }
+    }
+  },
+  "additionalProperties": false,
+  "type": "object",
+  "required": [
+    "server_name",
+    "config"
+  ],
+  "description": "Request to create a new MCP server with configuration."
+}

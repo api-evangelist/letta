@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ChatCompletionMessageCustomToolCall",
+  "title": "ChatCompletionMessageCustomToolCall",
+  "properties": {
+    "id": {
+      "type": "string",
+      "title": "Id"
+    },
+    "custom": {
+      "$ref": "#/components/schemas/Custom-Output"
+    },
+    "type": {
+      "type": "string",
+      "const": "custom",
+      "title": "Type"
+    }
+  },
+  "additionalProperties": true,
+  "type": "object",
+  "required": [
+    "id",
+    "custom",
+    "type"
+  ],
+  "description": "A call to a custom tool created by the model."
+}

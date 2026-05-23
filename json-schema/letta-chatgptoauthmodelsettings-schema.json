@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ChatGPTOAuthModelSettings",
+  "title": "ChatGPTOAuthModelSettings",
+  "properties": {
+    "max_output_tokens": {
+      "type": "integer",
+      "title": "Max Output Tokens",
+      "description": "The maximum number of tokens the model can generate.",
+      "default": 4096
+    },
+    "parallel_tool_calls": {
+      "type": "boolean",
+      "title": "Parallel Tool Calls",
+      "description": "Whether to enable parallel tool calling.",
+      "default": true
+    },
+    "provider_type": {
+      "type": "string",
+      "const": "chatgpt_oauth",
+      "title": "Provider Type",
+      "description": "The type of the provider.",
+      "default": "chatgpt_oauth"
+    },
+    "temperature": {
+      "type": "number",
+      "title": "Temperature",
+      "description": "The temperature of the model.",
+      "default": 0.7
+    },
+    "reasoning": {
+      "$ref": "#/components/schemas/ChatGPTOAuthReasoning",
+      "description": "The reasoning configuration for the model.",
+      "default": {
+        "reasoning_effort": "medium"
+      }
+    }
+  },
+  "type": "object",
+  "description": "ChatGPT OAuth model configuration (uses ChatGPT backend API)."
+}

@@ -1,0 +1,618 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/AgentState",
+  "title": "AgentState",
+  "properties": {
+    "created_by_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Created By Id",
+      "description": "The id of the user that made this object."
+    },
+    "last_updated_by_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Last Updated By Id",
+      "description": "The id of the user that made this object."
+    },
+    "created_at": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "date-time"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Created At",
+      "description": "The timestamp when the object was created."
+    },
+    "updated_at": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "date-time"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Updated At",
+      "description": "The timestamp when the object was last updated."
+    },
+    "id": {
+      "type": "string",
+      "title": "Id",
+      "description": "The id of the agent. Assigned by the database."
+    },
+    "name": {
+      "type": "string",
+      "title": "Name",
+      "description": "The name of the agent."
+    },
+    "tool_rules": {
+      "anyOf": [
+        {
+          "items": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/ChildToolRule"
+              },
+              {
+                "$ref": "#/components/schemas/InitToolRule"
+              },
+              {
+                "$ref": "#/components/schemas/TerminalToolRule"
+              },
+              {
+                "$ref": "#/components/schemas/ConditionalToolRule"
+              },
+              {
+                "$ref": "#/components/schemas/ContinueToolRule"
+              },
+              {
+                "$ref": "#/components/schemas/RequiredBeforeExitToolRule"
+              },
+              {
+                "$ref": "#/components/schemas/MaxCountPerStepToolRule"
+              },
+              {
+                "$ref": "#/components/schemas/ParentToolRule"
+              },
+              {
+                "$ref": "#/components/schemas/RequiresApprovalToolRule"
+              }
+            ],
+            "discriminator": {
+              "propertyName": "type",
+              "mapping": {
+                "conditional": "#/components/schemas/ConditionalToolRule",
+                "constrain_child_tools": "#/components/schemas/ChildToolRule",
+                "continue_loop": "#/components/schemas/ContinueToolRule",
+                "exit_loop": "#/components/schemas/TerminalToolRule",
+                "max_count_per_step": "#/components/schemas/MaxCountPerStepToolRule",
+                "parent_last_tool": "#/components/schemas/ParentToolRule",
+                "required_before_exit": "#/components/schemas/RequiredBeforeExitToolRule",
+                "requires_approval": "#/components/schemas/RequiresApprovalToolRule",
+                "run_first": "#/components/schemas/InitToolRule"
+              }
+            }
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Tool Rules",
+      "description": "The list of tool rules."
+    },
+    "message_ids": {
+      "anyOf": [
+        {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Message Ids",
+      "description": "The ids of the messages in the agent's in-context memory."
+    },
+    "system": {
+      "type": "string",
+      "title": "System",
+      "description": "The system prompt used by the agent."
+    },
+    "agent_type": {
+      "$ref": "#/components/schemas/AgentType",
+      "description": "The type of agent."
+    },
+    "llm_config": {
+      "$ref": "#/components/schemas/LLMConfig",
+      "description": "Deprecated: Use `model` field instead. The LLM configuration used by the agent.",
+      "deprecated": true
+    },
+    "embedding_config": {
+      "anyOf": [
+        {
+          "$ref": "#/components/schemas/EmbeddingConfig"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "Deprecated: Use `embedding` field instead. The embedding configuration used by the agent.",
+      "deprecated": true
+    },
+    "model": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Model",
+      "description": "The model handle used by the agent (format: provider/model-name)."
+    },
+    "embedding": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Embedding",
+      "description": "The embedding model handle used by the agent (format: provider/model-name)."
+    },
+    "model_settings": {
+      "anyOf": [
+        {
+          "oneOf": [
+            {
+              "$ref": "#/components/schemas/OpenAIModelSettings"
+            },
+            {
+              "$ref": "#/components/schemas/SGLangModelSettings"
+            },
+            {
+              "$ref": "#/components/schemas/AnthropicModelSettings"
+            },
+            {
+              "$ref": "#/components/schemas/GoogleAIModelSettings"
+            },
+            {
+              "$ref": "#/components/schemas/GoogleVertexModelSettings"
+            },
+            {
+              "$ref": "#/components/schemas/AzureModelSettings"
+            },
+            {
+              "$ref": "#/components/schemas/XAIModelSettings"
+            },
+            {
+              "$ref": "#/components/schemas/ZAIModelSettings"
+            },
+            {
+              "$ref": "#/components/schemas/GroqModelSettings"
+            },
+            {
+              "$ref": "#/components/schemas/DeepseekModelSettings"
+            },
+            {
+              "$ref": "#/components/schemas/TogetherModelSettings"
+            },
+            {
+              "$ref": "#/components/schemas/BedrockModelSettings"
+            },
+            {
+              "$ref": "#/components/schemas/BasetenModelSettings"
+            },
+            {
+              "$ref": "#/components/schemas/OpenRouterModelSettings"
+            },
+            {
+              "$ref": "#/components/schemas/ChatGPTOAuthModelSettings"
+            }
+          ],
+          "discriminator": {
+            "propertyName": "provider_type",
+            "mapping": {
+              "anthropic": "#/components/schemas/AnthropicModelSettings",
+              "azure": "#/components/schemas/AzureModelSettings",
+              "baseten": "#/components/schemas/BasetenModelSettings",
+              "bedrock": "#/components/schemas/BedrockModelSettings",
+              "chatgpt_oauth": "#/components/schemas/ChatGPTOAuthModelSettings",
+              "deepseek": "#/components/schemas/DeepseekModelSettings",
+              "google_ai": "#/components/schemas/GoogleAIModelSettings",
+              "google_vertex": "#/components/schemas/GoogleVertexModelSettings",
+              "groq": "#/components/schemas/GroqModelSettings",
+              "openai": "#/components/schemas/OpenAIModelSettings",
+              "openrouter": "#/components/schemas/OpenRouterModelSettings",
+              "sglang": "#/components/schemas/SGLangModelSettings",
+              "together": "#/components/schemas/TogetherModelSettings",
+              "xai": "#/components/schemas/XAIModelSettings",
+              "zai": "#/components/schemas/ZAIModelSettings"
+            }
+          }
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Model Settings",
+      "description": "The model settings used by the agent."
+    },
+    "compaction_settings": {
+      "anyOf": [
+        {
+          "$ref": "#/components/schemas/CompactionSettings-Output"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "The compaction settings configuration used for compaction."
+    },
+    "response_format": {
+      "anyOf": [
+        {
+          "oneOf": [
+            {
+              "$ref": "#/components/schemas/TextResponseFormat"
+            },
+            {
+              "$ref": "#/components/schemas/JsonSchemaResponseFormat"
+            },
+            {
+              "$ref": "#/components/schemas/JsonObjectResponseFormat"
+            }
+          ],
+          "discriminator": {
+            "propertyName": "type",
+            "mapping": {
+              "json_object": "#/components/schemas/JsonObjectResponseFormat",
+              "json_schema": "#/components/schemas/JsonSchemaResponseFormat",
+              "text": "#/components/schemas/TextResponseFormat"
+            }
+          }
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Response Format",
+      "description": "The response format used by the agent"
+    },
+    "description": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Description",
+      "description": "The description of the agent."
+    },
+    "metadata": {
+      "anyOf": [
+        {
+          "additionalProperties": true,
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Metadata",
+      "description": "The metadata of the agent."
+    },
+    "memory": {
+      "$ref": "#/components/schemas/Memory",
+      "description": "Deprecated: Use `blocks` field instead. The in-context memory of the agent.",
+      "deprecated": true
+    },
+    "blocks": {
+      "items": {
+        "$ref": "#/components/schemas/Block"
+      },
+      "type": "array",
+      "title": "Blocks",
+      "description": "The memory blocks used by the agent."
+    },
+    "tools": {
+      "items": {
+        "$ref": "#/components/schemas/Tool"
+      },
+      "type": "array",
+      "title": "Tools",
+      "description": "The tools used by the agent."
+    },
+    "sources": {
+      "items": {
+        "$ref": "#/components/schemas/Source"
+      },
+      "type": "array",
+      "title": "Sources",
+      "description": "Deprecated: Use `folders` field instead. The sources used by the agent.",
+      "deprecated": true
+    },
+    "tags": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array",
+      "title": "Tags",
+      "description": "The tags associated with the agent."
+    },
+    "tool_exec_environment_variables": {
+      "items": {
+        "$ref": "#/components/schemas/AgentEnvironmentVariable"
+      },
+      "type": "array",
+      "title": "Tool Exec Environment Variables",
+      "description": "Deprecated: use `secrets` field instead.",
+      "deprecated": true
+    },
+    "secrets": {
+      "items": {
+        "$ref": "#/components/schemas/AgentEnvironmentVariable"
+      },
+      "type": "array",
+      "title": "Secrets",
+      "description": "The environment variables for tool execution specific to this agent."
+    },
+    "project_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Project Id",
+      "description": "The id of the project the agent belongs to."
+    },
+    "template_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Template Id",
+      "description": "The id of the template the agent belongs to."
+    },
+    "base_template_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Base Template Id",
+      "description": "The base template id of the agent."
+    },
+    "deployment_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Deployment Id",
+      "description": "The id of the deployment."
+    },
+    "entity_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Entity Id",
+      "description": "The id of the entity within the template."
+    },
+    "identity_ids": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array",
+      "title": "Identity Ids",
+      "description": "Deprecated: Use `identities` field instead. The ids of the identities associated with this agent.",
+      "default": [],
+      "deprecated": true
+    },
+    "identities": {
+      "items": {
+        "$ref": "#/components/schemas/Identity"
+      },
+      "type": "array",
+      "title": "Identities",
+      "description": "The identities associated with this agent.",
+      "default": []
+    },
+    "pending_approval": {
+      "anyOf": [
+        {
+          "$ref": "#/components/schemas/ApprovalRequestMessage"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "The latest approval request message pending for this agent, if any."
+    },
+    "message_buffer_autoclear": {
+      "type": "boolean",
+      "title": "Message Buffer Autoclear",
+      "description": "If set to True, the agent will not remember previous messages (though the agent will still retain state via core memory blocks and archival/recall memory). Not recommended unless you have an advanced use case.",
+      "default": false
+    },
+    "enable_sleeptime": {
+      "anyOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Enable Sleeptime",
+      "description": "If set to True, memory management will move to a background agent thread."
+    },
+    "multi_agent_group": {
+      "anyOf": [
+        {
+          "$ref": "#/components/schemas/Group"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "Deprecated: Use `managed_group` field instead. The multi-agent group that this agent manages.",
+      "deprecated": true
+    },
+    "managed_group": {
+      "anyOf": [
+        {
+          "$ref": "#/components/schemas/Group"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "The multi-agent group that this agent manages"
+    },
+    "last_run_completion": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "date-time"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Last Run Completion",
+      "description": "The timestamp when the agent last completed a run."
+    },
+    "last_run_duration_ms": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Last Run Duration Ms",
+      "description": "The duration in milliseconds of the agent's last run."
+    },
+    "last_stop_reason": {
+      "anyOf": [
+        {
+          "$ref": "#/components/schemas/StopReasonType"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "The stop reason from the agent's last run."
+    },
+    "timezone": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Timezone",
+      "description": "The timezone of the agent (IANA format)."
+    },
+    "max_files_open": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Max Files Open",
+      "description": "Maximum number of files that can be open at once for this agent. Setting this too high may exceed the context window, which will break the agent."
+    },
+    "per_file_view_window_char_limit": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Per File View Window Char Limit",
+      "description": "The per-file view window character limit for this agent. Setting this too high may exceed the context window, which will break the agent."
+    },
+    "hidden": {
+      "anyOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Hidden",
+      "description": "If set to True, the agent will be hidden."
+    }
+  },
+  "additionalProperties": false,
+  "type": "object",
+  "required": [
+    "id",
+    "name",
+    "system",
+    "agent_type",
+    "llm_config",
+    "memory",
+    "blocks",
+    "tools",
+    "sources",
+    "tags"
+  ],
+  "description": "Representation of an agent's state. This is the state of the agent at a given time, and is persisted in the DB backend. The state has all the information needed to recreate a persisted agent."
+}

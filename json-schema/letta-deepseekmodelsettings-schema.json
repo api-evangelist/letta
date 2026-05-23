@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/DeepseekModelSettings",
+  "title": "DeepseekModelSettings",
+  "properties": {
+    "max_output_tokens": {
+      "type": "integer",
+      "title": "Max Output Tokens",
+      "description": "The maximum number of tokens the model can generate.",
+      "default": 4096
+    },
+    "parallel_tool_calls": {
+      "type": "boolean",
+      "title": "Parallel Tool Calls",
+      "description": "Whether to enable parallel tool calling.",
+      "default": true
+    },
+    "provider_type": {
+      "type": "string",
+      "const": "deepseek",
+      "title": "Provider Type",
+      "description": "The type of the provider.",
+      "default": "deepseek"
+    },
+    "temperature": {
+      "type": "number",
+      "title": "Temperature",
+      "description": "The temperature of the model.",
+      "default": 0.7
+    },
+    "response_format": {
+      "anyOf": [
+        {
+          "oneOf": [
+            {
+              "$ref": "#/components/schemas/TextResponseFormat"
+            },
+            {
+              "$ref": "#/components/schemas/JsonSchemaResponseFormat"
+            },
+            {
+              "$ref": "#/components/schemas/JsonObjectResponseFormat"
+            }
+          ],
+          "discriminator": {
+            "propertyName": "type",
+            "mapping": {
+              "json_object": "#/components/schemas/JsonObjectResponseFormat",
+              "json_schema": "#/components/schemas/JsonSchemaResponseFormat",
+              "text": "#/components/schemas/TextResponseFormat"
+            }
+          }
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Response Format",
+      "description": "The response format for the model."
+    }
+  },
+  "type": "object",
+  "description": "Deepseek model configuration (OpenAI-compatible)."
+}

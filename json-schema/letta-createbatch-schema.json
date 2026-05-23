@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CreateBatch",
+  "title": "CreateBatch",
+  "properties": {
+    "requests": {
+      "items": {
+        "$ref": "#/components/schemas/LettaBatchRequest"
+      },
+      "type": "array",
+      "title": "Requests",
+      "description": "List of requests to be processed in batch."
+    },
+    "callback_url": {
+      "anyOf": [
+        {
+          "type": "string",
+          "maxLength": 2083,
+          "minLength": 1,
+          "format": "uri"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Callback Url",
+      "description": "Optional URL to call via POST when the batch completes. The callback payload will be a JSON object with the following fields: {'job_id': string, 'status': string, 'completed_at': string}. Where 'job_id' is the unique batch job identifier, 'status' is the final batch status (e.g., 'completed', 'failed'), and 'completed_at' is an ISO 8601 timestamp indicating when the batch job completed."
+    }
+  },
+  "type": "object",
+  "required": [
+    "requests"
+  ]
+}

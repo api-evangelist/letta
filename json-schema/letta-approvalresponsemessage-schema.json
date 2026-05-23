@@ -1,0 +1,175 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ApprovalResponseMessage",
+  "title": "ApprovalResponseMessage",
+  "properties": {
+    "id": {
+      "type": "string",
+      "title": "Id"
+    },
+    "date": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Date"
+    },
+    "name": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Name"
+    },
+    "message_type": {
+      "type": "string",
+      "const": "approval_response_message",
+      "title": "Message Type",
+      "description": "The type of the message.",
+      "default": "approval_response_message"
+    },
+    "otid": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Otid",
+      "description": "The offline threading id (OTID). Set by the client to deduplicate requests. Used for idempotency in background streaming mode \u2014 each message in a request must have a unique OTID. Retries of the same request should reuse the same OTIDs."
+    },
+    "sender_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Sender Id"
+    },
+    "step_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Step Id"
+    },
+    "is_err": {
+      "anyOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Is Err"
+    },
+    "seq_id": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Seq Id"
+    },
+    "run_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Run Id"
+    },
+    "approvals": {
+      "anyOf": [
+        {
+          "items": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/ApprovalReturn"
+              },
+              {
+                "$ref": "#/components/schemas/letta__schemas__letta_message__ToolReturn"
+              }
+            ],
+            "discriminator": {
+              "propertyName": "type",
+              "mapping": {
+                "approval": "#/components/schemas/ApprovalReturn",
+                "tool": "#/components/schemas/letta__schemas__letta_message__ToolReturn"
+              }
+            }
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Approvals",
+      "description": "The list of approval responses"
+    },
+    "approve": {
+      "anyOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Approve",
+      "description": "Whether the tool has been approved",
+      "deprecated": true
+    },
+    "approval_request_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Approval Request Id",
+      "description": "The message ID of the approval request",
+      "deprecated": true
+    },
+    "reason": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Reason",
+      "description": "An optional explanation for the provided approval status",
+      "deprecated": true
+    }
+  },
+  "type": "object",
+  "required": [
+    "id",
+    "date"
+  ],
+  "description": "A message representing a response form the user indicating whether a tool has been approved to run.\n\nArgs:\n    id (str): The ID of the message\n    date (datetime): The date the message was created in ISO format\n    name (Optional[str]): The name of the sender of the message\n    approve: (bool) Whether the tool has been approved\n    approval_request_id: The ID of the approval request\n    reason: (Optional[str]) An optional explanation for the provided approval status"
+}

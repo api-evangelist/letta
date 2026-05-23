@@ -1,0 +1,112 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/MessageCreate",
+  "title": "MessageCreate",
+  "properties": {
+    "type": {
+      "anyOf": [
+        {
+          "type": "string",
+          "const": "message"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Type",
+      "description": "The message type to be created.",
+      "default": "message"
+    },
+    "otid": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Otid",
+      "description": "The offline threading id (OTID). Set by the client to deduplicate requests. Used for idempotency in background streaming mode \u2014 each message in a request must have a unique OTID. Retries of the same request should reuse the same OTIDs."
+    },
+    "group_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Group Id",
+      "description": "The multi-agent group that the message was sent in"
+    },
+    "role": {
+      "type": "string",
+      "enum": [
+        "user",
+        "system",
+        "assistant"
+      ],
+      "title": "Role",
+      "description": "The role of the participant."
+    },
+    "content": {
+      "anyOf": [
+        {
+          "items": {
+            "$ref": "#/components/schemas/LettaMessageContentUnion"
+          },
+          "type": "array"
+        },
+        {
+          "type": "string"
+        }
+      ],
+      "title": "Content",
+      "description": "The content of the message."
+    },
+    "name": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Name",
+      "description": "The name of the participant."
+    },
+    "sender_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Sender Id",
+      "description": "The id of the sender of the message, can be an identity id or agent id"
+    },
+    "batch_item_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Batch Item Id",
+      "description": "The id of the LLMBatchItem that this message is associated with"
+    }
+  },
+  "type": "object",
+  "required": [
+    "role",
+    "content"
+  ],
+  "description": "Request to create a message"
+}

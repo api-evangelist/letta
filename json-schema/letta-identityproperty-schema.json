@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/IdentityProperty",
+  "title": "IdentityProperty",
+  "properties": {
+    "key": {
+      "type": "string",
+      "title": "Key",
+      "description": "The key of the property"
+    },
+    "value": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "integer"
+        },
+        {
+          "type": "number"
+        },
+        {
+          "type": "boolean"
+        },
+        {
+          "additionalProperties": true,
+          "type": "object"
+        }
+      ],
+      "title": "Value",
+      "description": "The value of the property"
+    },
+    "type": {
+      "$ref": "#/components/schemas/IdentityPropertyType",
+      "description": "The type of the property"
+    }
+  },
+  "additionalProperties": false,
+  "type": "object",
+  "required": [
+    "key",
+    "value",
+    "type"
+  ],
+  "description": "A property of an identity"
+}

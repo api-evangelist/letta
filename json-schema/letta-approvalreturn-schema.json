@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ApprovalReturn",
+  "title": "ApprovalReturn",
+  "properties": {
+    "type": {
+      "type": "string",
+      "const": "approval",
+      "title": "Type",
+      "description": "The message type to be created.",
+      "default": "approval"
+    },
+    "tool_call_id": {
+      "type": "string",
+      "title": "Tool Call Id",
+      "description": "The ID of the tool call that corresponds to this approval"
+    },
+    "approve": {
+      "type": "boolean",
+      "title": "Approve",
+      "description": "Whether the tool has been approved"
+    },
+    "reason": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Reason",
+      "description": "An optional explanation for the provided approval status"
+    }
+  },
+  "type": "object",
+  "required": [
+    "tool_call_id",
+    "approve"
+  ]
+}

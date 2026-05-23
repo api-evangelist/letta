@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/MCPServerSchema",
+  "title": "MCPServerSchema",
+  "properties": {
+    "id": {
+      "type": "string",
+      "title": "Id",
+      "description": "Human-readable MCP server ID"
+    },
+    "server_type": {
+      "type": "string",
+      "title": "Server Type"
+    },
+    "server_name": {
+      "type": "string",
+      "title": "Server Name"
+    },
+    "server_url": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Server Url"
+    },
+    "stdio_config": {
+      "anyOf": [
+        {
+          "additionalProperties": true,
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Stdio Config"
+    },
+    "metadata_": {
+      "anyOf": [
+        {
+          "additionalProperties": true,
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Metadata"
+    }
+  },
+  "type": "object",
+  "required": [
+    "id",
+    "server_type",
+    "server_name"
+  ],
+  "description": "MCP server schema for agent files with remapped ID."
+}

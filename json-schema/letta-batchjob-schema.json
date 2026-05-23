@@ -1,0 +1,204 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/BatchJob",
+  "title": "BatchJob",
+  "properties": {
+    "created_by_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Created By Id",
+      "description": "The id of the user that made this object."
+    },
+    "last_updated_by_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Last Updated By Id",
+      "description": "The id of the user that made this object."
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Created At",
+      "description": "The unix timestamp of when the job was created."
+    },
+    "updated_at": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "date-time"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Updated At",
+      "description": "The timestamp when the object was last updated."
+    },
+    "status": {
+      "$ref": "#/components/schemas/JobStatus",
+      "description": "The status of the job.",
+      "default": "created"
+    },
+    "completed_at": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "date-time"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Completed At",
+      "description": "The unix timestamp of when the job was completed."
+    },
+    "stop_reason": {
+      "anyOf": [
+        {
+          "$ref": "#/components/schemas/StopReasonType"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "The reason why the job was stopped."
+    },
+    "metadata": {
+      "anyOf": [
+        {
+          "additionalProperties": true,
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Metadata",
+      "description": "The metadata of the job."
+    },
+    "job_type": {
+      "$ref": "#/components/schemas/JobType",
+      "default": "batch"
+    },
+    "background": {
+      "anyOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Background",
+      "description": "Whether the job was created in background mode."
+    },
+    "agent_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Agent Id",
+      "description": "The agent associated with this job/run."
+    },
+    "callback_url": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Callback Url",
+      "description": "If set, POST to this URL when the job completes."
+    },
+    "callback_sent_at": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "date-time"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Callback Sent At",
+      "description": "Timestamp when the callback was last attempted."
+    },
+    "callback_status_code": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Callback Status Code",
+      "description": "HTTP status code returned by the callback endpoint."
+    },
+    "callback_error": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Callback Error",
+      "description": "Optional error message from attempting to POST the callback endpoint."
+    },
+    "ttft_ns": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Ttft Ns",
+      "description": "Time to first token for a run in nanoseconds"
+    },
+    "total_duration_ns": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Total Duration Ns",
+      "description": "Total run duration in nanoseconds"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^(job|run)-[a-fA-F0-9]{8}",
+      "title": "Id",
+      "description": "The human-friendly ID of the Job",
+      "examples": [
+        "job-123e4567-e89b-12d3-a456-426614174000"
+      ]
+    }
+  },
+  "additionalProperties": false,
+  "type": "object"
+}

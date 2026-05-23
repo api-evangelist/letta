@@ -1,0 +1,129 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/MessageSearchRequest",
+  "title": "MessageSearchRequest",
+  "properties": {
+    "query": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Query",
+      "description": "Text query for full-text search"
+    },
+    "search_mode": {
+      "type": "string",
+      "enum": [
+        "vector",
+        "fts",
+        "hybrid"
+      ],
+      "title": "Search Mode",
+      "description": "Search mode to use",
+      "default": "hybrid"
+    },
+    "roles": {
+      "anyOf": [
+        {
+          "items": {
+            "$ref": "#/components/schemas/MessageRole"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Roles",
+      "description": "Filter messages by role"
+    },
+    "agent_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Agent Id",
+      "description": "Filter messages by agent ID"
+    },
+    "project_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Project Id",
+      "description": "Filter messages by project ID"
+    },
+    "template_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Template Id",
+      "description": "Filter messages by template ID"
+    },
+    "conversation_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Conversation Id",
+      "description": "Filter messages by conversation ID"
+    },
+    "limit": {
+      "type": "integer",
+      "maximum": 100,
+      "minimum": 1,
+      "title": "Limit",
+      "description": "Maximum number of results to return",
+      "default": 50
+    },
+    "start_date": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "date-time"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Start Date",
+      "description": "Filter messages created after this date"
+    },
+    "end_date": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "date-time"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "End Date",
+      "description": "Filter messages created on or before this date"
+    }
+  },
+  "type": "object",
+  "description": "Request model for searching messages across the organization"
+}

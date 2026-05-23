@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/SearchCacheWarmRequest",
+  "title": "SearchCacheWarmRequest",
+  "properties": {
+    "collection": {
+      "type": "string",
+      "const": "messages",
+      "title": "Collection",
+      "description": "Embedded collection whose cache should be warmed."
+    },
+    "scope": {
+      "$ref": "#/components/schemas/MessageSearchCacheWarmScope",
+      "description": "Collection-specific scope. Messages currently infer organization from the authenticated actor."
+    }
+  },
+  "additionalProperties": false,
+  "type": "object",
+  "required": [
+    "collection",
+    "scope"
+  ],
+  "description": "Request for warming an internal search cache."
+}

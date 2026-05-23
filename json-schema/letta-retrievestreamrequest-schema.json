@@ -1,0 +1,89 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/RetrieveStreamRequest",
+  "title": "RetrieveStreamRequest",
+  "properties": {
+    "agent_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Agent Id",
+      "description": "Agent ID for agent-direct mode with 'default' conversation. Use with conversation_id='default' in the URL path."
+    },
+    "run_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Run Id",
+      "description": "Run ID to stream directly, bypassing run lookup. Use for recovery from duplicate requests."
+    },
+    "otid": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Otid",
+      "description": "Offline threading ID to look up the run_id. Bypasses active run lookup if run_id not provided."
+    },
+    "starting_after": {
+      "type": "integer",
+      "title": "Starting After",
+      "description": "Sequence id to use as a cursor for pagination. Response will start streaming after this chunk sequence id",
+      "default": 0
+    },
+    "include_pings": {
+      "anyOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Include Pings",
+      "description": "Whether to include periodic keepalive ping messages in the stream to prevent connection timeouts.",
+      "default": true
+    },
+    "poll_interval": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Poll Interval",
+      "description": "Seconds to wait between polls when no new data.",
+      "default": 0.1
+    },
+    "batch_size": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Batch Size",
+      "description": "Number of entries to read per batch.",
+      "default": 100
+    }
+  },
+  "type": "object"
+}

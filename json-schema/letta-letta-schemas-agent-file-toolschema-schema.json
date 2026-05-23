@@ -1,0 +1,218 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/letta__schemas__agent_file__ToolSchema",
+  "title": "ToolSchema",
+  "properties": {
+    "id": {
+      "type": "string",
+      "title": "Id",
+      "description": "Human-readable identifier for this tool in the file"
+    },
+    "tool_type": {
+      "$ref": "#/components/schemas/ToolType",
+      "description": "The type of the tool.",
+      "default": "custom"
+    },
+    "description": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Description",
+      "description": "The description of the tool."
+    },
+    "source_type": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Source Type",
+      "description": "The type of the source code."
+    },
+    "name": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Name",
+      "description": "The name of the function."
+    },
+    "tags": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array",
+      "title": "Tags",
+      "description": "Metadata tags.",
+      "default": []
+    },
+    "source_code": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Source Code",
+      "description": "The source code of the function."
+    },
+    "json_schema": {
+      "anyOf": [
+        {
+          "additionalProperties": true,
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Json Schema",
+      "description": "The JSON schema of the function."
+    },
+    "args_json_schema": {
+      "anyOf": [
+        {
+          "additionalProperties": true,
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Args Json Schema",
+      "description": "The args JSON schema of the function."
+    },
+    "return_char_limit": {
+      "type": "integer",
+      "maximum": 1000000,
+      "minimum": 1,
+      "title": "Return Char Limit",
+      "description": "The maximum number of characters in the response.",
+      "default": 50000
+    },
+    "pip_requirements": {
+      "anyOf": [
+        {
+          "items": {
+            "$ref": "#/components/schemas/PipRequirement"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Pip Requirements",
+      "description": "Optional list of pip packages required by this tool."
+    },
+    "npm_requirements": {
+      "anyOf": [
+        {
+          "items": {
+            "$ref": "#/components/schemas/NpmRequirement"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Npm Requirements",
+      "description": "Optional list of npm packages required by this tool."
+    },
+    "default_requires_approval": {
+      "anyOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Default Requires Approval",
+      "description": "Default value for whether or not executing this tool requires approval."
+    },
+    "enable_parallel_execution": {
+      "anyOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Enable Parallel Execution",
+      "description": "If set to True, then this tool will potentially be executed concurrently with other tools. Default False.",
+      "default": false
+    },
+    "created_by_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Created By Id",
+      "description": "The id of the user that made this Tool."
+    },
+    "last_updated_by_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Last Updated By Id",
+      "description": "The id of the user that made this Tool."
+    },
+    "metadata_": {
+      "anyOf": [
+        {
+          "additionalProperties": true,
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Metadata",
+      "description": "A dictionary of additional metadata for the tool."
+    },
+    "project_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Project Id",
+      "description": "The project id of the tool."
+    }
+  },
+  "additionalProperties": false,
+  "type": "object",
+  "required": [
+    "id"
+  ],
+  "description": "Tool with human-readable ID for agent file"
+}

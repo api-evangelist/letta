@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Base64Image",
+  "title": "Base64Image",
+  "properties": {
+    "type": {
+      "type": "string",
+      "const": "base64",
+      "title": "Type",
+      "description": "The source type for the image.",
+      "default": "base64"
+    },
+    "media_type": {
+      "type": "string",
+      "title": "Media Type",
+      "description": "The media type for the image."
+    },
+    "data": {
+      "type": "string",
+      "title": "Data",
+      "description": "The base64 encoded image data."
+    },
+    "detail": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Detail",
+      "description": "What level of detail to use when processing and understanding the image (low, high, or auto to let the model decide)"
+    }
+  },
+  "type": "object",
+  "required": [
+    "media_type",
+    "data"
+  ]
+}

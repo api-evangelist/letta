@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/LettaMessageContentUnion",
+  "title": "LettaMessageContentUnion",
+  "oneOf": [
+    {
+      "$ref": "#/components/schemas/TextContent"
+    },
+    {
+      "$ref": "#/components/schemas/ImageContent"
+    },
+    {
+      "$ref": "#/components/schemas/ToolCallContent"
+    },
+    {
+      "$ref": "#/components/schemas/ToolReturnContent"
+    },
+    {
+      "$ref": "#/components/schemas/ReasoningContent"
+    },
+    {
+      "$ref": "#/components/schemas/RedactedReasoningContent"
+    },
+    {
+      "$ref": "#/components/schemas/OmittedReasoningContent"
+    }
+  ],
+  "discriminator": {
+    "propertyName": "type",
+    "mapping": {
+      "text": "#/components/schemas/TextContent",
+      "image": "#/components/schemas/ImageContent",
+      "tool_call": "#/components/schemas/ToolCallContent",
+      "tool_return": "#/components/schemas/ToolCallContent",
+      "reasoning": "#/components/schemas/ReasoningContent",
+      "redacted_reasoning": "#/components/schemas/RedactedReasoningContent",
+      "omitted_reasoning": "#/components/schemas/OmittedReasoningContent"
+    }
+  }
+}

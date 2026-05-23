@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ChildToolRule",
+  "title": "ChildToolRule",
+  "properties": {
+    "tool_name": {
+      "type": "string",
+      "title": "Tool Name",
+      "description": "The name of the tool. Must exist in the database for the user's organization."
+    },
+    "type": {
+      "type": "string",
+      "const": "constrain_child_tools",
+      "title": "Type",
+      "default": "constrain_child_tools"
+    },
+    "prompt_template": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Prompt Template",
+      "description": "Optional template string (ignored)."
+    },
+    "children": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array",
+      "title": "Children",
+      "description": "The children tools that can be invoked."
+    },
+    "child_arg_nodes": {
+      "anyOf": [
+        {
+          "items": {
+            "$ref": "#/components/schemas/ToolCallNode"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Child Arg Nodes",
+      "description": "Optional list of typed child argument overrides. Each node must reference a child in 'children'."
+    }
+  },
+  "additionalProperties": false,
+  "type": "object",
+  "required": [
+    "tool_name",
+    "children"
+  ],
+  "description": "A ToolRule represents a tool that can be invoked by the agent."
+}

@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ConditionalToolRuleSchema",
+  "title": "ConditionalToolRuleSchema",
+  "properties": {
+    "tool_name": {
+      "type": "string",
+      "title": "Tool Name"
+    },
+    "type": {
+      "type": "string",
+      "title": "Type"
+    },
+    "default_child": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Default Child"
+    },
+    "child_output_mapping": {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "type": "object",
+      "title": "Child Output Mapping"
+    },
+    "require_output_mapping": {
+      "type": "boolean",
+      "title": "Require Output Mapping"
+    }
+  },
+  "type": "object",
+  "required": [
+    "tool_name",
+    "type",
+    "default_child",
+    "child_output_mapping",
+    "require_output_mapping"
+  ]
+}

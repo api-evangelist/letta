@@ -1,0 +1,92 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/letta__schemas__message__ToolReturn-Input",
+  "title": "ToolReturn",
+  "properties": {
+    "tool_call_id": {
+      "anyOf": [
+        {},
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Tool Call Id",
+      "description": "The ID for the tool call"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "success",
+        "error"
+      ],
+      "title": "Status",
+      "description": "The status of the tool call"
+    },
+    "stdout": {
+      "anyOf": [
+        {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Stdout",
+      "description": "Captured stdout (e.g. prints, logs) from the tool invocation"
+    },
+    "stderr": {
+      "anyOf": [
+        {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Stderr",
+      "description": "Captured stderr from the tool invocation"
+    },
+    "func_response": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "items": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/TextContent"
+              },
+              {
+                "$ref": "#/components/schemas/ImageContent"
+              }
+            ],
+            "discriminator": {
+              "propertyName": "type",
+              "mapping": {
+                "image": "#/components/schemas/ImageContent",
+                "text": "#/components/schemas/TextContent"
+              }
+            }
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Func Response",
+      "description": "The function response - either a string or list of content parts (text/image)"
+    }
+  },
+  "type": "object",
+  "required": [
+    "status"
+  ]
+}

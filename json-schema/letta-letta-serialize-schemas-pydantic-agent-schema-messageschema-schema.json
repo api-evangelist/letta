@@ -1,0 +1,93 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/letta__serialize_schemas__pydantic_agent_schema__MessageSchema",
+  "title": "MessageSchema",
+  "properties": {
+    "created_at": {
+      "type": "string",
+      "title": "Created At"
+    },
+    "group_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Group Id"
+    },
+    "model": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Model"
+    },
+    "name": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Name"
+    },
+    "role": {
+      "type": "string",
+      "title": "Role"
+    },
+    "content": {
+      "items": {
+        "$ref": "#/components/schemas/LettaMessageContentUnion"
+      },
+      "type": "array",
+      "title": "Content"
+    },
+    "tool_call_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Tool Call Id"
+    },
+    "tool_calls": {
+      "items": {},
+      "type": "array",
+      "title": "Tool Calls"
+    },
+    "tool_returns": {
+      "items": {},
+      "type": "array",
+      "title": "Tool Returns"
+    },
+    "updated_at": {
+      "type": "string",
+      "title": "Updated At"
+    }
+  },
+  "type": "object",
+  "required": [
+    "created_at",
+    "group_id",
+    "model",
+    "name",
+    "role",
+    "content",
+    "tool_call_id",
+    "tool_calls",
+    "tool_returns",
+    "updated_at"
+  ]
+}

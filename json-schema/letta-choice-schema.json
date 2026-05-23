@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Choice",
+  "title": "Choice",
+  "properties": {
+    "finish_reason": {
+      "type": "string",
+      "enum": [
+        "stop",
+        "length",
+        "tool_calls",
+        "content_filter",
+        "function_call"
+      ],
+      "title": "Finish Reason"
+    },
+    "index": {
+      "type": "integer",
+      "title": "Index"
+    },
+    "logprobs": {
+      "anyOf": [
+        {
+          "$ref": "#/components/schemas/openai__types__chat__chat_completion__ChoiceLogprobs"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "message": {
+      "$ref": "#/components/schemas/ChatCompletionMessage"
+    }
+  },
+  "additionalProperties": true,
+  "type": "object",
+  "required": [
+    "finish_reason",
+    "index",
+    "message"
+  ]
+}

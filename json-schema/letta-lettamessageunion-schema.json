@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/LettaMessageUnion",
+  "title": "LettaMessageUnion",
+  "oneOf": [
+    {
+      "$ref": "#/components/schemas/SystemMessage"
+    },
+    {
+      "$ref": "#/components/schemas/UserMessage"
+    },
+    {
+      "$ref": "#/components/schemas/ReasoningMessage"
+    },
+    {
+      "$ref": "#/components/schemas/HiddenReasoningMessage"
+    },
+    {
+      "$ref": "#/components/schemas/ToolCallMessage"
+    },
+    {
+      "$ref": "#/components/schemas/ToolReturnMessage"
+    },
+    {
+      "$ref": "#/components/schemas/AssistantMessage"
+    },
+    {
+      "$ref": "#/components/schemas/ApprovalRequestMessage"
+    },
+    {
+      "$ref": "#/components/schemas/ApprovalResponseMessage"
+    },
+    {
+      "$ref": "#/components/schemas/SummaryMessage"
+    },
+    {
+      "$ref": "#/components/schemas/EventMessage"
+    }
+  ],
+  "discriminator": {
+    "propertyName": "message_type",
+    "mapping": {
+      "system_message": "#/components/schemas/SystemMessage",
+      "user_message": "#/components/schemas/UserMessage",
+      "reasoning_message": "#/components/schemas/ReasoningMessage",
+      "hidden_reasoning_message": "#/components/schemas/HiddenReasoningMessage",
+      "tool_call_message": "#/components/schemas/ToolCallMessage",
+      "tool_return_message": "#/components/schemas/ToolReturnMessage",
+      "assistant_message": "#/components/schemas/AssistantMessage",
+      "approval_request_message": "#/components/schemas/ApprovalRequestMessage",
+      "approval_response_message": "#/components/schemas/ApprovalResponseMessage",
+      "summary_message": "#/components/schemas/SummaryMessage",
+      "event_message": "#/components/schemas/EventMessage"
+    }
+  }
+}

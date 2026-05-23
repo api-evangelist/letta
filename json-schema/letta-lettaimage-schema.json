@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/LettaImage",
+  "title": "LettaImage",
+  "properties": {
+    "type": {
+      "type": "string",
+      "const": "letta",
+      "title": "Type",
+      "description": "The source type for the image.",
+      "default": "letta"
+    },
+    "file_id": {
+      "type": "string",
+      "title": "File Id",
+      "description": "The unique identifier of the image file persisted in storage."
+    },
+    "media_type": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Media Type",
+      "description": "The media type for the image."
+    },
+    "data": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Data",
+      "description": "The base64 encoded image data."
+    },
+    "detail": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Detail",
+      "description": "What level of detail to use when processing and understanding the image (low, high, or auto to let the model decide)"
+    }
+  },
+  "type": "object",
+  "required": [
+    "file_id"
+  ]
+}

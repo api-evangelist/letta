@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/E2BSandboxConfig",
+  "title": "E2BSandboxConfig",
+  "properties": {
+    "timeout": {
+      "type": "integer",
+      "title": "Timeout",
+      "description": "Time limit for the sandbox (in seconds).",
+      "default": 300
+    },
+    "template": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Template",
+      "description": "The E2B template id (docker image)."
+    },
+    "pip_requirements": {
+      "anyOf": [
+        {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Pip Requirements",
+      "description": "A list of pip packages to install on the E2B Sandbox"
+    }
+  },
+  "type": "object"
+}

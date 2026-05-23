@@ -1,0 +1,98 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/FileAgentSchema",
+  "title": "FileAgentSchema",
+  "properties": {
+    "agent_id": {
+      "type": "string",
+      "title": "Agent Id",
+      "description": "Unique identifier of the agent."
+    },
+    "file_id": {
+      "type": "string",
+      "title": "File Id",
+      "description": "Unique identifier of the file."
+    },
+    "source_id": {
+      "type": "string",
+      "title": "Source Id",
+      "description": "Deprecated: Use `folder_id` field instead. Unique identifier of the source.",
+      "deprecated": true
+    },
+    "file_name": {
+      "type": "string",
+      "title": "File Name",
+      "description": "Name of the file."
+    },
+    "is_open": {
+      "type": "boolean",
+      "title": "Is Open",
+      "description": "True if the agent currently has the file open.",
+      "default": true
+    },
+    "visible_content": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Visible Content",
+      "description": "Portion of the file the agent is focused on (may be large)."
+    },
+    "last_accessed_at": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "date-time"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Last Accessed At",
+      "description": "UTC timestamp of the agent's most recent access to this file."
+    },
+    "start_line": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Start Line",
+      "description": "Starting line number (1-indexed) when file was opened with line range."
+    },
+    "end_line": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "End Line",
+      "description": "Ending line number (exclusive) when file was opened with line range."
+    },
+    "id": {
+      "type": "string",
+      "title": "Id",
+      "description": "Human-readable identifier for this file-agent relationship in the file"
+    }
+  },
+  "additionalProperties": false,
+  "type": "object",
+  "required": [
+    "agent_id",
+    "file_id",
+    "source_id",
+    "file_name",
+    "id"
+  ],
+  "description": "File-Agent relationship with human-readable ID for agent file"
+}

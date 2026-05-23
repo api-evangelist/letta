@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/PaginatedAgentFiles",
+  "title": "PaginatedAgentFiles",
+  "properties": {
+    "files": {
+      "items": {
+        "$ref": "#/components/schemas/AgentFileAttachment"
+      },
+      "type": "array",
+      "title": "Files",
+      "description": "List of file attachments for the agent"
+    },
+    "next_cursor": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Next Cursor",
+      "description": "Cursor for fetching the next page (file-agent relationship ID)"
+    },
+    "has_more": {
+      "type": "boolean",
+      "title": "Has More",
+      "description": "Whether more results exist after this page"
+    }
+  },
+  "additionalProperties": false,
+  "type": "object",
+  "required": [
+    "files",
+    "has_more"
+  ],
+  "description": "Paginated response for agent files"
+}

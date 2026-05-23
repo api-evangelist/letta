@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/SandboxConfigUpdate",
+  "title": "SandboxConfigUpdate",
+  "properties": {
+    "config": {
+      "anyOf": [
+        {
+          "$ref": "#/components/schemas/LocalSandboxConfig"
+        },
+        {
+          "$ref": "#/components/schemas/E2BSandboxConfig"
+        },
+        {
+          "$ref": "#/components/schemas/ModalSandboxConfig"
+        }
+      ],
+      "title": "Config",
+      "description": "The JSON configuration data for the sandbox."
+    }
+  },
+  "additionalProperties": false,
+  "type": "object",
+  "description": "Pydantic model for updating SandboxConfig fields."
+}

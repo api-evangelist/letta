@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ClientSkillSchema",
+  "title": "ClientSkillSchema",
+  "properties": {
+    "name": {
+      "type": "string",
+      "title": "Name",
+      "description": "The name of the skill"
+    },
+    "description": {
+      "type": "string",
+      "title": "Description",
+      "description": "Description of what the skill does"
+    },
+    "location": {
+      "type": "string",
+      "title": "Location",
+      "description": "Path or location hint for the skill (e.g. skills/my-skill/SKILL.md)"
+    }
+  },
+  "type": "object",
+  "required": [
+    "name",
+    "description",
+    "location"
+  ],
+  "description": "Schema for a client-side skill passed in the request.\n\nClient-side skills represent environment-provided capabilities (e.g. project-scoped\nskills) that are not stored in the agent's MemFS but should appear in the system\nprompt's available skills section."
+}

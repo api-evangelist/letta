@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ToolSearchRequest",
+  "title": "ToolSearchRequest",
+  "properties": {
+    "query": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Query",
+      "description": "Text query for semantic search."
+    },
+    "search_mode": {
+      "type": "string",
+      "enum": [
+        "vector",
+        "fts",
+        "hybrid"
+      ],
+      "title": "Search Mode",
+      "description": "Search mode: vector, fts, or hybrid.",
+      "default": "hybrid"
+    },
+    "tool_types": {
+      "anyOf": [
+        {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Tool Types",
+      "description": "Filter by tool types (e.g., 'custom', 'letta_core')."
+    },
+    "tags": {
+      "anyOf": [
+        {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Tags",
+      "description": "Filter by tags (match any)."
+    },
+    "limit": {
+      "type": "integer",
+      "maximum": 100,
+      "minimum": 1,
+      "title": "Limit",
+      "description": "Maximum number of results to return.",
+      "default": 50
+    }
+  },
+  "additionalProperties": false,
+  "type": "object",
+  "description": "Request model for searching tools using semantic search."
+}

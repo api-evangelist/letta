@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ReasoningMessageListResult",
+  "title": "ReasoningMessageListResult",
+  "properties": {
+    "reasoning": {
+      "type": "string",
+      "title": "Reasoning"
+    },
+    "message_type": {
+      "type": "string",
+      "const": "reasoning_message",
+      "title": "Message Type",
+      "default": "reasoning_message"
+    },
+    "message_id": {
+      "type": "string",
+      "title": "Message Id",
+      "description": "The unique identifier of the message."
+    },
+    "agent_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Agent Id",
+      "description": "The unique identifier of the agent that owns the message."
+    },
+    "conversation_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Conversation Id",
+      "description": "The unique identifier of the conversation that the message belongs to."
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Created At",
+      "description": "The time the message was created in ISO format."
+    }
+  },
+  "type": "object",
+  "required": [
+    "reasoning",
+    "message_id",
+    "created_at"
+  ],
+  "description": "Reasoning message list result with agent context.\n\nShape is identical to UpdateReasoningMessage but includes the owning agent_id and message id."
+}

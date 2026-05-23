@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ToolReturnCreate",
+  "title": "ToolReturnCreate",
+  "properties": {
+    "type": {
+      "type": "string",
+      "const": "tool_return",
+      "title": "Type",
+      "description": "The message type to be created.",
+      "default": "tool_return"
+    },
+    "otid": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Otid",
+      "description": "The offline threading id (OTID). Set by the client to deduplicate requests. Used for idempotency in background streaming mode \u2014 each message in a request must have a unique OTID. Retries of the same request should reuse the same OTIDs."
+    },
+    "group_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Group Id",
+      "description": "The multi-agent group that the message was sent in"
+    },
+    "tool_returns": {
+      "items": {
+        "$ref": "#/components/schemas/letta__schemas__letta_message__ToolReturn"
+      },
+      "type": "array",
+      "title": "Tool Returns",
+      "description": "List of tool returns from client-side execution"
+    }
+  },
+  "type": "object",
+  "required": [
+    "tool_returns"
+  ],
+  "description": "Submit tool return(s) from client-side tool execution.\n\nThis is the preferred way to send tool results back to the agent after\nclient-side tool execution. It is equivalent to sending an ApprovalCreate\nwith tool return approvals, but provides a cleaner API for the common case."
+}

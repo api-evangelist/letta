@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ModifyFeedbackRequest",
+  "title": "ModifyFeedbackRequest",
+  "properties": {
+    "feedback": {
+      "anyOf": [
+        {
+          "$ref": "#/components/schemas/FeedbackType"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "Whether this feedback is positive or negative"
+    },
+    "tags": {
+      "anyOf": [
+        {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Tags",
+      "description": "Feedback tags to add to the step"
+    }
+  },
+  "type": "object"
+}

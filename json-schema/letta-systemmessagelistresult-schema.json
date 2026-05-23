@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/SystemMessageListResult",
+  "title": "SystemMessageListResult",
+  "properties": {
+    "message_type": {
+      "type": "string",
+      "const": "system_message",
+      "title": "Message Type",
+      "default": "system_message"
+    },
+    "content": {
+      "type": "string",
+      "title": "Content",
+      "description": "The message content sent by the system (can be a string or an array of multi-modal content parts)"
+    },
+    "message_id": {
+      "type": "string",
+      "title": "Message Id",
+      "description": "The unique identifier of the message."
+    },
+    "agent_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Agent Id",
+      "description": "The unique identifier of the agent that owns the message."
+    },
+    "conversation_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Conversation Id",
+      "description": "The unique identifier of the conversation that the message belongs to."
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Created At",
+      "description": "The time the message was created in ISO format."
+    }
+  },
+  "type": "object",
+  "required": [
+    "content",
+    "message_id",
+    "created_at"
+  ],
+  "description": "System message list result with agent context.\n\nShape is identical to UpdateSystemMessage but includes the owning agent_id and message id."
+}

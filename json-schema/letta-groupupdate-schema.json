@@ -1,0 +1,115 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/GroupUpdate",
+  "title": "GroupUpdate",
+  "properties": {
+    "agent_ids": {
+      "anyOf": [
+        {
+          "items": {
+            "type": "string",
+            "maxLength": 42,
+            "minLength": 42,
+            "pattern": "^agent-[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
+            "description": "The ID of the agent in the format 'agent-<uuid4>'",
+            "examples": [
+              "agent-123e4567-e89b-42d3-8456-426614174000"
+            ]
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Agent Ids",
+      "description": ""
+    },
+    "description": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Description",
+      "description": ""
+    },
+    "manager_config": {
+      "anyOf": [
+        {
+          "oneOf": [
+            {
+              "$ref": "#/components/schemas/RoundRobinManagerUpdate"
+            },
+            {
+              "$ref": "#/components/schemas/SupervisorManagerUpdate"
+            },
+            {
+              "$ref": "#/components/schemas/DynamicManagerUpdate"
+            },
+            {
+              "$ref": "#/components/schemas/SleeptimeManagerUpdate"
+            },
+            {
+              "$ref": "#/components/schemas/VoiceSleeptimeManagerUpdate"
+            }
+          ],
+          "discriminator": {
+            "propertyName": "manager_type",
+            "mapping": {
+              "dynamic": "#/components/schemas/DynamicManagerUpdate",
+              "round_robin": "#/components/schemas/RoundRobinManagerUpdate",
+              "sleeptime": "#/components/schemas/SleeptimeManagerUpdate",
+              "supervisor": "#/components/schemas/SupervisorManagerUpdate",
+              "voice_sleeptime": "#/components/schemas/VoiceSleeptimeManagerUpdate"
+            }
+          }
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Manager Config",
+      "description": ""
+    },
+    "project_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Project Id",
+      "description": "The associated project id."
+    },
+    "shared_block_ids": {
+      "anyOf": [
+        {
+          "items": {
+            "type": "string",
+            "maxLength": 42,
+            "minLength": 42,
+            "pattern": "^block-[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
+            "description": "The ID of the block in the format 'block-<uuid4>'",
+            "examples": [
+              "block-123e4567-e89b-42d3-8456-426614174000"
+            ]
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Shared Block Ids",
+      "description": "",
+      "deprecated": true
+    }
+  },
+  "type": "object"
+}

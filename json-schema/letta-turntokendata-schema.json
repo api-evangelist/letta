@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/TurnTokenData",
+  "title": "TurnTokenData",
+  "properties": {
+    "role": {
+      "type": "string",
+      "enum": [
+        "assistant",
+        "tool"
+      ],
+      "title": "Role",
+      "description": "Role of this turn: 'assistant' for LLM generations (trainable), 'tool' for tool results (non-trainable)."
+    },
+    "output_ids": {
+      "anyOf": [
+        {
+          "items": {
+            "type": "integer"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Output Ids",
+      "description": "Token IDs from SGLang native endpoint. Only present for assistant turns."
+    },
+    "output_token_logprobs": {
+      "anyOf": [
+        {
+          "items": {
+            "items": {},
+            "type": "array"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Output Token Logprobs",
+      "description": "Logprobs from SGLang: [[logprob, token_id, top_logprob_or_null], ...]. Only present for assistant turns."
+    },
+    "content": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Content",
+      "description": "Text content. For tool turns, client tokenizes this with loss_mask=0."
+    },
+    "tool_name": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Tool Name",
+      "description": "Name of the tool called. Only present for tool turns."
+    }
+  },
+  "type": "object",
+  "required": [
+    "role"
+  ],
+  "description": "Token data for a single LLM generation turn in a multi-turn agent interaction.\n\nUsed for RL training to track token IDs and logprobs across all LLM calls,\nnot just the final one. Tool results are included so the client can tokenize\nthem with loss_mask=0 (non-trainable)."
+}

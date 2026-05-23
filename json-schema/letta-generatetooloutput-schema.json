@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/GenerateToolOutput",
+  "title": "GenerateToolOutput",
+  "properties": {
+    "tool": {
+      "$ref": "#/components/schemas/Tool",
+      "description": "Generated tool"
+    },
+    "sample_args": {
+      "additionalProperties": true,
+      "type": "object",
+      "title": "Sample Args",
+      "description": "Sample arguments for the tool"
+    },
+    "response": {
+      "type": "string",
+      "title": "Response",
+      "description": "Response from the assistant"
+    }
+  },
+  "type": "object",
+  "required": [
+    "tool",
+    "sample_args",
+    "response"
+  ]
+}

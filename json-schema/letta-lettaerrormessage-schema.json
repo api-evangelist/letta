@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/LettaErrorMessage",
+  "title": "LettaErrorMessage",
+  "properties": {
+    "message_type": {
+      "type": "string",
+      "const": "error_message",
+      "title": "Message Type",
+      "description": "The type of the message.",
+      "default": "error_message"
+    },
+    "run_id": {
+      "type": "string",
+      "title": "Run ID",
+      "description": "The ID of the run."
+    },
+    "error_type": {
+      "type": "string",
+      "title": "Error Type",
+      "description": "The type of error."
+    },
+    "message": {
+      "type": "string",
+      "title": "Message",
+      "description": "The error message."
+    },
+    "detail": {
+      "type": "string",
+      "title": "Detail",
+      "description": "An optional error detail."
+    },
+    "seq_id": {
+      "type": "integer",
+      "title": "Seq ID",
+      "description": "The sequence ID for cursor-based pagination."
+    }
+  },
+  "type": "object",
+  "required": [
+    "message_type",
+    "run_id",
+    "error_type",
+    "message"
+  ],
+  "description": "Error messages are used to notify the client of an error that occurred during the agent's execution."
+}

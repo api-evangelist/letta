@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/FileStats",
+  "title": "FileStats",
+  "properties": {
+    "file_id": {
+      "type": "string",
+      "title": "File Id",
+      "description": "Unique identifier of the file"
+    },
+    "file_name": {
+      "type": "string",
+      "title": "File Name",
+      "description": "Name of the file"
+    },
+    "file_size": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "File Size",
+      "description": "Size of the file in bytes"
+    }
+  },
+  "additionalProperties": false,
+  "type": "object",
+  "required": [
+    "file_id",
+    "file_name"
+  ],
+  "description": "File statistics for metadata endpoint"
+}

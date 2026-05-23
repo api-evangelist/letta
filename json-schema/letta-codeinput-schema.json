@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CodeInput",
+  "title": "CodeInput",
+  "properties": {
+    "code": {
+      "type": "string",
+      "title": "Code",
+      "description": "Source code to parse for JSON schema"
+    },
+    "source_type": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Source Type",
+      "description": "The source type of the code (python or typescript)",
+      "default": "python"
+    }
+  },
+  "type": "object",
+  "required": [
+    "code"
+  ]
+}

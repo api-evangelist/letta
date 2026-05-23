@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/UpdateAssistantMessage",
+  "title": "UpdateAssistantMessage",
+  "properties": {
+    "message_type": {
+      "type": "string",
+      "const": "assistant_message",
+      "title": "Message Type",
+      "default": "assistant_message"
+    },
+    "content": {
+      "anyOf": [
+        {
+          "items": {
+            "$ref": "#/components/schemas/LettaAssistantMessageContentUnion"
+          },
+          "type": "array"
+        },
+        {
+          "type": "string"
+        }
+      ],
+      "title": "Content",
+      "description": "The message content sent by the assistant (can be a string or an array of content parts)"
+    }
+  },
+  "type": "object",
+  "required": [
+    "content"
+  ]
+}

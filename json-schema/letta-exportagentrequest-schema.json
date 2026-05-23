@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ExportAgentRequest",
+  "title": "ExportAgentRequest",
+  "properties": {
+    "skills": {
+      "items": {
+        "$ref": "#/components/schemas/SkillSchema"
+      },
+      "type": "array",
+      "title": "Skills",
+      "description": "Skills to include in the export. Each skill must have a name and files (including SKILL.md)."
+    },
+    "conversation_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Conversation Id",
+      "description": "Conversation ID to export. If provided, uses messages from this conversation instead of the agent's global message history."
+    },
+    "scrub_messages": {
+      "type": "boolean",
+      "title": "Scrub Messages",
+      "description": "If True, excludes all messages from the export. Useful for sharing agent configs without conversation history.",
+      "default": false
+    }
+  },
+  "type": "object",
+  "description": "Request body for POST /export endpoint."
+}

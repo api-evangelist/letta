@@ -1,0 +1,108 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ApprovalCreate",
+  "title": "ApprovalCreate",
+  "properties": {
+    "type": {
+      "type": "string",
+      "const": "approval",
+      "title": "Type",
+      "description": "The message type to be created.",
+      "default": "approval"
+    },
+    "otid": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Otid",
+      "description": "The offline threading id (OTID). Set by the client to deduplicate requests. Used for idempotency in background streaming mode \u2014 each message in a request must have a unique OTID. Retries of the same request should reuse the same OTIDs."
+    },
+    "group_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Group Id",
+      "description": "The multi-agent group that the message was sent in"
+    },
+    "approvals": {
+      "anyOf": [
+        {
+          "items": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/ApprovalReturn"
+              },
+              {
+                "$ref": "#/components/schemas/letta__schemas__letta_message__ToolReturn"
+              }
+            ],
+            "discriminator": {
+              "propertyName": "type",
+              "mapping": {
+                "approval": "#/components/schemas/ApprovalReturn",
+                "tool": "#/components/schemas/letta__schemas__letta_message__ToolReturn"
+              }
+            }
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Approvals",
+      "description": "The list of approval responses"
+    },
+    "approve": {
+      "anyOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Approve",
+      "description": "Whether the tool has been approved",
+      "deprecated": true
+    },
+    "approval_request_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Approval Request Id",
+      "description": "The message ID of the approval request",
+      "deprecated": true
+    },
+    "reason": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Reason",
+      "description": "An optional explanation for the provided approval status",
+      "deprecated": true
+    }
+  },
+  "type": "object",
+  "description": "Input to approve or deny a tool call request"
+}

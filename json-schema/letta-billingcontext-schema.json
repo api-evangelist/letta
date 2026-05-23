@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/BillingContext",
+  "title": "BillingContext",
+  "properties": {
+    "plan_type": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Plan Type",
+      "description": "Subscription tier"
+    },
+    "cost_source": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Cost Source",
+      "description": "Cost source: 'quota' or 'credits'"
+    },
+    "customer_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Customer Id",
+      "description": "Customer ID for billing records"
+    }
+  },
+  "type": "object",
+  "description": "Billing context for LLM request cost tracking."
+}

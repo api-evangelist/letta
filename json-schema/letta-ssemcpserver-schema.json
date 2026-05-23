@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/SSEMCPServer",
+  "title": "SSEMCPServer",
+  "properties": {
+    "mcp_server_type": {
+      "type": "string",
+      "const": "sse",
+      "title": "Mcp Server Type",
+      "default": "sse"
+    },
+    "server_url": {
+      "type": "string",
+      "title": "Server Url",
+      "description": "The URL of the server"
+    },
+    "auth_header": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Auth Header",
+      "description": "The name of the authentication header (e.g., 'Authorization')"
+    },
+    "auth_token": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Auth Token",
+      "description": "The authentication token or API key value"
+    },
+    "custom_headers": {
+      "anyOf": [
+        {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Custom Headers",
+      "description": "Custom HTTP headers to include with requests"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^mcp_server-[a-fA-F0-9]{8}",
+      "title": "Id",
+      "description": "The human-friendly ID of the Mcp_server",
+      "examples": [
+        "mcp_server-123e4567-e89b-12d3-a456-426614174000"
+      ]
+    },
+    "server_name": {
+      "type": "string",
+      "title": "Server Name",
+      "description": "The name of the MCP server"
+    }
+  },
+  "additionalProperties": false,
+  "type": "object",
+  "required": [
+    "server_url",
+    "server_name"
+  ],
+  "description": "An SSE MCP server"
+}

@@ -1,0 +1,90 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ChatCompletionAssistantMessageParam",
+  "title": "ChatCompletionAssistantMessageParam",
+  "properties": {
+    "role": {
+      "type": "string",
+      "const": "assistant",
+      "title": "Role"
+    },
+    "audio": {
+      "anyOf": [
+        {
+          "$ref": "#/components/schemas/Audio"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "content": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "items": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ChatCompletionContentPartTextParam"
+              },
+              {
+                "$ref": "#/components/schemas/ChatCompletionContentPartRefusalParam"
+              }
+            ]
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Content"
+    },
+    "function_call": {
+      "anyOf": [
+        {
+          "$ref": "#/components/schemas/FunctionCall-Input"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "name": {
+      "type": "string",
+      "title": "Name"
+    },
+    "refusal": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Refusal"
+    },
+    "tool_calls": {
+      "items": {
+        "anyOf": [
+          {
+            "$ref": "#/components/schemas/ChatCompletionMessageFunctionToolCallParam"
+          },
+          {
+            "$ref": "#/components/schemas/ChatCompletionMessageCustomToolCallParam"
+          }
+        ]
+      },
+      "type": "array",
+      "title": "Tool Calls"
+    }
+  },
+  "type": "object",
+  "required": [
+    "role"
+  ],
+  "description": "Messages sent by the model in response to user messages."
+}

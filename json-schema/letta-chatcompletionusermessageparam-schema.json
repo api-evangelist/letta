@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ChatCompletionUserMessageParam",
+  "title": "ChatCompletionUserMessageParam",
+  "properties": {
+    "content": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "items": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ChatCompletionContentPartTextParam"
+              },
+              {
+                "$ref": "#/components/schemas/ChatCompletionContentPartImageParam"
+              },
+              {
+                "$ref": "#/components/schemas/ChatCompletionContentPartInputAudioParam"
+              },
+              {
+                "$ref": "#/components/schemas/File"
+              }
+            ]
+          },
+          "type": "array"
+        }
+      ],
+      "title": "Content"
+    },
+    "role": {
+      "type": "string",
+      "const": "user",
+      "title": "Role"
+    },
+    "name": {
+      "type": "string",
+      "title": "Name"
+    }
+  },
+  "type": "object",
+  "required": [
+    "content",
+    "role"
+  ],
+  "description": "Messages sent by an end user, containing prompts or additional context\ninformation."
+}

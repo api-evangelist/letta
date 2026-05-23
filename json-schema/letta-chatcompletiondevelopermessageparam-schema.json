@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ChatCompletionDeveloperMessageParam",
+  "title": "ChatCompletionDeveloperMessageParam",
+  "properties": {
+    "content": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "items": {
+            "$ref": "#/components/schemas/ChatCompletionContentPartTextParam"
+          },
+          "type": "array"
+        }
+      ],
+      "title": "Content"
+    },
+    "role": {
+      "type": "string",
+      "const": "developer",
+      "title": "Role"
+    },
+    "name": {
+      "type": "string",
+      "title": "Name"
+    }
+  },
+  "type": "object",
+  "required": [
+    "content",
+    "role"
+  ],
+  "description": "Developer-provided instructions that the model should follow, regardless of\nmessages sent by the user. With o1 models and newer, `developer` messages\nreplace the previous `system` messages."
+}

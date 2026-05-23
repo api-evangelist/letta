@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/MessageSearchResult",
+  "title": "MessageSearchResult",
+  "properties": {
+    "embedded_text": {
+      "type": "string",
+      "title": "Embedded Text",
+      "description": "The embedded content (LLM-friendly)"
+    },
+    "message": {
+      "$ref": "#/components/schemas/Message",
+      "description": "The raw message object"
+    },
+    "fts_rank": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Fts Rank",
+      "description": "Full-text search rank position if FTS was used"
+    },
+    "vector_rank": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Vector Rank",
+      "description": "Vector search rank position if vector search was used"
+    },
+    "rrf_score": {
+      "type": "number",
+      "title": "Rrf Score",
+      "description": "Reciprocal Rank Fusion combined score"
+    }
+  },
+  "type": "object",
+  "required": [
+    "embedded_text",
+    "message",
+    "rrf_score"
+  ],
+  "description": "Result from a message search operation with scoring details."
+}

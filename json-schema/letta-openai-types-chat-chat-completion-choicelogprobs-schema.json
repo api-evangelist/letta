@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/openai__types__chat__chat_completion__ChoiceLogprobs",
+  "title": "ChoiceLogprobs",
+  "properties": {
+    "content": {
+      "anyOf": [
+        {
+          "items": {
+            "$ref": "#/components/schemas/openai__types__chat__chat_completion_token_logprob__ChatCompletionTokenLogprob"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Content"
+    },
+    "refusal": {
+      "anyOf": [
+        {
+          "items": {
+            "$ref": "#/components/schemas/openai__types__chat__chat_completion_token_logprob__ChatCompletionTokenLogprob"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Refusal"
+    }
+  },
+  "additionalProperties": true,
+  "type": "object",
+  "description": "Log probability information for the choice."
+}

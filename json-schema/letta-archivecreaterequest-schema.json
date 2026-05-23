@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ArchiveCreateRequest",
+  "title": "ArchiveCreateRequest",
+  "properties": {
+    "name": {
+      "type": "string",
+      "title": "Name"
+    },
+    "embedding_config": {
+      "anyOf": [
+        {
+          "$ref": "#/components/schemas/EmbeddingConfig"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "Deprecated: Use `embedding` field instead. Embedding configuration for the archive",
+      "deprecated": true
+    },
+    "embedding": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Embedding",
+      "description": "Embedding model handle for the archive"
+    },
+    "description": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Description"
+    }
+  },
+  "type": "object",
+  "required": [
+    "name"
+  ],
+  "description": "Request model for creating an archive.\n\nIntentionally excludes vector_db_provider. These are derived internally (vector DB provider from env)."
+}

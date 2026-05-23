@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ChatCompletion",
+  "title": "ChatCompletion",
+  "properties": {
+    "id": {
+      "type": "string",
+      "title": "Id"
+    },
+    "choices": {
+      "items": {
+        "$ref": "#/components/schemas/Choice"
+      },
+      "type": "array",
+      "title": "Choices"
+    },
+    "created": {
+      "type": "integer",
+      "title": "Created"
+    },
+    "model": {
+      "type": "string",
+      "title": "Model"
+    },
+    "object": {
+      "type": "string",
+      "const": "chat.completion",
+      "title": "Object"
+    },
+    "service_tier": {
+      "anyOf": [
+        {
+          "type": "string",
+          "enum": [
+            "auto",
+            "default",
+            "flex",
+            "scale",
+            "priority"
+          ]
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Service Tier"
+    },
+    "system_fingerprint": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "System Fingerprint"
+    },
+    "usage": {
+      "anyOf": [
+        {
+          "$ref": "#/components/schemas/CompletionUsage"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "additionalProperties": true,
+  "type": "object",
+  "required": [
+    "id",
+    "choices",
+    "created",
+    "model",
+    "object"
+  ],
+  "description": "Represents a chat completion response returned by model, based on the provided input."
+}

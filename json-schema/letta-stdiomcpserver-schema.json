@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/StdioMCPServer",
+  "title": "StdioMCPServer",
+  "properties": {
+    "mcp_server_type": {
+      "type": "string",
+      "const": "stdio",
+      "title": "Mcp Server Type",
+      "default": "stdio"
+    },
+    "command": {
+      "type": "string",
+      "title": "Command",
+      "description": "The command to run (MCP 'local' client will run this command)"
+    },
+    "args": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array",
+      "title": "Args",
+      "description": "The arguments to pass to the command"
+    },
+    "env": {
+      "anyOf": [
+        {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Env",
+      "description": "Environment variables to set"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^mcp_server-[a-fA-F0-9]{8}",
+      "title": "Id",
+      "description": "The human-friendly ID of the Mcp_server",
+      "examples": [
+        "mcp_server-123e4567-e89b-12d3-a456-426614174000"
+      ]
+    },
+    "server_name": {
+      "type": "string",
+      "title": "Server Name",
+      "description": "The name of the MCP server"
+    }
+  },
+  "additionalProperties": false,
+  "type": "object",
+  "required": [
+    "command",
+    "args",
+    "server_name"
+  ],
+  "description": "A Stdio MCP server"
+}

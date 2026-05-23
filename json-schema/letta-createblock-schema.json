@@ -1,0 +1,178 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CreateBlock",
+  "title": "CreateBlock",
+  "properties": {
+    "value": {
+      "type": "string",
+      "title": "Value",
+      "description": "Value of the block."
+    },
+    "limit": {
+      "type": "integer",
+      "title": "Limit",
+      "description": "Character limit of the block.",
+      "default": 100000
+    },
+    "project_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Project Id",
+      "description": "The associated project id."
+    },
+    "template_name": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Template Name",
+      "description": "Name of the block if it is a template."
+    },
+    "is_template": {
+      "type": "boolean",
+      "title": "Is Template",
+      "default": false
+    },
+    "template_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Template Id",
+      "description": "The id of the template."
+    },
+    "base_template_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Base Template Id",
+      "description": "The base template id of the block."
+    },
+    "deployment_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Deployment Id",
+      "description": "The id of the deployment."
+    },
+    "entity_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Entity Id",
+      "description": "The id of the entity within the template."
+    },
+    "preserve_on_migration": {
+      "anyOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Preserve On Migration",
+      "description": "Preserve the block on template migration.",
+      "default": false
+    },
+    "label": {
+      "type": "string",
+      "title": "Label",
+      "description": "Label of the block."
+    },
+    "read_only": {
+      "type": "boolean",
+      "title": "Read Only",
+      "description": "Whether the agent has read-only access to the block.",
+      "default": false
+    },
+    "description": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Description",
+      "description": "Description of the block."
+    },
+    "metadata": {
+      "anyOf": [
+        {
+          "additionalProperties": true,
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Metadata",
+      "description": "Metadata of the block.",
+      "default": {}
+    },
+    "hidden": {
+      "anyOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Hidden",
+      "description": "If set to True, the block will be hidden."
+    },
+    "tags": {
+      "anyOf": [
+        {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Tags",
+      "description": "The tags to associate with the block."
+    }
+  },
+  "type": "object",
+  "required": [
+    "value",
+    "label"
+  ],
+  "description": "Create a block"
+}

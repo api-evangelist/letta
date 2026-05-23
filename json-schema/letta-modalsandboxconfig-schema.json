@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ModalSandboxConfig",
+  "title": "ModalSandboxConfig",
+  "properties": {
+    "timeout": {
+      "type": "integer",
+      "title": "Timeout",
+      "description": "Time limit for the sandbox (in seconds).",
+      "default": 60
+    },
+    "pip_requirements": {
+      "anyOf": [
+        {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Pip Requirements",
+      "description": "A list of pip packages to install in the Modal sandbox"
+    },
+    "npm_requirements": {
+      "anyOf": [
+        {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Npm Requirements",
+      "description": "A list of npm packages to install in the Modal sandbox"
+    },
+    "language": {
+      "type": "string",
+      "enum": [
+        "python",
+        "typescript"
+      ],
+      "title": "Language",
+      "default": "python"
+    }
+  },
+  "type": "object"
+}

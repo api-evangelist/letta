@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ImageContent",
+  "title": "ImageContent",
+  "properties": {
+    "type": {
+      "type": "string",
+      "const": "image",
+      "title": "Type",
+      "description": "The type of the message.",
+      "default": "image"
+    },
+    "source": {
+      "oneOf": [
+        {
+          "$ref": "#/components/schemas/UrlImage"
+        },
+        {
+          "$ref": "#/components/schemas/Base64Image"
+        },
+        {
+          "$ref": "#/components/schemas/LettaImage"
+        }
+      ],
+      "title": "Source",
+      "description": "The source of the image.",
+      "discriminator": {
+        "propertyName": "type",
+        "mapping": {
+          "base64": "#/components/schemas/Base64Image",
+          "letta": "#/components/schemas/LettaImage",
+          "url": "#/components/schemas/UrlImage"
+        }
+      }
+    }
+  },
+  "type": "object",
+  "required": [
+    "source"
+  ]
+}
