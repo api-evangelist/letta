@@ -1,0 +1,1305 @@
+openapi: 3.1.0
+info:
+  title: Letta Admin Pipelines API
+  version: 1.0.0
+  description: REST API for Letta, the stateful agents platform. Manage agents, memory blocks, archival passages, sources, custom tools, MCP servers, multi-agent groups, runs, and streaming responses. Available as Letta Cloud (managed) at https://api.letta.com/v1 and as the self-hosted open-source server (Apache-2.0) typically run at http://localhost:8283.
+  contact:
+    name: Letta
+    url: https://www.letta.com/
+    email: support@letta.com
+  license:
+    name: Apache-2.0
+    url: https://github.com/letta-ai/letta/blob/main/LICENSE
+  x-logo:
+    url: https://www.letta.com/favicon.ico
+servers:
+- url: https://api.letta.com
+  description: Letta Cloud (managed)
+- url: https://app.letta.com
+  description: Letta Cloud (app)
+- url: http://localhost:8283
+  description: Self-hosted Letta server
+security:
+- bearerAuth: []
+tags:
+- name: Pipelines
+  description: Composable agent pipelines.
+paths:
+  /v1/pipelines:
+    post:
+      description: Create a new pipeline (producer + feed + optionally subscribers)
+      summary: Create Pipeline
+      tags:
+      - Pipelines
+      parameters: []
+      operationId: pipelines.createPipeline
+      requestBody:
+        description: Body
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                project_id:
+                  type: string
+                integration_type:
+                  type: string
+                  enum:
+                  - slack
+                  - discord
+                  - microsoftTeams
+                  - custom_webhook
+                producer_config:
+                  discriminator:
+                    propertyName: type
+                  oneOf:
+                  - type: object
+                    properties:
+                      type:
+                        type: string
+                        enum:
+                        - slack_channel_reader
+                      data:
+                        type: object
+                        properties:
+                          channels:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                channel_id:
+                                  type: string
+                                channel_name:
+                                  type: string
+                                last_message_ts:
+                                  type: string
+                              required:
+                              - channel_id
+                            minItems: 1
+                            maxItems: 100
+                          max_messages_per_poll:
+                            type: number
+                        required:
+                        - channels
+                    required:
+                    - type
+                    - data
+                  - type: object
+                    properties:
+                      type:
+                        type: string
+                        enum:
+                        - custom_webhook
+                      data:
+                        type: object
+                        properties: {}
+                    required:
+                    - type
+                    - data
+                subscriber_agent_ids:
+                  type: array
+                  items:
+                    type: string
+                subscriber_cron_schedule:
+                  type: string
+                prompt_template:
+                  type: string
+              required:
+              - name
+              - project_id
+              - integration_type
+              - producer_config
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pipeline:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      name:
+                        type: string
+                      organization_id:
+                        type: string
+                      project_id:
+                        type: string
+                      integration_id:
+                        type: string
+                        nullable: true
+                      integration_type:
+                        type: string
+                        enum:
+                        - slack
+                        - discord
+                        - microsoftTeams
+                        - custom_webhook
+                      feed_id:
+                        type: string
+                      config:
+                        discriminator:
+                          propertyName: type
+                        oneOf:
+                        - type: object
+                          properties:
+                            type:
+                              type: string
+                              enum:
+                              - slack_channel_reader
+                            data:
+                              type: object
+                              properties:
+                                channels:
+                                  type: array
+                                  items:
+                                    type: object
+                                    properties:
+                                      channel_id:
+                                        type: string
+                                      channel_name:
+                                        type: string
+                                      last_message_ts:
+                                        type: string
+                                    required:
+                                    - channel_id
+                                  minItems: 1
+                                  maxItems: 100
+                                max_messages_per_poll:
+                                  type: number
+                              required:
+                              - channels
+                          required:
+                          - type
+                          - data
+                        - type: object
+                          properties:
+                            type:
+                              type: string
+                              enum:
+                              - custom_webhook
+                            data:
+                              type: object
+                              properties: {}
+                          required:
+                          - type
+                          - data
+                      next_scheduled_at:
+                        type: string
+                        format: date-time
+                        nullable: true
+                      last_run_at:
+                        type: string
+                        format: date-time
+                        nullable: true
+                      disabled_at:
+                        type: string
+                        format: date-time
+                        nullable: true
+                      created_at:
+                        type: string
+                        format: date-time
+                      updated_at:
+                        type: string
+                        format: date-time
+                      integration_display_name:
+                        type: string
+                        nullable: true
+                      feed_name:
+                        type: string
+                      subscriber_count:
+                        type: number
+                      error_count:
+                        type: number
+                      project_name:
+                        type: string
+                      project_slug:
+                        type: string
+                    required:
+                    - id
+                    - name
+                    - organization_id
+                    - project_id
+                    - integration_id
+                    - integration_type
+                    - feed_id
+                    - config
+                    - next_scheduled_at
+                    - last_run_at
+                    - disabled_at
+                    - created_at
+                    - updated_at
+                required:
+                - pipeline
+        '400':
+          description: '400'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errorCode:
+                    type: string
+                    enum:
+                    - integrationNotFound
+                    - invalidProducerConfig
+                    - agentNotFound
+                required:
+                - message
+                - errorCode
+    get:
+      description: List all pipelines for the organization with optional filtering
+      summary: List Pipelines
+      tags:
+      - Pipelines
+      parameters:
+      - name: search
+        in: query
+        schema:
+          type: string
+      - name: integration_type
+        in: query
+        schema:
+          type: string
+      - name: integration_id
+        in: query
+        schema:
+          type: string
+      - name: offset
+        in: query
+        schema:
+          oneOf:
+          - type: string
+          - type: number
+      - name: limit
+        in: query
+        schema:
+          type: string
+      operationId: pipelines.listPipelines
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pipelines:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        name:
+                          type: string
+                        organization_id:
+                          type: string
+                        project_id:
+                          type: string
+                        integration_id:
+                          type: string
+                          nullable: true
+                        integration_type:
+                          type: string
+                          enum:
+                          - slack
+                          - discord
+                          - microsoftTeams
+                          - custom_webhook
+                        feed_id:
+                          type: string
+                        config:
+                          discriminator:
+                            propertyName: type
+                          oneOf:
+                          - type: object
+                            properties:
+                              type:
+                                type: string
+                                enum:
+                                - slack_channel_reader
+                              data:
+                                type: object
+                                properties:
+                                  channels:
+                                    type: array
+                                    items:
+                                      type: object
+                                      properties:
+                                        channel_id:
+                                          type: string
+                                        channel_name:
+                                          type: string
+                                        last_message_ts:
+                                          type: string
+                                      required:
+                                      - channel_id
+                                    minItems: 1
+                                    maxItems: 100
+                                  max_messages_per_poll:
+                                    type: number
+                                required:
+                                - channels
+                            required:
+                            - type
+                            - data
+                          - type: object
+                            properties:
+                              type:
+                                type: string
+                                enum:
+                                - custom_webhook
+                              data:
+                                type: object
+                                properties: {}
+                            required:
+                            - type
+                            - data
+                        next_scheduled_at:
+                          type: string
+                          format: date-time
+                          nullable: true
+                        last_run_at:
+                          type: string
+                          format: date-time
+                          nullable: true
+                        disabled_at:
+                          type: string
+                          format: date-time
+                          nullable: true
+                        created_at:
+                          type: string
+                          format: date-time
+                        updated_at:
+                          type: string
+                          format: date-time
+                        integration_display_name:
+                          type: string
+                          nullable: true
+                        feed_name:
+                          type: string
+                        subscriber_count:
+                          type: number
+                        error_count:
+                          type: number
+                        project_name:
+                          type: string
+                        project_slug:
+                          type: string
+                      required:
+                      - id
+                      - name
+                      - organization_id
+                      - project_id
+                      - integration_id
+                      - integration_type
+                      - feed_id
+                      - config
+                      - next_scheduled_at
+                      - last_run_at
+                      - disabled_at
+                      - created_at
+                      - updated_at
+                  hasNextPage:
+                    type: boolean
+                required:
+                - pipelines
+                - hasNextPage
+  /v1/pipelines/count:
+    get:
+      description: Get the total count of pipelines, optionally filtered by project and search
+      summary: Count Pipelines
+      tags:
+      - Pipelines
+      parameters:
+      - name: search
+        in: query
+        schema:
+          type: string
+      - name: integration_type
+        in: query
+        schema:
+          type: string
+      - name: integration_id
+        in: query
+        schema:
+          type: string
+      operationId: pipelines.countPipelines
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: number
+                required:
+                - count
+  /v1/pipelines/{pipeline_id}:
+    get:
+      description: Get a single pipeline with details
+      summary: Get Pipeline
+      tags:
+      - Pipelines
+      parameters:
+      - name: pipeline_id
+        in: path
+        required: true
+        schema:
+          type: string
+      operationId: pipelines.getPipeline
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pipeline:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      name:
+                        type: string
+                      organization_id:
+                        type: string
+                      project_id:
+                        type: string
+                      integration_id:
+                        type: string
+                        nullable: true
+                      integration_type:
+                        type: string
+                        enum:
+                        - slack
+                        - discord
+                        - microsoftTeams
+                        - custom_webhook
+                      feed_id:
+                        type: string
+                      config:
+                        discriminator:
+                          propertyName: type
+                        oneOf:
+                        - type: object
+                          properties:
+                            type:
+                              type: string
+                              enum:
+                              - slack_channel_reader
+                            data:
+                              type: object
+                              properties:
+                                channels:
+                                  type: array
+                                  items:
+                                    type: object
+                                    properties:
+                                      channel_id:
+                                        type: string
+                                      channel_name:
+                                        type: string
+                                      last_message_ts:
+                                        type: string
+                                    required:
+                                    - channel_id
+                                  minItems: 1
+                                  maxItems: 100
+                                max_messages_per_poll:
+                                  type: number
+                              required:
+                              - channels
+                          required:
+                          - type
+                          - data
+                        - type: object
+                          properties:
+                            type:
+                              type: string
+                              enum:
+                              - custom_webhook
+                            data:
+                              type: object
+                              properties: {}
+                          required:
+                          - type
+                          - data
+                      next_scheduled_at:
+                        type: string
+                        format: date-time
+                        nullable: true
+                      last_run_at:
+                        type: string
+                        format: date-time
+                        nullable: true
+                      disabled_at:
+                        type: string
+                        format: date-time
+                        nullable: true
+                      created_at:
+                        type: string
+                        format: date-time
+                      updated_at:
+                        type: string
+                        format: date-time
+                      integration_display_name:
+                        type: string
+                        nullable: true
+                      feed_name:
+                        type: string
+                      subscriber_count:
+                        type: number
+                      error_count:
+                        type: number
+                      project_name:
+                        type: string
+                      project_slug:
+                        type: string
+                    required:
+                    - id
+                    - name
+                    - organization_id
+                    - project_id
+                    - integration_id
+                    - integration_type
+                    - feed_id
+                    - config
+                    - next_scheduled_at
+                    - last_run_at
+                    - disabled_at
+                    - created_at
+                    - updated_at
+                required:
+                - pipeline
+        '404':
+          description: '404'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errorCode:
+                    type: string
+                    enum:
+                    - pipelineNotFound
+                required:
+                - message
+                - errorCode
+    patch:
+      description: Update pipeline name or disable/enable it
+      summary: Update Pipeline
+      tags:
+      - Pipelines
+      parameters:
+      - name: pipeline_id
+        in: path
+        required: true
+        schema:
+          type: string
+      operationId: pipelines.updatePipeline
+      requestBody:
+        description: Body
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                disabled:
+                  type: boolean
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pipeline:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      name:
+                        type: string
+                      organization_id:
+                        type: string
+                      project_id:
+                        type: string
+                      integration_id:
+                        type: string
+                        nullable: true
+                      integration_type:
+                        type: string
+                        enum:
+                        - slack
+                        - discord
+                        - microsoftTeams
+                        - custom_webhook
+                      feed_id:
+                        type: string
+                      config:
+                        discriminator:
+                          propertyName: type
+                        oneOf:
+                        - type: object
+                          properties:
+                            type:
+                              type: string
+                              enum:
+                              - slack_channel_reader
+                            data:
+                              type: object
+                              properties:
+                                channels:
+                                  type: array
+                                  items:
+                                    type: object
+                                    properties:
+                                      channel_id:
+                                        type: string
+                                      channel_name:
+                                        type: string
+                                      last_message_ts:
+                                        type: string
+                                    required:
+                                    - channel_id
+                                  minItems: 1
+                                  maxItems: 100
+                                max_messages_per_poll:
+                                  type: number
+                              required:
+                              - channels
+                          required:
+                          - type
+                          - data
+                        - type: object
+                          properties:
+                            type:
+                              type: string
+                              enum:
+                              - custom_webhook
+                            data:
+                              type: object
+                              properties: {}
+                          required:
+                          - type
+                          - data
+                      next_scheduled_at:
+                        type: string
+                        format: date-time
+                        nullable: true
+                      last_run_at:
+                        type: string
+                        format: date-time
+                        nullable: true
+                      disabled_at:
+                        type: string
+                        format: date-time
+                        nullable: true
+                      created_at:
+                        type: string
+                        format: date-time
+                      updated_at:
+                        type: string
+                        format: date-time
+                      integration_display_name:
+                        type: string
+                        nullable: true
+                      feed_name:
+                        type: string
+                      subscriber_count:
+                        type: number
+                      error_count:
+                        type: number
+                      project_name:
+                        type: string
+                      project_slug:
+                        type: string
+                    required:
+                    - id
+                    - name
+                    - organization_id
+                    - project_id
+                    - integration_id
+                    - integration_type
+                    - feed_id
+                    - config
+                    - next_scheduled_at
+                    - last_run_at
+                    - disabled_at
+                    - created_at
+                    - updated_at
+                required:
+                - pipeline
+        '404':
+          description: '404'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errorCode:
+                    type: string
+                    enum:
+                    - pipelineNotFound
+                required:
+                - message
+    delete:
+      description: Soft delete a pipeline and cascade to feed + subscriptions
+      summary: Delete Pipeline
+      tags:
+      - Pipelines
+      parameters:
+      - name: pipeline_id
+        in: path
+        required: true
+        schema:
+          type: string
+      operationId: pipelines.deletePipeline
+      requestBody:
+        description: Body
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                required:
+                - success
+        '404':
+          description: '404'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errorCode:
+                    type: string
+                    enum:
+                    - pipelineNotFound
+                required:
+                - message
+  /v1/pipelines/{pipeline_id}/config:
+    patch:
+      description: Update the producer configuration for a pipeline (e.g., Slack channels)
+      summary: Update Pipeline Producer Config
+      tags:
+      - Pipelines
+      parameters:
+      - name: pipeline_id
+        in: path
+        required: true
+        schema:
+          type: string
+      operationId: pipelines.updatePipelineProducerConfig
+      requestBody:
+        description: Body
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                producer_config:
+                  discriminator:
+                    propertyName: type
+                  oneOf:
+                  - type: object
+                    properties:
+                      type:
+                        type: string
+                        enum:
+                        - slack_channel_reader
+                      data:
+                        type: object
+                        properties:
+                          channels:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                channel_id:
+                                  type: string
+                                channel_name:
+                                  type: string
+                                last_message_ts:
+                                  type: string
+                              required:
+                              - channel_id
+                            minItems: 1
+                            maxItems: 100
+                          max_messages_per_poll:
+                            type: number
+                        required:
+                        - channels
+                    required:
+                    - type
+                    - data
+                  - type: object
+                    properties:
+                      type:
+                        type: string
+                        enum:
+                        - custom_webhook
+                      data:
+                        type: object
+                        properties: {}
+                    required:
+                    - type
+                    - data
+              required:
+              - producer_config
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pipeline:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      name:
+                        type: string
+                      organization_id:
+                        type: string
+                      project_id:
+                        type: string
+                      integration_id:
+                        type: string
+                        nullable: true
+                      integration_type:
+                        type: string
+                        enum:
+                        - slack
+                        - discord
+                        - microsoftTeams
+                        - custom_webhook
+                      feed_id:
+                        type: string
+                      config:
+                        discriminator:
+                          propertyName: type
+                        oneOf:
+                        - type: object
+                          properties:
+                            type:
+                              type: string
+                              enum:
+                              - slack_channel_reader
+                            data:
+                              type: object
+                              properties:
+                                channels:
+                                  type: array
+                                  items:
+                                    type: object
+                                    properties:
+                                      channel_id:
+                                        type: string
+                                      channel_name:
+                                        type: string
+                                      last_message_ts:
+                                        type: string
+                                    required:
+                                    - channel_id
+                                  minItems: 1
+                                  maxItems: 100
+                                max_messages_per_poll:
+                                  type: number
+                              required:
+                              - channels
+                          required:
+                          - type
+                          - data
+                        - type: object
+                          properties:
+                            type:
+                              type: string
+                              enum:
+                              - custom_webhook
+                            data:
+                              type: object
+                              properties: {}
+                          required:
+                          - type
+                          - data
+                      next_scheduled_at:
+                        type: string
+                        format: date-time
+                        nullable: true
+                      last_run_at:
+                        type: string
+                        format: date-time
+                        nullable: true
+                      disabled_at:
+                        type: string
+                        format: date-time
+                        nullable: true
+                      created_at:
+                        type: string
+                        format: date-time
+                      updated_at:
+                        type: string
+                        format: date-time
+                      integration_display_name:
+                        type: string
+                        nullable: true
+                      feed_name:
+                        type: string
+                      subscriber_count:
+                        type: number
+                      error_count:
+                        type: number
+                      project_name:
+                        type: string
+                      project_slug:
+                        type: string
+                    required:
+                    - id
+                    - name
+                    - organization_id
+                    - project_id
+                    - integration_id
+                    - integration_type
+                    - feed_id
+                    - config
+                    - next_scheduled_at
+                    - last_run_at
+                    - disabled_at
+                    - created_at
+                    - updated_at
+                required:
+                - pipeline
+        '400':
+          description: '400'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errorCode:
+                    type: string
+                    enum:
+                    - invalidProducerConfig
+                    - configTypeMismatch
+                required:
+                - message
+                - errorCode
+        '404':
+          description: '404'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errorCode:
+                    type: string
+                    enum:
+                    - pipelineNotFound
+                required:
+                - message
+                - errorCode
+  /v1/pipelines/preview:
+    post:
+      description: Fetch sample messages from integration to preview what agents will receive
+      summary: Preview Pipeline
+      tags:
+      - Pipelines
+      parameters: []
+      operationId: pipelines.previewPipeline
+      requestBody:
+        description: Body
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                integration_type:
+                  type: string
+                  enum:
+                  - slack
+                  - discord
+                  - microsoftTeams
+                  - custom_webhook
+                integration_id:
+                  type: string
+                producer_config:
+                  discriminator:
+                    propertyName: type
+                  oneOf:
+                  - type: object
+                    properties:
+                      type:
+                        type: string
+                        enum:
+                        - slack_channel_reader
+                      data:
+                        type: object
+                        properties:
+                          channels:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                channel_id:
+                                  type: string
+                                channel_name:
+                                  type: string
+                                last_message_ts:
+                                  type: string
+                              required:
+                              - channel_id
+                            minItems: 1
+                            maxItems: 100
+                          max_messages_per_poll:
+                            type: number
+                        required:
+                        - channels
+                    required:
+                    - type
+                    - data
+                  - type: object
+                    properties:
+                      type:
+                        type: string
+                        enum:
+                        - custom_webhook
+                      data:
+                        type: object
+                        properties: {}
+                    required:
+                    - type
+                    - data
+              required:
+              - integration_type
+              - integration_id
+              - producer_config
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  sampleMessages:
+                    type: array
+                    items:
+                      type: string
+                  messageCount:
+                    type: number
+                required:
+                - sampleMessages
+                - messageCount
+        '400':
+          description: '400'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errorCode:
+                    type: string
+                    enum:
+                    - integrationNotFound
+                    - invalidProducerConfig
+                    - tokenExpired
+                required:
+                - message
+  /v1/pipelines/{pipeline_id}/sync:
+    post:
+      description: Manually trigger a pipeline sync to fetch new messages immediately
+      summary: Sync Pipeline
+      tags:
+      - Pipelines
+      parameters:
+      - name: pipeline_id
+        in: path
+        required: true
+        schema:
+          type: string
+      operationId: pipelines.syncPipeline
+      requestBody:
+        description: Body
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  messages_ingested:
+                    type: number
+                  workflow_id:
+                    type: string
+                required:
+                - success
+                - messages_ingested
+                - workflow_id
+        '400':
+          description: '400'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errorCode:
+                    type: string
+                    enum:
+                    - pipelineDisabled
+                    - pipelineNotSyncable
+                    - syncFailed
+                required:
+                - message
+                - errorCode
+        '404':
+          description: '404'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errorCode:
+                    type: string
+                    enum:
+                    - pipelineNotFound
+                required:
+                - message
+                - errorCode
+  /v1/pipelines/{pipeline_id}/sync/history:
+    get:
+      description: List the sync run history for a pipeline from Temporal with error details
+      summary: List Pipeline Sync History
+      tags:
+      - Pipelines
+      parameters:
+      - name: pipeline_id
+        in: path
+        required: true
+        schema:
+          type: string
+      operationId: pipelines.listPipelineSyncHistory
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  runs:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        workflow_id:
+                          type: string
+                        status:
+                          type: string
+                          enum:
+                          - running
+                          - completed
+                          - failed
+                          - canceled
+                          - timed_out
+                        started_at:
+                          type: string
+                          format: date-time
+                        completed_at:
+                          type: string
+                          format: date-time
+                          nullable: true
+                        error:
+                          type: object
+                          properties:
+                            error_type:
+                              type: string
+                            error_message:
+                              type: string
+                          required:
+                          - error_type
+                          - error_message
+                          nullable: true
+                      required:
+                      - workflow_id
+                      - status
+                      - started_at
+                      - completed_at
+                      - error
+                  next_page_token:
+                    type: string
+                    nullable: true
+                required:
+                - runs
+                - next_page_token
+        '404':
+          description: '404'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errorCode:
+                    type: string
+                    enum:
+                    - pipelineNotFound
+                required:
+                - message
+                - errorCode
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer

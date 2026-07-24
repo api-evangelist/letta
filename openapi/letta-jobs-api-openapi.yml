@@ -1,0 +1,504 @@
+openapi: 3.1.0
+info:
+  title: Letta Admin Jobs API
+  version: 1.0.0
+  description: REST API for Letta, the stateful agents platform. Manage agents, memory blocks, archival passages, sources, custom tools, MCP servers, multi-agent groups, runs, and streaming responses. Available as Letta Cloud (managed) at https://api.letta.com/v1 and as the self-hosted open-source server (Apache-2.0) typically run at http://localhost:8283.
+  contact:
+    name: Letta
+    url: https://www.letta.com/
+    email: support@letta.com
+  license:
+    name: Apache-2.0
+    url: https://github.com/letta-ai/letta/blob/main/LICENSE
+  x-logo:
+    url: https://www.letta.com/favicon.ico
+servers:
+- url: https://api.letta.com
+  description: Letta Cloud (managed)
+- url: https://app.letta.com
+  description: Letta Cloud (app)
+- url: http://localhost:8283
+  description: Self-hosted Letta server
+security:
+- bearerAuth: []
+tags:
+- name: Jobs
+  description: Manage long-running background jobs (e.g., file ingestion).
+paths:
+  /v1/jobs/:
+    get:
+      tags:
+      - Jobs
+      summary: List Jobs
+      description: List all jobs.
+      operationId: list_jobs
+      parameters:
+      - name: source_id
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: 'Deprecated: Use `folder_id` parameter instead. Only list jobs associated with the source.'
+          deprecated: true
+          title: Source Id
+        description: 'Deprecated: Use `folder_id` parameter instead. Only list jobs associated with the source.'
+        deprecated: true
+      - name: before
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Job ID cursor for pagination. Returns jobs that come before this job ID in the specified sort order
+          title: Before
+        description: Job ID cursor for pagination. Returns jobs that come before this job ID in the specified sort order
+      - name: after
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Job ID cursor for pagination. Returns jobs that come after this job ID in the specified sort order
+          title: After
+        description: Job ID cursor for pagination. Returns jobs that come after this job ID in the specified sort order
+      - name: limit
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          description: Maximum number of jobs to return
+          default: 100
+          title: Limit
+        description: Maximum number of jobs to return
+      - name: order
+        in: query
+        required: false
+        schema:
+          enum:
+          - asc
+          - desc
+          type: string
+          description: Sort order for jobs by creation time. 'asc' for oldest first, 'desc' for newest first
+          default: desc
+          title: Order
+        description: Sort order for jobs by creation time. 'asc' for oldest first, 'desc' for newest first
+      - name: order_by
+        in: query
+        required: false
+        schema:
+          const: created_at
+          type: string
+          description: Field to sort by
+          default: created_at
+          title: Order By
+        description: Field to sort by
+      - name: active
+        in: query
+        required: false
+        schema:
+          type: boolean
+          description: Filter for active jobs.
+          default: false
+          title: Active
+        description: Filter for active jobs.
+      - name: ascending
+        in: query
+        required: false
+        schema:
+          type: boolean
+          description: Whether to sort jobs oldest to newest (True, default) or newest to oldest (False). Deprecated in favor of order field.
+          deprecated: true
+          default: true
+          title: Ascending
+        description: Whether to sort jobs oldest to newest (True, default) or newest to oldest (False). Deprecated in favor of order field.
+        deprecated: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Job'
+                title: Response List Jobs
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/jobs/active:
+    get:
+      tags:
+      - Jobs
+      summary: List Active Jobs
+      description: List all active jobs.
+      operationId: list_active_jobs
+      deprecated: true
+      parameters:
+      - name: source_id
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: 'Deprecated: Use `folder_id` parameter instead. Only list jobs associated with the source.'
+          deprecated: true
+          title: Source Id
+        description: 'Deprecated: Use `folder_id` parameter instead. Only list jobs associated with the source.'
+        deprecated: true
+      - name: before
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Cursor for pagination
+          title: Before
+        description: Cursor for pagination
+      - name: after
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Cursor for pagination
+          title: After
+        description: Cursor for pagination
+      - name: limit
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          description: Limit for pagination
+          default: 50
+          title: Limit
+        description: Limit for pagination
+      - name: ascending
+        in: query
+        required: false
+        schema:
+          type: boolean
+          description: Whether to sort jobs oldest to newest (True, default) or newest to oldest (False)
+          default: true
+          title: Ascending
+        description: Whether to sort jobs oldest to newest (True, default) or newest to oldest (False)
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Job'
+                title: Response List Active Jobs
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/jobs/{job_id}:
+    get:
+      tags:
+      - Jobs
+      summary: Retrieve Job
+      description: Get the status of a job.
+      operationId: retrieve_job
+      parameters:
+      - name: job_id
+        in: path
+        required: true
+        schema:
+          type: string
+          minLength: 40
+          maxLength: 40
+          pattern: ^job-[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$
+          description: The ID of the job in the format 'job-<uuid4>'
+          examples:
+          - job-123e4567-e89b-42d3-8456-426614174000
+          title: Job Id
+        description: The ID of the job in the format 'job-<uuid4>'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Job'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - Jobs
+      summary: Delete Job
+      description: Delete a job by its job_id.
+      operationId: delete_job
+      parameters:
+      - name: job_id
+        in: path
+        required: true
+        schema:
+          type: string
+          minLength: 40
+          maxLength: 40
+          pattern: ^job-[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$
+          description: The ID of the job in the format 'job-<uuid4>'
+          examples:
+          - job-123e4567-e89b-42d3-8456-426614174000
+          title: Job Id
+        description: The ID of the job in the format 'job-<uuid4>'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Job'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/jobs/{job_id}/cancel:
+    patch:
+      tags:
+      - Jobs
+      summary: Cancel Job
+      description: 'Cancel a job by its job_id.
+
+
+        This endpoint marks a job as cancelled, which will cause any associated
+
+        agent execution to terminate as soon as possible.'
+      operationId: cancel_job
+      parameters:
+      - name: job_id
+        in: path
+        required: true
+        schema:
+          type: string
+          minLength: 40
+          maxLength: 40
+          pattern: ^job-[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$
+          description: The ID of the job in the format 'job-<uuid4>'
+          examples:
+          - job-123e4567-e89b-42d3-8456-426614174000
+          title: Job Id
+        description: The ID of the job in the format 'job-<uuid4>'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Job'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    Job:
+      properties:
+        created_by_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Created By Id
+          description: The id of the user that made this object.
+        last_updated_by_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Last Updated By Id
+          description: The id of the user that made this object.
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+          description: The unix timestamp of when the job was created.
+        updated_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated At
+          description: The timestamp when the object was last updated.
+        status:
+          $ref: '#/components/schemas/JobStatus'
+          description: The status of the job.
+          default: created
+        completed_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Completed At
+          description: The unix timestamp of when the job was completed.
+        stop_reason:
+          anyOf:
+          - $ref: '#/components/schemas/StopReasonType'
+          - type: 'null'
+          description: The reason why the job was stopped.
+        metadata:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Metadata
+          description: The metadata of the job.
+        job_type:
+          $ref: '#/components/schemas/JobType'
+          description: The type of the job.
+          default: job
+        background:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Background
+          description: Whether the job was created in background mode.
+        agent_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Agent Id
+          description: The agent associated with this job/run.
+        callback_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Callback Url
+          description: If set, POST to this URL when the job completes.
+        callback_sent_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Callback Sent At
+          description: Timestamp when the callback was last attempted.
+        callback_status_code:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Callback Status Code
+          description: HTTP status code returned by the callback endpoint.
+        callback_error:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Callback Error
+          description: Optional error message from attempting to POST the callback endpoint.
+        ttft_ns:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Ttft Ns
+          description: Time to first token for a run in nanoseconds
+        total_duration_ns:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Total Duration Ns
+          description: Total run duration in nanoseconds
+        id:
+          type: string
+          pattern: ^(job|run)-[a-fA-F0-9]{8}
+          title: Id
+          description: The human-friendly ID of the Job
+          examples:
+          - job-123e4567-e89b-12d3-a456-426614174000
+      additionalProperties: false
+      type: object
+      title: Job
+      description: Representation of offline jobs, used for tracking status of data loading tasks (involving parsing and embedding files).
+    JobType:
+      type: string
+      enum:
+      - job
+      - run
+      - batch
+      title: JobType
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    JobStatus:
+      type: string
+      enum:
+      - created
+      - running
+      - completed
+      - failed
+      - pending
+      - cancelled
+      - expired
+      title: JobStatus
+      description: Status of the job.
+    StopReasonType:
+      type: string
+      enum:
+      - end_turn
+      - error
+      - llm_api_error
+      - invalid_llm_response
+      - invalid_tool_call
+      - max_steps
+      - max_tokens_exceeded
+      - no_tool_call
+      - tool_rule
+      - cancelled
+      - insufficient_credits
+      - requires_approval
+      - context_window_overflow_in_system_prompt
+      title: StopReasonType
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer

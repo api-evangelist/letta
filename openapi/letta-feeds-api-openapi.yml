@@ -1,0 +1,1019 @@
+openapi: 3.1.0
+info:
+  title: Letta Admin Feeds API
+  version: 1.0.0
+  description: REST API for Letta, the stateful agents platform. Manage agents, memory blocks, archival passages, sources, custom tools, MCP servers, multi-agent groups, runs, and streaming responses. Available as Letta Cloud (managed) at https://api.letta.com/v1 and as the self-hosted open-source server (Apache-2.0) typically run at http://localhost:8283.
+  contact:
+    name: Letta
+    url: https://www.letta.com/
+    email: support@letta.com
+  license:
+    name: Apache-2.0
+    url: https://github.com/letta-ai/letta/blob/main/LICENSE
+  x-logo:
+    url: https://www.letta.com/favicon.ico
+servers:
+- url: https://api.letta.com
+  description: Letta Cloud (managed)
+- url: https://app.letta.com
+  description: Letta Cloud (app)
+- url: http://localhost:8283
+  description: Self-hosted Letta server
+security:
+- bearerAuth: []
+tags:
+- name: Feeds
+  description: Subscribed feeds that drive agents.
+paths:
+  /v1/feeds:
+    post:
+      description: Create a new feed in a project
+      summary: Create Feed
+      tags:
+      - Feeds
+      parameters: []
+      operationId: feeds.createFeed
+      requestBody:
+        description: Body
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                project_id:
+                  type: string
+                name:
+                  type: string
+                  minLength: 1
+                  maxLength: 100
+                description:
+                  type: string
+                  maxLength: 500
+              required:
+              - project_id
+              - name
+      responses:
+        '201':
+          description: '201'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  name:
+                    type: string
+                  description:
+                    type: string
+                    nullable: true
+                  project_id:
+                    type: string
+                  organization_id:
+                    type: string
+                  created_by_id:
+                    type: string
+                    nullable: true
+                  created_at:
+                    type: string
+                  updated_at:
+                    type: string
+                required:
+                - id
+                - name
+                - description
+                - project_id
+                - organization_id
+                - created_by_id
+                - created_at
+                - updated_at
+    get:
+      description: List all feeds with optional filters and pagination
+      summary: List Feeds
+      tags:
+      - Feeds
+      parameters:
+      - name: project_id
+        in: query
+        schema:
+          type: string
+      - name: name
+        in: query
+        schema:
+          type: string
+      - name: limit
+        in: query
+        schema:
+          type: string
+      - name: offset
+        in: query
+        schema:
+          oneOf:
+          - type: string
+          - type: number
+      operationId: feeds.listFeeds
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  feeds:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        name:
+                          type: string
+                        description:
+                          type: string
+                          nullable: true
+                        project_id:
+                          type: string
+                        organization_id:
+                          type: string
+                        created_at:
+                          type: string
+                        updated_at:
+                          type: string
+                        subscriptions_count:
+                          type: number
+                      required:
+                      - id
+                      - name
+                      - description
+                      - project_id
+                      - organization_id
+                      - created_at
+                      - updated_at
+                      - subscriptions_count
+                  has_next_page:
+                    type: boolean
+                required:
+                - feeds
+                - has_next_page
+  /v1/feeds/{feed_id}:
+    get:
+      description: Retrieve feed details by ID
+      summary: Get Feed
+      tags:
+      - Feeds
+      parameters:
+      - name: feed_id
+        in: path
+        required: true
+        schema:
+          type: string
+      operationId: feeds.getFeed
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  name:
+                    type: string
+                  description:
+                    type: string
+                    nullable: true
+                  project_id:
+                    type: string
+                  organization_id:
+                    type: string
+                  created_by_id:
+                    type: string
+                    nullable: true
+                  created_at:
+                    type: string
+                  updated_at:
+                    type: string
+                  subscriptions_count:
+                    type: number
+                  messages_count:
+                    type: number
+                required:
+                - id
+                - name
+                - description
+                - project_id
+                - organization_id
+                - created_by_id
+                - created_at
+                - updated_at
+                - subscriptions_count
+    delete:
+      description: Soft delete a feed and clean up its sequence
+      summary: Delete Feed
+      tags:
+      - Feeds
+      parameters:
+      - name: feed_id
+        in: path
+        required: true
+        schema:
+          type: string
+      operationId: feeds.deleteFeed
+      requestBody:
+        description: Body
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+              nullable: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                required:
+                - success
+  /v1/feeds/{feed_id}/messages:
+    post:
+      description: Batch insert messages into a feed (up to 10,000 per request)
+      summary: Publish Messages
+      tags:
+      - Feeds
+      parameters:
+      - name: feed_id
+        in: path
+        required: true
+        schema:
+          type: string
+      operationId: feeds.publishMessages
+      requestBody:
+        description: Body
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                messages:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      content:
+                        type: string
+                    required:
+                    - content
+                  minItems: 1
+                  maxItems: 10000
+              required:
+              - messages
+      responses:
+        '201':
+          description: '201'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  inserted_count:
+                    type: number
+                required:
+                - inserted_count
+    get:
+      description: List messages from a feed (for debugging/inspection)
+      summary: List Feed Messages
+      tags:
+      - Feeds
+      parameters:
+      - name: feed_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: after_sequence
+        in: query
+        schema:
+          type: string
+      - name: limit
+        in: query
+        schema:
+          type: string
+      operationId: feeds.listMessages
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  messages:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        feed_id:
+                          type: string
+                        sequence:
+                          type: number
+                        content_preview:
+                          type: string
+                        is_truncated:
+                          type: boolean
+                        content_size_bytes:
+                          type: number
+                        expires_at:
+                          type: string
+                        created_at:
+                          type: string
+                      required:
+                      - id
+                      - feed_id
+                      - sequence
+                      - content_preview
+                      - is_truncated
+                      - content_size_bytes
+                      - expires_at
+                      - created_at
+                  has_next_page:
+                    type: boolean
+                  next_cursor:
+                    type: number
+                    nullable: true
+                required:
+                - messages
+                - has_next_page
+                - next_cursor
+  /v1/feeds/{feed_id}/messages/{message_id}:
+    get:
+      description: Get full content of a feed message
+      summary: Get Feed Message
+      tags:
+      - Feeds
+      parameters:
+      - name: feed_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: message_id
+        in: path
+        required: true
+        schema:
+          type: string
+      operationId: feeds.getMessage
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      feed_id:
+                        type: string
+                      sequence:
+                        type: number
+                      content:
+                        type: string
+                      content_size_bytes:
+                        type: number
+                      expires_at:
+                        type: string
+                      created_at:
+                        type: string
+                    required:
+                    - id
+                    - feed_id
+                    - sequence
+                    - content
+                    - content_size_bytes
+                    - expires_at
+                    - created_at
+                required:
+                - message
+        '404':
+          description: '404'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                required:
+                - message
+  /v1/feeds/{feed_id}/subscribe:
+    post:
+      description: Subscribe an agent to a feed with polling configuration
+      summary: Subscribe Agent to Feed
+      tags:
+      - Feeds
+      parameters:
+      - name: feed_id
+        in: path
+        required: true
+        schema:
+          type: string
+      operationId: feeds.subscribeAgent
+      requestBody:
+        description: Body
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                agent_id:
+                  type: string
+                cron_schedule:
+                  type: string
+                prompt_template:
+                  type: string
+              required:
+              - agent_id
+              - cron_schedule
+      responses:
+        '201':
+          description: '201'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  feed_id:
+                    type: string
+                  agent_id:
+                    type: string
+                  agent_name:
+                    type: string
+                    nullable: true
+                  cron_schedule:
+                    type: string
+                  merge_strategy:
+                    type: string
+                    enum:
+                    - unique-messages
+                    - combine-into-single-message
+                  prompt_template:
+                    type: string
+                    nullable: true
+                  next_scheduled_at:
+                    type: string
+                  last_consumed_sequence:
+                    type: number
+                  last_consumed_at:
+                    type: string
+                    nullable: true
+                  disabled_at:
+                    type: string
+                    nullable: true
+                  created_at:
+                    type: string
+                required:
+                - id
+                - feed_id
+                - agent_id
+                - agent_name
+                - cron_schedule
+                - merge_strategy
+                - prompt_template
+                - next_scheduled_at
+                - last_consumed_sequence
+                - last_consumed_at
+                - disabled_at
+                - created_at
+        '400':
+          description: '400'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errorCode:
+                    type: string
+                    enum:
+                    - agentAlreadySubscribed
+                    - agentNotInProject
+                    - invalidCronExpression
+                required:
+                - message
+                - errorCode
+  /v1/feeds/{feed_id}/subscriptions/{subscription_id}:
+    patch:
+      description: Update subscription configuration (cron schedule, enable/disable)
+      summary: Update Subscription
+      tags:
+      - Feeds
+      parameters:
+      - name: feed_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      operationId: feeds.updateSubscription
+      requestBody:
+        description: Body
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                cron_schedule:
+                  type: string
+                prompt_template:
+                  type: string
+                disabled:
+                  type: boolean
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  feed_id:
+                    type: string
+                  agent_id:
+                    type: string
+                  agent_name:
+                    type: string
+                    nullable: true
+                  cron_schedule:
+                    type: string
+                  merge_strategy:
+                    type: string
+                    enum:
+                    - unique-messages
+                    - combine-into-single-message
+                  prompt_template:
+                    type: string
+                    nullable: true
+                  next_scheduled_at:
+                    type: string
+                  last_consumed_sequence:
+                    type: number
+                  last_consumed_at:
+                    type: string
+                    nullable: true
+                  disabled_at:
+                    type: string
+                    nullable: true
+                  created_at:
+                    type: string
+                  updated_at:
+                    type: string
+                required:
+                - id
+                - feed_id
+                - agent_id
+                - agent_name
+                - cron_schedule
+                - merge_strategy
+                - prompt_template
+                - next_scheduled_at
+                - last_consumed_sequence
+                - last_consumed_at
+                - disabled_at
+                - created_at
+                - updated_at
+    delete:
+      description: Remove agent subscription from a feed (by subscription_id)
+      summary: Delete Subscription
+      tags:
+      - Feeds
+      parameters:
+      - name: feed_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      operationId: feeds.deleteSubscription
+      requestBody:
+        description: Body
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+              nullable: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                required:
+                - success
+  /v1/feeds/{feed_id}/unsubscribe:
+    post:
+      description: Remove agent subscription from a feed (by agent_id)
+      summary: Unsubscribe Agent from Feed
+      tags:
+      - Feeds
+      parameters:
+      - name: feed_id
+        in: path
+        required: true
+        schema:
+          type: string
+      operationId: feeds.unsubscribeAgent
+      requestBody:
+        description: Body
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                agent_id:
+                  type: string
+              required:
+              - agent_id
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                required:
+                - success
+  /v1/feeds/{feed_id}/subscriptions/{subscription_id}/trigger:
+    post:
+      description: Immediately trigger a subscription to process pending messages
+      summary: Trigger Subscription
+      tags:
+      - Feeds
+      parameters:
+      - name: feed_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      operationId: feeds.triggerSubscription
+      requestBody:
+        description: Body
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  messages_sent:
+                    type: number
+                required:
+                - success
+                - messages_sent
+        '404':
+          description: '404'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                required:
+                - message
+  /v1/feeds/{feed_id}/subscriptions/{subscription_id}/backfill:
+    post:
+      description: Start a background job to send historical messages to an agent subscription. Returns immediately with workflow ID. Does not update last_consumed_sequence.
+      summary: Backfill Subscription
+      tags:
+      - Feeds
+      parameters:
+      - name: feed_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      operationId: feeds.backfillSubscription
+      requestBody:
+        description: Body
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                from_sequence:
+                  type: number
+                to_sequence:
+                  type: number
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  workflow_id:
+                    type: string
+                required:
+                - workflow_id
+        '404':
+          description: '404'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errorCode:
+                    type: string
+                    enum:
+                    - feedNotFound
+                    - subscriptionNotFound
+                required:
+                - message
+                - errorCode
+  /v1/feeds/{feed_id}/subscriptions/{subscription_id}/history:
+    get:
+      description: List the run history for a subscription including scheduled runs, manual triggers, and backfills.
+      summary: List Subscription History
+      tags:
+      - Feeds
+      parameters:
+      - name: feed_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: page_size
+        in: query
+        schema:
+          type: string
+      - name: next_page_token
+        in: query
+        schema:
+          type: string
+      operationId: feeds.listSubscriptionHistory
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  runs:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        workflow_id:
+                          type: string
+                        type:
+                          type: string
+                          enum:
+                          - scheduled
+                          - manual
+                          - backfill
+                        status:
+                          type: string
+                          enum:
+                          - running
+                          - completed
+                          - failed
+                          - canceled
+                          - timed_out
+                        started_at:
+                          type: string
+                        completed_at:
+                          type: string
+                          nullable: true
+                      required:
+                      - workflow_id
+                      - type
+                      - status
+                      - started_at
+                      - completed_at
+                  next_page_token:
+                    type: string
+                    nullable: true
+                required:
+                - runs
+                - next_page_token
+        '404':
+          description: '404'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errorCode:
+                    type: string
+                    enum:
+                    - feedNotFound
+                    - subscriptionNotFound
+                required:
+                - message
+                - errorCode
+  /v1/feeds/{feed_id}/subscriptions/cron:
+    patch:
+      description: Update the cron schedule for all subscriptions of a feed
+      summary: Update All Subscriptions Cron Schedule
+      tags:
+      - Feeds
+      parameters:
+      - name: feed_id
+        in: path
+        required: true
+        schema:
+          type: string
+      operationId: feeds.updateAllSubscriptionsCron
+      requestBody:
+        description: Body
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                cron_schedule:
+                  type: string
+              required:
+              - cron_schedule
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  updated_count:
+                    type: number
+                required:
+                - updated_count
+        '404':
+          description: '404'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                required:
+                - message
+  /v1/feeds/{feed_id}/subscriptions:
+    get:
+      description: List all agent subscriptions for a feed
+      summary: List Feed Subscriptions
+      tags:
+      - Feeds
+      parameters:
+      - name: feed_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: limit
+        in: query
+        schema:
+          type: string
+      - name: offset
+        in: query
+        schema:
+          oneOf:
+          - type: string
+          - type: number
+      - name: agent_id
+        in: query
+        schema:
+          type: string
+      operationId: feeds.listSubscriptions
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  subscriptions:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        feed_id:
+                          type: string
+                        agent_id:
+                          type: string
+                        agent_name:
+                          type: string
+                          nullable: true
+                        cron_schedule:
+                          type: string
+                        merge_strategy:
+                          type: string
+                          enum:
+                          - unique-messages
+                          - combine-into-single-message
+                        prompt_template:
+                          type: string
+                          nullable: true
+                        next_scheduled_at:
+                          type: string
+                        last_consumed_sequence:
+                          type: number
+                        last_consumed_at:
+                          type: string
+                          nullable: true
+                        disabled_at:
+                          type: string
+                          nullable: true
+                        created_at:
+                          type: string
+                        updated_at:
+                          type: string
+                      required:
+                      - id
+                      - feed_id
+                      - agent_id
+                      - agent_name
+                      - cron_schedule
+                      - merge_strategy
+                      - prompt_template
+                      - next_scheduled_at
+                      - last_consumed_sequence
+                      - last_consumed_at
+                      - disabled_at
+                      - created_at
+                      - updated_at
+                  has_next_page:
+                    type: boolean
+                required:
+                - subscriptions
+                - has_next_page
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer

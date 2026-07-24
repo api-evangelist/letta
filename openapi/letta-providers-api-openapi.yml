@@ -1,0 +1,624 @@
+openapi: 3.1.0
+info:
+  title: Letta Admin Providers API
+  version: 1.0.0
+  description: REST API for Letta, the stateful agents platform. Manage agents, memory blocks, archival passages, sources, custom tools, MCP servers, multi-agent groups, runs, and streaming responses. Available as Letta Cloud (managed) at https://api.letta.com/v1 and as the self-hosted open-source server (Apache-2.0) typically run at http://localhost:8283.
+  contact:
+    name: Letta
+    url: https://www.letta.com/
+    email: support@letta.com
+  license:
+    name: Apache-2.0
+    url: https://github.com/letta-ai/letta/blob/main/LICENSE
+  x-logo:
+    url: https://www.letta.com/favicon.ico
+servers:
+- url: https://api.letta.com
+  description: Letta Cloud (managed)
+- url: https://app.letta.com
+  description: Letta Cloud (app)
+- url: http://localhost:8283
+  description: Self-hosted Letta server
+security:
+- bearerAuth: []
+tags:
+- name: Providers
+  description: Configure LLM provider credentials (OpenAI, Anthropic, Azure, Ollama, etc.).
+paths:
+  /v1/providers/:
+    get:
+      tags:
+      - Providers
+      summary: List Providers
+      description: Get a list of all custom providers.
+      operationId: list_providers
+      parameters:
+      - name: before
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Provider ID cursor for pagination. Returns providers that come before this provider ID in the specified sort order
+          title: Before
+        description: Provider ID cursor for pagination. Returns providers that come before this provider ID in the specified sort order
+      - name: after
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Provider ID cursor for pagination. Returns providers that come after this provider ID in the specified sort order
+          title: After
+        description: Provider ID cursor for pagination. Returns providers that come after this provider ID in the specified sort order
+      - name: limit
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          description: Maximum number of providers to return
+          default: 50
+          title: Limit
+        description: Maximum number of providers to return
+      - name: order
+        in: query
+        required: false
+        schema:
+          enum:
+          - asc
+          - desc
+          type: string
+          description: Sort order for providers by creation time. 'asc' for oldest first, 'desc' for newest first
+          default: desc
+          title: Order
+        description: Sort order for providers by creation time. 'asc' for oldest first, 'desc' for newest first
+      - name: order_by
+        in: query
+        required: false
+        schema:
+          const: created_at
+          type: string
+          description: Field to sort by
+          default: created_at
+          title: Order By
+        description: Field to sort by
+      - name: name
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Filter providers by name
+          title: Name
+        description: Filter providers by name
+      - name: provider_type
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - $ref: '#/components/schemas/ProviderType'
+          - type: 'null'
+          description: Filter providers by type
+          title: Provider Type
+        description: Filter providers by type
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Provider'
+                title: Response List Providers
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    post:
+      tags:
+      - Providers
+      summary: Create Provider
+      description: Create a new custom provider.
+      operationId: create_provider
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProviderCreate'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Provider'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/providers/{provider_id}:
+    get:
+      tags:
+      - Providers
+      summary: Retrieve Provider
+      description: Get a provider by ID.
+      operationId: retrieve_provider
+      parameters:
+      - name: provider_id
+        in: path
+        required: true
+        schema:
+          type: string
+          minLength: 45
+          maxLength: 45
+          pattern: ^provider-[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$
+          description: The ID of the provider in the format 'provider-<uuid4>'
+          examples:
+          - provider-123e4567-e89b-42d3-8456-426614174000
+          title: Provider Id
+        description: The ID of the provider in the format 'provider-<uuid4>'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Provider'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    patch:
+      tags:
+      - Providers
+      summary: Modify Provider
+      description: Update an existing custom provider.
+      operationId: modify_provider
+      parameters:
+      - name: provider_id
+        in: path
+        required: true
+        schema:
+          type: string
+          minLength: 45
+          maxLength: 45
+          pattern: ^provider-[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$
+          description: The ID of the provider in the format 'provider-<uuid4>'
+          examples:
+          - provider-123e4567-e89b-42d3-8456-426614174000
+          title: Provider Id
+        description: The ID of the provider in the format 'provider-<uuid4>'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProviderUpdate'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Provider'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - Providers
+      summary: Delete Provider
+      description: Delete an existing custom provider.
+      operationId: delete_provider
+      parameters:
+      - name: provider_id
+        in: path
+        required: true
+        schema:
+          type: string
+          minLength: 45
+          maxLength: 45
+          pattern: ^provider-[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$
+          description: The ID of the provider in the format 'provider-<uuid4>'
+          examples:
+          - provider-123e4567-e89b-42d3-8456-426614174000
+          title: Provider Id
+        description: The ID of the provider in the format 'provider-<uuid4>'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/providers/check:
+    post:
+      tags:
+      - Providers
+      summary: Check Provider
+      description: Verify the API key and additional parameters for a provider.
+      operationId: check_provider
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProviderCheck'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/providers/{provider_id}/check:
+    post:
+      tags:
+      - Providers
+      summary: Check Existing Provider
+      description: Verify the API key and additional parameters for an existing provider.
+      operationId: check_existing_provider
+      parameters:
+      - name: provider_id
+        in: path
+        required: true
+        schema:
+          type: string
+          minLength: 45
+          maxLength: 45
+          pattern: ^provider-[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$
+          description: The ID of the provider in the format 'provider-<uuid4>'
+          examples:
+          - provider-123e4567-e89b-42d3-8456-426614174000
+          title: Provider Id
+        description: The ID of the provider in the format 'provider-<uuid4>'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/providers/{provider_id}/refresh:
+    patch:
+      tags:
+      - Providers
+      summary: Refresh Provider Models
+      description: 'Refresh models for a BYOK provider by querying the provider''s API.
+
+        Adds new models and removes ones no longer available.'
+      operationId: refresh_provider_models
+      parameters:
+      - name: provider_id
+        in: path
+        required: true
+        schema:
+          type: string
+          minLength: 45
+          maxLength: 45
+          pattern: ^provider-[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$
+          description: The ID of the provider in the format 'provider-<uuid4>'
+          examples:
+          - provider-123e4567-e89b-42d3-8456-426614174000
+          title: Provider Id
+        description: The ID of the provider in the format 'provider-<uuid4>'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Provider'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    ProviderUpdate:
+      properties:
+        api_key:
+          type: string
+          title: Api Key
+          description: API key or secret key used for requests to the provider.
+        access_key:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Access Key
+          description: Access key used for requests to the provider.
+        region:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Region
+          description: Region used for requests to the provider.
+        base_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Base Url
+          description: Base URL used for requests to the provider.
+        api_version:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Api Version
+          description: API version used for requests to the provider.
+      additionalProperties: false
+      type: object
+      required:
+      - api_key
+      title: ProviderUpdate
+    ProviderCreate:
+      properties:
+        name:
+          type: string
+          title: Name
+          description: The name of the provider.
+        provider_type:
+          $ref: '#/components/schemas/ProviderType'
+          description: The type of the provider.
+        api_key:
+          type: string
+          title: Api Key
+          description: API key or secret key used for requests to the provider.
+        access_key:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Access Key
+          description: Access key used for requests to the provider.
+        region:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Region
+          description: Region used for requests to the provider.
+        base_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Base Url
+          description: Base URL used for requests to the provider.
+        api_version:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Api Version
+          description: API version used for requests to the provider.
+      additionalProperties: false
+      type: object
+      required:
+      - name
+      - provider_type
+      - api_key
+      title: ProviderCreate
+    ProviderCheck:
+      properties:
+        provider_type:
+          $ref: '#/components/schemas/ProviderType'
+          description: The type of the provider.
+        api_key:
+          type: string
+          title: Api Key
+          description: API key or secret key used for requests to the provider.
+        access_key:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Access Key
+          description: Access key used for requests to the provider.
+        region:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Region
+          description: Region used for requests to the provider.
+        base_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Base Url
+          description: Base URL used for requests to the provider.
+        api_version:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Api Version
+          description: API version used for requests to the provider.
+      type: object
+      required:
+      - provider_type
+      - api_key
+      title: ProviderCheck
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    ProviderCategory:
+      type: string
+      enum:
+      - base
+      - byok
+      title: ProviderCategory
+    ProviderType:
+      type: string
+      enum:
+      - anthropic
+      - azure
+      - baseten
+      - bedrock
+      - cerebras
+      - chatgpt_oauth
+      - deepseek
+      - fireworks
+      - google_ai
+      - google_vertex
+      - groq
+      - hugging-face
+      - letta
+      - lmstudio_openai
+      - minimax
+      - mistral
+      - ollama
+      - openai
+      - together
+      - vllm
+      - sglang
+      - openrouter
+      - xai
+      - zai
+      - zai_coding
+      title: ProviderType
+    Provider:
+      properties:
+        id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Id
+          description: The id of the provider, lazily created by the database manager.
+        name:
+          type: string
+          title: Name
+          description: The name of the provider
+        provider_type:
+          $ref: '#/components/schemas/ProviderType'
+          description: The type of the provider
+        provider_category:
+          $ref: '#/components/schemas/ProviderCategory'
+          description: The category of the provider (base or byok)
+        api_key:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Api Key
+          description: API key or secret key used for requests to the provider.
+          deprecated: true
+        base_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Base Url
+          description: Base URL for the provider.
+        access_key:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Access Key
+          description: Access key used for requests to the provider.
+          deprecated: true
+        region:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Region
+          description: Region used for requests to the provider.
+        api_version:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Api Version
+          description: API version used for requests to the provider.
+        updated_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated At
+          description: The last update timestamp of the provider.
+        last_synced:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Last Synced
+          description: The last time models were synced for this provider.
+        api_key_enc:
+          anyOf:
+          - type: string
+            description: Encrypted secret value (stored as encrypted string)
+            nullable: true
+          - type: 'null'
+          title: Api Key Enc
+          description: Encrypted API key as Secret object
+        access_key_enc:
+          anyOf:
+          - type: string
+            description: Encrypted secret value (stored as encrypted string)
+            nullable: true
+          - type: 'null'
+          title: Access Key Enc
+          description: Encrypted access key as Secret object
+      additionalProperties: false
+      type: object
+      required:
+      - name
+      - provider_type
+      - provider_category
+      title: Provider
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer

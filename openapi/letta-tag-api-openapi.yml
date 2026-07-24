@@ -1,0 +1,162 @@
+openapi: 3.1.0
+info:
+  title: Letta Admin Tag API
+  version: 1.0.0
+  description: REST API for Letta, the stateful agents platform. Manage agents, memory blocks, archival passages, sources, custom tools, MCP servers, multi-agent groups, runs, and streaming responses. Available as Letta Cloud (managed) at https://api.letta.com/v1 and as the self-hosted open-source server (Apache-2.0) typically run at http://localhost:8283.
+  contact:
+    name: Letta
+    url: https://www.letta.com/
+    email: support@letta.com
+  license:
+    name: Apache-2.0
+    url: https://github.com/letta-ai/letta/blob/main/LICENSE
+  x-logo:
+    url: https://www.letta.com/favicon.ico
+servers:
+- url: https://api.letta.com
+  description: Letta Cloud (managed)
+- url: https://app.letta.com
+  description: Letta Cloud (app)
+- url: http://localhost:8283
+  description: Self-hosted Letta server
+security:
+- bearerAuth: []
+tags:
+- name: Tag
+  description: Tag-based filtering metadata.
+paths:
+  /v1/tags/:
+    get:
+      tags:
+      - Tag
+      summary: List Tags
+      description: Get the list of all tags (from agents and blocks) that have been created.
+      operationId: list_tags
+      parameters:
+      - name: before
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Tag cursor for pagination. Returns tags that come before this tag in the specified sort order
+          title: Before
+        description: Tag cursor for pagination. Returns tags that come before this tag in the specified sort order
+      - name: after
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Tag cursor for pagination. Returns tags that come after this tag in the specified sort order
+          title: After
+        description: Tag cursor for pagination. Returns tags that come after this tag in the specified sort order
+      - name: limit
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          description: Maximum number of tags to return
+          default: 50
+          title: Limit
+        description: Maximum number of tags to return
+      - name: order
+        in: query
+        required: false
+        schema:
+          enum:
+          - asc
+          - desc
+          type: string
+          description: Sort order for tags. 'asc' for alphabetical order, 'desc' for reverse alphabetical order
+          default: asc
+          title: Order
+        description: Sort order for tags. 'asc' for alphabetical order, 'desc' for reverse alphabetical order
+      - name: order_by
+        in: query
+        required: false
+        schema:
+          const: name
+          type: string
+          description: Field to sort by
+          default: name
+          title: Order By
+        description: Field to sort by
+      - name: query_text
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Filter tags by text search. Deprecated, please use name field instead
+          deprecated: true
+          title: Query Text
+        description: Filter tags by text search. Deprecated, please use name field instead
+        deprecated: true
+      - name: name
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Filter tags by name
+          title: Name
+        description: Filter tags by name
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                title: Response List Tags
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer

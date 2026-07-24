@@ -1,0 +1,472 @@
+openapi: 3.1.0
+info:
+  title: Letta Admin Metadata API
+  version: 1.0.0
+  description: REST API for Letta, the stateful agents platform. Manage agents, memory blocks, archival passages, sources, custom tools, MCP servers, multi-agent groups, runs, and streaming responses. Available as Letta Cloud (managed) at https://api.letta.com/v1 and as the self-hosted open-source server (Apache-2.0) typically run at http://localhost:8283.
+  contact:
+    name: Letta
+    url: https://www.letta.com/
+    email: support@letta.com
+  license:
+    name: Apache-2.0
+    url: https://github.com/letta-ai/letta/blob/main/LICENSE
+  x-logo:
+    url: https://www.letta.com/favicon.ico
+servers:
+- url: https://api.letta.com
+  description: Letta Cloud (managed)
+- url: https://app.letta.com
+  description: Letta Cloud (app)
+- url: http://localhost:8283
+  description: Self-hosted Letta server
+security:
+- bearerAuth: []
+tags:
+- name: Metadata
+  description: Service/runtime metadata.
+paths:
+  /v1/metadata/balance:
+    get:
+      description: Retrieve the current usage balances for the organization.
+      summary: Retrieve Current Organization Balance
+      tags:
+      - Metadata
+      parameters: []
+      operationId: metadata.retrieveCurrentBalances
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total_balance:
+                    type: number
+                  monthly_credit_balance:
+                    type: number
+                  purchased_credit_balance:
+                    type: number
+                  billing_tier:
+                    type: string
+                required:
+                - total_balance
+                - monthly_credit_balance
+                - purchased_credit_balance
+                - billing_tier
+  /v1/metadata/feedback:
+    post:
+      description: Send feedback from users to improve our services.
+      summary: Send User Feedback
+      tags:
+      - Metadata
+      parameters: []
+      operationId: metadata.sendFeedback
+      requestBody:
+        description: Body
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  minLength: 1
+                  maxLength: 10000
+                feature:
+                  default: letta-code
+                  type: string
+                  enum:
+                  - letta-code
+                  - sdk
+                agent_id:
+                  type: string
+                session_id:
+                  type: string
+                version:
+                  type: string
+                platform:
+                  type: string
+                settings:
+                  type: string
+                local_time:
+                  type: string
+                device_type:
+                  type: string
+                cwd:
+                  type: string
+                total_api_ms:
+                  type: number
+                total_wall_ms:
+                  type: number
+                step_count:
+                  type: number
+                prompt_tokens:
+                  type: number
+                completion_tokens:
+                  type: number
+                total_tokens:
+                  type: number
+                cached_input_tokens:
+                  type: number
+                cache_write_tokens:
+                  type: number
+                reasoning_tokens:
+                  type: number
+                context_tokens:
+                  type: number
+                agent_name:
+                  type: string
+                agent_description:
+                  type: string
+                model:
+                  type: string
+                billing_tier:
+                  type: string
+                recent_chunks:
+                  type: array
+                  items:
+                    type: object
+                    additionalProperties: {}
+                debug_log_tail:
+                  type: string
+              required:
+              - message
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                required:
+                - success
+  /v1/metadata/telemetry:
+    post:
+      description: Send telemetry events for usage tracking and analysis.
+      summary: Send Telemetry Event
+      tags:
+      - Metadata
+      parameters: []
+      operationId: metadata.sendTelemetry
+      requestBody:
+        description: Body
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                service:
+                  type: string
+                  enum:
+                  - letta-code
+                server_version:
+                  type: string
+                events:
+                  type: array
+                  items:
+                    discriminator:
+                      propertyName: type
+                    oneOf:
+                    - type: object
+                      properties:
+                        type:
+                          type: string
+                          enum:
+                          - session_start
+                        timestamp:
+                          type: string
+                        data:
+                          type: object
+                          properties:
+                            session_id:
+                              type: string
+                            agent_id:
+                              type: string
+                            surface:
+                              type: string
+                            startup_command:
+                              type: string
+                            version:
+                              type: string
+                            platform:
+                              type: string
+                            node_version:
+                              type: string
+                          required:
+                          - session_id
+                          - startup_command
+                      required:
+                      - type
+                      - timestamp
+                      - data
+                    - type: object
+                      properties:
+                        type:
+                          type: string
+                          enum:
+                          - session_end
+                        timestamp:
+                          type: string
+                        data:
+                          type: object
+                          properties:
+                            session_id:
+                              type: string
+                            agent_id:
+                              type: string
+                            surface:
+                              type: string
+                            duration:
+                              type: number
+                            message_count:
+                              type: number
+                            tool_call_count:
+                              type: number
+                            exit_reason:
+                              type: string
+                            total_api_ms:
+                              type: number
+                            total_wall_ms:
+                              type: number
+                            prompt_tokens:
+                              type: number
+                            completion_tokens:
+                              type: number
+                            total_tokens:
+                              type: number
+                            cached_tokens:
+                              type: number
+                            reasoning_tokens:
+                              type: number
+                            step_count:
+                              type: number
+                          required:
+                          - session_id
+                          - duration
+                          - message_count
+                          - tool_call_count
+                      required:
+                      - type
+                      - timestamp
+                      - data
+                    - type: object
+                      properties:
+                        type:
+                          type: string
+                          enum:
+                          - tool_usage
+                        timestamp:
+                          type: string
+                        data:
+                          type: object
+                          properties:
+                            session_id:
+                              type: string
+                            agent_id:
+                              type: string
+                            surface:
+                              type: string
+                            tool_name:
+                              type: string
+                            success:
+                              type: boolean
+                            duration:
+                              type: number
+                            response_length:
+                              type: number
+                            error_type:
+                              type: string
+                            stderr:
+                              type: string
+                          required:
+                          - session_id
+                          - tool_name
+                          - success
+                          - duration
+                      required:
+                      - type
+                      - timestamp
+                      - data
+                    - type: object
+                      properties:
+                        type:
+                          type: string
+                          enum:
+                          - error
+                        timestamp:
+                          type: string
+                        data:
+                          type: object
+                          properties:
+                            session_id:
+                              type: string
+                            agent_id:
+                              type: string
+                            run_id:
+                              type: string
+                            error_type:
+                              type: string
+                            error_message:
+                              type: string
+                            context:
+                              type: string
+                            http_status:
+                              type: number
+                            model_id:
+                              type: string
+                            surface:
+                              type: string
+                            recent_chunks:
+                              type: array
+                              items:
+                                type: object
+                                additionalProperties: {}
+                            debug_log_tail:
+                              type: string
+                          required:
+                          - session_id
+                          - error_type
+                          - error_message
+                      required:
+                      - type
+                      - timestamp
+                      - data
+                    - type: object
+                      properties:
+                        type:
+                          type: string
+                          enum:
+                          - user_input
+                        timestamp:
+                          type: string
+                        data:
+                          type: object
+                          properties:
+                            session_id:
+                              type: string
+                            agent_id:
+                              type: string
+                            surface:
+                              type: string
+                            input_length:
+                              type: number
+                            is_command:
+                              type: boolean
+                            command_name:
+                              type: string
+                            message_type:
+                              type: string
+                            model_id:
+                              type: string
+                          required:
+                          - session_id
+                          - input_length
+                          - is_command
+                          - message_type
+                          - model_id
+                      required:
+                      - type
+                      - timestamp
+                      - data
+                  minItems: 1
+              required:
+              - service
+              - events
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                required:
+                - success
+  /v1/metadata/status:
+    get:
+      summary: Gets Your Letta Cloud Status
+      tags:
+      - Metadata
+      parameters: []
+      operationId: metadata.getStatus
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  current_project_id:
+                    type: string
+                    nullable: true
+                required:
+                - current_project_id
+  /v1/metadata/user:
+    get:
+      description: Retrieve information about the current authenticated user including email, name, organization, and current project.
+      summary: Get Current User Information
+      tags:
+      - Metadata
+      parameters: []
+      operationId: metadata.getUser
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  email:
+                    type: string
+                  name:
+                    type: string
+                  organization_name:
+                    type: string
+                  organization_id:
+                    type: string
+                  current_project_name:
+                    type: string
+                    nullable: true
+                  current_project_id:
+                    type: string
+                    nullable: true
+                  billing_tier:
+                    type: string
+                  remaining_credits:
+                    type: number
+                required:
+                - id
+                - email
+                - name
+                - organization_name
+                - organization_id
+                - current_project_name
+                - current_project_id
+                - billing_tier
+                - remaining_credits
+        '404':
+          description: '404'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                required:
+                - message
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer

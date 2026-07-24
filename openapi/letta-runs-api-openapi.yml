@@ -1,0 +1,2928 @@
+openapi: 3.1.0
+info:
+  title: Letta Admin Runs API
+  version: 1.0.0
+  description: REST API for Letta, the stateful agents platform. Manage agents, memory blocks, archival passages, sources, custom tools, MCP servers, multi-agent groups, runs, and streaming responses. Available as Letta Cloud (managed) at https://api.letta.com/v1 and as the self-hosted open-source server (Apache-2.0) typically run at http://localhost:8283.
+  contact:
+    name: Letta
+    url: https://www.letta.com/
+    email: support@letta.com
+  license:
+    name: Apache-2.0
+    url: https://github.com/letta-ai/letta/blob/main/LICENSE
+  x-logo:
+    url: https://www.letta.com/favicon.ico
+servers:
+- url: https://api.letta.com
+  description: Letta Cloud (managed)
+- url: https://app.letta.com
+  description: Letta Cloud (app)
+- url: http://localhost:8283
+  description: Self-hosted Letta server
+security:
+- bearerAuth: []
+tags:
+- name: Runs
+  description: Inspect and manage agent runs (executions of an agent in response to a message).
+paths:
+  /v1/runs/:
+    get:
+      tags:
+      - Runs
+      summary: List Runs
+      description: List all runs.
+      operationId: list_runs
+      parameters:
+      - name: agent_id
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: The unique identifier of the agent associated with the run.
+          title: Agent Id
+        description: The unique identifier of the agent associated with the run.
+      - name: agent_ids
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: array
+            items:
+              type: string
+          - type: 'null'
+          description: The unique identifiers of the agents associated with the run. Deprecated in favor of agent_id field.
+          deprecated: true
+          title: Agent Ids
+        description: The unique identifiers of the agents associated with the run. Deprecated in favor of agent_id field.
+        deprecated: true
+      - name: statuses
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: array
+            items:
+              type: string
+          - type: 'null'
+          description: Filter runs by status. Can specify multiple statuses.
+          title: Statuses
+        description: Filter runs by status. Can specify multiple statuses.
+      - name: background
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          description: If True, filters for runs that were created in background mode.
+          title: Background
+        description: If True, filters for runs that were created in background mode.
+      - name: stop_reason
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - $ref: '#/components/schemas/StopReasonType'
+          - type: 'null'
+          description: Filter runs by stop reason.
+          title: Stop Reason
+        description: Filter runs by stop reason.
+      - name: conversation_id
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Filter runs by conversation ID.
+          title: Conversation Id
+        description: Filter runs by conversation ID.
+      - name: before
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Run ID cursor for pagination. Returns runs that come before this run ID in the specified sort order
+          title: Before
+        description: Run ID cursor for pagination. Returns runs that come before this run ID in the specified sort order
+      - name: after
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Run ID cursor for pagination. Returns runs that come after this run ID in the specified sort order
+          title: After
+        description: Run ID cursor for pagination. Returns runs that come after this run ID in the specified sort order
+      - name: limit
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: integer
+            maximum: 1000
+            minimum: 1
+          - type: 'null'
+          description: Maximum number of runs to return
+          default: 100
+          title: Limit
+        description: Maximum number of runs to return
+      - name: order
+        in: query
+        required: false
+        schema:
+          enum:
+          - asc
+          - desc
+          type: string
+          description: Sort order for runs by creation time. 'asc' for oldest first, 'desc' for newest first
+          default: desc
+          title: Order
+        description: Sort order for runs by creation time. 'asc' for oldest first, 'desc' for newest first
+      - name: order_by
+        in: query
+        required: false
+        schema:
+          const: created_at
+          type: string
+          description: Field to sort by
+          default: created_at
+          title: Order By
+        description: Field to sort by
+      - name: active
+        in: query
+        required: false
+        schema:
+          type: boolean
+          description: Filter for active runs.
+          default: false
+          title: Active
+        description: Filter for active runs.
+      - name: ascending
+        in: query
+        required: false
+        schema:
+          type: boolean
+          description: Whether to sort agents oldest to newest (True) or newest to oldest (False, default). Deprecated in favor of order field.
+          deprecated: true
+          default: false
+          title: Ascending
+        description: Whether to sort agents oldest to newest (True) or newest to oldest (False, default). Deprecated in favor of order field.
+        deprecated: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Run'
+                title: Response List Runs
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/runs/active:
+    get:
+      tags:
+      - Runs
+      summary: List Active Runs
+      description: List all active runs.
+      operationId: list_active_runs
+      deprecated: true
+      parameters:
+      - name: agent_id
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: The unique identifier of the agent associated with the run.
+          title: Agent Id
+        description: The unique identifier of the agent associated with the run.
+      - name: background
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          description: If True, filters for runs that were created in background mode.
+          title: Background
+        description: If True, filters for runs that were created in background mode.
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Run'
+                title: Response List Active Runs
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/runs/{run_id}:
+    get:
+      tags:
+      - Runs
+      summary: Retrieve Run
+      description: Get the status of a run.
+      operationId: retrieve_run
+      parameters:
+      - name: run_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Run Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Run'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - Runs
+      summary: Delete Run
+      description: Delete a run by its run_id.
+      operationId: delete_run
+      parameters:
+      - name: run_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Run Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/runs/{run_id}/messages:
+    get:
+      tags:
+      - Runs
+      summary: List Messages for Run
+      description: Get response messages associated with a run.
+      operationId: list_messages_for_run
+      parameters:
+      - name: run_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Run Id
+      - name: before
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Message ID cursor for pagination. Returns messages that come before this message ID in the specified sort order
+          title: Before
+        description: Message ID cursor for pagination. Returns messages that come before this message ID in the specified sort order
+      - name: after
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Message ID cursor for pagination. Returns messages that come after this message ID in the specified sort order
+          title: After
+        description: Message ID cursor for pagination. Returns messages that come after this message ID in the specified sort order
+      - name: limit
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          description: Maximum number of messages to return
+          default: 100
+          title: Limit
+        description: Maximum number of messages to return
+      - name: order
+        in: query
+        required: false
+        schema:
+          enum:
+          - asc
+          - desc
+          type: string
+          description: Sort order for messages by creation time. 'asc' for oldest first, 'desc' for newest first
+          default: asc
+          title: Order
+        description: Sort order for messages by creation time. 'asc' for oldest first, 'desc' for newest first
+      - name: order_by
+        in: query
+        required: false
+        schema:
+          const: created_at
+          type: string
+          description: Field to sort by
+          default: created_at
+          title: Order By
+        description: Field to sort by
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LettaMessageUnion'
+                title: Response List Messages For Run
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/runs/{run_id}/usage:
+    get:
+      tags:
+      - Runs
+      summary: Retrieve Usage for Run
+      description: Get usage statistics for a run.
+      operationId: retrieve_usage_for_run
+      parameters:
+      - name: run_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Run Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UsageStatistics'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/runs/{run_id}/metrics:
+    get:
+      tags:
+      - Runs
+      summary: Retrieve Metrics for Run
+      description: Get run metrics by run ID.
+      operationId: retrieve_metrics_for_run
+      parameters:
+      - name: run_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Run Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RunMetrics'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/runs/{run_id}/steps:
+    get:
+      tags:
+      - Runs
+      summary: List Steps for Run
+      description: Get steps associated with a run with filtering options.
+      operationId: list_steps_for_run
+      parameters:
+      - name: run_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Run Id
+      - name: before
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Cursor for pagination
+          title: Before
+        description: Cursor for pagination
+      - name: after
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Cursor for pagination
+          title: After
+        description: Cursor for pagination
+      - name: limit
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          description: Maximum number of messages to return
+          default: 100
+          title: Limit
+        description: Maximum number of messages to return
+      - name: order
+        in: query
+        required: false
+        schema:
+          enum:
+          - asc
+          - desc
+          type: string
+          description: Sort order for steps by creation time. 'asc' for oldest first, 'desc' for newest first
+          default: desc
+          title: Order
+        description: Sort order for steps by creation time. 'asc' for oldest first, 'desc' for newest first
+      - name: order_by
+        in: query
+        required: false
+        schema:
+          const: created_at
+          type: string
+          description: Field to sort by
+          default: created_at
+          title: Order By
+        description: Field to sort by
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Step'
+                title: Response List Steps For Run
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/runs/{run_id}/trace:
+    get:
+      tags:
+      - Runs
+      summary: Retrieve Trace for Run
+      description: 'Retrieve OTEL trace spans for a run.
+
+
+        Returns a filtered set of spans relevant for observability:
+
+        - agent_step: Individual agent reasoning steps
+
+        - tool executions: Tool call spans
+
+        - Root span: The top-level request span
+
+        - time_to_first_token: TTFT measurement span
+
+
+        Requires ClickHouse to be configured for trace storage.'
+      operationId: retrieve_trace_for_run
+      parameters:
+      - name: run_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Run Id
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 5000
+          minimum: 1
+          description: Maximum number of spans to return
+          default: 1000
+          title: Limit
+        description: Maximum number of spans to return
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  additionalProperties: true
+                title: Response Retrieve Trace For Run
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/runs/{run_id}/stream:
+    post:
+      tags:
+      - Runs
+      summary: Retrieve Stream for Run
+      operationId: retrieve_stream_for_run
+      parameters:
+      - name: run_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Run Id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RetrieveStreamRequest'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema: {}
+            text/event-stream:
+              description: Server-Sent Events stream
+              schema:
+                oneOf:
+                - $ref: '#/components/schemas/SystemMessage'
+                - $ref: '#/components/schemas/UserMessage'
+                - $ref: '#/components/schemas/ReasoningMessage'
+                - $ref: '#/components/schemas/HiddenReasoningMessage'
+                - $ref: '#/components/schemas/ToolCallMessage'
+                - $ref: '#/components/schemas/ToolReturnMessage'
+                - $ref: '#/components/schemas/AssistantMessage'
+                - $ref: '#/components/schemas/ApprovalRequestMessage'
+                - $ref: '#/components/schemas/ApprovalResponseMessage'
+                - $ref: '#/components/schemas/LettaPing'
+                - $ref: '#/components/schemas/LettaErrorMessage'
+                - $ref: '#/components/schemas/LettaStopReason'
+                - $ref: '#/components/schemas/LettaUsageStatistics'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    RunMetrics:
+      properties:
+        id:
+          type: string
+          title: Id
+          description: The id of the run this metric belongs to (matches runs.id).
+        agent_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Agent Id
+          description: The unique identifier of the agent.
+        project_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Project Id
+          description: The project that the run belongs to (cloud only).
+        run_start_ns:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Run Start Ns
+          description: The timestamp of the start of the run in nanoseconds.
+        run_ns:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Run Ns
+          description: Total time for the run in nanoseconds.
+        num_steps:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Num Steps
+          description: The number of steps in the run.
+        tools_used:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Tools Used
+          description: List of tool IDs that were used in this run.
+        template_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Template Id
+          description: The template ID that the run belongs to (cloud only).
+        base_template_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Base Template Id
+          description: The base template ID that the run belongs to (cloud only).
+      additionalProperties: false
+      type: object
+      required:
+      - id
+      title: RunMetrics
+    ApprovalReturn:
+      properties:
+        type:
+          type: string
+          const: approval
+          title: Type
+          description: The message type to be created.
+          default: approval
+        tool_call_id:
+          type: string
+          title: Tool Call Id
+          description: The ID of the tool call that corresponds to this approval
+        approve:
+          type: boolean
+          title: Approve
+          description: Whether the tool has been approved
+        reason:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Reason
+          description: An optional explanation for the provided approval status
+      type: object
+      required:
+      - tool_call_id
+      - approve
+      title: ApprovalReturn
+    SystemMessage:
+      properties:
+        id:
+          type: string
+          title: Id
+        date:
+          type: string
+          format: date-time
+          title: Date
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        message_type:
+          type: string
+          const: system_message
+          title: Message Type
+          description: The type of the message.
+          default: system_message
+        otid:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Otid
+          description: The offline threading id (OTID). Set by the client to deduplicate requests. Used for idempotency in background streaming mode — each message in a request must have a unique OTID. Retries of the same request should reuse the same OTIDs.
+        sender_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Sender Id
+        step_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Step Id
+        is_err:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Err
+        seq_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Seq Id
+        run_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Run Id
+        content:
+          type: string
+          title: Content
+          description: The message content sent by the system
+      type: object
+      required:
+      - id
+      - date
+      - content
+      title: SystemMessage
+      description: "A message generated by the system. Never streamed back on a response, only used for cursor pagination.\n\nArgs:\n    id (str): The ID of the message\n    date (datetime): The date the message was created in ISO format\n    name (Optional[str]): The name of the sender of the message\n    content (str): The message content sent by the system"
+    StopReasonType:
+      type: string
+      enum:
+      - end_turn
+      - error
+      - llm_api_error
+      - invalid_llm_response
+      - invalid_tool_call
+      - max_steps
+      - max_tokens_exceeded
+      - no_tool_call
+      - tool_rule
+      - cancelled
+      - insufficient_credits
+      - requires_approval
+      - context_window_overflow_in_system_prompt
+      title: StopReasonType
+    CompactionStats:
+      properties:
+        trigger:
+          type: string
+          title: Trigger
+          description: What triggered the compaction (e.g., 'context_window_exceeded', 'post_step_context_check')
+        context_tokens_before:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Context Tokens Before
+          description: Token count before compaction (from LLM usage stats, includes full context sent to LLM)
+        context_tokens_after:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Context Tokens After
+          description: Token count after compaction (message tokens only, does not include tool definitions)
+        context_window:
+          type: integer
+          title: Context Window
+          description: The model's context window size
+        messages_count_before:
+          type: integer
+          title: Messages Count Before
+          description: Number of messages before compaction
+        messages_count_after:
+          type: integer
+          title: Messages Count After
+          description: Number of messages after compaction
+      type: object
+      required:
+      - trigger
+      - context_window
+      - messages_count_before
+      - messages_count_after
+      title: CompactionStats
+      description: Statistics about a memory compaction operation.
+    EventMessage:
+      properties:
+        id:
+          type: string
+          title: Id
+        date:
+          type: string
+          format: date-time
+          title: Date
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        message_type:
+          type: string
+          const: event_message
+          title: Message Type
+          default: event_message
+        otid:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Otid
+          description: The offline threading id (OTID). Set by the client to deduplicate requests. Used for idempotency in background streaming mode — each message in a request must have a unique OTID. Retries of the same request should reuse the same OTIDs.
+        sender_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Sender Id
+        step_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Step Id
+        is_err:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Err
+        seq_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Seq Id
+        run_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Run Id
+        event_type:
+          type: string
+          const: compaction
+          title: Event Type
+        event_data:
+          additionalProperties: true
+          type: object
+          title: Event Data
+      type: object
+      required:
+      - id
+      - date
+      - event_type
+      - event_data
+      title: EventMessage
+      description: A message for notifying the developer that an event that has occured (e.g. a compaction). Events are NOT part of the context window.
+    ImageContent:
+      properties:
+        type:
+          type: string
+          const: image
+          title: Type
+          description: The type of the message.
+          default: image
+        source:
+          oneOf:
+          - $ref: '#/components/schemas/UrlImage'
+          - $ref: '#/components/schemas/Base64Image'
+          - $ref: '#/components/schemas/LettaImage'
+          title: Source
+          description: The source of the image.
+          discriminator:
+            propertyName: type
+            mapping:
+              base64: '#/components/schemas/Base64Image'
+              letta: '#/components/schemas/LettaImage'
+              url: '#/components/schemas/UrlImage'
+      type: object
+      required:
+      - source
+      title: ImageContent
+    ToolReturnContent:
+      properties:
+        type:
+          type: string
+          const: tool_return
+          title: Type
+          description: Indicates this content represents a tool return event.
+          default: tool_return
+        tool_call_id:
+          type: string
+          title: Tool Call Id
+          description: References the ID of the ToolCallContent that initiated this tool call.
+        content:
+          type: string
+          title: Content
+          description: The content returned by the tool execution.
+        is_error:
+          type: boolean
+          title: Is Error
+          description: Indicates whether the tool execution resulted in an error.
+      type: object
+      required:
+      - tool_call_id
+      - content
+      - is_error
+      title: ToolReturnContent
+    MessageRole:
+      type: string
+      enum:
+      - assistant
+      - user
+      - tool
+      - function
+      - system
+      - approval
+      - summary
+      title: MessageRole
+    AssistantMessage:
+      properties:
+        id:
+          type: string
+          title: Id
+        date:
+          type: string
+          format: date-time
+          title: Date
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        message_type:
+          type: string
+          const: assistant_message
+          title: Message Type
+          description: The type of the message.
+          default: assistant_message
+        otid:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Otid
+          description: The offline threading id (OTID). Set by the client to deduplicate requests. Used for idempotency in background streaming mode — each message in a request must have a unique OTID. Retries of the same request should reuse the same OTIDs.
+        sender_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Sender Id
+        step_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Step Id
+        is_err:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Err
+        seq_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Seq Id
+        run_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Run Id
+        content:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/LettaAssistantMessageContentUnion'
+            type: array
+          - type: string
+          title: Content
+          description: The message content sent by the agent (can be a string or an array of content parts)
+      type: object
+      required:
+      - id
+      - date
+      - content
+      title: AssistantMessage
+      description: "A message sent by the LLM in response to user input. Used in the LLM context.\n\nArgs:\n    id (str): The ID of the message\n    date (datetime): The date the message was created in ISO format\n    name (Optional[str]): The name of the sender of the message\n    content (Union[str, List[LettaAssistantMessageContentUnion]]): The message content sent by the agent (can be a string or an array of content parts)"
+    RunStatus:
+      type: string
+      enum:
+      - created
+      - running
+      - completed
+      - failed
+      - cancelled
+      title: RunStatus
+      description: Status of the run.
+    UsageStatisticsPromptTokenDetails:
+      properties:
+        cached_tokens:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Cached Tokens
+        cache_read_tokens:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Cache Read Tokens
+        cache_creation_tokens:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Cache Creation Tokens
+      type: object
+      title: UsageStatisticsPromptTokenDetails
+    ToolCallDelta:
+      properties:
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        arguments:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Arguments
+        tool_call_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Tool Call Id
+      type: object
+      title: ToolCallDelta
+    StepStatus:
+      type: string
+      enum:
+      - pending
+      - success
+      - failed
+      - cancelled
+      title: StepStatus
+      description: Status of a step execution
+    HiddenReasoningMessage:
+      properties:
+        id:
+          type: string
+          title: Id
+        date:
+          type: string
+          format: date-time
+          title: Date
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        message_type:
+          type: string
+          const: hidden_reasoning_message
+          title: Message Type
+          description: The type of the message.
+          default: hidden_reasoning_message
+        otid:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Otid
+          description: The offline threading id (OTID). Set by the client to deduplicate requests. Used for idempotency in background streaming mode — each message in a request must have a unique OTID. Retries of the same request should reuse the same OTIDs.
+        sender_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Sender Id
+        step_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Step Id
+        is_err:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Err
+        seq_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Seq Id
+        run_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Run Id
+        state:
+          type: string
+          enum:
+          - redacted
+          - omitted
+          title: State
+        hidden_reasoning:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Hidden Reasoning
+      type: object
+      required:
+      - id
+      - date
+      - state
+      title: HiddenReasoningMessage
+      description: "Representation of an agent's internal reasoning where reasoning content\nhas been hidden from the response.\n\nArgs:\n    id (str): The ID of the message\n    date (datetime): The date the message was created in ISO format\n    name (Optional[str]): The name of the sender of the message\n    state (Literal[\"redacted\", \"omitted\"]): Whether the reasoning\n        content was redacted by the provider or simply omitted by the API\n    hidden_reasoning (Optional[str]): The internal reasoning of the agent"
+    Message:
+      properties:
+        created_by_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Created By Id
+          description: The id of the user that made this object.
+        last_updated_by_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Last Updated By Id
+          description: The id of the user that made this object.
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+          description: The timestamp when the object was created.
+        updated_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated At
+          description: The timestamp when the object was last updated.
+        id:
+          type: string
+          pattern: ^message-[a-fA-F0-9]{8}
+          title: Id
+          description: The human-friendly ID of the Message
+          examples:
+          - message-123e4567-e89b-12d3-a456-426614174000
+        agent_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Agent Id
+          description: The unique identifier of the agent.
+        model:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Model
+          description: The model used to make the function call.
+        role:
+          $ref: '#/components/schemas/MessageRole'
+          description: The role of the participant.
+        content:
+          anyOf:
+          - items:
+              oneOf:
+              - $ref: '#/components/schemas/TextContent'
+              - $ref: '#/components/schemas/ImageContent'
+              - $ref: '#/components/schemas/ToolCallContent'
+              - $ref: '#/components/schemas/ToolReturnContent'
+              - $ref: '#/components/schemas/ReasoningContent'
+              - $ref: '#/components/schemas/RedactedReasoningContent'
+              - $ref: '#/components/schemas/OmittedReasoningContent'
+              - $ref: '#/components/schemas/SummarizedReasoningContent'
+              discriminator:
+                propertyName: type
+                mapping:
+                  image: '#/components/schemas/ImageContent'
+                  omitted_reasoning: '#/components/schemas/OmittedReasoningContent'
+                  reasoning: '#/components/schemas/ReasoningContent'
+                  redacted_reasoning: '#/components/schemas/RedactedReasoningContent'
+                  summarized_reasoning: '#/components/schemas/SummarizedReasoningContent'
+                  text: '#/components/schemas/TextContent'
+                  tool_call: '#/components/schemas/ToolCallContent'
+                  tool_return: '#/components/schemas/ToolReturnContent'
+            type: array
+          - type: 'null'
+          title: Content
+          description: The content of the message.
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+          description: 'For role user/assistant: the (optional) name of the participant. For role tool/function: the name of the function called.'
+        tool_calls:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/ChatCompletionMessageFunctionToolCall-Output'
+            type: array
+          - type: 'null'
+          title: Tool Calls
+          description: The list of tool calls requested. Only applicable for role assistant.
+        tool_call_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Tool Call Id
+          description: The ID of the tool call. Only applicable for role tool.
+        step_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Step Id
+          description: The id of the step that this message was created in.
+        run_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Run Id
+          description: The id of the run that this message was created in.
+        otid:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Otid
+          description: The offline threading id associated with this message
+        tool_returns:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/letta__schemas__message__ToolReturn-Output'
+            type: array
+          - type: 'null'
+          title: Tool Returns
+          description: Tool execution return information for prior tool calls
+        group_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Group Id
+          description: The multi-agent group that the message was sent in
+        sender_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Sender Id
+          description: The id of the sender of the message, can be an identity id or agent id
+        batch_item_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Batch Item Id
+          description: The id of the LLMBatchItem that this message is associated with
+        conversation_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Conversation Id
+          description: The conversation this message belongs to
+        is_err:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Err
+          description: Whether this message is part of an error step. Used only for debugging purposes.
+        approval_request_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Approval Request Id
+          description: The id of the approval request if this message is associated with a tool call request.
+        approve:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Approve
+          description: Whether tool call is approved.
+        denial_reason:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Denial Reason
+          description: The reason the tool call request was denied.
+        approvals:
+          anyOf:
+          - items:
+              anyOf:
+              - $ref: '#/components/schemas/ApprovalReturn'
+              - $ref: '#/components/schemas/letta__schemas__message__ToolReturn-Output'
+            type: array
+          - type: 'null'
+          title: Approvals
+          description: The list of approvals for this message.
+      additionalProperties: false
+      type: object
+      required:
+      - role
+      title: Message
+      description: "    Letta's internal representation of a message. Includes methods to convert to/from LLM provider formats.\n\n    Attributes:\n        id (str): The unique identifier of the message.\n        role (MessageRole): The role of the participant.\n        text (str): The text of the message.\n        user_id (str): The unique identifier of the user.\n        agent_id (str): The unique identifier of the agent.\n        model (str): The model used to make the function call.\n        name (str): The name of the participant.\n        created_at (datetime): The time the message was created.\n        tool_calls (List[OpenAIToolCall,]): The list of tool calls requested.\n        tool_call_id (str): The id of the tool call.\n        step_id (str): The id of the step that this message was created in.\n        otid (str): The offline threading id associated with this message.\n        tool_returns (List[ToolReturn]): The list of tool returns requested.\n        group_id (str): The multi-agent group that the message was sent in.\n        sender_id (str): The id of the sender of the message, can be an identity id or agent id.\n        conversation_id (str): The conversation this message belongs to.\nt"
+    letta__schemas__letta_message__ToolReturn:
+      properties:
+        type:
+          type: string
+          const: tool
+          title: Type
+          description: The message type to be created.
+          default: tool
+        tool_return:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/LettaToolReturnContentUnion'
+            type: array
+          - type: string
+          title: Tool Return
+          description: The tool return value - either a string or list of content parts (text/image)
+        status:
+          type: string
+          enum:
+          - success
+          - error
+          title: Status
+        tool_call_id:
+          type: string
+          title: Tool Call Id
+        stdout:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Stdout
+        stderr:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Stderr
+      type: object
+      required:
+      - tool_return
+      - status
+      - tool_call_id
+      title: ToolReturn
+    LettaUserMessageContentUnion:
+      oneOf:
+      - $ref: '#/components/schemas/TextContent'
+      - $ref: '#/components/schemas/ImageContent'
+      discriminator:
+        propertyName: type
+        mapping:
+          text: '#/components/schemas/TextContent'
+          image: '#/components/schemas/ImageContent'
+    TextContent:
+      properties:
+        type:
+          type: string
+          const: text
+          title: Type
+          description: The type of the message.
+          default: text
+        text:
+          type: string
+          title: Text
+          description: The text content of the message.
+        signature:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Signature
+          description: Stores a unique identifier for any reasoning associated with this text content.
+      type: object
+      required:
+      - text
+      title: TextContent
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    Step:
+      properties:
+        id:
+          type: string
+          title: Id
+          description: The id of the step. Assigned by the database.
+        origin:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Origin
+          description: The surface that this agent step was initiated from.
+        provider_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Provider Id
+          description: The unique identifier of the provider that was configured for this step
+        run_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Run Id
+          description: The unique identifier of the run that this step belongs to. Only included for async calls.
+        agent_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Agent Id
+          description: The ID of the agent that performed the step.
+        provider_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Provider Name
+          description: The name of the provider used for this step.
+        provider_category:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Provider Category
+          description: The category of the provider used for this step.
+        model:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Model
+          description: The name of the model used for this step.
+        model_handle:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Model Handle
+          description: The model handle (e.g., 'openai/gpt-4o-mini') used for this step.
+        model_endpoint:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Model Endpoint
+          description: The model endpoint url used for this step.
+        context_window_limit:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Context Window Limit
+          description: The context window limit configured for this step.
+        completion_tokens:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Completion Tokens
+          description: The number of tokens generated by the agent during this step.
+        prompt_tokens:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Prompt Tokens
+          description: The number of tokens in the prompt during this step.
+        total_tokens:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Total Tokens
+          description: The total number of tokens processed by the agent during this step.
+        cached_input_tokens:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Cached Input Tokens
+          description: The number of input tokens served from cache. None if not reported by provider.
+        cache_write_tokens:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Cache Write Tokens
+          description: The number of input tokens written to cache (Anthropic only). None if not reported by provider.
+        reasoning_tokens:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Reasoning Tokens
+          description: The number of reasoning/thinking tokens generated. None if not reported by provider.
+        completion_tokens_details:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Completion Tokens Details
+          description: Detailed completion token breakdown (e.g., reasoning_tokens).
+        prompt_tokens_details:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Prompt Tokens Details
+          description: Detailed prompt token breakdown (e.g., cached_tokens, cache_read_tokens, cache_creation_tokens).
+        stop_reason:
+          anyOf:
+          - $ref: '#/components/schemas/StopReasonType'
+          - type: 'null'
+          description: The stop reason associated with the step.
+        tags:
+          items:
+            type: string
+          type: array
+          title: Tags
+          description: Metadata tags.
+          default: []
+        tid:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Tid
+          description: The unique identifier of the transaction that processed this step.
+        trace_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Trace Id
+          description: The trace id of the agent step.
+        request_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Request Id
+          description: The API request log ID from cloud-api for correlating steps with API requests.
+        messages:
+          items:
+            $ref: '#/components/schemas/Message'
+          type: array
+          title: Messages
+          description: 'The messages generated during this step. Deprecated: use `GET /v1/steps/{step_id}/messages` endpoint instead'
+          default: []
+          deprecated: true
+        feedback:
+          anyOf:
+          - type: string
+            enum:
+            - positive
+            - negative
+          - type: 'null'
+          title: Feedback
+          description: The feedback for this step. Must be either 'positive' or 'negative'.
+        project_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Project Id
+          description: The project that the agent that executed this step belongs to (cloud only).
+        error_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Error Type
+          description: The type/class of the error that occurred
+        error_data:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Error Data
+          description: Error details including message, traceback, and additional context
+        status:
+          anyOf:
+          - $ref: '#/components/schemas/StepStatus'
+          - type: 'null'
+          description: 'Step status: pending, success, or failed'
+          default: pending
+      additionalProperties: false
+      type: object
+      required:
+      - id
+      title: Step
+    ToolCallContent:
+      properties:
+        type:
+          type: string
+          const: tool_call
+          title: Type
+          description: Indicates this content represents a tool call event.
+          default: tool_call
+        id:
+          type: string
+          title: Id
+          description: A unique identifier for this specific tool call instance.
+        name:
+          type: string
+          title: Name
+          description: The name of the tool being called.
+        input:
+          additionalProperties: true
+          type: object
+          title: Input
+          description: The parameters being passed to the tool, structured as a dictionary of parameter names to values.
+        signature:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Signature
+          description: Stores a unique identifier for any reasoning associated with this tool call.
+      type: object
+      required:
+      - id
+      - name
+      - input
+      title: ToolCallContent
+    ToolReturnMessage:
+      properties:
+        id:
+          type: string
+          title: Id
+        date:
+          type: string
+          format: date-time
+          title: Date
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        message_type:
+          type: string
+          const: tool_return_message
+          title: Message Type
+          description: The type of the message.
+          default: tool_return_message
+        otid:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Otid
+          description: The offline threading id (OTID). Set by the client to deduplicate requests. Used for idempotency in background streaming mode — each message in a request must have a unique OTID. Retries of the same request should reuse the same OTIDs.
+        sender_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Sender Id
+        step_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Step Id
+        is_err:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Err
+        seq_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Seq Id
+        run_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Run Id
+        tool_return:
+          type: string
+          title: Tool Return
+          deprecated: true
+        status:
+          type: string
+          enum:
+          - success
+          - error
+          title: Status
+          deprecated: true
+        tool_call_id:
+          type: string
+          title: Tool Call Id
+          deprecated: true
+        stdout:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Stdout
+          deprecated: true
+        stderr:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Stderr
+          deprecated: true
+        tool_returns:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/letta__schemas__letta_message__ToolReturn'
+            type: array
+          - type: 'null'
+          title: Tool Returns
+      type: object
+      required:
+      - id
+      - date
+      - tool_return
+      - status
+      - tool_call_id
+      title: ToolReturnMessage
+      description: "A message representing the return value of a tool call (generated by Letta executing the requested tool).\n\nArgs:\n    id (str): The ID of the message\n    date (datetime): The date the message was created in ISO format\n    name (Optional[str]): The name of the sender of the message\n    tool_return (str): The return value of the tool (deprecated, use tool_returns)\n    status (Literal[\"success\", \"error\"]): The status of the tool call (deprecated, use tool_returns)\n    tool_call_id (str): A unique identifier for the tool call that generated this message (deprecated, use tool_returns)\n    stdout (Optional[List(str)]): Captured stdout (e.g. prints, logs) from the tool invocation (deprecated, use tool_returns)\n    stderr (Optional[List(str)]): Captured stderr from the tool invocation (deprecated, use tool_returns)\n    tool_returns (Optional[List[ToolReturn]]): List of tool returns for multi-tool support"
+    UsageStatisticsCompletionTokenDetails:
+      properties:
+        reasoning_tokens:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Reasoning Tokens
+      type: object
+      title: UsageStatisticsCompletionTokenDetails
+    OmittedReasoningContent:
+      properties:
+        type:
+          type: string
+          const: omitted_reasoning
+          title: Type
+          description: Indicates this is an omitted reasoning step.
+          default: omitted_reasoning
+        signature:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Signature
+          description: A unique identifier for this reasoning step.
+      type: object
+      title: OmittedReasoningContent
+      description: A placeholder for reasoning content we know is present, but isn't returned by the provider (e.g. OpenAI GPT-5 on ChatCompletions)
+    ToolCallMessage:
+      properties:
+        id:
+          type: string
+          title: Id
+        date:
+          type: string
+          format: date-time
+          title: Date
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        message_type:
+          type: string
+          const: tool_call_message
+          title: Message Type
+          description: The type of the message.
+          default: tool_call_message
+        otid:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Otid
+          description: The offline threading id (OTID). Set by the client to deduplicate requests. Used for idempotency in background streaming mode — each message in a request must have a unique OTID. Retries of the same request should reuse the same OTIDs.
+        sender_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Sender Id
+        step_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Step Id
+        is_err:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Err
+        seq_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Seq Id
+        run_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Run Id
+        tool_call:
+          anyOf:
+          - $ref: '#/components/schemas/ToolCall'
+          - $ref: '#/components/schemas/ToolCallDelta'
+          title: Tool Call
+          deprecated: true
+        tool_calls:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/ToolCall'
+            type: array
+          - $ref: '#/components/schemas/ToolCallDelta'
+          - type: 'null'
+          title: Tool Calls
+      type: object
+      required:
+      - id
+      - date
+      - tool_call
+      title: ToolCallMessage
+      description: "A message representing a request to call a tool (generated by the LLM to trigger tool execution).\n\nArgs:\n    id (str): The ID of the message\n    date (datetime): The date the message was created in ISO format\n    name (Optional[str]): The name of the sender of the message\n    tool_call (Union[ToolCall, ToolCallDelta]): The tool call"
+    ApprovalResponseMessage:
+      properties:
+        id:
+          type: string
+          title: Id
+        date:
+          type: string
+          format: date-time
+          title: Date
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        message_type:
+          type: string
+          const: approval_response_message
+          title: Message Type
+          description: The type of the message.
+          default: approval_response_message
+        otid:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Otid
+          description: The offline threading id (OTID). Set by the client to deduplicate requests. Used for idempotency in background streaming mode — each message in a request must have a unique OTID. Retries of the same request should reuse the same OTIDs.
+        sender_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Sender Id
+        step_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Step Id
+        is_err:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Err
+        seq_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Seq Id
+        run_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Run Id
+        approvals:
+          anyOf:
+          - items:
+              oneOf:
+              - $ref: '#/components/schemas/ApprovalReturn'
+              - $ref: '#/components/schemas/letta__schemas__letta_message__ToolReturn'
+              discriminator:
+                propertyName: type
+                mapping:
+                  approval: '#/components/schemas/ApprovalReturn'
+                  tool: '#/components/schemas/letta__schemas__letta_message__ToolReturn'
+            type: array
+          - type: 'null'
+          title: Approvals
+          description: The list of approval responses
+        approve:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Approve
+          description: Whether the tool has been approved
+          deprecated: true
+        approval_request_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Approval Request Id
+          description: The message ID of the approval request
+          deprecated: true
+        reason:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Reason
+          description: An optional explanation for the provided approval status
+          deprecated: true
+      type: object
+      required:
+      - id
+      - date
+      title: ApprovalResponseMessage
+      description: "A message representing a response form the user indicating whether a tool has been approved to run.\n\nArgs:\n    id (str): The ID of the message\n    date (datetime): The date the message was created in ISO format\n    name (Optional[str]): The name of the sender of the message\n    approve: (bool) Whether the tool has been approved\n    approval_request_id: The ID of the approval request\n    reason: (Optional[str]) An optional explanation for the provided approval status"
+    LettaToolReturnContentUnion:
+      oneOf:
+      - $ref: '#/components/schemas/TextContent'
+      - $ref: '#/components/schemas/ImageContent'
+      discriminator:
+        propertyName: type
+        mapping:
+          text: '#/components/schemas/TextContent'
+          image: '#/components/schemas/ImageContent'
+    MessageType:
+      type: string
+      enum:
+      - system_message
+      - user_message
+      - assistant_message
+      - reasoning_message
+      - hidden_reasoning_message
+      - tool_call_message
+      - tool_return_message
+      - approval_request_message
+      - approval_response_message
+      - summary_message
+      - event_message
+      title: MessageType
+    LettaUsageStatistics:
+      properties:
+        message_type:
+          type: string
+          const: usage_statistics
+          title: Message Type
+          default: usage_statistics
+        completion_tokens:
+          type: integer
+          title: Completion Tokens
+          description: The number of tokens generated by the agent.
+          default: 0
+        prompt_tokens:
+          type: integer
+          title: Prompt Tokens
+          description: The number of tokens in the prompt.
+          default: 0
+        total_tokens:
+          type: integer
+          title: Total Tokens
+          description: The total number of tokens processed by the agent.
+          default: 0
+        step_count:
+          type: integer
+          title: Step Count
+          description: The number of steps taken by the agent.
+          default: 0
+        run_ids:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Run Ids
+          description: The background task run IDs associated with the agent interaction
+        cached_input_tokens:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Cached Input Tokens
+          description: The number of input tokens served from cache. None if not reported by provider.
+        cache_write_tokens:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Cache Write Tokens
+          description: The number of input tokens written to cache (Anthropic only). None if not reported by provider.
+        reasoning_tokens:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Reasoning Tokens
+          description: The number of reasoning/thinking tokens generated. None if not reported by provider.
+        context_tokens:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Context Tokens
+          description: Estimate of tokens currently in the context window.
+      type: object
+      title: LettaUsageStatistics
+      description: "Usage statistics for the agent interaction.\n\nAttributes:\n    completion_tokens (int): The number of tokens generated by the agent.\n    prompt_tokens (int): The number of tokens in the prompt.\n    total_tokens (int): The total number of tokens processed by the agent.\n    step_count (int): The number of steps taken by the agent.\n    cached_input_tokens (Optional[int]): The number of input tokens served from cache. None if not reported.\n    cache_write_tokens (Optional[int]): The number of input tokens written to cache. None if not reported.\n    reasoning_tokens (Optional[int]): The number of reasoning/thinking tokens generated. None if not reported."
+    Run:
+      properties:
+        id:
+          type: string
+          pattern: ^(job|run)-[a-fA-F0-9]{8}
+          title: Id
+          description: The human-friendly ID of the Run
+          examples:
+          - run-123e4567-e89b-12d3-a456-426614174000
+        status:
+          $ref: '#/components/schemas/RunStatus'
+          description: The current status of the run.
+          default: created
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+          description: The timestamp when the run was created.
+        completed_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Completed At
+          description: The timestamp when the run was completed.
+        agent_id:
+          type: string
+          title: Agent Id
+          description: The unique identifier of the agent associated with the run.
+        conversation_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Conversation Id
+          description: The unique identifier of the conversation associated with the run.
+        base_template_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Base Template Id
+          description: The base template ID that the run belongs to.
+        background:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Background
+          description: Whether the run was created in background mode.
+        metadata:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Metadata
+          description: Additional metadata for the run.
+        request_config:
+          anyOf:
+          - $ref: '#/components/schemas/LettaRequestConfig'
+          - type: 'null'
+          description: The request configuration for the run.
+        stop_reason:
+          anyOf:
+          - $ref: '#/components/schemas/StopReasonType'
+          - type: 'null'
+          description: The reason why the run was stopped.
+        callback_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Callback Url
+          description: If set, POST to this URL when the run completes.
+        callback_sent_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Callback Sent At
+          description: Timestamp when the callback was last attempted.
+        callback_status_code:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Callback Status Code
+          description: HTTP status code returned by the callback endpoint.
+        callback_error:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Callback Error
+          description: Optional error message from attempting to POST the callback endpoint.
+        ttft_ns:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Ttft Ns
+          description: Time to first token for a run in nanoseconds
+        total_duration_ns:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Total Duration Ns
+          description: Total run duration in nanoseconds
+      additionalProperties: false
+      type: object
+      required:
+      - agent_id
+      title: Run
+      description: Representation of a run - a conversation or processing session for an agent. Runs track when agents process messages and maintain the relationship between agents, steps, and messages.
+    ReasoningMessage:
+      properties:
+        id:
+          type: string
+          title: Id
+        date:
+          type: string
+          format: date-time
+          title: Date
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        message_type:
+          type: string
+          const: reasoning_message
+          title: Message Type
+          description: The type of the message.
+          default: reasoning_message
+        otid:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Otid
+          description: The offline threading id (OTID). Set by the client to deduplicate requests. Used for idempotency in background streaming mode — each message in a request must have a unique OTID. Retries of the same request should reuse the same OTIDs.
+        sender_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Sender Id
+        step_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Step Id
+        is_err:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Err
+        seq_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Seq Id
+        run_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Run Id
+        source:
+          type: string
+          enum:
+          - reasoner_model
+          - non_reasoner_model
+          title: Source
+          default: non_reasoner_model
+        reasoning:
+          type: string
+          title: Reasoning
+        signature:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Signature
+      type: object
+      required:
+      - id
+      - date
+      - reasoning
+      title: ReasoningMessage
+      description: "Representation of an agent's internal reasoning.\n\nArgs:\n    id (str): The ID of the message\n    date (datetime): The date the message was created in ISO format\n    name (Optional[str]): The name of the sender of the message\n    source (Literal[\"reasoner_model\", \"non_reasoner_model\"]): Whether the reasoning\n        content was generated natively by a reasoner model or derived via prompting\n    reasoning (str): The internal reasoning of the agent\n    signature (Optional[str]): The model-generated signature of the reasoning step"
+    RetrieveStreamRequest:
+      properties:
+        agent_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Agent Id
+          description: Agent ID for agent-direct mode with 'default' conversation. Use with conversation_id='default' in the URL path.
+        run_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Run Id
+          description: Run ID to stream directly, bypassing run lookup. Use for recovery from duplicate requests.
+        otid:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Otid
+          description: Offline threading ID to look up the run_id. Bypasses active run lookup if run_id not provided.
+        starting_after:
+          type: integer
+          title: Starting After
+          description: Sequence id to use as a cursor for pagination. Response will start streaming after this chunk sequence id
+          default: 0
+        include_pings:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Include Pings
+          description: Whether to include periodic keepalive ping messages in the stream to prevent connection timeouts.
+          default: true
+        poll_interval:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Poll Interval
+          description: Seconds to wait between polls when no new data.
+          default: 0.1
+        batch_size:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Batch Size
+          description: Number of entries to read per batch.
+          default: 100
+      type: object
+      title: RetrieveStreamRequest
+    Base64Image:
+      properties:
+        type:
+          type: string
+          const: base64
+          title: Type
+          description: The source type for the image.
+          default: base64
+        media_type:
+          type: string
+          title: Media Type
+          description: The media type for the image.
+        data:
+          type: string
+          title: Data
+          description: The base64 encoded image data.
+        detail:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Detail
+          description: What level of detail to use when processing and understanding the image (low, high, or auto to let the model decide)
+      type: object
+      required:
+      - media_type
+      - data
+      title: Base64Image
+    RedactedReasoningContent:
+      properties:
+        type:
+          type: string
+          const: redacted_reasoning
+          title: Type
+          description: Indicates this is a redacted thinking step.
+          default: redacted_reasoning
+        data:
+          type: string
+          title: Data
+          description: The redacted or filtered intermediate reasoning content.
+      type: object
+      required:
+      - data
+      title: RedactedReasoningContent
+      description: Sent via the Anthropic Messages API
+    SummaryMessage:
+      properties:
+        id:
+          type: string
+          title: Id
+        date:
+          type: string
+          format: date-time
+          title: Date
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        message_type:
+          type: string
+          const: summary_message
+          title: Message Type
+          default: summary_message
+        otid:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Otid
+          description: The offline threading id (OTID). Set by the client to deduplicate requests. Used for idempotency in background streaming mode — each message in a request must have a unique OTID. Retries of the same request should reuse the same OTIDs.
+        sender_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Sender Id
+        step_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Step Id
+        is_err:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Err
+        seq_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Seq Id
+        run_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Run Id
+        summary:
+          type: string
+          title: Summary
+        compaction_stats:
+          anyOf:
+          - $ref: '#/components/schemas/CompactionStats'
+          - type: 'null'
+      type: object
+      required:
+      - id
+      - date
+      - summary
+      title: SummaryMessage
+      description: A message representing a summary of the conversation. Sent to the LLM as a user or system message depending on the provider.
+    letta__schemas__message__ToolReturn-Output:
+      properties:
+        tool_call_id:
+          anyOf:
+          - {}
+          - type: 'null'
+          title: Tool Call Id
+          description: The ID for the tool call
+        status:
+          type: string
+          enum:
+          - success
+          - error
+          title: Status
+          description: The status of the tool call
+        stdout:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Stdout
+          description: Captured stdout (e.g. prints, logs) from the tool invocation
+        stderr:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Stderr
+          description: Captured stderr from the tool invocation
+        func_response:
+          anyOf:
+          - type: string
+          - items:
+              oneOf:
+              - $ref: '#/components/schemas/TextContent'
+              - $ref: '#/components/schemas/ImageContent'
+              discriminator:
+                propertyName: type
+                mapping:
+                  image: '#/components/schemas/ImageContent'
+                  text: '#/components/schemas/TextContent'
+            type: array
+          - type: 'null'
+          title: Func Response
+          description: The function response - either a string or list of content parts (text/image)
+      type: object
+      required:
+      - status
+      title: ToolReturn
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    ApprovalRequestMessage:
+      properties:
+        id:
+          type: string
+          title: Id
+        date:
+          type: string
+          format: date-time
+          title: Date
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        message_type:
+          type: string
+          const: approval_request_message
+          title: Message Type
+          description: The type of the message.
+          default: approval_request_message
+        otid:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Otid
+          description: The offline threading id (OTID). Set by the client to deduplicate requests. Used for idempotency in background streaming mode — each message in a request must have a unique OTID. Retries of the same request should reuse the same OTIDs.
+        sender_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Sender Id
+        step_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Step Id
+        is_err:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Err
+        seq_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Seq Id
+        run_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Run Id
+        tool_call:
+          anyOf:
+          - $ref: '#/components/schemas/ToolCall'
+          - $ref: '#/components/schemas/ToolCallDelta'
+          title: Tool Call
+          description: The tool call that has been requested by the llm to run
+          deprecated: true
+        tool_calls:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/ToolCall'
+            type: array
+          - $ref: '#/components/schemas/ToolCallDelta'
+          - type: 'null'
+          title: Tool Calls
+          description: The tool calls that have been requested by the llm to run, which are pending approval
+      type: object
+      required:
+      - id
+      - date
+      - tool_call
+      title: ApprovalRequestMessage
+      description: "A message representing a request for approval to call a tool (generated by the LLM to trigger tool execution).\n\nArgs:\n    id (str): The ID of the message\n    date (datetime): The date the message was created in ISO format\n    name (Optional[str]): The name of the sender of the message\n    tool_call (ToolCall): The tool call"
+    LettaStopReason:
+      properties:
+        message_type:
+          type: string
+          const: stop_reason
+          title: Message Type
+          description: The type of the message.
+          default: stop_reason
+        stop_reason:
+          $ref: '#/components/schemas/StopReasonType'
+          description: The reason why execution stopped.
+      type: object
+      required:
+      - stop_reason
+      title: LettaStopReason
+      description: The stop reason from Letta indicating why agent loop stopped execution.
+    LettaImage:
+      properties:
+        type:
+          type: string
+          const: letta
+          title: Type
+          description: The source type for the image.
+          default: letta
+        file_id:
+          type: string
+          title: File Id
+          description: The unique identifier of the image file persisted in storage.
+        media_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Media Type
+          description: The media type for the image.
+        data:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Data
+          description: The base64 encoded image data.
+        detail:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Detail
+          description: What level of detail to use when processing and understanding the image (low, high, or auto to let the model decide)
+      type: object
+      required:
+      - file_id
+      title: LettaImage
+    LettaErrorMessage:
+      properties:
+        message_type:
+          type: string
+          const: error_message
+          title: Message Type
+          description: The type of the message.
+          default: error_message
+        run_id:
+          type: string
+          title: Run ID
+          description: The ID of the run.
+        error_type:
+          type: string
+          title: Error Type
+          description: The type of error.
+        message:
+          type: string
+          title: Message
+          description: The error message.
+        detail:
+          type: string
+          title: Detail
+          description: An optional error detail.
+        seq_id:
+          type: integer
+          title: Seq ID
+          description: The sequence ID for cursor-based pagination.
+      type: object
+      required:
+      - message_type
+      - run_id
+      - error_type
+      - message
+      title: LettaErrorMessage
+      description: Error messages are used to notify the client of an error that occurred during the agent's execution.
+    Function-Output:
+      properties:
+        arguments:
+          type: string
+          title: Arguments
+        name:
+          type: string
+          title: Name
+      additionalProperties: true
+      type: object
+      required:
+      - arguments
+      - name
+      title: Function
+      description: The function that the model called.
+    UrlImage:
+      properties:
+        type:
+          type: string
+          const: url
+          title: Type
+          description: The source type for the image.
+          default: url
+        url:
+          type: string
+          title: Url
+          description: The URL of the image.
+      type: object
+      required:
+      - url
+      title: UrlImage
+    LettaMessageUnion:
+      oneOf:
+      - $ref: '#/components/schemas/SystemMessage'
+      - $ref: '#/components/schemas/UserMessage'
+      - $ref: '#/components/schemas/ReasoningMessage'
+      - $ref: '#/components/schemas/HiddenReasoningMessage'
+      - $ref: '#/components/schemas/ToolCallMessage'
+      - $ref: '#/components/schemas/ToolReturnMessage'
+      - $ref: '#/components/schemas/AssistantMessage'
+      - $ref: '#/components/schemas/ApprovalRequestMessage'
+      - $ref: '#/components/schemas/ApprovalResponseMessage'
+      - $ref: '#/components/schemas/SummaryMessage'
+      - $ref: '#/components/schemas/EventMessage'
+      discriminator:
+        propertyName: message_type
+        mapping:
+          system_message: '#/components/schemas/SystemMessage'
+          user_message: '#/components/schemas/UserMessage'
+          reasoning_message: '#/components/schemas/ReasoningMessage'
+          hidden_reasoning_message: '#/components/schemas/HiddenReasoningMessage'
+          tool_call_message: '#/components/schemas/ToolCallMessage'
+          tool_return_message: '#/components/schemas/ToolReturnMessage'
+          assistant_message: '#/components/schemas/AssistantMessage'
+          approval_request_message: '#/components/schemas/ApprovalRequestMessage'
+          approval_response_message: '#/components/schemas/ApprovalResponseMessage'
+          summary_message: '#/components/schemas/SummaryMessage'
+          event_message: '#/components/schemas/EventMessage'
+    LettaAssistantMessageContentUnion:
+      oneOf:
+      - $ref: '#/components/schemas/TextContent'
+      discriminator:
+        propertyName: type
+        mapping:
+          text: '#/components/schemas/TextContent'
+    LettaPing:
+      properties:
+        id:
+          type: string
+          title: Id
+        date:
+          type: string
+          format: date-time
+          title: Date
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        message_type:
+          type: string
+          const: ping
+          title: Message Type
+          description: The type of the message. Ping messages are a keep-alive to prevent SSE streams from timing out during long running requests.
+          default: ping
+        otid:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Otid
+          description: The offline threading id (OTID). Set by the client to deduplicate requests. Used for idempotency in background streaming mode — each message in a request must have a unique OTID. Retries of the same request should reuse the same OTIDs.
+        sender_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Sender Id
+        step_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Step Id
+        is_err:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Err
+        seq_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Seq Id
+        run_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Run Id
+      type: object
+      required:
+      - id
+      - date
+      title: LettaPing
+      description: "A ping message used as a keepalive to prevent SSE streams from timing out during long running requests.\n\nArgs:\n    id (str): The ID of the message\n    date (datetime): The date the message was created in ISO format"
+    SummarizedReasoningContent:
+      properties:
+        type:
+          type: string
+          const: summarized_reasoning
+          title: Type
+          description: Indicates this is a summarized reasoning step.
+          default: summarized_reasoning
+        id:
+          type: string
+          title: Id
+          description: The unique identifier for this reasoning step.
+        summary:
+          items:
+            $ref: '#/components/schemas/SummarizedReasoningContentPart'
+          type: array
+          title: Summary
+          description: Summaries of the reasoning content.
+        encrypted_content:
+          type: string
+          title: Encrypted Content
+          description: The encrypted reasoning content.
+      type: object
+      required:
+      - id
+      - summary
+      title: SummarizedReasoningContent
+      description: The style of reasoning content returned by the OpenAI Responses API
+    ReasoningContent:
+      properties:
+        type:
+          type: string
+          const: reasoning
+          title: Type
+          description: Indicates this is a reasoning/intermediate step.
+          default: reasoning
+        is_native:
+          type: boolean
+          title: Is Native
+          description: Whether the reasoning content was generated by a reasoner model that processed this step.
+        reasoning:
+          type: string
+          title: Reasoning
+          description: The intermediate reasoning or thought process content.
+        signature:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Signature
+          description: A unique identifier for this reasoning step.
+      type: object
+      required:
+      - is_native
+      - reasoning
+      title: ReasoningContent
+      description: Sent via the Anthropic Messages API
+    ChatCompletionMessageFunctionToolCall-Output:
+      properties:
+        id:
+          type: string
+          title: Id
+        function:
+          $ref: '#/components/schemas/Function-Output'
+        type:
+          type: string
+          const: function
+          title: Type
+      additionalProperties: true
+      type: object
+      required:
+      - id
+      - function
+      - type
+      title: ChatCompletionMessageFunctionToolCall
+      description: A call to a function tool created by the model.
+    ToolCall:
+      properties:
+        name:
+          type: string
+          title: Name
+        arguments:
+          type: string
+          title: Arguments
+        tool_call_id:
+          type: string
+          title: Tool Call Id
+      type: object
+      required:
+      - name
+      - arguments
+      - tool_call_id
+      title: ToolCall
+    UsageStatistics:
+      properties:
+        completion_tokens:
+          type: integer
+          title: Completion Tokens
+          default: 0
+        prompt_tokens:
+          type: integer
+          title: Prompt Tokens
+          default: 0
+        total_tokens:
+          type: integer
+          title: Total Tokens
+          default: 0
+        prompt_tokens_details:
+          anyOf:
+          - $ref: '#/components/schemas/UsageStatisticsPromptTokenDetails'
+          - type: 'null'
+        completion_tokens_details:
+          anyOf:
+          - $ref: '#/components/schemas/UsageStatisticsCompletionTokenDetails'
+          - type: 'null'
+      type: object
+      title: UsageStatistics
+    LettaRequestConfig:
+      properties:
+        use_assistant_message:
+          type: boolean
+          title: Use Assistant Message
+          description: Whether the server should parse specific tool call arguments (default `send_message`) as `AssistantMessage` objects.
+          default: true
+        assistant_message_tool_name:
+          type: string
+          title: Assistant Message Tool Name
+          description: The name of the designated message tool.
+          default: send_message
+        assistant_message_tool_kwarg:
+          type: string
+          title: Assistant Message Tool Kwarg
+          description: The name of the message argument in the designated message tool.
+          default: message
+        include_return_message_types:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/MessageType'
+            type: array
+          - type: 'null'
+          title: Include Return Message Types
+          description: Only return specified message types in the response. If `None` (default) returns all messages.
+      type: object
+      title: LettaRequestConfig
+    UserMessage:
+      properties:
+        id:
+          type: string
+          title: Id
+        date:
+          type: string
+          format: date-time
+          title: Date
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        message_type:
+          type: string
+          const: user_message
+          title: Message Type
+          description: The type of the message.
+          default: user_message
+        otid:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Otid
+          description: The offline threading id (OTID). Set by the client to deduplicate requests. Used for idempotency in background streaming mode — each message in a request must have a unique OTID. Retries of the same request should reuse the same OTIDs.
+        sender_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Sender Id
+        step_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Step Id
+        is_err:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Err
+        seq_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Seq Id
+        run_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Run Id
+        content:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/LettaUserMessageContentUnion'
+            type: array
+          - type: string
+          title: Content
+          description: The message content sent by the user (can be a string or an array of multi-modal content parts)
+      type: object
+      required:
+      - id
+      - date
+      - content
+      title: UserMessage
+      description: "A message sent by the user. Never streamed back on a response, only used for cursor pagination.\n\nArgs:\n    id (str): The ID of the message\n    date (datetime): The date the message was created in ISO format\n    name (Optional[str]): The name of the sender of the message\n    content (Union[str, List[LettaUserMessageContentUnion]]): The message content sent by the user (can be a string or an array of multi-modal content parts)"
+    SummarizedReasoningContentPart:
+      properties:
+        index:
+          type: integer
+          title: Index
+          description: The index of the summary part.
+        text:
+          type: string
+          title: Text
+          description: The text of the summary part.
+      type: object
+      required:
+      - index
+      - text
+      title: SummarizedReasoningContentPart
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer

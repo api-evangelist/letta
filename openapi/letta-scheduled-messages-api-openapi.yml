@@ -1,0 +1,538 @@
+openapi: 3.1.0
+info:
+  title: Letta Admin Scheduled Messages API
+  version: 1.0.0
+  description: REST API for Letta, the stateful agents platform. Manage agents, memory blocks, archival passages, sources, custom tools, MCP servers, multi-agent groups, runs, and streaming responses. Available as Letta Cloud (managed) at https://api.letta.com/v1 and as the self-hosted open-source server (Apache-2.0) typically run at http://localhost:8283.
+  contact:
+    name: Letta
+    url: https://www.letta.com/
+    email: support@letta.com
+  license:
+    name: Apache-2.0
+    url: https://github.com/letta-ai/letta/blob/main/LICENSE
+  x-logo:
+    url: https://www.letta.com/favicon.ico
+servers:
+- url: https://api.letta.com
+  description: Letta Cloud (managed)
+- url: https://app.letta.com
+  description: Letta Cloud (app)
+- url: http://localhost:8283
+  description: Self-hosted Letta server
+security:
+- bearerAuth: []
+tags:
+- name: Scheduled Messages
+  description: Schedule one-time or recurring messages to drive agents over time.
+paths:
+  /v1/agents/{agent_id}/schedule:
+    post:
+      description: Schedule a message to be sent by the agent at a specified time or on a recurring basis.
+      summary: Schedule Agent Message
+      tags:
+      - Scheduled Messages
+      parameters:
+      - name: agent_id
+        in: path
+        required: true
+        schema:
+          type: string
+      operationId: scheduledMessages.scheduleAgentMessage
+      requestBody:
+        description: Body
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                messages:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      content:
+                        oneOf:
+                        - type: array
+                          items:
+                            oneOf:
+                            - type: object
+                              properties:
+                                text:
+                                  type: string
+                                signature:
+                                  type: string
+                                  nullable: true
+                                type:
+                                  type: string
+                                  enum:
+                                  - text
+                              required:
+                              - text
+                            - type: object
+                              properties:
+                                source:
+                                  type: object
+                                  properties:
+                                    data:
+                                      type: string
+                                    media_type:
+                                      type: string
+                                    detail:
+                                      type: string
+                                    type:
+                                      type: string
+                                      enum:
+                                      - base64
+                                  required:
+                                  - data
+                                  - media_type
+                                type:
+                                  type: string
+                                  enum:
+                                  - image
+                              required:
+                              - source
+                              - type
+                        - type: string
+                      role:
+                        type: string
+                        enum:
+                        - user
+                        - assistant
+                        - system
+                      name:
+                        type: string
+                      otid:
+                        type: string
+                      sender_id:
+                        type: string
+                      type:
+                        type: string
+                        enum:
+                        - message
+                    required:
+                    - content
+                    - role
+                max_steps:
+                  type: number
+                callback_url:
+                  type: string
+                  format: uri
+                include_return_message_types:
+                  type: array
+                  items:
+                    type: string
+                    enum:
+                    - system_message
+                    - user_message
+                    - assistant_message
+                    - reasoning_message
+                    - hidden_reasoning_message
+                    - tool_call_message
+                    - tool_return_message
+                    - approval_request_message
+                    - approval_response_message
+                schedule:
+                  oneOf:
+                  - type: object
+                    properties:
+                      type:
+                        type: string
+                        enum:
+                        - one-time
+                      scheduled_at:
+                        type: number
+                    required:
+                    - scheduled_at
+                  - type: object
+                    properties:
+                      type:
+                        type: string
+                        enum:
+                        - recurring
+                      cron_expression:
+                        type: string
+                    required:
+                    - type
+                    - cron_expression
+              required:
+              - messages
+              - schedule
+      responses:
+        '201':
+          description: '201'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  next_scheduled_at:
+                    type: string
+                required:
+                - id
+    get:
+      description: List all scheduled messages for a specific agent.
+      summary: List Scheduled Agent Messages
+      tags:
+      - Scheduled Messages
+      parameters:
+      - name: agent_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: limit
+        in: query
+        schema:
+          type: string
+      - name: after
+        in: query
+        schema:
+          type: string
+      operationId: scheduledMessages.listScheduledMessages
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  scheduled_messages:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        agent_id:
+                          type: string
+                        message:
+                          type: object
+                          properties:
+                            messages:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  content:
+                                    oneOf:
+                                    - type: array
+                                      items:
+                                        oneOf:
+                                        - type: object
+                                          properties:
+                                            text:
+                                              type: string
+                                            signature:
+                                              type: string
+                                              nullable: true
+                                            type:
+                                              type: string
+                                              enum:
+                                              - text
+                                          required:
+                                          - text
+                                        - type: object
+                                          properties:
+                                            source:
+                                              type: object
+                                              properties:
+                                                data:
+                                                  type: string
+                                                media_type:
+                                                  type: string
+                                                detail:
+                                                  type: string
+                                                type:
+                                                  type: string
+                                                  enum:
+                                                  - base64
+                                              required:
+                                              - data
+                                              - media_type
+                                            type:
+                                              type: string
+                                              enum:
+                                              - image
+                                          required:
+                                          - source
+                                          - type
+                                    - type: string
+                                  role:
+                                    type: string
+                                    enum:
+                                    - user
+                                    - assistant
+                                    - system
+                                  name:
+                                    type: string
+                                  otid:
+                                    type: string
+                                  sender_id:
+                                    type: string
+                                  type:
+                                    type: string
+                                    enum:
+                                    - message
+                                required:
+                                - content
+                                - role
+                            max_steps:
+                              type: number
+                            callback_url:
+                              type: string
+                              format: uri
+                            include_return_message_types:
+                              type: array
+                              items:
+                                type: string
+                                enum:
+                                - system_message
+                                - user_message
+                                - assistant_message
+                                - reasoning_message
+                                - hidden_reasoning_message
+                                - tool_call_message
+                                - tool_return_message
+                                - approval_request_message
+                                - approval_response_message
+                          required:
+                          - messages
+                        schedule:
+                          oneOf:
+                          - type: object
+                            properties:
+                              type:
+                                type: string
+                                enum:
+                                - one-time
+                              scheduled_at:
+                                type: number
+                            required:
+                            - scheduled_at
+                          - type: object
+                            properties:
+                              type:
+                                type: string
+                                enum:
+                                - recurring
+                              cron_expression:
+                                type: string
+                            required:
+                            - type
+                            - cron_expression
+                        next_scheduled_time:
+                          type: string
+                          nullable: true
+                      required:
+                      - id
+                      - agent_id
+                      - message
+                      - schedule
+                      - next_scheduled_time
+                  has_next_page:
+                    type: boolean
+                required:
+                - scheduled_messages
+                - has_next_page
+  /v1/agents/{agent_id}/schedule/{scheduled_message_id}:
+    delete:
+      description: Delete a scheduled message by its ID for a specific agent.
+      summary: Delete Scheduled Agent Message
+      tags:
+      - Scheduled Messages
+      parameters:
+      - name: agent_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: scheduled_message_id
+        in: path
+        required: true
+        schema:
+          type: string
+      operationId: scheduledMessages.deleteScheduledMessage
+      requestBody:
+        description: Body
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+              nullable: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                    - true
+                required:
+                - success
+    get:
+      description: Retrieve a scheduled message by its ID for a specific agent.
+      summary: Retrieve Scheduled Agent Message
+      tags:
+      - Scheduled Messages
+      parameters:
+      - name: agent_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: scheduled_message_id
+        in: path
+        required: true
+        schema:
+          type: string
+      operationId: scheduledMessages.retrieveScheduledMessage
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  agent_id:
+                    type: string
+                  message:
+                    type: object
+                    properties:
+                      messages:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            content:
+                              oneOf:
+                              - type: array
+                                items:
+                                  oneOf:
+                                  - type: object
+                                    properties:
+                                      text:
+                                        type: string
+                                      signature:
+                                        type: string
+                                        nullable: true
+                                      type:
+                                        type: string
+                                        enum:
+                                        - text
+                                    required:
+                                    - text
+                                  - type: object
+                                    properties:
+                                      source:
+                                        type: object
+                                        properties:
+                                          data:
+                                            type: string
+                                          media_type:
+                                            type: string
+                                          detail:
+                                            type: string
+                                          type:
+                                            type: string
+                                            enum:
+                                            - base64
+                                        required:
+                                        - data
+                                        - media_type
+                                      type:
+                                        type: string
+                                        enum:
+                                        - image
+                                    required:
+                                    - source
+                                    - type
+                              - type: string
+                            role:
+                              type: string
+                              enum:
+                              - user
+                              - assistant
+                              - system
+                            name:
+                              type: string
+                            otid:
+                              type: string
+                            sender_id:
+                              type: string
+                            type:
+                              type: string
+                              enum:
+                              - message
+                          required:
+                          - content
+                          - role
+                      max_steps:
+                        type: number
+                      callback_url:
+                        type: string
+                        format: uri
+                      include_return_message_types:
+                        type: array
+                        items:
+                          type: string
+                          enum:
+                          - system_message
+                          - user_message
+                          - assistant_message
+                          - reasoning_message
+                          - hidden_reasoning_message
+                          - tool_call_message
+                          - tool_return_message
+                          - approval_request_message
+                          - approval_response_message
+                    required:
+                    - messages
+                  schedule:
+                    oneOf:
+                    - type: object
+                      properties:
+                        type:
+                          type: string
+                          enum:
+                          - one-time
+                        scheduled_at:
+                          type: number
+                      required:
+                      - scheduled_at
+                    - type: object
+                      properties:
+                        type:
+                          type: string
+                          enum:
+                          - recurring
+                        cron_expression:
+                          type: string
+                      required:
+                      - type
+                      - cron_expression
+                  next_scheduled_time:
+                    type: string
+                    nullable: true
+                required:
+                - id
+                - agent_id
+                - message
+                - schedule
+                - next_scheduled_time
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer

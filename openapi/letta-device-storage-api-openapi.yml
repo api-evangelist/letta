@@ -1,0 +1,57 @@
+openapi: 3.1.0
+info:
+  title: Letta Admin Device Storage API
+  version: 1.0.0
+  description: REST API for Letta, the stateful agents platform. Manage agents, memory blocks, archival passages, sources, custom tools, MCP servers, multi-agent groups, runs, and streaming responses. Available as Letta Cloud (managed) at https://api.letta.com/v1 and as the self-hosted open-source server (Apache-2.0) typically run at http://localhost:8283.
+  contact:
+    name: Letta
+    url: https://www.letta.com/
+    email: support@letta.com
+  license:
+    name: Apache-2.0
+    url: https://github.com/letta-ai/letta/blob/main/LICENSE
+  x-logo:
+    url: https://www.letta.com/favicon.ico
+servers:
+- url: https://api.letta.com
+  description: Letta Cloud (managed)
+- url: https://app.letta.com
+  description: Letta Cloud (app)
+- url: http://localhost:8283
+  description: Self-hosted Letta server
+security:
+- bearerAuth: []
+tags:
+- name: Device Storage
+  description: Per-device storage for the Letta Code SDK and ADE.
+paths:
+  /v1/device-storage-key:
+    get:
+      description: Returns an HMAC-derived AES-256-GCM key scoped to the authenticated user and device. Used to encrypt/decrypt local IndexedDB caches on the client.
+      summary: Get Device Storage Key
+      tags:
+      - Device Storage
+      parameters:
+      - name: deviceId
+        in: query
+        required: true
+        schema:
+          type: string
+      operationId: deviceStorage.getDeviceStorageKey
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  key:
+                    type: string
+                required:
+                - key
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer

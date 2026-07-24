@@ -1,0 +1,3654 @@
+openapi: 3.1.0
+info:
+  title: Letta Admin MCP Servers API
+  version: 1.0.0
+  description: REST API for Letta, the stateful agents platform. Manage agents, memory blocks, archival passages, sources, custom tools, MCP servers, multi-agent groups, runs, and streaming responses. Available as Letta Cloud (managed) at https://api.letta.com/v1 and as the self-hosted open-source server (Apache-2.0) typically run at http://localhost:8283.
+  contact:
+    name: Letta
+    url: https://www.letta.com/
+    email: support@letta.com
+  license:
+    name: Apache-2.0
+    url: https://github.com/letta-ai/letta/blob/main/LICENSE
+  x-logo:
+    url: https://www.letta.com/favicon.ico
+servers:
+- url: https://api.letta.com
+  description: Letta Cloud (managed)
+- url: https://app.letta.com
+  description: Letta Cloud (app)
+- url: http://localhost:8283
+  description: Self-hosted Letta server
+security:
+- bearerAuth: []
+tags:
+- name: MCP Servers
+  description: Register external Model Context Protocol servers and expose their tools to agents.
+paths:
+  /v1/mcp-servers/:
+    post:
+      tags:
+      - MCP Servers
+      summary: Create MCP Server
+      description: Add a new MCP server to the Letta MCP server config
+      operationId: mcp_create_mcp_server
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateMCPServerRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - $ref: '#/components/schemas/StdioMCPServer'
+                - $ref: '#/components/schemas/SSEMCPServer'
+                - $ref: '#/components/schemas/StreamableHTTPMCPServer'
+                title: Response Mcp Create Mcp Server
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    get:
+      tags:
+      - MCP Servers
+      summary: List MCP Servers
+      description: Get a list of all configured MCP servers
+      operationId: mcp_list_mcp_servers
+      parameters: []
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  anyOf:
+                  - $ref: '#/components/schemas/StdioMCPServer'
+                  - $ref: '#/components/schemas/SSEMCPServer'
+                  - $ref: '#/components/schemas/StreamableHTTPMCPServer'
+                title: Response Mcp List Mcp Servers
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/mcp-servers/{mcp_server_id}:
+    get:
+      tags:
+      - MCP Servers
+      summary: Retrieve MCP Server
+      description: Get a specific MCP server
+      operationId: mcp_retrieve_mcp_server
+      parameters:
+      - name: mcp_server_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Mcp Server Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - $ref: '#/components/schemas/StdioMCPServer'
+                - $ref: '#/components/schemas/SSEMCPServer'
+                - $ref: '#/components/schemas/StreamableHTTPMCPServer'
+                title: Response Mcp Retrieve Mcp Server
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - MCP Servers
+      summary: Delete MCP Server
+      description: Delete an MCP server by its ID
+      operationId: mcp_delete_mcp_server
+      parameters:
+      - name: mcp_server_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Mcp Server Id
+      responses:
+        '204':
+          description: Successful Response
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    patch:
+      tags:
+      - MCP Servers
+      summary: Update MCP Server
+      description: Update an existing MCP server configuration
+      operationId: mcp_update_mcp_server
+      parameters:
+      - name: mcp_server_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Mcp Server Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateMCPServerRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - $ref: '#/components/schemas/StdioMCPServer'
+                - $ref: '#/components/schemas/SSEMCPServer'
+                - $ref: '#/components/schemas/StreamableHTTPMCPServer'
+                title: Response Mcp Update Mcp Server
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/mcp-servers/{mcp_server_id}/tools:
+    get:
+      tags:
+      - MCP Servers
+      summary: List Tools for MCP Server
+      description: Get a list of all tools for a specific MCP server
+      operationId: mcp_list_tools_for_mcp_server
+      parameters:
+      - name: mcp_server_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Mcp Server Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Tool'
+                title: Response Mcp List Tools For Mcp Server
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/mcp-servers/{mcp_server_id}/tools/{tool_id}:
+    get:
+      tags:
+      - MCP Servers
+      summary: Retrieve MCP Tool
+      description: Get a specific MCP tool by its ID
+      operationId: mcp_retrieve_mcp_tool
+      parameters:
+      - name: mcp_server_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Mcp Server Id
+      - name: tool_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Tool Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tool'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/mcp-servers/{mcp_server_id}/tools/{tool_id}/run:
+    post:
+      tags:
+      - MCP Servers
+      summary: Run MCP Tool
+      description: 'Execute a specific MCP tool
+
+
+        The request body should contain the tool arguments in the ToolExecuteRequest format.'
+      operationId: mcp_run_tool
+      parameters:
+      - name: mcp_server_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Mcp Server Id
+      - name: tool_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Tool Id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/letta__schemas__mcp_server__ToolExecuteRequest'
+              default:
+                args: {}
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ToolExecutionResult'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/mcp-servers/{mcp_server_id}/refresh:
+    patch:
+      tags:
+      - MCP Servers
+      summary: Refresh MCP Server Tools
+      description: 'Refresh tools for an MCP server by:
+
+        1. Fetching current tools from the MCP server
+
+        2. Deleting tools that no longer exist on the server
+
+        3. Updating schemas for existing tools
+
+        4. Adding new tools from the server
+
+
+        Returns a summary of changes made.'
+      operationId: mcp_refresh_mcp_server_tools
+      parameters:
+      - name: mcp_server_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Mcp Server Id
+      - name: agent_id
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Agent Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/mcp-servers/connect/{mcp_server_id}:
+    get:
+      tags:
+      - MCP Servers
+      summary: Connect MCP Server
+      description: 'Connect to an MCP server with support for OAuth via SSE.
+
+        Returns a stream of events handling authorization state and exchange if OAuth is required.'
+      operationId: mcp_connect_mcp_server
+      parameters:
+      - name: mcp_server_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Mcp Server Id
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema: {}
+            text/event-stream:
+              description: Server-Sent Events stream
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    JsonObjectResponseFormat:
+      properties:
+        type:
+          type: string
+          const: json_object
+          title: Type
+          description: The type of the response format.
+          default: json_object
+      type: object
+      title: JsonObjectResponseFormat
+      description: Response format for JSON object responses.
+    GoogleAIModelSettings:
+      properties:
+        max_output_tokens:
+          type: integer
+          title: Max Output Tokens
+          description: The maximum number of tokens the model can generate.
+          default: 65536
+        parallel_tool_calls:
+          type: boolean
+          title: Parallel Tool Calls
+          description: Whether to enable parallel tool calling.
+          default: true
+        provider_type:
+          type: string
+          const: google_ai
+          title: Provider Type
+          description: The type of the provider.
+          default: google_ai
+        temperature:
+          type: number
+          title: Temperature
+          description: The temperature of the model.
+          default: 0.7
+        thinking_config:
+          $ref: '#/components/schemas/GeminiThinkingConfig'
+          description: The thinking configuration for the model.
+          default:
+            include_thoughts: true
+            thinking_budget: 1024
+        response_schema:
+          anyOf:
+          - oneOf:
+            - $ref: '#/components/schemas/TextResponseFormat'
+            - $ref: '#/components/schemas/JsonSchemaResponseFormat'
+            - $ref: '#/components/schemas/JsonObjectResponseFormat'
+            discriminator:
+              propertyName: type
+              mapping:
+                json_object: '#/components/schemas/JsonObjectResponseFormat'
+                json_schema: '#/components/schemas/JsonSchemaResponseFormat'
+                text: '#/components/schemas/TextResponseFormat'
+          - type: 'null'
+          title: Response Schema
+          description: The response schema for the model.
+      type: object
+      title: GoogleAIModelSettings
+    StopReasonType:
+      type: string
+      enum:
+      - end_turn
+      - error
+      - llm_api_error
+      - invalid_llm_response
+      - invalid_tool_call
+      - max_steps
+      - max_tokens_exceeded
+      - no_tool_call
+      - tool_rule
+      - cancelled
+      - insufficient_credits
+      - requires_approval
+      - context_window_overflow_in_system_prompt
+      title: StopReasonType
+    Tool:
+      properties:
+        id:
+          type: string
+          pattern: ^tool-[a-fA-F0-9]{8}
+          title: Id
+          description: The human-friendly ID of the Tool
+          examples:
+          - tool-123e4567-e89b-12d3-a456-426614174000
+        tool_type:
+          $ref: '#/components/schemas/ToolType'
+          description: The type of the tool.
+          default: custom
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+          description: The description of the tool.
+        source_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Source Type
+          description: The type of the source code.
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+          description: The name of the function.
+        tags:
+          items:
+            type: string
+          type: array
+          title: Tags
+          description: Metadata tags.
+          default: []
+        source_code:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Source Code
+          description: The source code of the function.
+        json_schema:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Json Schema
+          description: The JSON schema of the function.
+        args_json_schema:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Args Json Schema
+          description: The args JSON schema of the function.
+        return_char_limit:
+          type: integer
+          maximum: 1000000
+          minimum: 1
+          title: Return Char Limit
+          description: The maximum number of characters in the response.
+          default: 50000
+        pip_requirements:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/PipRequirement'
+            type: array
+          - type: 'null'
+          title: Pip Requirements
+          description: Optional list of pip packages required by this tool.
+        npm_requirements:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/NpmRequirement'
+            type: array
+          - type: 'null'
+          title: Npm Requirements
+          description: Optional list of npm packages required by this tool.
+        default_requires_approval:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Default Requires Approval
+          description: Default value for whether or not executing this tool requires approval.
+        enable_parallel_execution:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Enable Parallel Execution
+          description: If set to True, then this tool will potentially be executed concurrently with other tools. Default False.
+          default: false
+        created_by_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Created By Id
+          description: The id of the user that made this Tool.
+        last_updated_by_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Last Updated By Id
+          description: The id of the user that made this Tool.
+        metadata_:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Metadata
+          description: A dictionary of additional metadata for the tool.
+        project_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Project Id
+          description: The project id of the tool.
+      additionalProperties: false
+      type: object
+      title: Tool
+      description: Representation of a tool, which is a function that can be called by the agent.
+    letta__schemas__mcp_server__ToolExecuteRequest:
+      properties:
+        args:
+          additionalProperties: true
+          type: object
+          title: Args
+          description: Arguments to pass to the tool
+      additionalProperties: false
+      type: object
+      title: ToolExecuteRequest
+      description: Request to execute a tool.
+    AgentEnvironmentVariable:
+      properties:
+        created_by_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Created By Id
+          description: The id of the user that made this object.
+        last_updated_by_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Last Updated By Id
+          description: The id of the user that made this object.
+        created_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created At
+          description: The timestamp when the object was created.
+        updated_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated At
+          description: The timestamp when the object was last updated.
+        id:
+          type: string
+          pattern: ^agent-env-[a-fA-F0-9]{8}
+          title: Id
+          description: The human-friendly ID of the Agent-env
+          examples:
+          - agent-env-123e4567-e89b-12d3-a456-426614174000
+        key:
+          type: string
+          title: Key
+          description: The name of the environment variable.
+        value:
+          type: string
+          title: Value
+          description: The value of the environment variable.
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+          description: An optional description of the environment variable.
+        value_enc:
+          anyOf:
+          - type: string
+            description: Encrypted secret value (stored as encrypted string)
+            nullable: true
+          - type: 'null'
+          title: Value Enc
+          description: Encrypted value as Secret object
+        agent_id:
+          type: string
+          title: Agent Id
+          description: The ID of the agent this environment variable belongs to.
+      additionalProperties: false
+      type: object
+      required:
+      - key
+      - value
+      - agent_id
+      title: AgentEnvironmentVariable
+    ChatGPTOAuthModelSettings:
+      properties:
+        max_output_tokens:
+          type: integer
+          title: Max Output Tokens
+          description: The maximum number of tokens the model can generate.
+          default: 4096
+        parallel_tool_calls:
+          type: boolean
+          title: Parallel Tool Calls
+          description: Whether to enable parallel tool calling.
+          default: true
+        provider_type:
+          type: string
+          const: chatgpt_oauth
+          title: Provider Type
+          description: The type of the provider.
+          default: chatgpt_oauth
+        temperature:
+          type: number
+          title: Temperature
+          description: The temperature of the model.
+          default: 0.7
+        reasoning:
+          $ref: '#/components/schemas/ChatGPTOAuthReasoning'
+          description: The reasoning configuration for the model.
+          default:
+            reasoning_effort: medium
+      type: object
+      title: ChatGPTOAuthModelSettings
+      description: ChatGPT OAuth model configuration (uses ChatGPT backend API).
+    TextResponseFormat:
+      properties:
+        type:
+          type: string
+          const: text
+          title: Type
+          description: The type of the response format.
+          default: text
+      type: object
+      title: TextResponseFormat
+      description: Response format for plain text responses.
+    ToolType:
+      type: string
+      enum:
+      - custom
+      - letta_core
+      - letta_memory_core
+      - letta_multi_agent_core
+      - letta_sleeptime_core
+      - letta_voice_sleeptime_core
+      - letta_builtin
+      - letta_files_core
+      - external_langchain
+      - external_composio
+      - external_mcp
+      title: ToolType
+    ToolExecutionResult:
+      properties:
+        status:
+          type: string
+          enum:
+          - success
+          - error
+          title: Status
+          description: The status of the tool execution and return object
+        func_return:
+          anyOf:
+          - {}
+          - type: 'null'
+          title: Func Return
+          description: The function return object
+        agent_state:
+          anyOf:
+          - $ref: '#/components/schemas/AgentState'
+          - type: 'null'
+          description: The agent state
+          deprecated: true
+        stdout:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Stdout
+          description: Captured stdout (prints, logs) from function invocation
+        stderr:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Stderr
+          description: Captured stderr from the function invocation
+        sandbox_config_fingerprint:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Sandbox Config Fingerprint
+          description: The fingerprint of the config for the sandbox
+      type: object
+      required:
+      - status
+      title: ToolExecutionResult
+    ToolCallDelta:
+      properties:
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        arguments:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Arguments
+        tool_call_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Tool Call Id
+      type: object
+      title: ToolCallDelta
+    ConditionalToolRule:
+      properties:
+        tool_name:
+          type: string
+          title: Tool Name
+          description: The name of the tool. Must exist in the database for the user's organization.
+        type:
+          type: string
+          const: conditional
+          title: Type
+          default: conditional
+        prompt_template:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Prompt Template
+          description: Optional template string (ignored).
+        default_child:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Default Child
+          description: The default child tool to be called. If None, any tool can be called.
+        child_output_mapping:
+          additionalProperties:
+            type: string
+          type: object
+          title: Child Output Mapping
+          description: The output case to check for mapping
+        require_output_mapping:
+          type: boolean
+          title: Require Output Mapping
+          description: Whether to throw an error when output doesn't match any case
+          default: false
+      additionalProperties: false
+      type: object
+      required:
+      - tool_name
+      - child_output_mapping
+      title: ConditionalToolRule
+      description: A ToolRule that conditionally maps to different child tools based on the output.
+    MaxCountPerStepToolRule:
+      properties:
+        tool_name:
+          type: string
+          title: Tool Name
+          description: The name of the tool. Must exist in the database for the user's organization.
+        type:
+          type: string
+          const: max_count_per_step
+          title: Type
+          default: max_count_per_step
+        prompt_template:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Prompt Template
+          description: Optional template string (ignored).
+        max_count_limit:
+          type: integer
+          title: Max Count Limit
+          description: The max limit for the total number of times this tool can be invoked in a single step.
+      additionalProperties: false
+      type: object
+      required:
+      - tool_name
+      - max_count_limit
+      title: MaxCountPerStepToolRule
+      description: Represents a tool rule configuration which constrains the total number of times this tool can be invoked in a single step.
+    CreateStreamableHTTPMCPServer:
+      properties:
+        mcp_server_type:
+          type: string
+          const: streamable_http
+          title: Mcp Server Type
+          default: streamable_http
+        server_url:
+          type: string
+          title: Server Url
+          description: The URL of the server
+        auth_header:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Auth Header
+          description: The name of the authentication header (e.g., 'Authorization')
+        auth_token:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Auth Token
+          description: The authentication token or API key value
+        custom_headers:
+          anyOf:
+          - additionalProperties:
+              type: string
+            type: object
+          - type: 'null'
+          title: Custom Headers
+          description: Custom HTTP headers to include with requests
+      additionalProperties: false
+      type: object
+      required:
+      - server_url
+      title: CreateStreamableHTTPMCPServer
+      description: Create a new Streamable HTTP MCP server
+    NpmRequirement:
+      properties:
+        name:
+          type: string
+          minLength: 1
+          title: Name
+          description: Name of the npm package.
+        version:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Version
+          description: Optional version of the package, following semantic versioning.
+      type: object
+      required:
+      - name
+      title: NpmRequirement
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ZAIThinking:
+      properties:
+        type:
+          type: string
+          enum:
+          - enabled
+          - disabled
+          title: Type
+          description: Whether thinking is enabled or disabled.
+          default: enabled
+        clear_thinking:
+          type: boolean
+          title: Clear Thinking
+          description: If False, preserved thinking is used (recommended for agents).
+          default: false
+      type: object
+      title: ZAIThinking
+      description: Thinking configuration for ZAI GLM-4.5+ models.
+    ContinueToolRule:
+      properties:
+        tool_name:
+          type: string
+          title: Tool Name
+          description: The name of the tool. Must exist in the database for the user's organization.
+        type:
+          type: string
+          const: continue_loop
+          title: Type
+          default: continue_loop
+        prompt_template:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Prompt Template
+          description: Optional template string (ignored).
+      additionalProperties: false
+      type: object
+      required:
+      - tool_name
+      title: ContinueToolRule
+      description: Represents a tool rule configuration where if this tool gets called, it must continue the agent loop.
+    CreateMCPServerRequest:
+      properties:
+        server_name:
+          type: string
+          title: Server Name
+          description: The name of the MCP server
+        config:
+          oneOf:
+          - $ref: '#/components/schemas/CreateStdioMCPServer'
+          - $ref: '#/components/schemas/CreateSSEMCPServer'
+          - $ref: '#/components/schemas/CreateStreamableHTTPMCPServer'
+          title: Config
+          description: The MCP server configuration (Stdio, SSE, or Streamable HTTP)
+          discriminator:
+            propertyName: mcp_server_type
+            mapping:
+              sse: '#/components/schemas/CreateSSEMCPServer'
+              stdio: '#/components/schemas/CreateStdioMCPServer'
+              streamable_http: '#/components/schemas/CreateStreamableHTTPMCPServer'
+      additionalProperties: false
+      type: object
+      required:
+      - server_name
+      - config
+      title: CreateMCPServerRequest
+      description: Request to create a new MCP server with configuration.
+    GoogleVertexModelSettings:
+      properties:
+        max_output_tokens:
+          type: integer
+          title: Max Output Tokens
+          description: The maximum number of tokens the model can generate.
+          default: 65536
+        parallel_tool_calls:
+          type: boolean
+          title: Parallel Tool Calls
+          description: Whether to enable parallel tool calling.
+          default: true
+        provider_type:
+          type: string
+          const: google_vertex
+          title: Provider Type
+          description: The type of the provider.
+          default: google_vertex
+        temperature:
+          type: number
+          title: Temperature
+          description: The temperature of the model.
+          default: 0.7
+        thinking_config:
+          $ref: '#/components/schemas/GeminiThinkingConfig'
+          description: The thinking configuration for the model.
+          default:
+            include_thoughts: true
+            thinking_budget: 1024
+        response_schema:
+          anyOf:
+          - oneOf:
+            - $ref: '#/components/schemas/TextResponseFormat'
+            - $ref: '#/components/schemas/JsonSchemaResponseFormat'
+            - $ref: '#/components/schemas/JsonObjectResponseFormat'
+            discriminator:
+              propertyName: type
+              mapping:
+                json_object: '#/components/schemas/JsonObjectResponseFormat'
+                json_schema: '#/components/schemas/JsonSchemaResponseFormat'
+                text: '#/components/schemas/TextResponseFormat'
+          - type: 'null'
+          title: Response Schema
+          description: The response schema for the model.
+      type: object
+      title: GoogleVertexModelSettings
+    letta__schemas__mcp_server__UpdateStdioMCPServer:
+      properties:
+        mcp_server_type:
+          type: string
+          const: stdio
+          title: Mcp Server Type
+          default: stdio
+        command:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Command
+          description: The command to run (MCP 'local' client will run this command)
+        args:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Args
+          description: The arguments to pass to the command
+        env:
+          anyOf:
+          - additionalProperties:
+              type: string
+            type: object
+          - type: 'null'
+          title: Env
+          description: Environment variables to set
+      additionalProperties: false
+      type: object
+      required:
+      - command
+      - args
+      title: UpdateStdioMCPServer
+      description: Update schema for Stdio MCP server - all fields optional
+    CreateStdioMCPServer:
+      properties:
+        mcp_server_type:
+          type: string
+          const: stdio
+          title: Mcp Server Type
+          default: stdio
+        command:
+          type: string
+          title: Command
+          description: The command to run (MCP 'local' client will run this command)
+        args:
+          items:
+            type: string
+          type: array
+          title: Args
+          description: The arguments to pass to the command
+        env:
+          anyOf:
+          - additionalProperties:
+              type: string
+            type: object
+          - type: 'null'
+          title: Env
+          description: Environment variables to set
+      additionalProperties: false
+      type: object
+      required:
+      - command
+      - args
+      title: CreateStdioMCPServer
+      description: Create a new Stdio MCP server
+    RequiresApprovalToolRule:
+      properties:
+        tool_name:
+          type: string
+          title: Tool Name
+          description: The name of the tool. Must exist in the database for the user's organization.
+        type:
+          type: string
+          const: requires_approval
+          title: Type
+          default: requires_approval
+        prompt_template:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Prompt Template
+          description: Optional template string (ignored). Rendering uses fast built-in formatting for performance.
+      additionalProperties: false
+      type: object
+      required:
+      - tool_name
+      title: RequiresApprovalToolRule
+      description: Represents a tool rule configuration which requires approval before the tool can be invoked.
+    SGLangModelSettings:
+      properties:
+        max_output_tokens:
+          type: integer
+          title: Max Output Tokens
+          description: The maximum number of tokens the model can generate.
+          default: 4096
+        parallel_tool_calls:
+          type: boolean
+          title: Parallel Tool Calls
+          description: Whether to enable parallel tool calling.
+          default: true
+        provider_type:
+          type: string
+          const: sglang
+          title: Provider Type
+          description: The type of the provider.
+          default: sglang
+        temperature:
+          type: number
+          title: Temperature
+          description: The temperature of the model.
+          default: 0.7
+        reasoning:
+          $ref: '#/components/schemas/OpenAIReasoning'
+          description: The reasoning configuration for the model.
+          default:
+            reasoning_effort: high
+        response_format:
+          anyOf:
+          - oneOf:
+            - $ref: '#/components/schemas/TextResponseFormat'
+            - $ref: '#/components/schemas/JsonSchemaResponseFormat'
+            - $ref: '#/components/schemas/JsonObjectResponseFormat'
+            discriminator:
+              propertyName: type
+              mapping:
+                json_object: '#/components/schemas/JsonObjectResponseFormat'
+                json_schema: '#/components/schemas/JsonSchemaResponseFormat'
+                text: '#/components/schemas/TextResponseFormat'
+          - type: 'null'
+          title: Response Format
+          description: The response format for the model.
+        strict:
+          type: boolean
+          title: Strict
+          description: Enable strict mode for tool calling. When true, tool outputs are guaranteed to match JSON schemas.
+          default: true
+        tool_call_parser:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Tool Call Parser
+          description: SGLang tool call parser name (for example 'glm47', 'qwen25', or 'hermes').
+      type: object
+      title: SGLangModelSettings
+      description: SGLang model configuration (OpenAI-compatible runtime with SGLang-specific parsing).
+    SSEMCPServer:
+      properties:
+        mcp_server_type:
+          type: string
+          const: sse
+          title: Mcp Server Type
+          default: sse
+        server_url:
+          type: string
+          title: Server Url
+          description: The URL of the server
+        auth_header:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Auth Header
+          description: The name of the authentication header (e.g., 'Authorization')
+        auth_token:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Auth Token
+          description: The authentication token or API key value
+        custom_headers:
+          anyOf:
+          - additionalProperties:
+              type: string
+            type: object
+          - type: 'null'
+          title: Custom Headers
+          description: Custom HTTP headers to include with requests
+        id:
+          type: string
+          pattern: ^mcp_server-[a-fA-F0-9]{8}
+          title: Id
+          description: The human-friendly ID of the Mcp_server
+          examples:
+          - mcp_server-123e4567-e89b-12d3-a456-426614174000
+        server_name:
+          type: string
+          title: Server Name
+          description: The name of the MCP server
+      additionalProperties: false
+      type: object
+      required:
+      - server_url
+      - server_name
+      title: SSEMCPServer
+      description: An SSE MCP server
+    ManagerType:
+      type: string
+      enum:
+      - round_robin
+      - supervisor
+      - dynamic
+      - sleeptime
+      - voice_sleeptime
+      - swarm
+      title: ManagerType
+    ProviderCategory:
+      type: string
+      enum:
+      - base
+      - byok
+      title: ProviderCategory
+    VectorDBProvider:
+      type: string
+      enum:
+      - native
+      - tpuf
+      - pinecone
+      title: VectorDBProvider
+      description: Supported vector database providers for archival memory
+    AgentState:
+      properties:
+        created_by_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Created By Id
+          description: The id of the user that made this object.
+        last_updated_by_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Last Updated By Id
+          description: The id of the user that made this object.
+        created_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created At
+          description: The timestamp when the object was created.
+        updated_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated At
+          description: The timestamp when the object was last updated.
+        id:
+          type: string
+          title: Id
+          description: The id of the agent. Assigned by the database.
+        name:
+          type: string
+          title: Name
+          description: The name of the agent.
+        tool_rules:
+          anyOf:
+          - items:
+              oneOf:
+              - $ref: '#/components/schemas/ChildToolRule'
+              - $ref: '#/components/schemas/InitToolRule'
+              - $ref: '#/components/schemas/TerminalToolRule'
+              - $ref: '#/components/schemas/ConditionalToolRule'
+              - $ref: '#/components/schemas/ContinueToolRule'
+              - $ref: '#/components/schemas/RequiredBeforeExitToolRule'
+              - $ref: '#/components/schemas/MaxCountPerStepToolRule'
+              - $ref: '#/components/schemas/ParentToolRule'
+              - $ref: '#/components/schemas/RequiresApprovalToolRule'
+              discriminator:
+                propertyName: type
+                mapping:
+                  conditional: '#/components/schemas/ConditionalToolRule'
+                  constrain_child_tools: '#/components/schemas/ChildToolRule'
+                  continue_loop: '#/components/schemas/ContinueToolRule'
+                  exit_loop: '#/components/schemas/TerminalToolRule'
+                  max_count_per_step: '#/components/schemas/MaxCountPerStepToolRule'
+                  parent_last_tool: '#/components/schemas/ParentToolRule'
+                  required_before_exit: '#/components/schemas/RequiredBeforeExitToolRule'
+                  requires_approval: '#/components/schemas/RequiresApprovalToolRule'
+                  run_first: '#/components/schemas/InitToolRule'
+            type: array
+          - type: 'null'
+          title: Tool Rules
+          description: The list of tool rules.
+        message_ids:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Message Ids
+          description: The ids of the messages in the agent's in-context memory.
+        system:
+          type: string
+          title: System
+          description: The system prompt used by the agent.
+        agent_type:
+          $ref: '#/components/schemas/AgentType'
+          description: The type of agent.
+        llm_config:
+          $ref: '#/components/schemas/LLMConfig'
+          description: 'Deprecated: Use `model` field instead. The LLM configuration used by the agent.'
+          deprecated: true
+        embedding_config:
+          anyOf:
+          - $ref: '#/components/schemas/EmbeddingConfig'
+          - type: 'null'
+          description: 'Deprecated: Use `embedding` field instead. The embedding configuration used by the agent.'
+          deprecated: true
+        model:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Model
+          description: 'The model handle used by the agent (format: provider/model-name).'
+        embedding:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Embedding
+          description: 'The embedding model handle used by the agent (format: provider/model-name).'
+        model_settings:
+          anyOf:
+          - oneOf:
+            - $ref: '#/components/schemas/OpenAIModelSettings'
+            - $ref: '#/components/schemas/SGLangModelSettings'
+            - $ref: '#/components/schemas/AnthropicModelSettings'
+            - $ref: '#/components/schemas/GoogleAIModelSettings'
+            - $ref: '#/components/schemas/GoogleVertexModelSettings'
+            - $ref: '#/components/schemas/AzureModelSettings'
+            - $ref: '#/components/schemas/XAIModelSettings'
+            - $ref: '#/components/schemas/ZAIModelSettings'
+            - $ref: '#/components/schemas/GroqModelSettings'
+            - $ref: '#/components/schemas/DeepseekModelSettings'
+            - $ref: '#/components/schemas/TogetherModelSettings'
+            - $ref: '#/components/schemas/BedrockModelSettings'
+            - $ref: '#/components/schemas/BasetenModelSettings'
+            - $ref: '#/components/schemas/OpenRouterModelSettings'
+            - $ref: '#/components/schemas/ChatGPTOAuthModelSettings'
+            discriminator:
+              propertyName: provider_type
+              mapping:
+                anthropic: '#/components/schemas/AnthropicModelSettings'
+                azure: '#/components/schemas/AzureModelSettings'
+                baseten: '#/components/schemas/BasetenModelSettings'
+                bedrock: '#/components/schemas/BedrockModelSettings'
+                chatgpt_oauth: '#/components/schemas/ChatGPTOAuthModelSettings'
+                deepseek: '#/components/schemas/DeepseekModelSettings'
+                google_ai: '#/components/schemas/GoogleAIModelSettings'
+                google_vertex: '#/components/schemas/GoogleVertexModelSettings'
+                groq: '#/components/schemas/GroqModelSettings'
+                openai: '#/components/schemas/OpenAIModelSettings'
+                openrouter: '#/components/schemas/OpenRouterModelSettings'
+                sglang: '#/components/schemas/SGLangModelSettings'
+                together: '#/components/schemas/TogetherModelSettings'
+                xai: '#/components/schemas/XAIModelSettings'
+                zai: '#/components/schemas/ZAIModelSettings'
+          - type: 'null'
+          title: Model Settings
+          description: The model settings used by the agent.
+        compaction_settings:
+          anyOf:
+          - $ref: '#/components/schemas/CompactionSettings-Output'
+          - type: 'null'
+          description: The compaction settings configuration used for compaction.
+        response_format:
+          anyOf:
+          - oneOf:
+            - $ref: '#/components/schemas/TextResponseFormat'
+            - $ref: '#/components/schemas/JsonSchemaResponseFormat'
+            - $ref: '#/components/schemas/JsonObjectResponseFormat'
+            discriminator:
+              propertyName: type
+              mapping:
+                json_object: '#/components/schemas/JsonObjectResponseFormat'
+                json_schema: '#/components/schemas/JsonSchemaResponseFormat'
+                text: '#/components/schemas/TextResponseFormat'
+          - type: 'null'
+          title: Response Format
+          description: The response format used by the agent
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+          description: The description of the agent.
+        metadata:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Metadata
+          description: The metadata of the agent.
+        memory:
+          $ref: '#/components/schemas/Memory'
+          description: 'Deprecated: Use `blocks` field instead. The in-context memory of the agent.'
+          deprecated: true
+        blocks:
+          items:
+            $ref: '#/components/schemas/Block'
+          type: array
+          title: Blocks
+          description: The memory blocks used by the agent.
+        tools:
+          items:
+            $ref: '#/components/schemas/Tool'
+          type: array
+          title: Tools
+          description: The tools used by the agent.
+        sources:
+          items:
+            $ref: '#/components/schemas/Source'
+          type: array
+          title: Sources
+          description: 'Deprecated: Use `folders` field instead. The sources used by the agent.'
+          deprecated: true
+        tags:
+          items:
+            type: string
+          type: array
+          title: Tags
+          description: The tags associated with the agent.
+        tool_exec_environment_variables:
+          items:
+            $ref: '#/components/schemas/AgentEnvironmentVariable'
+          type: array
+          title: Tool Exec Environment Variables
+          description: 'Deprecated: use `secrets` field instead.'
+          deprecated: true
+        secrets:
+          items:
+            $ref: '#/components/schemas/AgentEnvironmentVariable'
+          type: array
+          title: Secrets
+          description: The environment variables for tool execution specific to this agent.
+        project_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Project Id
+          description: The id of the project the agent belongs to.
+        template_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Template Id
+          description: The id of the template the agent belongs to.
+        base_template_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Base Template Id
+          description: The base template id of the agent.
+        deployment_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Deployment Id
+          description: The id of the deployment.
+        entity_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Entity Id
+          description: The id of the entity within the template.
+        identity_ids:
+          items:
+            type: string
+          type: array
+          title: Identity Ids
+          description: 'Deprecated: Use `identities` field instead. The ids of the identities associated with this agent.'
+          default: []
+          deprecated: true
+        identities:
+          items:
+            $ref: '#/components/schemas/Identity'
+          type: array
+          title: Identities
+          description: The identities associated with this agent.
+          default: []
+        pending_approval:
+          anyOf:
+          - $ref: '#/components/schemas/ApprovalRequestMessage'
+          - type: 'null'
+          description: The latest approval request message pending for this agent, if any.
+        message_buffer_autoclear:
+          type: boolean
+          title: Message Buffer Autoclear
+          description: If set to True, the agent will not remember previous messages (though the agent will still retain state via core memory blocks and archival/recall memory). Not recommended unless you have an advanced use case.
+          default: false
+        enable_sleeptime:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Enable Sleeptime
+          description: If set to True, memory management will move to a background agent thread.
+        multi_agent_group:
+          anyOf:
+          - $ref: '#/components/schemas/Group'
+          - type: 'null'
+          description: 'Deprecated: Use `managed_group` field instead. The multi-agent group that this agent manages.'
+          deprecated: true
+        managed_group:
+          anyOf:
+          - $ref: '#/components/schemas/Group'
+          - type: 'null'
+          description: The multi-agent group that this agent manages
+        last_run_completion:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Last Run Completion
+          description: The timestamp when the agent last completed a run.
+        last_run_duration_ms:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Last Run Duration Ms
+          description: The duration in milliseconds of the agent's last run.
+        last_stop_reason:
+          anyOf:
+          - $ref: '#/components/schemas/StopReasonType'
+          - type: 'null'
+          description: The stop reason from the agent's last run.
+        timezone:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Timezone
+          description: The timezone of the agent (IANA format).
+        max_files_open:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Max Files Open
+          description: Maximum number of files that can be open at once for this agent. Setting this too high may exceed the context window, which will break the agent.
+        per_file_view_window_char_limit:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Per File View Window Char Limit
+          description: The per-file view window character limit for this agent. Setting this too high may exceed the context window, which will break the agent.
+        hidden:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Hidden
+          description: If set to True, the agent will be hidden.
+      additionalProperties: false
+      type: object
+      required:
+      - id
+      - name
+      - system
+      - agent_type
+      - llm_config
+      - memory
+      - blocks
+      - tools
+      - sources
+      - tags
+      title: AgentState
+      description: Representation of an agent's state. This is the state of the agent at a given time, and is persisted in the DB backend. The state has all the information needed to recreate a persisted agent.
+    GroqModelSettings:
+      properties:
+        max_output_tokens:
+          type: integer
+          title: Max Output Tokens
+          description: The maximum number of tokens the model can generate.
+          default: 4096
+        parallel_tool_calls:
+          type: boolean
+          title: Parallel Tool Calls
+          description: Whether to enable parallel tool calling.
+          default: true
+        provider_type:
+          type: string
+          const: groq
+          title: Provider Type
+          description: The type of the provider.
+          default: groq
+        temperature:
+          type: number
+          title: Temperature
+          description: The temperature of the model.
+          default: 0.7
+        response_format:
+          anyOf:
+          - oneOf:
+            - $ref: '#/components/schemas/TextResponseFormat'
+            - $ref: '#/components/schemas/JsonSchemaResponseFormat'
+            - $ref: '#/components/schemas/JsonObjectResponseFormat'
+            discriminator:
+              propertyName: type
+              mapping:
+                json_object: '#/components/schemas/JsonObjectResponseFormat'
+                json_schema: '#/components/schemas/JsonSchemaResponseFormat'
+                text: '#/components/schemas/TextResponseFormat'
+          - type: 'null'
+          title: Response Format
+          description: The response format for the model.
+      type: object
+      title: GroqModelSettings
+      description: Groq model configuration (OpenAI-compatible).
+    BedrockModelSettings:
+      properties:
+        max_output_tokens:
+          type: integer
+          title: Max Output Tokens
+          description: The maximum number of tokens the model can generate.
+          default: 4096
+        parallel_tool_calls:
+          type: boolean
+          title: Parallel Tool Calls
+          description: Whether to enable parallel tool calling.
+          default: true
+        provider_type:
+          type: string
+          const: bedrock
+          title: Provider Type
+          description: The type of the provider.
+          default: bedrock
+        temperature:
+          type: number
+          title: Temperature
+          description: The temperature of the model.
+          default: 0.7
+        response_format:
+          anyOf:
+          - oneOf:
+            - $ref: '#/components/schemas/TextResponseFormat'
+            - $ref: '#/components/schemas/JsonSchemaResponseFormat'
+            - $ref: '#/components/schemas/JsonObjectResponseFormat'
+            discriminator:
+              propertyName: type
+              mapping:
+                json_object: '#/components/schemas/JsonObjectResponseFormat'
+                json_schema: '#/components/schemas/JsonSchemaResponseFormat'
+                text: '#/components/schemas/TextResponseFormat'
+          - type: 'null'
+          title: Response Format
+          description: The response format for the model.
+      type: object
+      title: BedrockModelSettings
+      description: AWS Bedrock model configuration.
+    Identity:
+      properties:
+        id:
+          type: string
+          pattern: ^identity-[a-fA-F0-9]{8}
+          title: Id
+          description: The human-friendly ID of the Identity
+          examples:
+          - identity-123e4567-e89b-12d3-a456-426614174000
+        identifier_key:
+          type: string
+          title: Identifier Key
+          description: External, user-generated identifier key of the identity.
+        name:
+          type: string
+          title: Name
+          description: The name of the identity.
+        identity_type:
+          $ref: '#/components/schemas/IdentityType'
+          description: The type of the identity.
+        project_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Project Id
+          description: The project id of the identity, if applicable.
+        agent_ids:
+          items:
+            type: string
+          type: array
+          title: Agent Ids
+          description: The IDs of the agents associated with the identity.
+          deprecated: true
+        block_ids:
+          items:
+            type: string
+          type: array
+          title: Block Ids
+          description: The IDs of the blocks associated with the identity.
+          deprecated: true
+        properties:
+          items:
+            $ref: '#/components/schemas/IdentityProperty'
+          type: array
+          title: Properties
+          description: List of properties associated with the identity
+      additionalProperties: false
+      type: object
+      required:
+      - identifier_key
+      - name
+      - identity_type
+      - agent_ids
+      - block_ids
+      title: Identity
+    AgentType:
+      type: string
+      enum:
+      - memgpt_agent
+      - memgpt_v2_agent
+      - letta_v1_agent
+      - react_agent
+      - workflow_agent
+      - split_thread_agent
+      - sleeptime_agent
+      - voice_convo_agent
+      - voice_sleeptime_agent
+      title: AgentType
+      description: Enum to represent the type of agent.
+    CompactionSettings-Output:
+      properties:
+        model:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Model
+          description: 'Model handle to use for sliding_window/all summarization (format: provider/model-name). If None, uses lightweight provider-specific defaults.'
+        model_settings:
+          anyOf:
+          - oneOf:
+            - $ref: '#/components/schemas/OpenAIModelSettings'
+            - $ref: '#/components/schemas/SGLangModelSettings'
+            - $ref: '#/components/schemas/AnthropicModelSettings'
+            - $ref: '#/components/schemas/GoogleAIModelSettings'
+            - $ref: '#/components/schemas/GoogleVertexModelSettings'
+            - $ref: '#/components/schemas/AzureModelSettings'
+            - $ref: '#/components/schemas/XAIModelSettings'
+            - $ref: '#/components/schemas/ZAIModelSettings'
+            - $ref: '#/components/schemas/GroqModelSettings'
+            - $ref: '#/components/schemas/DeepseekModelSettings'
+            - $ref: '#/components/schemas/TogetherModelSettings'
+            - $ref: '#/components/schemas/BedrockModelSettings'
+            - $ref: '#/components/schemas/BasetenModelSettings'
+            - $ref: '#/components/schemas/OpenRouterModelSettings'
+            - $ref: '#/components/schemas/ChatGPTOAuthModelSettings'
+            discriminator:
+              propertyName: provider_type
+              mapping:
+                anthropic: '#/components/schemas/AnthropicModelSettings'
+                azure: '#/components/schemas/AzureModelSettings'
+                baseten: '#/components/schemas/BasetenModelSettings'
+                bedrock: '#/components/schemas/BedrockModelSettings'
+                chatgpt_oauth: '#/components/schemas/ChatGPTOAuthModelSettings'
+                deepseek: '#/components/schemas/DeepseekModelSettings'
+                google_ai: '#/components/schemas/GoogleAIModelSettings'
+                google_vertex: '#/components/schemas/GoogleVertexModelSettings'
+                groq: '#/components/schemas/GroqModelSettings'
+                openai: '#/components/schemas/OpenAIModelSettings'
+                openrouter: '#/components/schemas/OpenRouterModelSettings'
+                sglang: '#/components/schemas/SGLangModelSettings'
+                together: '#/components/schemas/TogetherModelSettings'
+                xai: '#/components/schemas/XAIModelSettings'
+                zai: '#/components/schemas/ZAIModelSettings'
+          - type: 'null'
+          title: Model Settings
+          description: Optional model settings used to override defaults for the summarizer model.
+        prompt:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Prompt
+          description: The prompt to use for summarization. If None, uses mode-specific default.
+        prompt_acknowledgement:
+          type: boolean
+          title: Prompt Acknowledgement
+          description: Whether to include an acknowledgement post-prompt (helps prevent non-summary outputs).
+          default: false
+        clip_chars:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Clip Chars
+          description: The maximum length of the summary in characters. If none, no clipping is performed.
+          default: 50000
+        mode:
+          type: string
+          enum:
+          - all
+          - sliding_window
+          - self_compact_all
+          - self_compact_sliding_window
+          title: Mode
+          description: The type of summarization technique use.
+          default: sliding_window
+        sliding_window_percentage:
+          type: number
+          title: Sliding Window Percentage
+          description: The percentage of the context window to keep post-summarization (only used in sliding window modes).
+      type: object
+      title: CompactionSettings
+      description: 'Configuration for conversation compaction / summarization.
+
+
+        Per-model settings (temperature,
+
+        max tokens, etc.) are derived from the default configuration for that handle.'
+    LLMConfig:
+      properties:
+        model:
+          type: string
+          title: Model
+          description: 'LLM model name. '
+        display_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Display Name
+          description: A human-friendly display name for the model.
+        model_endpoint_type:
+          type: string
+          enum:
+          - openai
+          - anthropic
+          - google_ai
+          - google_vertex
+          - azure
+          - groq
+          - ollama
+          - webui
+          - webui-legacy
+          - lmstudio
+          - lmstudio-legacy
+          - lmstudio-chatcompletions
+          - llamacpp
+          - koboldcpp
+          - vllm
+          - hugging-face
+          - minimax
+          - mistral
+          - together
+          - bedrock
+          - deepseek
+          - xai
+          - zai
+          - zai_coding
+          - baseten
+          - fireworks
+          - openrouter
+          - chatgpt_oauth
+          title: Model Endpoint Type
+          description: The endpoint type for the model.
+        model_endpoint:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Model Endpoint
+          description: The endpoint for the model.
+        provider_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Provider Name
+          description: The provider name for the model.
+        provider_category:
+          anyOf:
+          - $ref: '#/components/schemas/ProviderCategory'
+          - type: 'null'
+          description: The provider category for the model.
+        model_wrapper:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Model Wrapper
+          description: The wrapper for the model.
+        context_window:
+          type: integer
+          title: Context Window
+          description: The context window size for the model.
+        put_inner_thoughts_in_kwargs:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Put Inner Thoughts In Kwargs
+          description: Puts 'inner_thoughts' as a kwarg in the function call if this is set to True. This helps with function calling performance and also the generation of inner thoughts.
+          default: false
+        handle:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Handle
+          description: The handle for this config, in the format provider/model-name.
+        temperature:
+          type: number
+          title: Temperature
+          description: The temperature to use when generating text with the model. A higher temperature will result in more random text.
+          default: 1
+        max_tokens:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Max Tokens
+          description: The maximum number of tokens to generate. If not set, the model will use its default value.
+        enable_reasoner:
+          type: boolean
+          title: Enable Reasoner
+          description: Whether or not the model should use extended thinking if it is a 'reasoning' style model
+          default: true
+        reasoning_effort:
+          anyOf:
+          - type: string
+            enum:
+            - none
+            - minimal
+            - low
+            - medium
+            - high
+            - xhigh
+          - type: 'null'
+          title: Reasoning Effort
+          description: The reasoning effort to use when generating text reasoning models
+        max_reasoning_tokens:
+          type: integer
+          title: Max Reasoning Tokens
+          description: Configurable thinking budget for extended thinking. Used for enable_reasoner and also for Google Vertex models like Gemini 2.5 Flash. Minimum value is 1024 when used with enable_reasoner.
+          default: 0
+        effort:
+          anyOf:
+          - type: string
+            enum:
+            - low
+            - medium
+            - high
+            - max
+          - type: 'null'
+          title: Effort
+          description: The effort level for Anthropic models that support it (Opus 4.5, Opus 4.6). Controls token spending and thinking behavior. Not setting this gives similar performance to 'high'.
+        frequency_penalty:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Frequency Penalty
+          description: 'Positive values penalize new tokens based on their existing frequency in the text so far, decreasing the model''s likelihood to repeat the same line verbatim. From OpenAI: Number between -2.0 and 2.0.'
+        compatibility_type:
+          anyOf:
+          - type: string
+            enum:
+            - gguf
+            - mlx
+          - type: 'null'
+          title: Compatibility Type
+          description: The framework compatibility type for the model.
+        verbosity:
+          anyOf:
+          - type: string
+            enum:
+            - low
+            - medium
+            - high
+          - type: 'null'
+          title: Verbosity
+          description: Soft control for how verbose model output should be, used for GPT-5 models.
+        tier:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Tier
+          description: The cost tier for the model (cloud only).
+        parallel_tool_calls:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Parallel Tool Calls
+          description: 'Deprecated: Use model_settings to configure parallel tool calls instead. If set to True, enables parallel tool calling. Defaults to False.'
+          default: false
+          deprecated: true
+        response_format:
+          anyOf:
+          - oneOf:
+            - $ref: '#/components/schemas/TextResponseFormat'
+            - $ref: '#/components/schemas/JsonSchemaResponseFormat'
+            - $ref: '#/components/schemas/JsonObjectResponseFormat'
+            discriminator:
+              propertyName: type
+              mapping:
+                json_object: '#/components/schemas/JsonObjectResponseFormat'
+                json_schema: '#/components/schemas/JsonSchemaResponseFormat'
+                text: '#/components/schemas/TextResponseFormat'
+          - type: 'null'
+          title: Response Format
+          description: The response format for the model's output. Supports text, json_object, and json_schema (structured outputs). Can be set via model_settings.
+        strict:
+          type: boolean
+          title: Strict
+          description: 'Enable strict mode for tool calling. When true, tool schemas include strict: true and additionalProperties: false, guaranteeing tool outputs match JSON schemas.'
+          default: false
+        return_logprobs:
+          type: boolean
+          title: Return Logprobs
+          description: Whether to return log probabilities of the output tokens. Useful for RL training.
+          default: false
+        top_logprobs:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Top Logprobs
+          description: Number of most likely tokens to return at each position (0-20). Requires return_logprobs=True.
+        return_token_ids:
+          type: boolean
+          title: Return Token Ids
+          description: Whether to return token IDs for all LLM generations via SGLang native endpoint. Required for multi-turn RL training with loss masking. Only works with SGLang provider.
+          default: false
+        tool_call_parser:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Tool Call Parser
+          description: SGLang tool call parser name (e.g. 'glm47', 'qwen25', 'hermes'). Used by the SGLang native adapter to parse tool calls from raw model output.
+      type: object
+      required:
+      - model
+      - model_endpoint_type
+      - context_window
+      title: LLMConfig
+      description: "Configuration for Language Model (LLM) connection and generation parameters.\n\n.. deprecated::\n    LLMConfig is deprecated and should not be used as an input or return type in API calls.\n    Use the schemas in letta.schemas.model (ModelSettings, OpenAIModelSettings, etc.) instead.\n    For conversion, use the _to_model() method or Model._from_llm_config() method."
+    Group:
+      properties:
+        id:
+          type: string
+          title: Id
+          description: The id of the group. Assigned by the database.
+        manager_type:
+          $ref: '#/components/schemas/ManagerType'
+          description: ''
+        agent_ids:
+          items:
+            type: string
+          type: array
+          title: Agent Ids
+          description: ''
+        description:
+          type: string
+          title: Description
+          description: ''
+        project_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Project Id
+          description: The associated project id.
+        template_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Template Id
+          description: The id of the template.
+        base_template_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Base Template Id
+          description: The base template id.
+        deployment_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Deployment Id
+          description: The id of the deployment.
+        shared_block_ids:
+          items:
+            type: string
+          type: array
+          title: Shared Block Ids
+          description: ''
+          default: []
+          deprecated: true
+        manager_agent_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Manager Agent Id
+          description: ''
+        termination_token:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Termination Token
+          description: ''
+        max_turns:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Max Turns
+          description: ''
+        sleeptime_agent_frequency:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Sleeptime Agent Frequency
+          description: ''
+        turns_counter:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Turns Counter
+          description: ''
+        last_processed_message_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Last Processed Message Id
+          description: ''
+        max_message_buffer_length:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Max Message Buffer Length
+          description: The desired maximum length of messages in the context window of the convo agent. This is a best effort, and may be off slightly due to user/assistant interleaving.
+        min_message_buffer_length:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Min Message Buffer Length
+          description: The desired minimum length of messages in the context window of the convo agent. This is a best effort, and may be off-by-one due to user/assistant interleaving.
+        hidden:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Hidden
+          description: If set to True, the group will be hidden.
+      additionalProperties: false
+      type: object
+      required:
+      - id
+      - manager_type
+      - agent_ids
+      - description
+      title: Group
+    UpdateMCPServerRequest:
+      properties:
+        server_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Server Name
+          description: The name of the MCP server
+        config:
+          oneOf:
+          - $ref: '#/components/schemas/letta__schemas__mcp_server__UpdateStdioMCPServer'
+          - $ref: '#/components/schemas/letta__schemas__mcp_server__UpdateSSEMCPServer'
+          - $ref: '#/components/schemas/letta__schemas__mcp_server__UpdateStreamableHTTPMCPServer'
+          title: Config
+          description: The MCP server configuration updates (Stdio, SSE, or Streamable HTTP)
+          discriminator:
+            propertyName: mcp_server_type
+            mapping:
+              sse: '#/components/schemas/letta__schemas__mcp_server__UpdateSSEMCPServer'
+              stdio: '#/components/schemas/letta__schemas__mcp_server__UpdateStdioMCPServer'
+              streamable_http: '#/components/schemas/letta__schemas__mcp_server__UpdateStreamableHTTPMCPServer'
+      additionalProperties: false
+      type: object
+      required:
+      - config
+      title: UpdateMCPServerRequest
+      description: Request to update an existing MCP server configuration.
+    StreamableHTTPMCPServer:
+      properties:
+        mcp_server_type:
+          type: string
+          const: streamable_http
+          title: Mcp Server Type
+          default: streamable_http
+        server_url:
+          type: string
+          title: Server Url
+          description: The URL of the server
+        auth_header:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Auth Header
+          description: The name of the authentication header (e.g., 'Authorization')
+        auth_token:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Auth Token
+          description: The authentication token or API key value
+        custom_headers:
+          anyOf:
+          - additionalProperties:
+              type: string
+            type: object
+          - type: 'null'
+          title: Custom Headers
+          description: Custom HTTP headers to include with requests
+        id:
+          type: string
+          pattern: ^mcp_server-[a-fA-F0-9]{8}
+          title: Id
+          description: The human-friendly ID of the Mcp_server
+          examples:
+          - mcp_server-123e4567-e89b-12d3-a456-426614174000
+        server_name:
+          type: string
+          title: Server Name
+          description: The name of the MCP server
+      additionalProperties: false
+      type: object
+      required:
+      - server_url
+      - server_name
+      title: StreamableHTTPMCPServer
+      description: A Streamable HTTP MCP server
+    ToolCallNode:
+      properties:
+        name:
+          type: string
+          title: Name
+          description: The name of the child tool to invoke next.
+        args:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Args
+          description: Optional prefilled arguments for this child tool. Keys must match the tool's parameter names and values must satisfy the tool's JSON schema. Supports partial prefill; non-overlapping parameters are left to the model.
+      type: object
+      required:
+      - name
+      title: ToolCallNode
+      description: 'Typed child override for prefilled arguments.
+
+
+        When used in a ChildToolRule, if this child is selected next, its `args` will be
+
+        applied as prefilled arguments (overriding overlapping LLM-provided values).'
+    FileBlock:
+      properties:
+        value:
+          type: string
+          title: Value
+          description: Value of the block.
+        limit:
+          type: integer
+          title: Limit
+          description: Character limit of the block.
+          default: 100000
+        project_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Project Id
+          description: The associated project id.
+        template_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Template Name
+          description: Name of the block if it is a template.
+        is_template:
+          type: boolean
+          title: Is Template
+          description: Whether the block is a template (e.g. saved human/persona options).
+          default: false
+        template_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Template Id
+          description: The id of the template.
+        base_template_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Base Template Id
+          description: The base template id of the block.
+        deployment_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Deployment Id
+          description: The id of the deployment.
+        entity_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Entity Id
+          description: The id of the entity within the template.
+        preserve_on_migration:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Preserve On Migration
+          description: Preserve the block on template migration.
+          default: false
+        label:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Label
+          description: Label of the block (e.g. 'human', 'persona') in the context window.
+        read_only:
+          type: boolean
+          title: Read Only
+          description: Whether the agent has read-only access to the block.
+          default: false
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+          description: Description of the block.
+        metadata:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Metadata
+          description: Metadata of the block.
+          default: {}
+        hidden:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Hidden
+          description: If set to True, the block will be hidden.
+        id:
+          type: string
+          pattern: ^block-[a-fA-F0-9]{8}
+          title: Id
+          description: The human-friendly ID of the Block
+          examples:
+          - block-123e4567-e89b-12d3-a456-426614174000
+        created_by_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Created By Id
+          description: The id of the user that made this Block.
+        last_updated_by_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Last Updated By Id
+          description: The id of the user that last updated this Block.
+        tags:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Tags
+          description: The tags associated with the block.
+          default: []
+        file_id:
+          type: string
+          title: File Id
+          description: Unique identifier of the file.
+        source_id:
+          type: string
+          title: Source Id
+          description: 'Deprecated: Use `folder_id` field instead. Unique identifier of the source.'
+          deprecated: true
+        is_open:
+          type: boolean
+          title: Is Open
+          description: True if the agent currently has the file open.
+        last_accessed_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Last Accessed At
+          description: UTC timestamp of the agent’s most recent access to this file. Any operations from the open, close, or search tools will update this field.
+      type: object
+      required:
+      - value
+      - file_id
+      - source_id
+      - is_open
+      title: FileBlock
+    Source:
+      properties:
+        name:
+          type: string
+          title: Name
+          description: The name of the source.
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+          description: The description of the source.
+        instructions:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Instructions
+          description: Instructions for how to use the source.
+        metadata:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Metadata
+          description: Metadata associated with the source.
+        id:
+          type: string
+          pattern: ^source-[a-fA-F0-9]{8}
+          title: Id
+          description: The human-friendly ID of the Source
+          examples:
+          - source-123e4567-e89b-12d3-a456-426614174000
+        embedding_config:
+          $ref: '#/components/schemas/EmbeddingConfig'
+          description: The embedding configuration used by the source.
+        vector_db_provider:
+          $ref: '#/components/schemas/VectorDBProvider'
+          description: The vector database provider used for this source's passages
+          default: native
+        created_by_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Created By Id
+          description: The id of the user that made this Tool.
+        last_updated_by_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Last Updated By Id
+          description: The id of the user that made this Tool.
+        created_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created At
+          description: The timestamp when the source was created.
+        updated_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated At
+          description: The timestamp when the source was last updated.
+      additionalProperties: false
+      type: object
+      required:
+      - name
+      - embedding_config
+      title: Source
+      description: '(Deprecated: Use Folder) Representation of a source, which is a collection of files and passages.'
+    Block:
+      properties:
+        value:
+          type: string
+          title: Value
+          description: Value of the block.
+        limit:
+          type: integer
+          title: Limit
+          description: Character limit of the block.
+          default: 100000
+        project_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Project Id
+          description: The associated project id.
+        template_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Template Name
+          description: Name of the block if it is a template.
+        is_template:
+          type: boolean
+          title: Is Template
+          description: Whether the block is a template (e.g. saved human/persona options).
+          default: false
+        template_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Template Id
+          description: The id of the template.
+        base_template_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Base Template Id
+          description: The base template id of the block.
+        deployment_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Deployment Id
+          description: The id of the deployment.
+        entity_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Entity Id
+          description: The id of the entity within the template.
+        preserve_on_migration:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Preserve On Migration
+          description: Preserve the block on template migration.
+          default: false
+        label:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Label
+          description: Label of the block (e.g. 'human', 'persona') in the context window.
+        read_only:
+          type: boolean
+          title: Read Only
+          description: Whether the agent has read-only access to the block.
+          default: false
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+          description: Description of the block.
+        metadata:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Metadata
+          description: Metadata of the block.
+          default: {}
+        hidden:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Hidden
+          description: If set to True, the block will be hidden.
+        id:
+          type: string
+          pattern: ^block-[a-fA-F0-9]{8}
+          title: Id
+          description: The human-friendly ID of the Block
+          examples:
+          - block-123e4567-e89b-12d3-a456-426614174000
+        created_by_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Created By Id
+          description: The id of the user that made this Block.
+        last_updated_by_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Last Updated By Id
+          description: The id of the user that last updated this Block.
+        tags:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Tags
+          description: The tags associated with the block.
+          default: []
+      type: object
+      required:
+      - value
+      title: Block
+      description: A Block represents a reserved section of the LLM's context window.
+    RequiredBeforeExitToolRule:
+      properties:
+        tool_name:
+          type: string
+          title: Tool Name
+          description: The name of the tool. Must exist in the database for the user's organization.
+        type:
+          type: string
+          const: required_before_exit
+          title: Type
+          default: required_before_exit
+        prompt_template:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Prompt Template
+          description: Optional template string (ignored).
+      additionalProperties: false
+      type: object
+      required:
+      - tool_name
+      title: RequiredBeforeExitToolRule
+      description: Represents a tool rule configuration where this tool must be called before the agent loop can exit.
+    ZAIModelSettings:
+      properties:
+        max_output_tokens:
+          type: integer
+          title: Max Output Tokens
+          description: The maximum number of tokens the model can generate.
+          default: 4096
+        parallel_tool_calls:
+          type: boolean
+          title: Parallel Tool Calls
+          description: Whether to enable parallel tool calling.
+          default: true
+        provider_type:
+          type: string
+          const: zai
+          title: Provider Type
+          description: The type of the provider.
+          default: zai
+        temperature:
+          type: number
+          title: Temperature
+          description: The temperature of the model.
+          default: 0.7
+        response_format:
+          anyOf:
+          - oneOf:
+            - $ref: '#/components/schemas/TextResponseFormat'
+            - $ref: '#/components/schemas/JsonSchemaResponseFormat'
+            - $ref: '#/components/schemas/JsonObjectResponseFormat'
+            discriminator:
+              propertyName: type
+              mapping:
+                json_object: '#/components/schemas/JsonObjectResponseFormat'
+                json_schema: '#/components/schemas/JsonSchemaResponseFormat'
+                text: '#/components/schemas/TextResponseFormat'
+          - type: 'null'
+          title: Response Format
+          description: The response format for the model.
+        thinking:
+          $ref: '#/components/schemas/ZAIThinking'
+          description: The thinking configuration for GLM-4.5+ models.
+          default:
+            type: enabled
+            clear_thinking: false
+      type: object
+      title: ZAIModelSettings
+      description: Z.ai (ZhipuAI) model configuration (OpenAI-compatible).
+    GeminiThinkingConfig:
+      properties:
+        include_thoughts:
+          type: boolean
+          title: Include Thoughts
+          description: Whether to include thoughts in the model's response.
+          default: true
+        thinking_budget:
+          type: integer
+          title: Thinking Budget
+          description: The thinking budget for the model.
+          default: 1024
+      type: object
+      title: GeminiThinkingConfig
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    IdentityType:
+      type: string
+      enum:
+      - org
+      - user
+      - other
+      title: IdentityType
+      description: Enum to represent the type of the identity.
+    ApprovalRequestMessage:
+      properties:
+        id:
+          type: string
+          title: Id
+        date:
+          type: string
+          format: date-time
+          title: Date
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        message_type:
+          type: string
+          const: approval_request_message
+          title: Message Type
+          description: The type of the message.
+          default: approval_request_message
+        otid:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Otid
+          description: The offline threading id (OTID). Set by the client to deduplicate requests. Used for idempotency in background streaming mode — each message in a request must have a unique OTID. Retries of the same request should reuse the same OTIDs.
+        sender_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Sender Id
+        step_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Step Id
+        is_err:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Err
+        seq_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Seq Id
+        run_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Run Id
+        tool_call:
+          anyOf:
+          - $ref: '#/components/schemas/ToolCall'
+          - $ref: '#/components/schemas/ToolCallDelta'
+          title: Tool Call
+          description: The tool call that has been requested by the llm to run
+          deprecated: true
+        tool_calls:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/ToolCall'
+            type: array
+          - $ref: '#/components/schemas/ToolCallDelta'
+          - type: 'null'
+          title: Tool Calls
+          description: The tool calls that have been requested by the llm to run, which are pending approval
+      type: object
+      required:
+      - id
+      - date
+      - tool_call
+      title: ApprovalRequestMessage
+      description: "A message representing a request for approval to call a tool (generated by the LLM to trigger tool execution).\n\nArgs:\n    id (str): The ID of the message\n    date (datetime): The date the message was created in ISO format\n    name (Optional[str]): The name of the sender of the message\n    tool_call (ToolCall): The tool call"
+    OpenAIReasoning:
+      properties:
+        reasoning_effort:
+          type: string
+          enum:
+          - none
+          - minimal
+          - low
+          - medium
+          - high
+          - xhigh
+          title: Reasoning Effort
+          description: The reasoning effort to use when generating text reasoning models
+          default: minimal
+      type: object
+      title: OpenAIReasoning
+    Memory:
+      properties:
+        agent_type:
+          anyOf:
+          - $ref: '#/components/schemas/AgentType'
+          - type: string
+          - type: 'null'
+          title: Agent Type
+          description: Agent type controlling prompt rendering.
+        git_enabled:
+          type: boolean
+          title: Git Enabled
+          description: Whether this agent uses git-backed memory with structured labels.
+          default: false
+        blocks:
+          items:
+            $ref: '#/components/schemas/Block'
+          type: array
+          title: Blocks
+          description: Memory blocks contained in the agent's in-context memory
+        file_blocks:
+          items:
+            $ref: '#/components/schemas/FileBlock'
+          type: array
+          title: File Blocks
+          description: Special blocks representing the agent's in-context memory of an attached file
+        prompt_template:
+          type: string
+          title: Prompt Template
+          description: Deprecated. Ignored for performance.
+          default: ''
+      type: object
+      required:
+      - blocks
+      title: Memory
+      description: Represents the in-context memory (i.e. Core memory) of the agent. This includes both the `Block` objects (labelled by sections), as well as tools to edit the blocks.
+    BasetenModelSettings:
+      properties:
+        max_output_tokens:
+          type: integer
+          title: Max Output Tokens
+          description: The maximum number of tokens the model can generate.
+          default: 4096
+        parallel_tool_calls:
+          type: boolean
+          title: Parallel Tool Calls
+          description: Whether to enable parallel tool calling.
+          default: true
+        provider_type:
+          type: string
+          const: baseten
+          title: Provider Type
+          description: The type of the provider.
+          default: baseten
+        temperature:
+          type: number
+          title: Temperature
+          description: The temperature of the model.
+          default: 0.7
+      type: object
+      title: BasetenModelSettings
+      description: Baseten model configuration (OpenAI-compatible).
+    InitToolRule:
+      properties:
+        tool_name:
+          type: string
+          title: Tool Name
+          description: The name of the tool. Must exist in the database for the user's organization.
+        type:
+          type: string
+          const: run_first
+          title: Type
+          default: run_first
+        prompt_template:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Prompt Template
+          description: Optional template string (ignored). Rendering uses fast built-in formatting for performance.
+        args:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Args
+          description: Optional prefilled arguments for this tool. When present, these values will override any LLM-provided arguments with the same keys during invocation. Keys must match the tool's parameter names and values must satisfy the tool's JSON schema. Supports partial prefill; non-overlapping parameters are left to the model.
+      additionalProperties: false
+      type: object
+      required:
+      - tool_name
+      title: InitToolRule
+      description: Represents the initial tool rule configuration.
+    AnthropicModelSettings:
+      properties:
+        max_output_tokens:
+          type: integer
+          title: Max Output Tokens
+          description: The maximum number of tokens the model can generate.
+          default: 4096
+        parallel_tool_calls:
+          type: boolean
+          title: Parallel Tool Calls
+          description: Whether to enable parallel tool calling.
+          default: true
+        provider_type:
+          type: string
+          const: anthropic
+          title: Provider Type
+          description: The type of the provider.
+          default: anthropic
+        temperature:
+          type: number
+          title: Temperature
+          description: The temperature of the model.
+          default: 1
+        thinking:
+          $ref: '#/components/schemas/AnthropicThinking'
+          description: The thinking configuration for the model.
+          default:
+            type: enabled
+            budget_tokens: 1024
+        response_format:
+          anyOf:
+          - oneOf:
+            - $ref: '#/components/schemas/TextResponseFormat'
+            - $ref: '#/components/schemas/JsonSchemaResponseFormat'
+            - $ref: '#/components/schemas/JsonObjectResponseFormat'
+            discriminator:
+              propertyName: type
+              mapping:
+                json_object: '#/components/schemas/JsonObjectResponseFormat'
+                json_schema: '#/components/schemas/JsonSchemaResponseFormat'
+                text: '#/components/schemas/TextResponseFormat'
+          - type: 'null'
+          title: Response Format
+          description: The response format for the model.
+        verbosity:
+          anyOf:
+          - type: string
+            enum:
+            - low
+            - medium
+            - high
+          - type: 'null'
+          title: Verbosity
+          description: Soft control for how verbose model output should be, used for GPT-5 models.
+        effort:
+          anyOf:
+          - type: string
+            enum:
+            - low
+            - medium
+            - high
+            - max
+          - type: 'null'
+          title: Effort
+          description: Effort level for supported Anthropic models (controls token spending). 'max' is only available on Opus 4.6. Not setting this gives similar performance to 'high'.
+        strict:
+          type: boolean
+          title: Strict
+          description: Enable strict mode for tool calling. When true, tool outputs are guaranteed to match JSON schemas.
+          default: false
+      type: object
+      title: AnthropicModelSettings
+    XAIModelSettings:
+      properties:
+        max_output_tokens:
+          type: integer
+          title: Max Output Tokens
+          description: The maximum number of tokens the model can generate.
+          default: 4096
+        parallel_tool_calls:
+          type: boolean
+          title: Parallel Tool Calls
+          description: Whether to enable parallel tool calling.
+          default: true
+        provider_type:
+          type: string
+          const: xai
+          title: Provider Type
+          description: The type of the provider.
+          default: xai
+        temperature:
+          type: number
+          title: Temperature
+          description: The temperature of the model.
+          default: 0.7
+        response_format:
+          anyOf:
+          - oneOf:
+            - $ref: '#/components/schemas/TextResponseFormat'
+            - $ref: '#/components/schemas/JsonSchemaResponseFormat'
+            - $ref: '#/components/schemas/JsonObjectResponseFormat'
+            discriminator:
+              propertyName: type
+              mapping:
+                json_object: '#/components/schemas/JsonObjectResponseFormat'
+                json_schema: '#/components/schemas/JsonSchemaResponseFormat'
+                text: '#/components/schemas/TextResponseFormat'
+          - type: 'null'
+          title: Response Format
+          description: The response format for the model.
+      type: object
+      title: XAIModelSettings
+      description: xAI model configuration (OpenAI-compatible).
+    ChildToolRule:
+      properties:
+        tool_name:
+          type: string
+          title: Tool Name
+          description: The name of the tool. Must exist in the database for the user's organization.
+        type:
+          type: string
+          const: constrain_child_tools
+          title: Type
+          default: constrain_child_tools
+        prompt_template:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Prompt Template
+          description: Optional template string (ignored).
+        children:
+          items:
+            type: string
+          type: array
+          title: Children
+          description: The children tools that can be invoked.
+        child_arg_nodes:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/ToolCallNode'
+            type: array
+          - type: 'null'
+          title: Child Arg Nodes
+          description: Optional list of typed child argument overrides. Each node must reference a child in 'children'.
+      additionalProperties: false
+      type: object
+      required:
+      - tool_name
+      - children
+      title: ChildToolRule
+      description: A ToolRule represents a tool that can be invoked by the agent.
+    AnthropicThinking:
+      properties:
+        type:
+          type: string
+          enum:
+          - enabled
+          - disabled
+          title: Type
+          description: The type of thinking to use.
+          default: enabled
+        budget_tokens:
+          type: integer
+          title: Budget Tokens
+          description: The maximum number of tokens the model can use for extended thinking.
+          default: 1024
+      type: object
+      title: AnthropicThinking
+    IdentityPropertyType:
+      type: string
+      enum:
+      - string
+      - number
+      - boolean
+      - json
+      title: IdentityPropertyType
+      description: Enum to represent the type of the identity property.
+    IdentityProperty:
+      properties:
+        key:
+          type: string
+          title: Key
+          description: The key of the property
+        value:
+          anyOf:
+          - type: string
+          - type: integer
+          - type: number
+          - type: boolean
+          - additionalProperties: true
+            type: object
+          title: Value
+          description: The value of the property
+        type:
+          $ref: '#/components/schemas/IdentityPropertyType'
+          description: The type of the property
+      additionalProperties: false
+      type: object
+      required:
+      - key
+      - value
+      - type
+      title: IdentityProperty
+      description: A property of an identity
+    OpenRouterModelSettings:
+      properties:
+        max_output_tokens:
+          type: integer
+          title: Max Output Tokens
+          description: The maximum number of tokens the model can generate.
+          default: 4096
+        parallel_tool_calls:
+          type: boolean
+          title: Parallel Tool Calls
+          description: Whether to enable parallel tool calling.
+          default: true
+        provider_type:
+          type: string
+          const: openrouter
+          title: Provider Type
+          description: The type of the provider.
+          default: openrouter
+        temperature:
+          type: number
+          title: Temperature
+          description: The temperature of the model.
+          default: 0.7
+        response_format:
+          anyOf:
+          - oneOf:
+            - $ref: '#/components/schemas/TextResponseFormat'
+            - $ref: '#/components/schemas/JsonSchemaResponseFormat'
+            - $ref: '#/components/schemas/JsonObjectResponseFormat'
+            discriminator:
+              propertyName: type
+              mapping:
+                json_object: '#/components/schemas/JsonObjectResponseFormat'
+                json_schema: '#/components/schemas/JsonSchemaResponseFormat'
+                text: '#/components/schemas/TextResponseFormat'
+          - type: 'null'
+          title: Response Format
+          description: The response format for the model.
+      type: object
+      title: OpenRouterModelSettings
+      description: OpenRouter model configuration (OpenAI-compatible).
+    ParentToolRule:
+      properties:
+        tool_name:
+          type: string
+          title: Tool Name
+          description: The name of the tool. Must exist in the database for the user's organization.
+        type:
+          type: string
+          const: parent_last_tool
+          title: Type
+          default: parent_last_tool
+        prompt_template:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Prompt Template
+          description: Optional template string (ignored).
+        children:
+          items:
+            type: string
+          type: array
+          title: Children
+          description: The children tools that can be invoked.
+      additionalProperties: false
+      type: object
+      required:
+      - tool_name
+      - children
+      title: ParentToolRule
+      description: A ToolRule that only allows a child tool to be called if the parent has been called.
+    letta__schemas__mcp_server__UpdateStreamableHTTPMCPServer:
+      properties:
+        mcp_server_type:
+          type: string
+          const: streamable_http
+          title: Mcp Server Type
+          default: streamable_http
+        server_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Server Url
+          description: The URL of the server
+        auth_header:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Auth Header
+          description: The name of the authentication header (e.g., 'Authorization')
+        auth_token:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Auth Token
+          description: The authentication token or API key value
+        custom_headers:
+          anyOf:
+          - additionalProperties:
+              type: string
+            type: object
+          - type: 'null'
+          title: Custom Headers
+          description: Custom HTTP headers to include with requests
+      additionalProperties: false
+      type: object
+      required:
+      - server_url
+      title: UpdateStreamableHTTPMCPServer
+      description: Update schema for Streamable HTTP MCP server - all fields optional
+    PipRequirement:
+      properties:
+        name:
+          type: string
+          minLength: 1
+          title: Name
+          description: Name of the pip package.
+        version:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Version
+          description: Optional version of the package, following semantic versioning.
+      type: object
+      required:
+      - name
+      title: PipRequirement
+    StdioMCPServer:
+      properties:
+        mcp_server_type:
+          type: string
+          const: stdio
+          title: Mcp Server Type
+          default: stdio
+        command:
+          type: string
+          title: Command
+          description: The command to run (MCP 'local' client will run this command)
+        args:
+          items:
+            type: string
+          type: array
+          title: Args
+          description: The arguments to pass to the command
+        env:
+          anyOf:
+          - additionalProperties:
+              type: string
+            type: object
+          - type: 'null'
+          title: Env
+          description: Environment variables to set
+        id:
+          type: string
+          pattern: ^mcp_server-[a-fA-F0-9]{8}
+          title: Id
+          description: The human-friendly ID of the Mcp_server
+          examples:
+          - mcp_server-123e4567-e89b-12d3-a456-426614174000
+        server_name:
+          type: string
+          title: Server Name
+          description: The name of the MCP server
+      additionalProperties: false
+      type: object
+      required:
+      - command
+      - args
+      - server_name
+      title: StdioMCPServer
+      description: A Stdio MCP server
+    TerminalToolRule:
+      properties:
+        tool_name:
+          type: string
+          title: Tool Name
+          description: The name of the tool. Must exist in the database for the user's organization.
+        type:
+          type: string
+          const: exit_loop
+          title: Type
+          default: exit_loop
+        prompt_template:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Prompt Template
+          description: Optional template string (ignored).
+      additionalProperties: false
+      type: object
+      required:
+      - tool_name
+      title: TerminalToolRule
+      description: Represents a terminal tool rule configuration where if this tool gets called, it must end the agent loop.
+    EmbeddingConfig:
+      properties:
+        embedding_endpoint_type:
+          type: string
+          enum:
+          - openai
+          - anthropic
+          - bedrock
+          - google_ai
+          - google_vertex
+          - azure
+          - groq
+          - ollama
+          - webui
+          - webui-legacy
+          - lmstudio
+          - lmstudio-legacy
+          - llamacpp
+          - koboldcpp
+          - vllm
+          - hugging-face
+          - mistral
+          - together
+          - pinecone
+          title: Embedding Endpoint Type
+          description: The endpoint type for the model.
+        embedding_endpoint:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Embedding Endpoint
+          description: The endpoint for the model (`None` if local).
+        embedding_model:
+          type: string
+          title: Embedding Model
+          description: The model for the embedding.
+        embedding_dim:
+          type: integer
+          title: Embedding Dim
+          description: The dimension of the embedding.
+        embedding_chunk_size:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Embedding Chunk Size
+          description: The chunk size of the embedding.
+          default: 300
+        handle:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Handle
+          description: The handle for this config, in the format provider/model-name.
+        batch_size:
+          type: integer
+          title: Batch Size
+          description: The maximum batch size for processing embeddings.
+          default: 32
+        azure_endpoint:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Azure Endpoint
+          description: The Azure endpoint for the model.
+        azure_version:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Azure Version
+          description: The Azure version for the model.
+        azure_deployment:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Azure Deployment
+          description: The Azure deployment for the model.
+      type: object
+      required:
+      - embedding_endpoint_type
+      - embedding_model
+      - embedding_dim
+      title: EmbeddingConfig
+      description: Configuration for embedding model connection and processing parameters.
+    ChatGPTOAuthReasoning:
+      properties:
+        reasoning_effort:
+          type: string
+          enum:
+          - none
+          - low
+          - medium
+          - high
+          - xhigh
+          title: Reasoning Effort
+          description: The reasoning effort level for GPT-5.x and o-series models.
+          default: medium
+      type: object
+      title: ChatGPTOAuthReasoning
+      description: Reasoning configuration for ChatGPT OAuth models (GPT-5.x, o-series).
+    ToolCall:
+      properties:
+        name:
+          type: string
+          title: Name
+        arguments:
+          type: string
+          title: Arguments
+        tool_call_id:
+          type: string
+          title: Tool Call Id
+      type: object
+      required:
+      - name
+      - arguments
+      - tool_call_id
+      title: ToolCall
+    letta__schemas__mcp_server__UpdateSSEMCPServer:
+      properties:
+        mcp_server_type:
+          type: string
+          const: sse
+          title: Mcp Server Type
+          default: sse
+        server_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Server Url
+          description: The URL of the server
+        auth_header:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Auth Header
+          description: The name of the authentication header (e.g., 'Authorization')
+        auth_token:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Auth Token
+          description: The authentication token or API key value
+        custom_headers:
+          anyOf:
+          - additionalProperties:
+              type: string
+            type: object
+          - type: 'null'
+          title: Custom Headers
+          description: Custom HTTP headers to include with requests
+      additionalProperties: false
+      type: object
+      required:
+      - server_url
+      title: UpdateSSEMCPServer
+      description: Update schema for SSE MCP server - all fields optional
+    DeepseekModelSettings:
+      properties:
+        max_output_tokens:
+          type: integer
+          title: Max Output Tokens
+          description: The maximum number of tokens the model can generate.
+          default: 4096
+        parallel_tool_calls:
+          type: boolean
+          title: Parallel Tool Calls
+          description: Whether to enable parallel tool calling.
+          default: true
+        provider_type:
+          type: string
+          const: deepseek
+          title: Provider Type
+          description: The type of the provider.
+          default: deepseek
+        temperature:
+          type: number
+          title: Temperature
+          description: The temperature of the model.
+          default: 0.7
+        response_format:
+          anyOf:
+          - oneOf:
+            - $ref: '#/components/schemas/TextResponseFormat'
+            - $ref: '#/components/schemas/JsonSchemaResponseFormat'
+            - $ref: '#/components/schemas/JsonObjectResponseFormat'
+            discriminator:
+              propertyName: type
+              mapping:
+                json_object: '#/components/schemas/JsonObjectResponseFormat'
+                json_schema: '#/components/schemas/JsonSchemaResponseFormat'
+                text: '#/components/schemas/TextResponseFormat'
+          - type: 'null'
+          title: Response Format
+          description: The response format for the model.
+      type: object
+      title: DeepseekModelSettings
+      description: Deepseek model configuration (OpenAI-compatible).
+    CreateSSEMCPServer:
+      properties:
+        mcp_server_type:
+          type: string
+          const: sse
+          title: Mcp Server Type
+          default: sse
+        server_url:
+          type: string
+          title: Server Url
+          description: The URL of the server
+        auth_header:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Auth Header
+          description: The name of the authentication header (e.g., 'Authorization')
+        auth_token:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Auth Token
+          description: The authentication token or API key value
+        custom_headers:
+          anyOf:
+          - additionalProperties:
+              type: string
+            type: object
+          - type: 'null'
+          title: Custom Headers
+          description: Custom HTTP headers to include with requests
+      additionalProperties: false
+      type: object
+      required:
+      - server_url
+      title: CreateSSEMCPServer
+      description: Create a new SSE MCP server
+    AzureModelSettings:
+      properties:
+        max_output_tokens:
+          type: integer
+          title: Max Output Tokens
+          description: The maximum number of tokens the model can generate.
+          default: 4096
+        parallel_tool_calls:
+          type: boolean
+          title: Parallel Tool Calls
+          description: Whether to enable parallel tool calling.
+          default: true
+        provider_type:
+          type: string
+          const: azure
+          title: Provider Type
+          description: The type of the provider.
+          default: azure
+        temperature:
+          type: number
+          title: Temperature
+          description: The temperature of the model.
+          default: 0.7
+        response_format:
+          anyOf:
+          - oneOf:
+            - $ref: '#/components/schemas/TextResponseFormat'
+            - $ref: '#/components/schemas/JsonSchemaResponseFormat'
+            - $ref: '#/components/schemas/JsonObjectResponseFormat'
+            discriminator:
+              propertyName: type
+              mapping:
+                json_object: '#/components/schemas/JsonObjectResponseFormat'
+                json_schema: '#/components/schemas/JsonSchemaResponseFormat'
+                text: '#/components/schemas/TextResponseFormat'
+          - type: 'null'
+          title: Response Format
+          description: The response format for the model.
+      type: object
+      title: AzureModelSettings
+      description: Azure OpenAI model configuration (OpenAI-compatible).
+    TogetherModelSettings:
+      properties:
+        max_output_tokens:
+          type: integer
+          title: Max Output Tokens
+          description: The maximum number of tokens the model can generate.
+          default: 4096
+        parallel_tool_calls:
+          type: boolean
+          title: Parallel Tool Calls
+          description: Whether to enable parallel tool calling.
+          default: true
+        provider_type:
+          type: string
+          const: together
+          title: Provider Type
+          description: The type of the provider.
+          default: together
+        temperature:
+          type: number
+          title: Temperature
+          description: The temperature of the model.
+          default: 0.7
+        response_format:
+          anyOf:
+          - oneOf:
+            - $ref: '#/components/schemas/TextResponseFormat'
+            - $ref: '#/components/schemas/JsonSchemaResponseFormat'
+            - $ref: '#/components/schemas/JsonObjectResponseFormat'
+            discriminator:
+              propertyName: type
+              mapping:
+                json_object: '#/components/schemas/JsonObjectResponseFormat'
+                json_schema: '#/components/schemas/JsonSchemaResponseFormat'
+                text: '#/components/schemas/TextResponseFormat'
+          - type: 'null'
+          title: Response Format
+          description: The response format for the model.
+      type: object
+      title: TogetherModelSettings
+      description: Together AI model configuration (OpenAI-compatible).
+    JsonSchemaResponseFormat:
+      properties:
+        type:
+          type: string
+          const: json_schema
+          title: Type
+          description: The type of the response format.
+          default: json_schema
+        json_schema:
+          additionalProperties: true
+          type: object
+          title: Json Schema
+          description: The JSON schema of the response.
+      type: object
+      required:
+      - json_schema
+      title: JsonSchemaResponseFormat
+      description: Response format for JSON schema-based responses.
+    OpenAIModelSettings:
+      properties:
+        max_output_tokens:
+          type: integer
+          title: Max Output Tokens
+          description: The maximum number of tokens the model can generate.
+          default: 4096
+        parallel_tool_calls:
+          type: boolean
+          title: Parallel Tool Calls
+          description: Whether to enable parallel tool calling.
+          default: true
+        provider_type:
+          type: string
+          const: openai
+          title: Provider Type
+          description: The type of the provider.
+          default: openai
+        temperature:
+          type: number
+          title: Temperature
+          description: The temperature of the model.
+          default: 0.7
+        reasoning:
+          $ref: '#/components/schemas/OpenAIReasoning'
+          description: The reasoning configuration for the model.
+          default:
+            reasoning_effort: high
+        response_format:
+          anyOf:
+          - oneOf:
+            - $ref: '#/components/schemas/TextResponseFormat'
+            - $ref: '#/components/schemas/JsonSchemaResponseFormat'
+            - $ref: '#/components/schemas/JsonObjectResponseFormat'
+            discriminator:
+              propertyName: type
+              mapping:
+                json_object: '#/components/schemas/JsonObjectResponseFormat'
+                json_schema: '#/components/schemas/JsonSchemaResponseFormat'
+                text: '#/components/schemas/TextResponseFormat'
+          - type: 'null'
+          title: Response Format
+          description: The response format for the model.
+        strict:
+          type: boolean
+          title: Strict
+          description: Enable strict mode for tool calling. When true, tool outputs are guaranteed to match JSON schemas.
+          default: true
+      type: object
+      title: OpenAIModelSettings
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer

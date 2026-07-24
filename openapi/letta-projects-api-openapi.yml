@@ -1,0 +1,152 @@
+openapi: 3.1.0
+info:
+  title: Letta Admin Projects API
+  version: 1.0.0
+  description: REST API for Letta, the stateful agents platform. Manage agents, memory blocks, archival passages, sources, custom tools, MCP servers, multi-agent groups, runs, and streaming responses. Available as Letta Cloud (managed) at https://api.letta.com/v1 and as the self-hosted open-source server (Apache-2.0) typically run at http://localhost:8283.
+  contact:
+    name: Letta
+    url: https://www.letta.com/
+    email: support@letta.com
+  license:
+    name: Apache-2.0
+    url: https://github.com/letta-ai/letta/blob/main/LICENSE
+  x-logo:
+    url: https://www.letta.com/favicon.ico
+servers:
+- url: https://api.letta.com
+  description: Letta Cloud (managed)
+- url: https://app.letta.com
+  description: Letta Cloud (app)
+- url: http://localhost:8283
+  description: Self-hosted Letta server
+security:
+- bearerAuth: []
+tags:
+- name: Projects
+  description: Project-level scoping for agents and resources.
+paths:
+  /v1/projects:
+    get:
+      description: List all projects
+      summary: List Projects (Cloud-only)
+      tags:
+      - Projects
+      parameters:
+      - name: name
+        in: query
+        schema:
+          type: string
+      - name: offset
+        in: query
+        schema:
+          oneOf:
+          - type: string
+          - type: number
+      - name: limit
+        in: query
+        schema:
+          type: string
+      operationId: projects.listProjects
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  projects:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                        slug:
+                          type: string
+                        id:
+                          type: string
+                      required:
+                      - name
+                      - slug
+                      - id
+                  hasNextPage:
+                    type: boolean
+                required:
+                - projects
+                - hasNextPage
+    post:
+      description: Create a new project
+      summary: Create Project (Cloud-only)
+      tags:
+      - Projects
+      parameters: []
+      operationId: projects.createProject
+      requestBody:
+        description: Body
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  minLength: 3
+                  maxLength: 50
+              required:
+              - name
+      responses:
+        '201':
+          description: '201'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  slug:
+                    type: string
+                  id:
+                    type: string
+                required:
+                - name
+                - slug
+                - id
+  /v1/projects/{projectId}:
+    delete:
+      description: Delete a project by ID
+      summary: Delete Project (Cloud-only)
+      tags:
+      - Projects
+      parameters:
+      - name: projectId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      operationId: projects.deleteProject
+      requestBody:
+        description: Body
+        content:
+          application/json:
+            schema:
+              nullable: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                required:
+                - success
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer

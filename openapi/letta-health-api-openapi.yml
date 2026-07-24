@@ -1,0 +1,75 @@
+openapi: 3.1.0
+info:
+  title: Letta Admin Health API
+  version: 1.0.0
+  description: REST API for Letta, the stateful agents platform. Manage agents, memory blocks, archival passages, sources, custom tools, MCP servers, multi-agent groups, runs, and streaming responses. Available as Letta Cloud (managed) at https://api.letta.com/v1 and as the self-hosted open-source server (Apache-2.0) typically run at http://localhost:8283.
+  contact:
+    name: Letta
+    url: https://www.letta.com/
+    email: support@letta.com
+  license:
+    name: Apache-2.0
+    url: https://github.com/letta-ai/letta/blob/main/LICENSE
+  x-logo:
+    url: https://www.letta.com/favicon.ico
+servers:
+- url: https://api.letta.com
+  description: Letta Cloud (managed)
+- url: https://app.letta.com
+  description: Letta Cloud (app)
+- url: http://localhost:8283
+  description: Self-hosted Letta server
+security:
+- bearerAuth: []
+tags:
+- name: Health
+  description: Service health/readiness endpoint.
+paths:
+  /v1/health/:
+    get:
+      tags:
+      - Health
+      summary: Check Health
+      description: Liveness endpoint; returns 200 when process is responsive.
+      operationId: check_health
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Health'
+  /v1/ready/:
+    get:
+      tags:
+      - Health
+      summary: Check Readiness
+      description: Readiness endpoint gated by internal readiness state when enforcement is enabled.
+      operationId: check_readiness
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Health'
+components:
+  schemas:
+    Health:
+      properties:
+        version:
+          type: string
+          title: Version
+        status:
+          type: string
+          title: Status
+      type: object
+      required:
+      - version
+      - status
+      title: Health
+      description: Health check response body
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer

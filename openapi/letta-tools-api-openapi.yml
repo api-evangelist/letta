@@ -1,0 +1,2067 @@
+openapi: 3.1.0
+info:
+  title: Letta Admin Tools API
+  version: 1.0.0
+  description: REST API for Letta, the stateful agents platform. Manage agents, memory blocks, archival passages, sources, custom tools, MCP servers, multi-agent groups, runs, and streaming responses. Available as Letta Cloud (managed) at https://api.letta.com/v1 and as the self-hosted open-source server (Apache-2.0) typically run at http://localhost:8283.
+  contact:
+    name: Letta
+    url: https://www.letta.com/
+    email: support@letta.com
+  license:
+    name: Apache-2.0
+    url: https://github.com/letta-ai/letta/blob/main/LICENSE
+  x-logo:
+    url: https://www.letta.com/favicon.ico
+servers:
+- url: https://api.letta.com
+  description: Letta Cloud (managed)
+- url: https://app.letta.com
+  description: Letta Cloud (app)
+- url: http://localhost:8283
+  description: Self-hosted Letta server
+security:
+- bearerAuth: []
+tags:
+- name: Tools
+  description: Register and execute custom tools (sandboxed Python, client-side, MCP).
+paths:
+  /v1/tools/{tool_id}:
+    delete:
+      tags:
+      - Tools
+      summary: Delete Tool
+      description: Delete a tool by name
+      operationId: delete_tool
+      parameters:
+      - name: tool_id
+        in: path
+        required: true
+        schema:
+          type: string
+          minLength: 41
+          maxLength: 41
+          pattern: ^tool-[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$
+          description: The ID of the tool in the format 'tool-<uuid4>'
+          examples:
+          - tool-123e4567-e89b-42d3-8456-426614174000
+          title: Tool Id
+        description: The ID of the tool in the format 'tool-<uuid4>'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    get:
+      tags:
+      - Tools
+      summary: Retrieve Tool
+      description: Get a tool by ID
+      operationId: retrieve_tool
+      parameters:
+      - name: tool_id
+        in: path
+        required: true
+        schema:
+          type: string
+          minLength: 41
+          maxLength: 41
+          pattern: ^tool-[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$
+          description: The ID of the tool in the format 'tool-<uuid4>'
+          examples:
+          - tool-123e4567-e89b-42d3-8456-426614174000
+          title: Tool Id
+        description: The ID of the tool in the format 'tool-<uuid4>'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tool'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    patch:
+      tags:
+      - Tools
+      summary: Modify Tool
+      description: Update an existing tool
+      operationId: modify_tool
+      parameters:
+      - name: tool_id
+        in: path
+        required: true
+        schema:
+          type: string
+          minLength: 41
+          maxLength: 41
+          pattern: ^tool-[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$
+          description: The ID of the tool in the format 'tool-<uuid4>'
+          examples:
+          - tool-123e4567-e89b-42d3-8456-426614174000
+          title: Tool Id
+        description: The ID of the tool in the format 'tool-<uuid4>'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ToolUpdate'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tool'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/tools/count:
+    get:
+      tags:
+      - Tools
+      summary: Count Tools
+      description: Get a count of all tools available to agents belonging to the org of the user.
+      operationId: count_tools
+      parameters:
+      - name: name
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+      - name: names
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: array
+            items:
+              type: string
+          - type: 'null'
+          description: Filter by specific tool names
+          title: Names
+        description: Filter by specific tool names
+      - name: tool_ids
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: array
+            items:
+              type: string
+          - type: 'null'
+          description: Filter by specific tool IDs - accepts repeated params or comma-separated values
+          title: Tool Ids
+        description: Filter by specific tool IDs - accepts repeated params or comma-separated values
+      - name: search
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Search tool names (case-insensitive partial match)
+          title: Search
+        description: Search tool names (case-insensitive partial match)
+      - name: tool_types
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: array
+            items:
+              type: string
+          - type: 'null'
+          description: Filter by tool type(s) - accepts repeated params or comma-separated values
+          title: Tool Types
+        description: Filter by tool type(s) - accepts repeated params or comma-separated values
+      - name: exclude_tool_types
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: array
+            items:
+              type: string
+          - type: 'null'
+          description: Tool type(s) to exclude - accepts repeated params or comma-separated values
+          title: Exclude Tool Types
+        description: Tool type(s) to exclude - accepts repeated params or comma-separated values
+      - name: return_only_letta_tools
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          description: Count only tools with tool_type starting with 'letta_'
+          default: false
+          title: Return Only Letta Tools
+        description: Count only tools with tool_type starting with 'letta_'
+      - name: exclude_letta_tools
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          description: Exclude built-in Letta tools from the count
+          default: false
+          title: Exclude Letta Tools
+        description: Exclude built-in Letta tools from the count
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: integer
+                title: Response Count Tools
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/tools/:
+    get:
+      tags:
+      - Tools
+      summary: List Tools
+      description: Get a list of all tools available to agents.
+      operationId: list_tools
+      parameters:
+      - name: before
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Tool ID cursor for pagination. Returns tools that come before this tool ID in the specified sort order
+          title: Before
+        description: Tool ID cursor for pagination. Returns tools that come before this tool ID in the specified sort order
+      - name: after
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Tool ID cursor for pagination. Returns tools that come after this tool ID in the specified sort order
+          title: After
+        description: Tool ID cursor for pagination. Returns tools that come after this tool ID in the specified sort order
+      - name: limit
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          description: Maximum number of tools to return
+          default: 50
+          title: Limit
+        description: Maximum number of tools to return
+      - name: order
+        in: query
+        required: false
+        schema:
+          enum:
+          - asc
+          - desc
+          type: string
+          description: Sort order for tools by creation time. 'asc' for oldest first, 'desc' for newest first
+          default: desc
+          title: Order
+        description: Sort order for tools by creation time. 'asc' for oldest first, 'desc' for newest first
+      - name: order_by
+        in: query
+        required: false
+        schema:
+          const: created_at
+          type: string
+          description: Field to sort by
+          default: created_at
+          title: Order By
+        description: Field to sort by
+      - name: name
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Filter by single tool name
+          title: Name
+        description: Filter by single tool name
+      - name: names
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: array
+            items:
+              type: string
+          - type: 'null'
+          description: Filter by specific tool names
+          title: Names
+        description: Filter by specific tool names
+      - name: tool_ids
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: array
+            items:
+              type: string
+          - type: 'null'
+          description: Filter by specific tool IDs - accepts repeated params or comma-separated values
+          title: Tool Ids
+        description: Filter by specific tool IDs - accepts repeated params or comma-separated values
+      - name: search
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Search tool names (case-insensitive partial match)
+          title: Search
+        description: Search tool names (case-insensitive partial match)
+      - name: tool_types
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: array
+            items:
+              type: string
+          - type: 'null'
+          description: Filter by tool type(s) - accepts repeated params or comma-separated values
+          title: Tool Types
+        description: Filter by tool type(s) - accepts repeated params or comma-separated values
+      - name: exclude_tool_types
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: array
+            items:
+              type: string
+          - type: 'null'
+          description: Tool type(s) to exclude - accepts repeated params or comma-separated values
+          title: Exclude Tool Types
+        description: Tool type(s) to exclude - accepts repeated params or comma-separated values
+      - name: return_only_letta_tools
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          description: Return only tools with tool_type starting with 'letta_'
+          default: false
+          title: Return Only Letta Tools
+        description: Return only tools with tool_type starting with 'letta_'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Tool'
+                title: Response List Tools
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    post:
+      tags:
+      - Tools
+      summary: Create Tool
+      description: Create a new tool
+      operationId: create_tool
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ToolCreate'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tool'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    put:
+      tags:
+      - Tools
+      summary: Upsert Tool
+      description: Create or update a tool
+      operationId: upsert_tool
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ToolCreate'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tool'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/tools/search:
+    post:
+      tags:
+      - Tools
+      summary: Search Tools
+      description: 'Search tools using semantic search.
+
+
+        Requires tool embedding to be enabled (embed_tools=True). Uses vector search,
+
+        full-text search, or hybrid mode to find tools matching the query.
+
+
+        Returns tools ranked by relevance with their search scores.'
+      operationId: search_tools
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ToolSearchRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ToolSearchResult'
+                title: Response Search Tools
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/tools/add-base-tools:
+    post:
+      tags:
+      - Tools
+      summary: Upsert Base Tools
+      description: Upsert base tools
+      operationId: add_base_tools
+      parameters: []
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Tool'
+                title: Response Add Base Tools
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/tools/run:
+    post:
+      tags:
+      - Tools
+      summary: Run Tool from Source
+      description: Attempt to build a tool from source, then run it on the provided arguments
+      operationId: run_tool_from_source
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ToolRunFromSource'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ToolReturnMessage'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/tools/mcp/servers:
+    get:
+      tags:
+      - Tools
+      summary: List MCP Servers
+      description: Get a list of all configured MCP servers
+      operationId: list_mcp_servers
+      parameters: []
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  anyOf:
+                  - $ref: '#/components/schemas/SSEServerConfig'
+                  - $ref: '#/components/schemas/StdioServerConfig'
+                  - $ref: '#/components/schemas/StreamableHTTPServerConfig'
+                title: Response List Mcp Servers
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    put:
+      tags:
+      - Tools
+      summary: Add MCP Server to Config
+      description: Add a new MCP server to the Letta MCP server config
+      operationId: add_mcp_server
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              anyOf:
+              - $ref: '#/components/schemas/StdioServerConfig'
+              - $ref: '#/components/schemas/SSEServerConfig'
+              - $ref: '#/components/schemas/StreamableHTTPServerConfig'
+              title: Request
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  anyOf:
+                  - $ref: '#/components/schemas/StdioServerConfig'
+                  - $ref: '#/components/schemas/SSEServerConfig'
+                  - $ref: '#/components/schemas/StreamableHTTPServerConfig'
+                title: Response Add Mcp Server
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/tools/mcp/servers/{mcp_server_name}/tools:
+    get:
+      tags:
+      - Tools
+      summary: List MCP Tools by Server
+      description: Get a list of all tools for a specific MCP server
+      operationId: list_mcp_tools_by_server
+      parameters:
+      - name: mcp_server_name
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Mcp Server Name
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MCPTool'
+                title: Response List Mcp Tools By Server
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/tools/mcp/servers/{mcp_server_name}/resync:
+    post:
+      tags:
+      - Tools
+      summary: Resync MCP Server Tools
+      description: 'Resync tools for an MCP server by:
+
+        1. Fetching current tools from the MCP server
+
+        2. Deleting tools that no longer exist on the server
+
+        3. Updating schemas for existing tools
+
+        4. Adding new tools from the server
+
+
+        Returns a summary of changes made.'
+      operationId: resync_mcp_server_tools
+      parameters:
+      - name: mcp_server_name
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Mcp Server Name
+      - name: agent_id
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Agent Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/tools/mcp/servers/{mcp_server_name}/{mcp_tool_name}:
+    post:
+      tags:
+      - Tools
+      summary: Add MCP Tool
+      description: Register a new MCP tool as a Letta server by MCP server + tool name
+      operationId: add_mcp_tool
+      parameters:
+      - name: mcp_server_name
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Mcp Server Name
+      - name: mcp_tool_name
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Mcp Tool Name
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tool'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/tools/mcp/servers/{mcp_server_name}:
+    patch:
+      tags:
+      - Tools
+      summary: Update MCP Server
+      description: Update an existing MCP server configuration
+      operationId: update_mcp_server
+      parameters:
+      - name: mcp_server_name
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Mcp Server Name
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              anyOf:
+              - $ref: '#/components/schemas/letta__schemas__mcp__UpdateStdioMCPServer'
+              - $ref: '#/components/schemas/letta__schemas__mcp__UpdateSSEMCPServer'
+              - $ref: '#/components/schemas/letta__schemas__mcp__UpdateStreamableHTTPMCPServer'
+              title: Request
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - $ref: '#/components/schemas/StdioServerConfig'
+                - $ref: '#/components/schemas/SSEServerConfig'
+                - $ref: '#/components/schemas/StreamableHTTPServerConfig'
+                title: Response Update Mcp Server
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - Tools
+      summary: Delete MCP Server from Config
+      description: Delete a MCP server configuration
+      operationId: delete_mcp_server
+      parameters:
+      - name: mcp_server_name
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Mcp Server Name
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  anyOf:
+                  - $ref: '#/components/schemas/StdioServerConfig'
+                  - $ref: '#/components/schemas/SSEServerConfig'
+                  - $ref: '#/components/schemas/StreamableHTTPServerConfig'
+                title: Response Delete Mcp Server
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/tools/mcp/servers/test:
+    post:
+      tags:
+      - Tools
+      summary: Test MCP Server
+      description: 'Test connection to an MCP server without adding it.
+
+        Returns the list of available tools if successful.'
+      operationId: test_mcp_server
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              anyOf:
+              - $ref: '#/components/schemas/StdioServerConfig'
+              - $ref: '#/components/schemas/SSEServerConfig'
+              - $ref: '#/components/schemas/StreamableHTTPServerConfig'
+              title: Request
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/tools/mcp/servers/connect:
+    post:
+      tags:
+      - Tools
+      summary: Connect MCP Server
+      description: 'Connect to an MCP server with support for OAuth via SSE.
+
+        Returns a stream of events handling authorization state and exchange if OAuth is required.'
+      operationId: connect_mcp_server
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              anyOf:
+              - $ref: '#/components/schemas/StdioServerConfig'
+              - $ref: '#/components/schemas/SSEServerConfig'
+              - $ref: '#/components/schemas/StreamableHTTPServerConfig'
+              title: Request
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema: {}
+            text/event-stream:
+              description: Server-Sent Events stream
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/tools/mcp/servers/{mcp_server_name}/tools/{tool_name}/execute:
+    post:
+      tags:
+      - Tools
+      summary: Execute MCP Tool
+      description: 'Execute a specific MCP tool from a configured server.
+
+        Returns the tool execution result.'
+      operationId: execute_mcp_tool
+      parameters:
+      - name: mcp_server_name
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Mcp Server Name
+      - name: tool_name
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Tool Name
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/letta__server__rest_api__routers__v1__tools__ToolExecuteRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/tools/mcp/oauth/callback:
+    get:
+      tags:
+      - Tools
+      summary: MCP Oauth Callback
+      description: 'Handle OAuth callback for MCP server authentication.
+
+        Session is identified via the state parameter instead of URL path.'
+      operationId: mcp_oauth_callback
+      parameters:
+      - name: code
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: OAuth authorization code
+          title: Code
+        description: OAuth authorization code
+      - name: state
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: OAuth state parameter
+          title: State
+        description: OAuth state parameter
+      - name: error
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: OAuth error
+          title: Error
+        description: OAuth error
+      - name: error_description
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: OAuth error description
+          title: Error Description
+        description: OAuth error description
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    Tool:
+      properties:
+        id:
+          type: string
+          pattern: ^tool-[a-fA-F0-9]{8}
+          title: Id
+          description: The human-friendly ID of the Tool
+          examples:
+          - tool-123e4567-e89b-12d3-a456-426614174000
+        tool_type:
+          $ref: '#/components/schemas/ToolType'
+          description: The type of the tool.
+          default: custom
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+          description: The description of the tool.
+        source_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Source Type
+          description: The type of the source code.
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+          description: The name of the function.
+        tags:
+          items:
+            type: string
+          type: array
+          title: Tags
+          description: Metadata tags.
+          default: []
+        source_code:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Source Code
+          description: The source code of the function.
+        json_schema:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Json Schema
+          description: The JSON schema of the function.
+        args_json_schema:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Args Json Schema
+          description: The args JSON schema of the function.
+        return_char_limit:
+          type: integer
+          maximum: 1000000
+          minimum: 1
+          title: Return Char Limit
+          description: The maximum number of characters in the response.
+          default: 50000
+        pip_requirements:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/PipRequirement'
+            type: array
+          - type: 'null'
+          title: Pip Requirements
+          description: Optional list of pip packages required by this tool.
+        npm_requirements:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/NpmRequirement'
+            type: array
+          - type: 'null'
+          title: Npm Requirements
+          description: Optional list of npm packages required by this tool.
+        default_requires_approval:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Default Requires Approval
+          description: Default value for whether or not executing this tool requires approval.
+        enable_parallel_execution:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Enable Parallel Execution
+          description: If set to True, then this tool will potentially be executed concurrently with other tools. Default False.
+          default: false
+        created_by_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Created By Id
+          description: The id of the user that made this Tool.
+        last_updated_by_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Last Updated By Id
+          description: The id of the user that made this Tool.
+        metadata_:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Metadata
+          description: A dictionary of additional metadata for the tool.
+        project_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Project Id
+          description: The project id of the tool.
+      additionalProperties: false
+      type: object
+      title: Tool
+      description: Representation of a tool, which is a function that can be called by the agent.
+    ImageContent:
+      properties:
+        type:
+          type: string
+          const: image
+          title: Type
+          description: The type of the message.
+          default: image
+        source:
+          oneOf:
+          - $ref: '#/components/schemas/UrlImage'
+          - $ref: '#/components/schemas/Base64Image'
+          - $ref: '#/components/schemas/LettaImage'
+          title: Source
+          description: The source of the image.
+          discriminator:
+            propertyName: type
+            mapping:
+              base64: '#/components/schemas/Base64Image'
+              letta: '#/components/schemas/LettaImage'
+              url: '#/components/schemas/UrlImage'
+      type: object
+      required:
+      - source
+      title: ImageContent
+    ToolType:
+      type: string
+      enum:
+      - custom
+      - letta_core
+      - letta_memory_core
+      - letta_multi_agent_core
+      - letta_sleeptime_core
+      - letta_voice_sleeptime_core
+      - letta_builtin
+      - letta_files_core
+      - external_langchain
+      - external_composio
+      - external_mcp
+      title: ToolType
+    letta__schemas__mcp__UpdateStreamableHTTPMCPServer:
+      properties:
+        server_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Server Name
+          description: The name of the MCP server
+        server_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Server Url
+          description: The URL path for the streamable HTTP server (e.g., 'example/mcp')
+        auth_header:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Auth Header
+          description: The name of the authentication header (e.g., 'Authorization')
+        auth_token:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Auth Token
+          description: The authentication token or API key value
+        custom_headers:
+          anyOf:
+          - additionalProperties:
+              type: string
+            type: object
+          - type: 'null'
+          title: Custom Headers
+          description: Custom authentication headers as key-value pairs
+      additionalProperties: false
+      type: object
+      title: UpdateStreamableHTTPMCPServer
+      description: Update a Streamable HTTP MCP server
+    MCPToolHealth:
+      properties:
+        status:
+          type: string
+          title: Status
+          description: 'Schema health status: STRICT_COMPLIANT, NON_STRICT_ONLY, or INVALID'
+        reasons:
+          items:
+            type: string
+          type: array
+          title: Reasons
+          description: List of reasons for the health status
+      type: object
+      required:
+      - status
+      title: MCPToolHealth
+      description: Health status for an MCP tool's schema.
+    ToolSearchResult:
+      properties:
+        tool:
+          $ref: '#/components/schemas/Tool'
+          description: The matched tool.
+        embedded_text:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Embedded Text
+          description: The embedded text content used for matching.
+        fts_rank:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Fts Rank
+          description: Full-text search rank position.
+        vector_rank:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Vector Rank
+          description: Vector search rank position.
+        combined_score:
+          type: number
+          title: Combined Score
+          description: Combined relevance score (RRF for hybrid mode).
+      additionalProperties: false
+      type: object
+      required:
+      - tool
+      - combined_score
+      title: ToolSearchResult
+      description: Result from a tool search operation.
+    NpmRequirement:
+      properties:
+        name:
+          type: string
+          minLength: 1
+          title: Name
+          description: Name of the npm package.
+        version:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Version
+          description: Optional version of the package, following semantic versioning.
+      type: object
+      required:
+      - name
+      title: NpmRequirement
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    letta__schemas__letta_message__ToolReturn:
+      properties:
+        type:
+          type: string
+          const: tool
+          title: Type
+          description: The message type to be created.
+          default: tool
+        tool_return:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/LettaToolReturnContentUnion'
+            type: array
+          - type: string
+          title: Tool Return
+          description: The tool return value - either a string or list of content parts (text/image)
+        status:
+          type: string
+          enum:
+          - success
+          - error
+          title: Status
+        tool_call_id:
+          type: string
+          title: Tool Call Id
+        stdout:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Stdout
+        stderr:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Stderr
+      type: object
+      required:
+      - tool_return
+      - status
+      - tool_call_id
+      title: ToolReturn
+    TextContent:
+      properties:
+        type:
+          type: string
+          const: text
+          title: Type
+          description: The type of the message.
+          default: text
+        text:
+          type: string
+          title: Text
+          description: The text content of the message.
+        signature:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Signature
+          description: Stores a unique identifier for any reasoning associated with this text content.
+      type: object
+      required:
+      - text
+      title: TextContent
+    ToolReturnMessage:
+      properties:
+        id:
+          type: string
+          title: Id
+        date:
+          type: string
+          format: date-time
+          title: Date
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        message_type:
+          type: string
+          const: tool_return_message
+          title: Message Type
+          description: The type of the message.
+          default: tool_return_message
+        otid:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Otid
+          description: The offline threading id (OTID). Set by the client to deduplicate requests. Used for idempotency in background streaming mode — each message in a request must have a unique OTID. Retries of the same request should reuse the same OTIDs.
+        sender_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Sender Id
+        step_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Step Id
+        is_err:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Err
+        seq_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Seq Id
+        run_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Run Id
+        tool_return:
+          type: string
+          title: Tool Return
+          deprecated: true
+        status:
+          type: string
+          enum:
+          - success
+          - error
+          title: Status
+          deprecated: true
+        tool_call_id:
+          type: string
+          title: Tool Call Id
+          deprecated: true
+        stdout:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Stdout
+          deprecated: true
+        stderr:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Stderr
+          deprecated: true
+        tool_returns:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/letta__schemas__letta_message__ToolReturn'
+            type: array
+          - type: 'null'
+          title: Tool Returns
+      type: object
+      required:
+      - id
+      - date
+      - tool_return
+      - status
+      - tool_call_id
+      title: ToolReturnMessage
+      description: "A message representing the return value of a tool call (generated by Letta executing the requested tool).\n\nArgs:\n    id (str): The ID of the message\n    date (datetime): The date the message was created in ISO format\n    name (Optional[str]): The name of the sender of the message\n    tool_return (str): The return value of the tool (deprecated, use tool_returns)\n    status (Literal[\"success\", \"error\"]): The status of the tool call (deprecated, use tool_returns)\n    tool_call_id (str): A unique identifier for the tool call that generated this message (deprecated, use tool_returns)\n    stdout (Optional[List(str)]): Captured stdout (e.g. prints, logs) from the tool invocation (deprecated, use tool_returns)\n    stderr (Optional[List(str)]): Captured stderr from the tool invocation (deprecated, use tool_returns)\n    tool_returns (Optional[List[ToolReturn]]): List of tool returns for multi-tool support"
+    LettaToolReturnContentUnion:
+      oneOf:
+      - $ref: '#/components/schemas/TextContent'
+      - $ref: '#/components/schemas/ImageContent'
+      discriminator:
+        propertyName: type
+        mapping:
+          text: '#/components/schemas/TextContent'
+          image: '#/components/schemas/ImageContent'
+    letta__server__rest_api__routers__v1__tools__ToolExecuteRequest:
+      properties:
+        args:
+          additionalProperties: true
+          type: object
+          title: Args
+          description: Arguments to pass to the tool
+      type: object
+      title: ToolExecuteRequest
+    ToolUpdate:
+      properties:
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+          description: The description of the tool.
+        tags:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Tags
+          description: Metadata tags.
+        source_code:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Source Code
+          description: The source code of the function.
+        source_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Source Type
+          description: The type of the source code.
+        json_schema:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Json Schema
+          description: The JSON schema of the function (auto-generated from source_code if not provided)
+        args_json_schema:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Args Json Schema
+          description: The args JSON schema of the function.
+        return_char_limit:
+          anyOf:
+          - type: integer
+            maximum: 1000000
+            minimum: 1
+          - type: 'null'
+          title: Return Char Limit
+          description: The maximum number of characters in the response.
+        pip_requirements:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/PipRequirement'
+            type: array
+          - type: 'null'
+          title: Pip Requirements
+          description: Optional list of pip packages required by this tool.
+        npm_requirements:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/NpmRequirement'
+            type: array
+          - type: 'null'
+          title: Npm Requirements
+          description: Optional list of npm packages required by this tool.
+        metadata_:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Metadata
+          description: A dictionary of additional metadata for the tool.
+        default_requires_approval:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Default Requires Approval
+          description: Whether or not to require approval before executing this tool.
+        enable_parallel_execution:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Enable Parallel Execution
+          description: If set to True, then this tool will potentially be executed concurrently with other tools. Default False.
+          default: false
+      type: object
+      title: ToolUpdate
+    ToolRunFromSource:
+      properties:
+        source_code:
+          type: string
+          title: Source Code
+          description: The source code of the function.
+        args:
+          additionalProperties: true
+          type: object
+          title: Args
+          description: The arguments to pass to the tool.
+        env_vars:
+          additionalProperties:
+            type: string
+          type: object
+          title: Env Vars
+          description: The environment variables to pass to the tool.
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+          description: The name of the tool to run.
+        source_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Source Type
+          description: The type of the source code.
+        args_json_schema:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Args Json Schema
+          description: The args JSON schema of the function.
+        json_schema:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Json Schema
+          description: The JSON schema of the function (auto-generated from source_code if not provided)
+        pip_requirements:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/PipRequirement'
+            type: array
+          - type: 'null'
+          title: Pip Requirements
+          description: Optional list of pip packages required by this tool.
+        npm_requirements:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/NpmRequirement'
+            type: array
+          - type: 'null'
+          title: Npm Requirements
+          description: Optional list of npm packages required by this tool.
+      additionalProperties: false
+      type: object
+      required:
+      - source_code
+      - args
+      title: ToolRunFromSource
+    MCPTool:
+      properties:
+        name:
+          type: string
+          title: Name
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        inputSchema:
+          additionalProperties: true
+          type: object
+          title: Inputschema
+        outputSchema:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Outputschema
+        annotations:
+          anyOf:
+          - $ref: '#/components/schemas/ToolAnnotations'
+          - type: 'null'
+        _meta:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Meta
+        health:
+          anyOf:
+          - $ref: '#/components/schemas/MCPToolHealth'
+          - type: 'null'
+          description: Schema health status for OpenAI strict mode
+      additionalProperties: true
+      type: object
+      required:
+      - name
+      - inputSchema
+      title: MCPTool
+      description: A simple wrapper around MCP's tool definition (to avoid conflict with our own)
+    Base64Image:
+      properties:
+        type:
+          type: string
+          const: base64
+          title: Type
+          description: The source type for the image.
+          default: base64
+        media_type:
+          type: string
+          title: Media Type
+          description: The media type for the image.
+        data:
+          type: string
+          title: Data
+          description: The base64 encoded image data.
+        detail:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Detail
+          description: What level of detail to use when processing and understanding the image (low, high, or auto to let the model decide)
+      type: object
+      required:
+      - media_type
+      - data
+      title: Base64Image
+    ToolSearchRequest:
+      properties:
+        query:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Query
+          description: Text query for semantic search.
+        search_mode:
+          type: string
+          enum:
+          - vector
+          - fts
+          - hybrid
+          title: Search Mode
+          description: 'Search mode: vector, fts, or hybrid.'
+          default: hybrid
+        tool_types:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Tool Types
+          description: Filter by tool types (e.g., 'custom', 'letta_core').
+        tags:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Tags
+          description: Filter by tags (match any).
+        limit:
+          type: integer
+          maximum: 100
+          minimum: 1
+          title: Limit
+          description: Maximum number of results to return.
+          default: 50
+      additionalProperties: false
+      type: object
+      title: ToolSearchRequest
+      description: Request model for searching tools using semantic search.
+    letta__schemas__mcp__UpdateStdioMCPServer:
+      properties:
+        server_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Server Name
+          description: The name of the MCP server
+        stdio_config:
+          anyOf:
+          - $ref: '#/components/schemas/StdioServerConfig'
+          - type: 'null'
+          description: The configuration for the server (MCP 'local' client will run this command)
+      additionalProperties: false
+      type: object
+      title: UpdateStdioMCPServer
+      description: Update a Stdio MCP server
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    StreamableHTTPServerConfig:
+      properties:
+        server_name:
+          type: string
+          title: Server Name
+          description: The name of the server
+        type:
+          $ref: '#/components/schemas/MCPServerType'
+          default: streamable_http
+        server_url:
+          type: string
+          title: Server Url
+          description: The URL of the server
+        auth_header:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Auth Header
+          description: The name of the authentication header (e.g., 'Authorization')
+        auth_token:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Auth Token
+          description: The authentication token or API key value
+        custom_headers:
+          anyOf:
+          - additionalProperties:
+              type: string
+            type: object
+          - type: 'null'
+          title: Custom Headers
+          description: Custom HTTP headers to include with requests
+      type: object
+      required:
+      - server_name
+      - server_url
+      title: StreamableHTTPServerConfig
+      description: Configuration for an MCP server using Streamable HTTP
+    MCPServerType:
+      type: string
+      enum:
+      - sse
+      - stdio
+      - streamable_http
+      title: MCPServerType
+    LettaImage:
+      properties:
+        type:
+          type: string
+          const: letta
+          title: Type
+          description: The source type for the image.
+          default: letta
+        file_id:
+          type: string
+          title: File Id
+          description: The unique identifier of the image file persisted in storage.
+        media_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Media Type
+          description: The media type for the image.
+        data:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Data
+          description: The base64 encoded image data.
+        detail:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Detail
+          description: What level of detail to use when processing and understanding the image (low, high, or auto to let the model decide)
+      type: object
+      required:
+      - file_id
+      title: LettaImage
+    UrlImage:
+      properties:
+        type:
+          type: string
+          const: url
+          title: Type
+          description: The source type for the image.
+          default: url
+        url:
+          type: string
+          title: Url
+          description: The URL of the image.
+      type: object
+      required:
+      - url
+      title: UrlImage
+    letta__schemas__mcp__UpdateSSEMCPServer:
+      properties:
+        server_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Server Name
+          description: The name of the MCP server
+        server_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Server Url
+          description: The URL of the server (MCP SSE client will connect to this URL)
+        token:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Token
+          description: The access token or API key for the MCP server (used for SSE authentication)
+        custom_headers:
+          anyOf:
+          - additionalProperties:
+              type: string
+            type: object
+          - type: 'null'
+          title: Custom Headers
+          description: Custom authentication headers as key-value pairs
+      additionalProperties: false
+      type: object
+      title: UpdateSSEMCPServer
+      description: Update an SSE MCP server
+    SSEServerConfig:
+      properties:
+        server_name:
+          type: string
+          title: Server Name
+          description: The name of the server
+        type:
+          $ref: '#/components/schemas/MCPServerType'
+          default: sse
+        server_url:
+          type: string
+          title: Server Url
+          description: The URL of the server
+        auth_header:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Auth Header
+          description: The name of the authentication header (e.g., 'Authorization')
+        auth_token:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Auth Token
+          description: The authentication token or API key value
+        custom_headers:
+          anyOf:
+          - additionalProperties:
+              type: string
+            type: object
+          - type: 'null'
+          title: Custom Headers
+          description: Custom HTTP headers to include with requests
+      type: object
+      required:
+      - server_name
+      - server_url
+      title: SSEServerConfig
+      description: Configuration for an MCP server using SSE
+    PipRequirement:
+      properties:
+        name:
+          type: string
+          minLength: 1
+          title: Name
+          description: Name of the pip package.
+        version:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Version
+          description: Optional version of the package, following semantic versioning.
+      type: object
+      required:
+      - name
+      title: PipRequirement
+    ToolAnnotations:
+      properties:
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+        readOnlyHint:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Readonlyhint
+        destructiveHint:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Destructivehint
+        idempotentHint:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Idempotenthint
+        openWorldHint:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Openworldhint
+      additionalProperties: true
+      type: object
+      title: ToolAnnotations
+      description: 'Additional properties describing a Tool to clients.
+
+
+        NOTE: all properties in ToolAnnotations are **hints**.
+
+        They are not guaranteed to provide a faithful description of
+
+        tool behavior (including descriptive properties like `title`).
+
+
+        Clients should never make tool use decisions based on ToolAnnotations
+
+        received from untrusted servers.'
+    ToolCreate:
+      properties:
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+          description: The description of the tool.
+        tags:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Tags
+          description: Metadata tags.
+        source_code:
+          type: string
+          title: Source Code
+          description: The source code of the function.
+        source_type:
+          type: string
+          title: Source Type
+          description: The source type of the function.
+          default: python
+        json_schema:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Json Schema
+          description: The JSON schema of the function (auto-generated from source_code if not provided)
+        args_json_schema:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Args Json Schema
+          description: The args JSON schema of the function.
+        return_char_limit:
+          type: integer
+          maximum: 1000000
+          minimum: 1
+          title: Return Char Limit
+          description: The maximum number of characters in the response.
+          default: 50000
+        pip_requirements:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/PipRequirement'
+            type: array
+          - type: 'null'
+          title: Pip Requirements
+          description: Optional list of pip packages required by this tool.
+        npm_requirements:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/NpmRequirement'
+            type: array
+          - type: 'null'
+          title: Npm Requirements
+          description: Optional list of npm packages required by this tool.
+        default_requires_approval:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Default Requires Approval
+          description: Whether or not to require approval before executing this tool.
+        enable_parallel_execution:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Enable Parallel Execution
+          description: If set to True, then this tool will potentially be executed concurrently with other tools. Default False.
+          default: false
+      additionalProperties: false
+      type: object
+      required:
+      - source_code
+      title: ToolCreate
+    StdioServerConfig:
+      properties:
+        server_name:
+          type: string
+          title: Server Name
+          description: The name of the server
+        type:
+          $ref: '#/components/schemas/MCPServerType'
+          default: stdio
+        command:
+          type: string
+          title: Command
+          description: The command to run (MCP 'local' client will run this command)
+        args:
+          items:
+            type: string
+          type: array
+          title: Args
+          description: The arguments to pass to the command
+        env:
+          anyOf:
+          - additionalProperties:
+              type: string
+            type: object
+          - type: 'null'
+          title: Env
+          description: Environment variables to set
+      type: object
+      required:
+      - server_name
+      - command
+      - args
+      title: StdioServerConfig
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
