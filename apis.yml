@@ -10,7 +10,20 @@ description: >-
   22.9k+ stars) is available on GitHub; Letta Cloud is the managed offering; the Agent Development Environment (ADE)
   provides a web UI for inspecting context windows, memory blocks, and run history. Python and TypeScript SDKs ship
   alongside the REST API, and the open `.af` agent file format lets agents migrate between deployments.
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/letta.png
 tags:
   - AI
   - Agents
@@ -26,122 +39,2430 @@ created: '2026-05-08'
 modified: '2026-05-22'
 specificationVersion: '0.19'
 apis:
-  - aid: letta:cloud
-    name: Letta Cloud API
-    description: >-
-      REST API for managing stateful agents, memory blocks (in-context + archival/RAG), custom tools (sandboxed Python,
-      client-side, MCP-delegated), sources, multi-agent groups (supervisor/round-robin/dynamic/sleep-time), MCP server
-      registrations, runs, identities, scheduled messages, and a beta voice-mode streaming endpoint. 239 paths under
-      `/v1/`. Bearer token auth (`Authorization: Bearer $LETTA_API_KEY`).
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://docs.letta.com/
-    baseURL: https://api.letta.com
-    tags:
-      - Agents
-      - Memory
-      - Tools
-      - Streaming
-      - RAG
-      - MCP
-      - Multi-Agent
-    properties:
-      - type: Documentation
-        url: https://docs.letta.com/
-      - type: Signup
-        url: https://app.letta.com/
-      - type: Pricing
-        url: https://docs.letta.com/guides/api/plans
-      - type: GitHub
-        url: https://github.com/letta-ai/letta
-      - type: LlmsText
-        url: https://docs.letta.com/llms-full.txt
-      - type: ChangeLog
-        url: https://www.letta.com/blog
-      - type: OpenAPI
-        url: openapi/letta-openapi.json
-      - type: OpenAPIYAML
-        url: openapi/letta-openapi.yml
-      - type: SpectralRuleset
-        url: rules/letta-rules.yml
-      - type: JSONSchema
-        url: json-schema/letta-agent-schema.json
-      - type: JSONSchema
-        url: json-schema/letta-block-schema.json
-      - type: JSONSchema
-        url: json-schema/letta-tool-schema.json
-      - type: JSONSchema
-        url: json-schema/letta-source-schema.json
-      - type: JSONSchema
-        url: json-schema/letta-run-schema.json
-      - type: JSONSchema
-        url: json-schema/letta-group-schema.json
-      - type: JSONSchema
-        url: json-schema/letta-identity-schema.json
-      - type: JSONSchema
-        url: json-schema/letta-message-schema.json
-      - type: JSONSchema
-        url: json-schema/letta-passage-schema.json
-      - type: JSONSchema
-        url: json-schema/letta-archive-schema.json
-      - type: JSONSchema
-        url: json-schema/letta-job-schema.json
-      - type: JSONSchema
-        url: json-schema/letta-llm-config-schema.json
-      - type: JSONSchema
-        url: json-schema/letta-embedding-config-schema.json
-      - type: JSONSchema
-        url: json-schema/letta-provider-schema.json
-  - aid: letta:self-hosted
-    name: Letta Self-Hosted Server
-    description: >-
-      Open-source Letta server (Apache-2.0) for self-hosted agent deployments. Same REST API surface as Letta Cloud,
-      free to run; pay only for hosting and underlying LLM API usage. Default base URL is http://localhost:8283. Agents
-      can be migrated between self-hosted and cloud via the open .af agent file format.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://github.com/letta-ai/letta
-    baseURL: http://localhost:8283
-    tags:
-      - Open Source
-      - Self-Hosted
-      - Agents
-      - Docker
-    properties:
-      - type: GitHub
-        url: https://github.com/letta-ai/letta
-      - type: Documentation
-        url: https://docs.letta.com/
-      - type: License
-        url: https://github.com/letta-ai/letta/blob/main/LICENSE
-      - type: Docker
-        url: https://github.com/letta-ai/letta/blob/main/Dockerfile
-      - type: AgentFileFormat
-        url: https://github.com/letta-ai/agent-file
-      - type: OpenAPI
-        url: openapi/letta-openapi.json
-  - aid: letta:letta-code
-    name: Letta Code
-    description: >-
-      Letta's memory-first coding agent — a CLI plus a desktop app (and an action for GitHub repos). "The memory-first
-      coding agent that remembers and learns." Builds on the Letta Code SDK and the broader Letta platform; offered with
-      personal plans (chat.letta.com) separate from the API Plan.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://github.com/letta-ai/letta-code
-    baseURL: https://chat.letta.com
-    tags:
-      - Coding Agent
-      - CLI
-      - Desktop
-    properties:
-      - type: GitHub
-        url: https://github.com/letta-ai/letta-code
-      - type: SDKs
-        url: https://github.com/letta-ai/letta-code-sdk
-      - type: GitHubAction
-        url: https://github.com/letta-ai/letta-code-action
-      - type: Demo
-        url: https://github.com/letta-ai/letta-oss-ui
-      - type: Skills
-        url: https://github.com/letta-ai/skills
+- aid: letta:letta-code
+  name: Letta Code
+  description: >-
+    Letta's memory-first coding agent — a CLI plus a desktop app (and an action for GitHub repos). "The
+    memory-first coding agent that remembers and learns." Builds on the Letta Code SDK and the broader
+    Letta platform; offered with personal plans (chat.letta.com) separate from the API Plan.
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://github.com/letta-ai/letta-code
+  baseURL: https://chat.letta.com
+  tags:
+  - Coding Agent
+  - CLI
+  - Desktop
+  properties:
+  - type: GitHub
+    url: https://github.com/letta-ai/letta-code
+  - type: SDKs
+    url: https://github.com/letta-ai/letta-code-sdk
+  - type: GitHubAction
+    url: https://github.com/letta-ai/letta-code-action
+  - type: Demo
+    url: https://github.com/letta-ai/letta-oss-ui
+  - type: Skills
+    url: https://github.com/letta-ai/skills
+- aid: letta:letta-admin-api
+  name: Letta Admin API
+  description: Administrative operations (org / billing / policy).
+  humanURL: https://docs.letta.com/
+  baseURL: https://api.letta.com
+  tags:
+  - Admin
+  properties:
+  - type: OpenAPI
+    url: openapi/letta-admin-api-openapi.yml
+  - type: Documentation
+    url: https://docs.letta.com/
+  - type: Signup
+    url: https://app.letta.com/
+  - type: Pricing
+    url: https://docs.letta.com/guides/api/plans
+  - type: GitHub
+    url: https://github.com/letta-ai/letta
+  - type: LlmsText
+    url: https://docs.letta.com/llms-full.txt
+  - type: ChangeLog
+    url: https://www.letta.com/blog
+  - type: OpenAPIYAML
+    url: openapi/letta-openapi.yml
+  - type: SpectralRuleset
+    url: rules/letta-rules.yml
+  - type: JSONSchema
+    url: json-schema/letta-agent-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-block-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-tool-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-source-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-run-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-group-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-identity-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-message-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-passage-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-archive-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-job-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-llm-config-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-embedding-config-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-provider-schema.json
+  - type: License
+    url: https://github.com/letta-ai/letta/blob/main/LICENSE
+  - type: Docker
+    url: https://github.com/letta-ai/letta/blob/main/Dockerfile
+  - type: AgentFileFormat
+    url: https://github.com/letta-ai/agent-file
+- aid: letta:letta-agents-api
+  name: Letta Agents API
+  description: Create, list, modify, export, and delete stateful agents with memory and tools.
+  humanURL: https://docs.letta.com/
+  baseURL: https://api.letta.com
+  tags:
+  - Agents
+  properties:
+  - type: OpenAPI
+    url: openapi/letta-agents-api-openapi.yml
+  - type: Documentation
+    url: https://docs.letta.com/
+  - type: Signup
+    url: https://app.letta.com/
+  - type: Pricing
+    url: https://docs.letta.com/guides/api/plans
+  - type: GitHub
+    url: https://github.com/letta-ai/letta
+  - type: LlmsText
+    url: https://docs.letta.com/llms-full.txt
+  - type: ChangeLog
+    url: https://www.letta.com/blog
+  - type: OpenAPIYAML
+    url: openapi/letta-openapi.yml
+  - type: SpectralRuleset
+    url: rules/letta-rules.yml
+  - type: JSONSchema
+    url: json-schema/letta-agent-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-block-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-tool-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-source-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-run-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-group-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-identity-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-message-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-passage-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-archive-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-job-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-llm-config-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-embedding-config-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-provider-schema.json
+  - type: License
+    url: https://github.com/letta-ai/letta/blob/main/LICENSE
+  - type: Docker
+    url: https://github.com/letta-ai/letta/blob/main/Dockerfile
+  - type: AgentFileFormat
+    url: https://github.com/letta-ai/agent-file
+- aid: letta:letta-archives-api
+  name: Letta Archives API
+  description: Manage archival memory archives and passages (RAG-style long-term store).
+  humanURL: https://docs.letta.com/
+  baseURL: https://api.letta.com
+  tags:
+  - Archives
+  properties:
+  - type: OpenAPI
+    url: openapi/letta-archives-api-openapi.yml
+  - type: Documentation
+    url: https://docs.letta.com/
+  - type: Signup
+    url: https://app.letta.com/
+  - type: Pricing
+    url: https://docs.letta.com/guides/api/plans
+  - type: GitHub
+    url: https://github.com/letta-ai/letta
+  - type: LlmsText
+    url: https://docs.letta.com/llms-full.txt
+  - type: ChangeLog
+    url: https://www.letta.com/blog
+  - type: OpenAPIYAML
+    url: openapi/letta-openapi.yml
+  - type: SpectralRuleset
+    url: rules/letta-rules.yml
+  - type: JSONSchema
+    url: json-schema/letta-agent-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-block-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-tool-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-source-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-run-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-group-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-identity-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-message-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-passage-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-archive-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-job-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-llm-config-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-embedding-config-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-provider-schema.json
+  - type: License
+    url: https://github.com/letta-ai/letta/blob/main/LICENSE
+  - type: Docker
+    url: https://github.com/letta-ai/letta/blob/main/Dockerfile
+  - type: AgentFileFormat
+    url: https://github.com/letta-ai/agent-file
+- aid: letta:letta-blocks-api
+  name: Letta Blocks API
+  description: Manage in-context memory blocks (core memory) shared across agents.
+  humanURL: https://docs.letta.com/
+  baseURL: https://api.letta.com
+  tags:
+  - Blocks
+  properties:
+  - type: OpenAPI
+    url: openapi/letta-blocks-api-openapi.yml
+  - type: Documentation
+    url: https://docs.letta.com/
+  - type: Signup
+    url: https://app.letta.com/
+  - type: Pricing
+    url: https://docs.letta.com/guides/api/plans
+  - type: GitHub
+    url: https://github.com/letta-ai/letta
+  - type: LlmsText
+    url: https://docs.letta.com/llms-full.txt
+  - type: ChangeLog
+    url: https://www.letta.com/blog
+  - type: OpenAPIYAML
+    url: openapi/letta-openapi.yml
+  - type: SpectralRuleset
+    url: rules/letta-rules.yml
+  - type: JSONSchema
+    url: json-schema/letta-agent-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-block-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-tool-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-source-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-run-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-group-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-identity-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-message-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-passage-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-archive-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-job-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-llm-config-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-embedding-config-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-provider-schema.json
+  - type: License
+    url: https://github.com/letta-ai/letta/blob/main/LICENSE
+  - type: Docker
+    url: https://github.com/letta-ai/letta/blob/main/Dockerfile
+  - type: AgentFileFormat
+    url: https://github.com/letta-ai/agent-file
+- aid: letta:letta-chat-api
+  name: Letta Chat API
+  description: Chat operations.
+  humanURL: https://docs.letta.com/
+  baseURL: https://api.letta.com
+  tags:
+  - Chat
+  properties:
+  - type: OpenAPI
+    url: openapi/letta-chat-api-openapi.yml
+  - type: Documentation
+    url: https://docs.letta.com/
+  - type: Signup
+    url: https://app.letta.com/
+  - type: Pricing
+    url: https://docs.letta.com/guides/api/plans
+  - type: GitHub
+    url: https://github.com/letta-ai/letta
+  - type: LlmsText
+    url: https://docs.letta.com/llms-full.txt
+  - type: ChangeLog
+    url: https://www.letta.com/blog
+  - type: OpenAPIYAML
+    url: openapi/letta-openapi.yml
+  - type: SpectralRuleset
+    url: rules/letta-rules.yml
+  - type: JSONSchema
+    url: json-schema/letta-agent-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-block-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-tool-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-source-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-run-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-group-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-identity-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-message-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-passage-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-archive-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-job-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-llm-config-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-embedding-config-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-provider-schema.json
+  - type: License
+    url: https://github.com/letta-ai/letta/blob/main/LICENSE
+  - type: Docker
+    url: https://github.com/letta-ai/letta/blob/main/Dockerfile
+  - type: AgentFileFormat
+    url: https://github.com/letta-ai/agent-file
+- aid: letta:letta-client-side-access-tokens-api
+  name: Letta Client-Side Access Tokens API
+  description: Mint short-lived client-side access tokens for browser/mobile use.
+  humanURL: https://docs.letta.com/
+  baseURL: https://api.letta.com
+  tags:
+  - Client-Side Access Tokens
+  properties:
+  - type: OpenAPI
+    url: openapi/letta-client-side-access-tokens-api-openapi.yml
+  - type: Documentation
+    url: https://docs.letta.com/
+  - type: Signup
+    url: https://app.letta.com/
+  - type: Pricing
+    url: https://docs.letta.com/guides/api/plans
+  - type: GitHub
+    url: https://github.com/letta-ai/letta
+  - type: LlmsText
+    url: https://docs.letta.com/llms-full.txt
+  - type: ChangeLog
+    url: https://www.letta.com/blog
+  - type: OpenAPIYAML
+    url: openapi/letta-openapi.yml
+  - type: SpectralRuleset
+    url: rules/letta-rules.yml
+  - type: JSONSchema
+    url: json-schema/letta-agent-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-block-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-tool-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-source-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-run-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-group-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-identity-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-message-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-passage-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-archive-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-job-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-llm-config-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-embedding-config-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-provider-schema.json
+  - type: License
+    url: https://github.com/letta-ai/letta/blob/main/LICENSE
+  - type: Docker
+    url: https://github.com/letta-ai/letta/blob/main/Dockerfile
+  - type: AgentFileFormat
+    url: https://github.com/letta-ai/agent-file
+- aid: letta:letta-conversations-api
+  name: Letta Conversations API
+  description: Conversational session threads anchored to an agent.
+  humanURL: https://docs.letta.com/
+  baseURL: https://api.letta.com
+  tags:
+  - Conversations
+  properties:
+  - type: OpenAPI
+    url: openapi/letta-conversations-api-openapi.yml
+  - type: Documentation
+    url: https://docs.letta.com/
+  - type: Signup
+    url: https://app.letta.com/
+  - type: Pricing
+    url: https://docs.letta.com/guides/api/plans
+  - type: GitHub
+    url: https://github.com/letta-ai/letta
+  - type: LlmsText
+    url: https://docs.letta.com/llms-full.txt
+  - type: ChangeLog
+    url: https://www.letta.com/blog
+  - type: OpenAPIYAML
+    url: openapi/letta-openapi.yml
+  - type: SpectralRuleset
+    url: rules/letta-rules.yml
+  - type: JSONSchema
+    url: json-schema/letta-agent-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-block-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-tool-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-source-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-run-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-group-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-identity-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-message-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-passage-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-archive-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-job-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-llm-config-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-embedding-config-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-provider-schema.json
+  - type: License
+    url: https://github.com/letta-ai/letta/blob/main/LICENSE
+  - type: Docker
+    url: https://github.com/letta-ai/letta/blob/main/Dockerfile
+  - type: AgentFileFormat
+    url: https://github.com/letta-ai/agent-file
+- aid: letta:letta-device-storage-api
+  name: Letta Device Storage API
+  description: Per-device storage for the Letta Code SDK and ADE.
+  humanURL: https://docs.letta.com/
+  baseURL: https://api.letta.com
+  tags:
+  - Device Storage
+  properties:
+  - type: OpenAPI
+    url: openapi/letta-device-storage-api-openapi.yml
+  - type: Documentation
+    url: https://docs.letta.com/
+  - type: Signup
+    url: https://app.letta.com/
+  - type: Pricing
+    url: https://docs.letta.com/guides/api/plans
+  - type: GitHub
+    url: https://github.com/letta-ai/letta
+  - type: LlmsText
+    url: https://docs.letta.com/llms-full.txt
+  - type: ChangeLog
+    url: https://www.letta.com/blog
+  - type: OpenAPIYAML
+    url: openapi/letta-openapi.yml
+  - type: SpectralRuleset
+    url: rules/letta-rules.yml
+  - type: JSONSchema
+    url: json-schema/letta-agent-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-block-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-tool-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-source-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-run-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-group-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-identity-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-message-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-passage-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-archive-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-job-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-llm-config-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-embedding-config-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-provider-schema.json
+  - type: License
+    url: https://github.com/letta-ai/letta/blob/main/LICENSE
+  - type: Docker
+    url: https://github.com/letta-ai/letta/blob/main/Dockerfile
+  - type: AgentFileFormat
+    url: https://github.com/letta-ai/agent-file
+- aid: letta:letta-embeddings-api
+  name: Letta Embeddings API
+  description: List configured embedding models.
+  humanURL: https://docs.letta.com/
+  baseURL: https://api.letta.com
+  tags:
+  - Embeddings
+  properties:
+  - type: OpenAPI
+    url: openapi/letta-embeddings-api-openapi.yml
+  - type: Documentation
+    url: https://docs.letta.com/
+  - type: Signup
+    url: https://app.letta.com/
+  - type: Pricing
+    url: https://docs.letta.com/guides/api/plans
+  - type: GitHub
+    url: https://github.com/letta-ai/letta
+  - type: LlmsText
+    url: https://docs.letta.com/llms-full.txt
+  - type: ChangeLog
+    url: https://www.letta.com/blog
+  - type: OpenAPIYAML
+    url: openapi/letta-openapi.yml
+  - type: SpectralRuleset
+    url: rules/letta-rules.yml
+  - type: JSONSchema
+    url: json-schema/letta-agent-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-block-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-tool-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-source-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-run-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-group-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-identity-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-message-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-passage-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-archive-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-job-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-llm-config-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-embedding-config-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-provider-schema.json
+  - type: License
+    url: https://github.com/letta-ai/letta/blob/main/LICENSE
+  - type: Docker
+    url: https://github.com/letta-ai/letta/blob/main/Dockerfile
+  - type: AgentFileFormat
+    url: https://github.com/letta-ai/agent-file
+- aid: letta:letta-environments-api
+  name: Letta Environments API
+  description: Environment variables and configuration scoped to agents/tools.
+  humanURL: https://docs.letta.com/
+  baseURL: https://api.letta.com
+  tags:
+  - Environments
+  properties:
+  - type: OpenAPI
+    url: openapi/letta-environments-api-openapi.yml
+  - type: Documentation
+    url: https://docs.letta.com/
+  - type: Signup
+    url: https://app.letta.com/
+  - type: Pricing
+    url: https://docs.letta.com/guides/api/plans
+  - type: GitHub
+    url: https://github.com/letta-ai/letta
+  - type: LlmsText
+    url: https://docs.letta.com/llms-full.txt
+  - type: ChangeLog
+    url: https://www.letta.com/blog
+  - type: OpenAPIYAML
+    url: openapi/letta-openapi.yml
+  - type: SpectralRuleset
+    url: rules/letta-rules.yml
+  - type: JSONSchema
+    url: json-schema/letta-agent-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-block-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-tool-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-source-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-run-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-group-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-identity-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-message-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-passage-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-archive-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-job-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-llm-config-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-embedding-config-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-provider-schema.json
+  - type: License
+    url: https://github.com/letta-ai/letta/blob/main/LICENSE
+  - type: Docker
+    url: https://github.com/letta-ai/letta/blob/main/Dockerfile
+  - type: AgentFileFormat
+    url: https://github.com/letta-ai/agent-file
+- aid: letta:letta-feeds-api
+  name: Letta Feeds API
+  description: Subscribed feeds that drive agents.
+  humanURL: https://docs.letta.com/
+  baseURL: https://api.letta.com
+  tags:
+  - Feeds
+  properties:
+  - type: OpenAPI
+    url: openapi/letta-feeds-api-openapi.yml
+  - type: Documentation
+    url: https://docs.letta.com/
+  - type: Signup
+    url: https://app.letta.com/
+  - type: Pricing
+    url: https://docs.letta.com/guides/api/plans
+  - type: GitHub
+    url: https://github.com/letta-ai/letta
+  - type: LlmsText
+    url: https://docs.letta.com/llms-full.txt
+  - type: ChangeLog
+    url: https://www.letta.com/blog
+  - type: OpenAPIYAML
+    url: openapi/letta-openapi.yml
+  - type: SpectralRuleset
+    url: rules/letta-rules.yml
+  - type: JSONSchema
+    url: json-schema/letta-agent-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-block-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-tool-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-source-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-run-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-group-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-identity-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-message-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-passage-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-archive-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-job-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-llm-config-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-embedding-config-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-provider-schema.json
+  - type: License
+    url: https://github.com/letta-ai/letta/blob/main/LICENSE
+  - type: Docker
+    url: https://github.com/letta-ai/letta/blob/main/Dockerfile
+  - type: AgentFileFormat
+    url: https://github.com/letta-ai/agent-file
+- aid: letta:letta-folders-api
+  name: Letta Folders API
+  description: Organize agents and resources into folders.
+  humanURL: https://docs.letta.com/
+  baseURL: https://api.letta.com
+  tags:
+  - Folders
+  properties:
+  - type: OpenAPI
+    url: openapi/letta-folders-api-openapi.yml
+  - type: Documentation
+    url: https://docs.letta.com/
+  - type: Signup
+    url: https://app.letta.com/
+  - type: Pricing
+    url: https://docs.letta.com/guides/api/plans
+  - type: GitHub
+    url: https://github.com/letta-ai/letta
+  - type: LlmsText
+    url: https://docs.letta.com/llms-full.txt
+  - type: ChangeLog
+    url: https://www.letta.com/blog
+  - type: OpenAPIYAML
+    url: openapi/letta-openapi.yml
+  - type: SpectralRuleset
+    url: rules/letta-rules.yml
+  - type: JSONSchema
+    url: json-schema/letta-agent-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-block-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-tool-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-source-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-run-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-group-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-identity-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-message-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-passage-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-archive-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-job-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-llm-config-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-embedding-config-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-provider-schema.json
+  - type: License
+    url: https://github.com/letta-ai/letta/blob/main/LICENSE
+  - type: Docker
+    url: https://github.com/letta-ai/letta/blob/main/Dockerfile
+  - type: AgentFileFormat
+    url: https://github.com/letta-ai/agent-file
+- aid: letta:letta-groups-api
+  name: Letta Groups API
+  description: Coordinate multi-agent groups (supervisor/worker, round-robin, sleep-time).
+  humanURL: https://docs.letta.com/
+  baseURL: https://api.letta.com
+  tags:
+  - Groups
+  properties:
+  - type: OpenAPI
+    url: openapi/letta-groups-api-openapi.yml
+  - type: Documentation
+    url: https://docs.letta.com/
+  - type: Signup
+    url: https://app.letta.com/
+  - type: Pricing
+    url: https://docs.letta.com/guides/api/plans
+  - type: GitHub
+    url: https://github.com/letta-ai/letta
+  - type: LlmsText
+    url: https://docs.letta.com/llms-full.txt
+  - type: ChangeLog
+    url: https://www.letta.com/blog
+  - type: OpenAPIYAML
+    url: openapi/letta-openapi.yml
+  - type: SpectralRuleset
+    url: rules/letta-rules.yml
+  - type: JSONSchema
+    url: json-schema/letta-agent-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-block-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-tool-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-source-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-run-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-group-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-identity-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-message-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-passage-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-archive-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-job-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-llm-config-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-embedding-config-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-provider-schema.json
+  - type: License
+    url: https://github.com/letta-ai/letta/blob/main/LICENSE
+  - type: Docker
+    url: https://github.com/letta-ai/letta/blob/main/Dockerfile
+  - type: AgentFileFormat
+    url: https://github.com/letta-ai/agent-file
+- aid: letta:letta-health-api
+  name: Letta Health API
+  description: Service health/readiness endpoint.
+  humanURL: https://docs.letta.com/
+  baseURL: https://api.letta.com
+  tags:
+  - Health
+  properties:
+  - type: OpenAPI
+    url: openapi/letta-health-api-openapi.yml
+  - type: Documentation
+    url: https://docs.letta.com/
+  - type: Signup
+    url: https://app.letta.com/
+  - type: Pricing
+    url: https://docs.letta.com/guides/api/plans
+  - type: GitHub
+    url: https://github.com/letta-ai/letta
+  - type: LlmsText
+    url: https://docs.letta.com/llms-full.txt
+  - type: ChangeLog
+    url: https://www.letta.com/blog
+  - type: OpenAPIYAML
+    url: openapi/letta-openapi.yml
+  - type: SpectralRuleset
+    url: rules/letta-rules.yml
+  - type: JSONSchema
+    url: json-schema/letta-agent-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-block-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-tool-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-source-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-run-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-group-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-identity-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-message-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-passage-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-archive-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-job-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-llm-config-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-embedding-config-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-provider-schema.json
+  - type: License
+    url: https://github.com/letta-ai/letta/blob/main/LICENSE
+  - type: Docker
+    url: https://github.com/letta-ai/letta/blob/main/Dockerfile
+  - type: AgentFileFormat
+    url: https://github.com/letta-ai/agent-file
+- aid: letta:letta-identities-api
+  name: Letta Identities API
+  description: Map external user identities to agents and memory contexts.
+  humanURL: https://docs.letta.com/
+  baseURL: https://api.letta.com
+  tags:
+  - Identities
+  properties:
+  - type: OpenAPI
+    url: openapi/letta-identities-api-openapi.yml
+  - type: Documentation
+    url: https://docs.letta.com/
+  - type: Signup
+    url: https://app.letta.com/
+  - type: Pricing
+    url: https://docs.letta.com/guides/api/plans
+  - type: GitHub
+    url: https://github.com/letta-ai/letta
+  - type: LlmsText
+    url: https://docs.letta.com/llms-full.txt
+  - type: ChangeLog
+    url: https://www.letta.com/blog
+  - type: OpenAPIYAML
+    url: openapi/letta-openapi.yml
+  - type: SpectralRuleset
+    url: rules/letta-rules.yml
+  - type: JSONSchema
+    url: json-schema/letta-agent-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-block-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-tool-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-source-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-run-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-group-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-identity-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-message-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-passage-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-archive-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-job-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-llm-config-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-embedding-config-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-provider-schema.json
+  - type: License
+    url: https://github.com/letta-ai/letta/blob/main/LICENSE
+  - type: Docker
+    url: https://github.com/letta-ai/letta/blob/main/Dockerfile
+  - type: AgentFileFormat
+    url: https://github.com/letta-ai/agent-file
+- aid: letta:letta-internal-agents-api
+  name: Letta Internal Agents API
+  description: Internal Agents operations.
+  humanURL: https://docs.letta.com/
+  baseURL: https://api.letta.com
+  tags:
+  - Internal Agents
+  properties:
+  - type: OpenAPI
+    url: openapi/letta-internal-agents-api-openapi.yml
+  - type: Documentation
+    url: https://docs.letta.com/
+  - type: Signup
+    url: https://app.letta.com/
+  - type: Pricing
+    url: https://docs.letta.com/guides/api/plans
+  - type: GitHub
+    url: https://github.com/letta-ai/letta
+  - type: LlmsText
+    url: https://docs.letta.com/llms-full.txt
+  - type: ChangeLog
+    url: https://www.letta.com/blog
+  - type: OpenAPIYAML
+    url: openapi/letta-openapi.yml
+  - type: SpectralRuleset
+    url: rules/letta-rules.yml
+  - type: JSONSchema
+    url: json-schema/letta-agent-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-block-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-tool-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-source-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-run-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-group-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-identity-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-message-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-passage-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-archive-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-job-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-llm-config-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-embedding-config-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-provider-schema.json
+  - type: License
+    url: https://github.com/letta-ai/letta/blob/main/LICENSE
+  - type: Docker
+    url: https://github.com/letta-ai/letta/blob/main/Dockerfile
+  - type: AgentFileFormat
+    url: https://github.com/letta-ai/agent-file
+- aid: letta:letta-internal-blocks-api
+  name: Letta Internal Blocks API
+  description: Internal Blocks operations.
+  humanURL: https://docs.letta.com/
+  baseURL: https://api.letta.com
+  tags:
+  - Internal Blocks
+  properties:
+  - type: OpenAPI
+    url: openapi/letta-internal-blocks-api-openapi.yml
+  - type: Documentation
+    url: https://docs.letta.com/
+  - type: Signup
+    url: https://app.letta.com/
+  - type: Pricing
+    url: https://docs.letta.com/guides/api/plans
+  - type: GitHub
+    url: https://github.com/letta-ai/letta
+  - type: LlmsText
+    url: https://docs.letta.com/llms-full.txt
+  - type: ChangeLog
+    url: https://www.letta.com/blog
+  - type: OpenAPIYAML
+    url: openapi/letta-openapi.yml
+  - type: SpectralRuleset
+    url: rules/letta-rules.yml
+  - type: JSONSchema
+    url: json-schema/letta-agent-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-block-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-tool-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-source-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-run-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-group-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-identity-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-message-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-passage-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-archive-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-job-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-llm-config-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-embedding-config-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-provider-schema.json
+  - type: License
+    url: https://github.com/letta-ai/letta/blob/main/LICENSE
+  - type: Docker
+    url: https://github.com/letta-ai/letta/blob/main/Dockerfile
+  - type: AgentFileFormat
+    url: https://github.com/letta-ai/agent-file
+- aid: letta:letta-internal-runs-api
+  name: Letta Internal Runs API
+  description: Internal Runs operations.
+  humanURL: https://docs.letta.com/
+  baseURL: https://api.letta.com
+  tags:
+  - Internal Runs
+  properties:
+  - type: OpenAPI
+    url: openapi/letta-internal-runs-api-openapi.yml
+  - type: Documentation
+    url: https://docs.letta.com/
+  - type: Signup
+    url: https://app.letta.com/
+  - type: Pricing
+    url: https://docs.letta.com/guides/api/plans
+  - type: GitHub
+    url: https://github.com/letta-ai/letta
+  - type: LlmsText
+    url: https://docs.letta.com/llms-full.txt
+  - type: ChangeLog
+    url: https://www.letta.com/blog
+  - type: OpenAPIYAML
+    url: openapi/letta-openapi.yml
+  - type: SpectralRuleset
+    url: rules/letta-rules.yml
+  - type: JSONSchema
+    url: json-schema/letta-agent-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-block-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-tool-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-source-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-run-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-group-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-identity-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-message-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-passage-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-archive-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-job-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-llm-config-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-embedding-config-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-provider-schema.json
+  - type: License
+    url: https://github.com/letta-ai/letta/blob/main/LICENSE
+  - type: Docker
+    url: https://github.com/letta-ai/letta/blob/main/Dockerfile
+  - type: AgentFileFormat
+    url: https://github.com/letta-ai/agent-file
+- aid: letta:letta-internal-templates-api
+  name: Letta Internal Templates API
+  description: Internal Templates operations.
+  humanURL: https://docs.letta.com/
+  baseURL: https://api.letta.com
+  tags:
+  - Internal Templates
+  properties:
+  - type: OpenAPI
+    url: openapi/letta-internal-templates-api-openapi.yml
+  - type: Documentation
+    url: https://docs.letta.com/
+  - type: Signup
+    url: https://app.letta.com/
+  - type: Pricing
+    url: https://docs.letta.com/guides/api/plans
+  - type: GitHub
+    url: https://github.com/letta-ai/letta
+  - type: LlmsText
+    url: https://docs.letta.com/llms-full.txt
+  - type: ChangeLog
+    url: https://www.letta.com/blog
+  - type: OpenAPIYAML
+    url: openapi/letta-openapi.yml
+  - type: SpectralRuleset
+    url: rules/letta-rules.yml
+  - type: JSONSchema
+    url: json-schema/letta-agent-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-block-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-tool-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-source-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-run-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-group-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-identity-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-message-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-passage-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-archive-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-job-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-llm-config-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-embedding-config-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-provider-schema.json
+  - type: License
+    url: https://github.com/letta-ai/letta/blob/main/LICENSE
+  - type: Docker
+    url: https://github.com/letta-ai/letta/blob/main/Dockerfile
+  - type: AgentFileFormat
+    url: https://github.com/letta-ai/agent-file
+- aid: letta:letta-jobs-api
+  name: Letta Jobs API
+  description: Manage long-running background jobs (e.g., file ingestion).
+  humanURL: https://docs.letta.com/
+  baseURL: https://api.letta.com
+  tags:
+  - Jobs
+  properties:
+  - type: OpenAPI
+    url: openapi/letta-jobs-api-openapi.yml
+  - type: Documentation
+    url: https://docs.letta.com/
+  - type: Signup
+    url: https://app.letta.com/
+  - type: Pricing
+    url: https://docs.letta.com/guides/api/plans
+  - type: GitHub
+    url: https://github.com/letta-ai/letta
+  - type: LlmsText
+    url: https://docs.letta.com/llms-full.txt
+  - type: ChangeLog
+    url: https://www.letta.com/blog
+  - type: OpenAPIYAML
+    url: openapi/letta-openapi.yml
+  - type: SpectralRuleset
+    url: rules/letta-rules.yml
+  - type: JSONSchema
+    url: json-schema/letta-agent-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-block-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-tool-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-source-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-run-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-group-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-identity-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-message-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-passage-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-archive-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-job-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-llm-config-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-embedding-config-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-provider-schema.json
+  - type: License
+    url: https://github.com/letta-ai/letta/blob/main/LICENSE
+  - type: Docker
+    url: https://github.com/letta-ai/letta/blob/main/Dockerfile
+  - type: AgentFileFormat
+    url: https://github.com/letta-ai/agent-file
+- aid: letta:letta-llms-api
+  name: Letta LLMs API
+  description: List available LLM models and configurations.
+  humanURL: https://docs.letta.com/
+  baseURL: https://api.letta.com
+  tags:
+  - LLMs
+  properties:
+  - type: OpenAPI
+    url: openapi/letta-llms-api-openapi.yml
+  - type: Documentation
+    url: https://docs.letta.com/
+  - type: Signup
+    url: https://app.letta.com/
+  - type: Pricing
+    url: https://docs.letta.com/guides/api/plans
+  - type: GitHub
+    url: https://github.com/letta-ai/letta
+  - type: LlmsText
+    url: https://docs.letta.com/llms-full.txt
+  - type: ChangeLog
+    url: https://www.letta.com/blog
+  - type: OpenAPIYAML
+    url: openapi/letta-openapi.yml
+  - type: SpectralRuleset
+    url: rules/letta-rules.yml
+  - type: JSONSchema
+    url: json-schema/letta-agent-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-block-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-tool-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-source-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-run-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-group-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-identity-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-message-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-passage-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-archive-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-job-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-llm-config-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-embedding-config-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-provider-schema.json
+  - type: License
+    url: https://github.com/letta-ai/letta/blob/main/LICENSE
+  - type: Docker
+    url: https://github.com/letta-ai/letta/blob/main/Dockerfile
+  - type: AgentFileFormat
+    url: https://github.com/letta-ai/agent-file
+- aid: letta:letta-mcp-servers-api
+  name: Letta MCP Servers API
+  description: Register external Model Context Protocol servers and expose their tools to agents.
+  humanURL: https://docs.letta.com/
+  baseURL: https://api.letta.com
+  tags:
+  - MCP Servers
+  properties:
+  - type: OpenAPI
+    url: openapi/letta-mcp-servers-api-openapi.yml
+  - type: Documentation
+    url: https://docs.letta.com/
+  - type: Signup
+    url: https://app.letta.com/
+  - type: Pricing
+    url: https://docs.letta.com/guides/api/plans
+  - type: GitHub
+    url: https://github.com/letta-ai/letta
+  - type: LlmsText
+    url: https://docs.letta.com/llms-full.txt
+  - type: ChangeLog
+    url: https://www.letta.com/blog
+  - type: OpenAPIYAML
+    url: openapi/letta-openapi.yml
+  - type: SpectralRuleset
+    url: rules/letta-rules.yml
+  - type: JSONSchema
+    url: json-schema/letta-agent-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-block-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-tool-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-source-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-run-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-group-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-identity-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-message-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-passage-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-archive-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-job-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-llm-config-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-embedding-config-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-provider-schema.json
+  - type: License
+    url: https://github.com/letta-ai/letta/blob/main/LICENSE
+  - type: Docker
+    url: https://github.com/letta-ai/letta/blob/main/Dockerfile
+  - type: AgentFileFormat
+    url: https://github.com/letta-ai/agent-file
+- aid: letta:letta-memory-files-api
+  name: Letta Memory Files API
+  description: Memory-mapped file resources attached to agents.
+  humanURL: https://docs.letta.com/
+  baseURL: https://api.letta.com
+  tags:
+  - Memory Files
+  properties:
+  - type: OpenAPI
+    url: openapi/letta-memory-files-api-openapi.yml
+  - type: Documentation
+    url: https://docs.letta.com/
+  - type: Signup
+    url: https://app.letta.com/
+  - type: Pricing
+    url: https://docs.letta.com/guides/api/plans
+  - type: GitHub
+    url: https://github.com/letta-ai/letta
+  - type: LlmsText
+    url: https://docs.letta.com/llms-full.txt
+  - type: ChangeLog
+    url: https://www.letta.com/blog
+  - type: OpenAPIYAML
+    url: openapi/letta-openapi.yml
+  - type: SpectralRuleset
+    url: rules/letta-rules.yml
+  - type: JSONSchema
+    url: json-schema/letta-agent-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-block-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-tool-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-source-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-run-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-group-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-identity-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-message-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-passage-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-archive-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-job-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-llm-config-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-embedding-config-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-provider-schema.json
+  - type: License
+    url: https://github.com/letta-ai/letta/blob/main/LICENSE
+  - type: Docker
+    url: https://github.com/letta-ai/letta/blob/main/Dockerfile
+  - type: AgentFileFormat
+    url: https://github.com/letta-ai/agent-file
+- aid: letta:letta-messages-api
+  name: Letta Messages API
+  description: Send messages, list message history, search, and batch operations.
+  humanURL: https://docs.letta.com/
+  baseURL: https://api.letta.com
+  tags:
+  - Messages
+  properties:
+  - type: OpenAPI
+    url: openapi/letta-messages-api-openapi.yml
+  - type: Documentation
+    url: https://docs.letta.com/
+  - type: Signup
+    url: https://app.letta.com/
+  - type: Pricing
+    url: https://docs.letta.com/guides/api/plans
+  - type: GitHub
+    url: https://github.com/letta-ai/letta
+  - type: LlmsText
+    url: https://docs.letta.com/llms-full.txt
+  - type: ChangeLog
+    url: https://www.letta.com/blog
+  - type: OpenAPIYAML
+    url: openapi/letta-openapi.yml
+  - type: SpectralRuleset
+    url: rules/letta-rules.yml
+  - type: JSONSchema
+    url: json-schema/letta-agent-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-block-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-tool-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-source-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-run-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-group-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-identity-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-message-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-passage-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-archive-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-job-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-llm-config-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-embedding-config-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-provider-schema.json
+  - type: License
+    url: https://github.com/letta-ai/letta/blob/main/LICENSE
+  - type: Docker
+    url: https://github.com/letta-ai/letta/blob/main/Dockerfile
+  - type: AgentFileFormat
+    url: https://github.com/letta-ai/agent-file
+- aid: letta:letta-metadata-api
+  name: Letta Metadata API
+  description: Service/runtime metadata.
+  humanURL: https://docs.letta.com/
+  baseURL: https://api.letta.com
+  tags:
+  - Metadata
+  properties:
+  - type: OpenAPI
+    url: openapi/letta-metadata-api-openapi.yml
+  - type: Documentation
+    url: https://docs.letta.com/
+  - type: Signup
+    url: https://app.letta.com/
+  - type: Pricing
+    url: https://docs.letta.com/guides/api/plans
+  - type: GitHub
+    url: https://github.com/letta-ai/letta
+  - type: LlmsText
+    url: https://docs.letta.com/llms-full.txt
+  - type: ChangeLog
+    url: https://www.letta.com/blog
+  - type: OpenAPIYAML
+    url: openapi/letta-openapi.yml
+  - type: SpectralRuleset
+    url: rules/letta-rules.yml
+  - type: JSONSchema
+    url: json-schema/letta-agent-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-block-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-tool-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-source-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-run-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-group-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-identity-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-message-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-passage-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-archive-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-job-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-llm-config-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-embedding-config-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-provider-schema.json
+  - type: License
+    url: https://github.com/letta-ai/letta/blob/main/LICENSE
+  - type: Docker
+    url: https://github.com/letta-ai/letta/blob/main/Dockerfile
+  - type: AgentFileFormat
+    url: https://github.com/letta-ai/agent-file
+- aid: letta:letta-models-api
+  name: Letta Models API
+  description: List available chat and embedding models exposed by configured providers.
+  humanURL: https://docs.letta.com/
+  baseURL: https://api.letta.com
+  tags:
+  - Models
+  properties:
+  - type: OpenAPI
+    url: openapi/letta-models-api-openapi.yml
+  - type: Documentation
+    url: https://docs.letta.com/
+  - type: Signup
+    url: https://app.letta.com/
+  - type: Pricing
+    url: https://docs.letta.com/guides/api/plans
+  - type: GitHub
+    url: https://github.com/letta-ai/letta
+  - type: LlmsText
+    url: https://docs.letta.com/llms-full.txt
+  - type: ChangeLog
+    url: https://www.letta.com/blog
+  - type: OpenAPIYAML
+    url: openapi/letta-openapi.yml
+  - type: SpectralRuleset
+    url: rules/letta-rules.yml
+  - type: JSONSchema
+    url: json-schema/letta-agent-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-block-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-tool-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-source-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-run-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-group-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-identity-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-message-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-passage-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-archive-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-job-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-llm-config-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-embedding-config-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-provider-schema.json
+  - type: License
+    url: https://github.com/letta-ai/letta/blob/main/LICENSE
+  - type: Docker
+    url: https://github.com/letta-ai/letta/blob/main/Dockerfile
+  - type: AgentFileFormat
+    url: https://github.com/letta-ai/agent-file
+- aid: letta:letta-passages-api
+  name: Letta Passages API
+  description: Individual archival memory passages (chunked context).
+  humanURL: https://docs.letta.com/
+  baseURL: https://api.letta.com
+  tags:
+  - Passages
+  properties:
+  - type: OpenAPI
+    url: openapi/letta-passages-api-openapi.yml
+  - type: Documentation
+    url: https://docs.letta.com/
+  - type: Signup
+    url: https://app.letta.com/
+  - type: Pricing
+    url: https://docs.letta.com/guides/api/plans
+  - type: GitHub
+    url: https://github.com/letta-ai/letta
+  - type: LlmsText
+    url: https://docs.letta.com/llms-full.txt
+  - type: ChangeLog
+    url: https://www.letta.com/blog
+  - type: OpenAPIYAML
+    url: openapi/letta-openapi.yml
+  - type: SpectralRuleset
+    url: rules/letta-rules.yml
+  - type: JSONSchema
+    url: json-schema/letta-agent-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-block-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-tool-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-source-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-run-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-group-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-identity-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-message-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-passage-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-archive-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-job-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-llm-config-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-embedding-config-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-provider-schema.json
+  - type: License
+    url: https://github.com/letta-ai/letta/blob/main/LICENSE
+  - type: Docker
+    url: https://github.com/letta-ai/letta/blob/main/Dockerfile
+  - type: AgentFileFormat
+    url: https://github.com/letta-ai/agent-file
+- aid: letta:letta-pipelines-api
+  name: Letta Pipelines API
+  description: Composable agent pipelines.
+  humanURL: https://docs.letta.com/
+  baseURL: https://api.letta.com
+  tags:
+  - Pipelines
+  properties:
+  - type: OpenAPI
+    url: openapi/letta-pipelines-api-openapi.yml
+  - type: Documentation
+    url: https://docs.letta.com/
+  - type: Signup
+    url: https://app.letta.com/
+  - type: Pricing
+    url: https://docs.letta.com/guides/api/plans
+  - type: GitHub
+    url: https://github.com/letta-ai/letta
+  - type: LlmsText
+    url: https://docs.letta.com/llms-full.txt
+  - type: ChangeLog
+    url: https://www.letta.com/blog
+  - type: OpenAPIYAML
+    url: openapi/letta-openapi.yml
+  - type: SpectralRuleset
+    url: rules/letta-rules.yml
+  - type: JSONSchema
+    url: json-schema/letta-agent-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-block-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-tool-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-source-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-run-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-group-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-identity-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-message-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-passage-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-archive-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-job-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-llm-config-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-embedding-config-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-provider-schema.json
+  - type: License
+    url: https://github.com/letta-ai/letta/blob/main/LICENSE
+  - type: Docker
+    url: https://github.com/letta-ai/letta/blob/main/Dockerfile
+  - type: AgentFileFormat
+    url: https://github.com/letta-ai/agent-file
+- aid: letta:letta-projects-api
+  name: Letta Projects API
+  description: Project-level scoping for agents and resources.
+  humanURL: https://docs.letta.com/
+  baseURL: https://api.letta.com
+  tags:
+  - Projects
+  properties:
+  - type: OpenAPI
+    url: openapi/letta-projects-api-openapi.yml
+  - type: Documentation
+    url: https://docs.letta.com/
+  - type: Signup
+    url: https://app.letta.com/
+  - type: Pricing
+    url: https://docs.letta.com/guides/api/plans
+  - type: GitHub
+    url: https://github.com/letta-ai/letta
+  - type: LlmsText
+    url: https://docs.letta.com/llms-full.txt
+  - type: ChangeLog
+    url: https://www.letta.com/blog
+  - type: OpenAPIYAML
+    url: openapi/letta-openapi.yml
+  - type: SpectralRuleset
+    url: rules/letta-rules.yml
+  - type: JSONSchema
+    url: json-schema/letta-agent-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-block-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-tool-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-source-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-run-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-group-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-identity-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-message-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-passage-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-archive-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-job-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-llm-config-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-embedding-config-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-provider-schema.json
+  - type: License
+    url: https://github.com/letta-ai/letta/blob/main/LICENSE
+  - type: Docker
+    url: https://github.com/letta-ai/letta/blob/main/Dockerfile
+  - type: AgentFileFormat
+    url: https://github.com/letta-ai/agent-file
+- aid: letta:letta-providers-api
+  name: Letta Providers API
+  description: Configure LLM provider credentials (OpenAI, Anthropic, Azure, Ollama, etc.).
+  humanURL: https://docs.letta.com/
+  baseURL: https://api.letta.com
+  tags:
+  - Providers
+  properties:
+  - type: OpenAPI
+    url: openapi/letta-providers-api-openapi.yml
+  - type: Documentation
+    url: https://docs.letta.com/
+  - type: Signup
+    url: https://app.letta.com/
+  - type: Pricing
+    url: https://docs.letta.com/guides/api/plans
+  - type: GitHub
+    url: https://github.com/letta-ai/letta
+  - type: LlmsText
+    url: https://docs.letta.com/llms-full.txt
+  - type: ChangeLog
+    url: https://www.letta.com/blog
+  - type: OpenAPIYAML
+    url: openapi/letta-openapi.yml
+  - type: SpectralRuleset
+    url: rules/letta-rules.yml
+  - type: JSONSchema
+    url: json-schema/letta-agent-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-block-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-tool-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-source-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-run-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-group-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-identity-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-message-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-passage-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-archive-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-job-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-llm-config-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-embedding-config-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-provider-schema.json
+  - type: License
+    url: https://github.com/letta-ai/letta/blob/main/LICENSE
+  - type: Docker
+    url: https://github.com/letta-ai/letta/blob/main/Dockerfile
+  - type: AgentFileFormat
+    url: https://github.com/letta-ai/agent-file
+- aid: letta:letta-runs-api
+  name: Letta Runs API
+  description: Inspect and manage agent runs (executions of an agent in response to a message).
+  humanURL: https://docs.letta.com/
+  baseURL: https://api.letta.com
+  tags:
+  - Runs
+  properties:
+  - type: OpenAPI
+    url: openapi/letta-runs-api-openapi.yml
+  - type: Documentation
+    url: https://docs.letta.com/
+  - type: Signup
+    url: https://app.letta.com/
+  - type: Pricing
+    url: https://docs.letta.com/guides/api/plans
+  - type: GitHub
+    url: https://github.com/letta-ai/letta
+  - type: LlmsText
+    url: https://docs.letta.com/llms-full.txt
+  - type: ChangeLog
+    url: https://www.letta.com/blog
+  - type: OpenAPIYAML
+    url: openapi/letta-openapi.yml
+  - type: SpectralRuleset
+    url: rules/letta-rules.yml
+  - type: JSONSchema
+    url: json-schema/letta-agent-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-block-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-tool-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-source-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-run-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-group-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-identity-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-message-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-passage-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-archive-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-job-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-llm-config-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-embedding-config-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-provider-schema.json
+  - type: License
+    url: https://github.com/letta-ai/letta/blob/main/LICENSE
+  - type: Docker
+    url: https://github.com/letta-ai/letta/blob/main/Dockerfile
+  - type: AgentFileFormat
+    url: https://github.com/letta-ai/agent-file
+- aid: letta:letta-sandboxes-api
+  name: Letta Sandboxes API
+  description: Manage code-execution sandboxes used by sandbox tools.
+  humanURL: https://docs.letta.com/
+  baseURL: https://api.letta.com
+  tags:
+  - Sandboxes
+  properties:
+  - type: OpenAPI
+    url: openapi/letta-sandboxes-api-openapi.yml
+  - type: Documentation
+    url: https://docs.letta.com/
+  - type: Signup
+    url: https://app.letta.com/
+  - type: Pricing
+    url: https://docs.letta.com/guides/api/plans
+  - type: GitHub
+    url: https://github.com/letta-ai/letta
+  - type: LlmsText
+    url: https://docs.letta.com/llms-full.txt
+  - type: ChangeLog
+    url: https://www.letta.com/blog
+  - type: OpenAPIYAML
+    url: openapi/letta-openapi.yml
+  - type: SpectralRuleset
+    url: rules/letta-rules.yml
+  - type: JSONSchema
+    url: json-schema/letta-agent-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-block-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-tool-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-source-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-run-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-group-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-identity-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-message-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-passage-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-archive-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-job-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-llm-config-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-embedding-config-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-provider-schema.json
+  - type: License
+    url: https://github.com/letta-ai/letta/blob/main/LICENSE
+  - type: Docker
+    url: https://github.com/letta-ai/letta/blob/main/Dockerfile
+  - type: AgentFileFormat
+    url: https://github.com/letta-ai/agent-file
+- aid: letta:letta-scheduled-messages-api
+  name: Letta Scheduled Messages API
+  description: Schedule one-time or recurring messages to drive agents over time.
+  humanURL: https://docs.letta.com/
+  baseURL: https://api.letta.com
+  tags:
+  - Scheduled Messages
+  properties:
+  - type: OpenAPI
+    url: openapi/letta-scheduled-messages-api-openapi.yml
+  - type: Documentation
+    url: https://docs.letta.com/
+  - type: Signup
+    url: https://app.letta.com/
+  - type: Pricing
+    url: https://docs.letta.com/guides/api/plans
+  - type: GitHub
+    url: https://github.com/letta-ai/letta
+  - type: LlmsText
+    url: https://docs.letta.com/llms-full.txt
+  - type: ChangeLog
+    url: https://www.letta.com/blog
+  - type: OpenAPIYAML
+    url: openapi/letta-openapi.yml
+  - type: SpectralRuleset
+    url: rules/letta-rules.yml
+  - type: JSONSchema
+    url: json-schema/letta-agent-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-block-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-tool-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-source-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-run-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-group-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-identity-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-message-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-passage-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-archive-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-job-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-llm-config-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-embedding-config-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-provider-schema.json
+  - type: License
+    url: https://github.com/letta-ai/letta/blob/main/LICENSE
+  - type: Docker
+    url: https://github.com/letta-ai/letta/blob/main/Dockerfile
+  - type: AgentFileFormat
+    url: https://github.com/letta-ai/agent-file
+- aid: letta:letta-sources-api
+  name: Letta Sources API
+  description: Manage data sources (files, URLs) used to populate agent archival memory.
+  humanURL: https://docs.letta.com/
+  baseURL: https://api.letta.com
+  tags:
+  - Sources
+  properties:
+  - type: OpenAPI
+    url: openapi/letta-sources-api-openapi.yml
+  - type: Documentation
+    url: https://docs.letta.com/
+  - type: Signup
+    url: https://app.letta.com/
+  - type: Pricing
+    url: https://docs.letta.com/guides/api/plans
+  - type: GitHub
+    url: https://github.com/letta-ai/letta
+  - type: LlmsText
+    url: https://docs.letta.com/llms-full.txt
+  - type: ChangeLog
+    url: https://www.letta.com/blog
+  - type: OpenAPIYAML
+    url: openapi/letta-openapi.yml
+  - type: SpectralRuleset
+    url: rules/letta-rules.yml
+  - type: JSONSchema
+    url: json-schema/letta-agent-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-block-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-tool-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-source-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-run-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-group-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-identity-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-message-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-passage-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-archive-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-job-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-llm-config-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-embedding-config-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-provider-schema.json
+  - type: License
+    url: https://github.com/letta-ai/letta/blob/main/LICENSE
+  - type: Docker
+    url: https://github.com/letta-ai/letta/blob/main/Dockerfile
+  - type: AgentFileFormat
+    url: https://github.com/letta-ai/agent-file
+- aid: letta:letta-steps-api
+  name: Letta Steps API
+  description: Per-step traces of an agent run.
+  humanURL: https://docs.letta.com/
+  baseURL: https://api.letta.com
+  tags:
+  - Steps
+  properties:
+  - type: OpenAPI
+    url: openapi/letta-steps-api-openapi.yml
+  - type: Documentation
+    url: https://docs.letta.com/
+  - type: Signup
+    url: https://app.letta.com/
+  - type: Pricing
+    url: https://docs.letta.com/guides/api/plans
+  - type: GitHub
+    url: https://github.com/letta-ai/letta
+  - type: LlmsText
+    url: https://docs.letta.com/llms-full.txt
+  - type: ChangeLog
+    url: https://www.letta.com/blog
+  - type: OpenAPIYAML
+    url: openapi/letta-openapi.yml
+  - type: SpectralRuleset
+    url: rules/letta-rules.yml
+  - type: JSONSchema
+    url: json-schema/letta-agent-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-block-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-tool-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-source-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-run-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-group-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-identity-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-message-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-passage-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-archive-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-job-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-llm-config-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-embedding-config-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-provider-schema.json
+  - type: License
+    url: https://github.com/letta-ai/letta/blob/main/LICENSE
+  - type: Docker
+    url: https://github.com/letta-ai/letta/blob/main/Dockerfile
+  - type: AgentFileFormat
+    url: https://github.com/letta-ai/agent-file
+- aid: letta:letta-tag-api
+  name: Letta Tag API
+  description: Tag-based filtering metadata.
+  humanURL: https://docs.letta.com/
+  baseURL: https://api.letta.com
+  tags:
+  - Tag
+  properties:
+  - type: OpenAPI
+    url: openapi/letta-tag-api-openapi.yml
+  - type: Documentation
+    url: https://docs.letta.com/
+  - type: Signup
+    url: https://app.letta.com/
+  - type: Pricing
+    url: https://docs.letta.com/guides/api/plans
+  - type: GitHub
+    url: https://github.com/letta-ai/letta
+  - type: LlmsText
+    url: https://docs.letta.com/llms-full.txt
+  - type: ChangeLog
+    url: https://www.letta.com/blog
+  - type: OpenAPIYAML
+    url: openapi/letta-openapi.yml
+  - type: SpectralRuleset
+    url: rules/letta-rules.yml
+  - type: JSONSchema
+    url: json-schema/letta-agent-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-block-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-tool-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-source-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-run-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-group-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-identity-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-message-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-passage-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-archive-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-job-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-llm-config-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-embedding-config-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-provider-schema.json
+  - type: License
+    url: https://github.com/letta-ai/letta/blob/main/LICENSE
+  - type: Docker
+    url: https://github.com/letta-ai/letta/blob/main/Dockerfile
+  - type: AgentFileFormat
+    url: https://github.com/letta-ai/agent-file
+- aid: letta:letta-telemetry-api
+  name: Letta Telemetry API
+  description: Run-step traces and observability data.
+  humanURL: https://docs.letta.com/
+  baseURL: https://api.letta.com
+  tags:
+  - Telemetry
+  properties:
+  - type: OpenAPI
+    url: openapi/letta-telemetry-api-openapi.yml
+  - type: Documentation
+    url: https://docs.letta.com/
+  - type: Signup
+    url: https://app.letta.com/
+  - type: Pricing
+    url: https://docs.letta.com/guides/api/plans
+  - type: GitHub
+    url: https://github.com/letta-ai/letta
+  - type: LlmsText
+    url: https://docs.letta.com/llms-full.txt
+  - type: ChangeLog
+    url: https://www.letta.com/blog
+  - type: OpenAPIYAML
+    url: openapi/letta-openapi.yml
+  - type: SpectralRuleset
+    url: rules/letta-rules.yml
+  - type: JSONSchema
+    url: json-schema/letta-agent-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-block-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-tool-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-source-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-run-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-group-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-identity-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-message-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-passage-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-archive-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-job-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-llm-config-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-embedding-config-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-provider-schema.json
+  - type: License
+    url: https://github.com/letta-ai/letta/blob/main/LICENSE
+  - type: Docker
+    url: https://github.com/letta-ai/letta/blob/main/Dockerfile
+  - type: AgentFileFormat
+    url: https://github.com/letta-ai/agent-file
+- aid: letta:letta-templates-api
+  name: Letta Templates API
+  description: Reusable agent templates for instantiation.
+  humanURL: https://docs.letta.com/
+  baseURL: https://api.letta.com
+  tags:
+  - Templates
+  properties:
+  - type: OpenAPI
+    url: openapi/letta-templates-api-openapi.yml
+  - type: Documentation
+    url: https://docs.letta.com/
+  - type: Signup
+    url: https://app.letta.com/
+  - type: Pricing
+    url: https://docs.letta.com/guides/api/plans
+  - type: GitHub
+    url: https://github.com/letta-ai/letta
+  - type: LlmsText
+    url: https://docs.letta.com/llms-full.txt
+  - type: ChangeLog
+    url: https://www.letta.com/blog
+  - type: OpenAPIYAML
+    url: openapi/letta-openapi.yml
+  - type: SpectralRuleset
+    url: rules/letta-rules.yml
+  - type: JSONSchema
+    url: json-schema/letta-agent-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-block-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-tool-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-source-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-run-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-group-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-identity-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-message-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-passage-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-archive-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-job-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-llm-config-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-embedding-config-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-provider-schema.json
+  - type: License
+    url: https://github.com/letta-ai/letta/blob/main/LICENSE
+  - type: Docker
+    url: https://github.com/letta-ai/letta/blob/main/Dockerfile
+  - type: AgentFileFormat
+    url: https://github.com/letta-ai/agent-file
+- aid: letta:letta-tools-api
+  name: Letta Tools API
+  description: Register and execute custom tools (sandboxed Python, client-side, MCP).
+  humanURL: https://docs.letta.com/
+  baseURL: https://api.letta.com
+  tags:
+  - Tools
+  properties:
+  - type: OpenAPI
+    url: openapi/letta-tools-api-openapi.yml
+  - type: Documentation
+    url: https://docs.letta.com/
+  - type: Signup
+    url: https://app.letta.com/
+  - type: Pricing
+    url: https://docs.letta.com/guides/api/plans
+  - type: GitHub
+    url: https://github.com/letta-ai/letta
+  - type: LlmsText
+    url: https://docs.letta.com/llms-full.txt
+  - type: ChangeLog
+    url: https://www.letta.com/blog
+  - type: OpenAPIYAML
+    url: openapi/letta-openapi.yml
+  - type: SpectralRuleset
+    url: rules/letta-rules.yml
+  - type: JSONSchema
+    url: json-schema/letta-agent-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-block-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-tool-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-source-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-run-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-group-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-identity-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-message-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-passage-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-archive-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-job-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-llm-config-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-embedding-config-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-provider-schema.json
+  - type: License
+    url: https://github.com/letta-ai/letta/blob/main/LICENSE
+  - type: Docker
+    url: https://github.com/letta-ai/letta/blob/main/Dockerfile
+  - type: AgentFileFormat
+    url: https://github.com/letta-ai/agent-file
+- aid: letta:letta-voice-api
+  name: Letta Voice API
+  description: Voice (low-latency) chat completions endpoint for agents.
+  humanURL: https://docs.letta.com/
+  baseURL: https://api.letta.com
+  tags:
+  - Voice
+  properties:
+  - type: OpenAPI
+    url: openapi/letta-voice-api-openapi.yml
+  - type: Documentation
+    url: https://docs.letta.com/
+  - type: Signup
+    url: https://app.letta.com/
+  - type: Pricing
+    url: https://docs.letta.com/guides/api/plans
+  - type: GitHub
+    url: https://github.com/letta-ai/letta
+  - type: LlmsText
+    url: https://docs.letta.com/llms-full.txt
+  - type: ChangeLog
+    url: https://www.letta.com/blog
+  - type: OpenAPIYAML
+    url: openapi/letta-openapi.yml
+  - type: SpectralRuleset
+    url: rules/letta-rules.yml
+  - type: JSONSchema
+    url: json-schema/letta-agent-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-block-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-tool-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-source-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-run-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-group-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-identity-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-message-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-passage-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-archive-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-job-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-llm-config-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-embedding-config-schema.json
+  - type: JSONSchema
+    url: json-schema/letta-provider-schema.json
+  - type: License
+    url: https://github.com/letta-ai/letta/blob/main/LICENSE
+  - type: Docker
+    url: https://github.com/letta-ai/letta/blob/main/Dockerfile
+  - type: AgentFileFormat
+    url: https://github.com/letta-ai/agent-file
 common:
   - type: AgenticAccess
     url: agentic-access/letta-agentic-access.yml
