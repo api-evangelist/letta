@@ -1,0 +1,990 @@
+{
+  "item": [
+    {
+      "id": "49ac8374-93e3-4ead-8176-496afe2aea3c",
+      "name": "Internal Blocks",
+      "description": {
+        "content": "Internal Blocks operations.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "05bd70a6-d4c3-449c-92a6-4d41f40a7784",
+          "name": "List Blocks",
+          "request": {
+            "name": "List Blocks",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "_internal_blocks",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "label",
+                  "value": "<string>",
+                  "description": "Label to include (alphanumeric, hyphens, underscores, forward slashes)"
+                },
+                {
+                  "disabled": false,
+                  "key": "templates_only",
+                  "value": "false",
+                  "description": "Whether to include only templates"
+                },
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "Name filter (alphanumeric, spaces, hyphens, underscores)"
+                },
+                {
+                  "disabled": false,
+                  "key": "identity_id",
+                  "value": "<string>",
+                  "description": "The ID of the identity in the format 'identity-<uuid4>'"
+                },
+                {
+                  "disabled": false,
+                  "key": "identifier_keys",
+                  "value": "<string>",
+                  "description": "Search agents by identifier keys"
+                },
+                {
+                  "disabled": false,
+                  "key": "identifier_keys",
+                  "value": "<string>",
+                  "description": "Search agents by identifier keys"
+                },
+                {
+                  "disabled": false,
+                  "key": "project_id",
+                  "value": "<string>",
+                  "description": "Search blocks by project id"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Number of blocks to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "before",
+                  "value": "<string>",
+                  "description": "Block ID cursor for pagination. Returns blocks that come before this block ID in the specified sort order"
+                },
+                {
+                  "disabled": false,
+                  "key": "after",
+                  "value": "<string>",
+                  "description": "Block ID cursor for pagination. Returns blocks that come after this block ID in the specified sort order"
+                },
+                {
+                  "disabled": false,
+                  "key": "order",
+                  "value": "asc",
+                  "description": "Sort order for blocks by creation time. 'asc' for oldest first, 'desc' for newest first"
+                },
+                {
+                  "disabled": false,
+                  "key": "order_by",
+                  "value": "created_at",
+                  "description": "Field to sort by"
+                },
+                {
+                  "disabled": false,
+                  "key": "label_search",
+                  "value": "<string>",
+                  "description": "Search blocks by label. If provided, returns blocks whose label matches the search query. This is a full-text search on block labels."
+                },
+                {
+                  "disabled": false,
+                  "key": "description_search",
+                  "value": "<string>",
+                  "description": "Search blocks by description. If provided, returns blocks whose description matches the search query. This is a full-text search on block descriptions."
+                },
+                {
+                  "disabled": false,
+                  "key": "value_search",
+                  "value": "<string>",
+                  "description": "Search blocks by value. If provided, returns blocks whose value matches the search query. This is a full-text search on block values."
+                },
+                {
+                  "disabled": false,
+                  "key": "connected_to_agents_count_gt",
+                  "value": "<integer>",
+                  "description": "Filter blocks by the number of connected agents. If provided, returns blocks that have more than this number of connected agents."
+                },
+                {
+                  "disabled": false,
+                  "key": "connected_to_agents_count_lt",
+                  "value": "<integer>",
+                  "description": "Filter blocks by the number of connected agents. If provided, returns blocks that have less than this number of connected agents."
+                },
+                {
+                  "disabled": false,
+                  "key": "connected_to_agents_count_eq",
+                  "value": "<integer>",
+                  "description": "Filter blocks by the exact number of connected agents. If provided, returns blocks that have exactly this number of connected agents."
+                },
+                {
+                  "disabled": false,
+                  "key": "connected_to_agents_count_eq",
+                  "value": "<integer>",
+                  "description": "Filter blocks by the exact number of connected agents. If provided, returns blocks that have exactly this number of connected agents."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "02baecd3-ee0d-4f03-92e5-50e106e99b17",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "_internal_blocks",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "label",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "templates_only",
+                      "value": "false"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "identity_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "identifier_keys",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "identifier_keys",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "project_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "before",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "after",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "order",
+                      "value": "asc"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "created_at"
+                    },
+                    {
+                      "key": "label_search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "description_search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "value_search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "connected_to_agents_count_gt",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "connected_to_agents_count_lt",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "connected_to_agents_count_eq",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "connected_to_agents_count_eq",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"value\": \"string\",\n    \"limit\": 100000,\n    \"project_id\": \"string\",\n    \"template_name\": \"string\",\n    \"is_template\": false,\n    \"template_id\": \"string\",\n    \"base_template_id\": \"string\",\n    \"deployment_id\": \"string\",\n    \"entity_id\": \"string\",\n    \"preserve_on_migration\": true,\n    \"label\": \"string\",\n    \"read_only\": false,\n    \"description\": \"string\",\n    \"metadata\": {\n      \"key_0\": \"string\"\n    },\n    \"hidden\": false,\n    \"id\": \"block-123e4567-e89b-12d3-a456-426614174000\",\n    \"created_by_id\": \"string\",\n    \"last_updated_by_id\": \"string\",\n    \"tags\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  {\n    \"value\": \"string\",\n    \"limit\": 100000,\n    \"project_id\": \"string\",\n    \"template_name\": \"string\",\n    \"is_template\": false,\n    \"template_id\": \"string\",\n    \"base_template_id\": \"string\",\n    \"deployment_id\": \"string\",\n    \"entity_id\": \"string\",\n    \"preserve_on_migration\": true,\n    \"label\": \"string\",\n    \"read_only\": false,\n    \"description\": \"string\",\n    \"metadata\": {\n      \"key_0\": 6626.052528199337,\n      \"key_1\": true,\n      \"key_2\": true\n    },\n    \"hidden\": false,\n    \"id\": \"block-123e4567-e89b-12d3-a456-426614174000\",\n    \"created_by_id\": \"string\",\n    \"last_updated_by_id\": \"string\",\n    \"tags\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7167e366-51fc-414e-bca8-3bab8ddc2501",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "_internal_blocks",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "label",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "templates_only",
+                      "value": "false"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "identity_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "identifier_keys",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "identifier_keys",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "project_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "before",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "after",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "order",
+                      "value": "asc"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "created_at"
+                    },
+                    {
+                      "key": "label_search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "description_search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "value_search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "connected_to_agents_count_gt",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "connected_to_agents_count_lt",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "connected_to_agents_count_eq",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "connected_to_agents_count_eq",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fa01d4b1-4f2f-4cb5-a255-dc2ce7c5031d",
+          "name": "Create Block",
+          "request": {
+            "name": "Create Block",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "_internal_blocks",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"value\": \"<string>\",\n  \"label\": \"<string>\",\n  \"limit\": 100000,\n  \"project_id\": \"<string>\",\n  \"template_name\": \"<string>\",\n  \"is_template\": false,\n  \"template_id\": \"<string>\",\n  \"base_template_id\": \"<string>\",\n  \"deployment_id\": \"<string>\",\n  \"entity_id\": \"<string>\",\n  \"preserve_on_migration\": \"<boolean>\",\n  \"read_only\": false,\n  \"description\": \"<string>\",\n  \"metadata\": {\n    \"key_0\": true,\n    \"key_1\": 2193,\n    \"key_2\": \"string\",\n    \"key_3\": 1571\n  },\n  \"hidden\": \"<boolean>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a2c3f324-3eba-4880-a16e-4fee3fee5afa",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "_internal_blocks",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"value\": \"<string>\",\n  \"label\": \"<string>\",\n  \"limit\": 100000,\n  \"project_id\": \"<string>\",\n  \"template_name\": \"<string>\",\n  \"is_template\": false,\n  \"template_id\": \"<string>\",\n  \"base_template_id\": \"<string>\",\n  \"deployment_id\": \"<string>\",\n  \"entity_id\": \"<string>\",\n  \"preserve_on_migration\": \"<boolean>\",\n  \"read_only\": false,\n  \"description\": \"<string>\",\n  \"metadata\": {\n    \"key_0\": \"string\"\n  },\n  \"hidden\": \"<boolean>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"value\": \"string\",\n  \"limit\": 100000,\n  \"project_id\": \"string\",\n  \"template_name\": \"string\",\n  \"is_template\": false,\n  \"template_id\": \"string\",\n  \"base_template_id\": \"string\",\n  \"deployment_id\": \"string\",\n  \"entity_id\": \"string\",\n  \"preserve_on_migration\": true,\n  \"label\": \"string\",\n  \"read_only\": false,\n  \"description\": \"string\",\n  \"metadata\": {\n    \"key_0\": \"string\",\n    \"key_1\": true\n  },\n  \"hidden\": false,\n  \"id\": \"block-123e4567-e89b-12d3-a456-426614174000\",\n  \"created_by_id\": \"string\",\n  \"last_updated_by_id\": \"string\",\n  \"tags\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "38ab2b9c-b930-432a-ae58-6292c85ee195",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "_internal_blocks",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"value\": \"<string>\",\n  \"label\": \"<string>\",\n  \"limit\": 100000,\n  \"project_id\": \"<string>\",\n  \"template_name\": \"<string>\",\n  \"is_template\": false,\n  \"template_id\": \"<string>\",\n  \"base_template_id\": \"<string>\",\n  \"deployment_id\": \"<string>\",\n  \"entity_id\": \"<string>\",\n  \"preserve_on_migration\": \"<boolean>\",\n  \"read_only\": false,\n  \"description\": \"<string>\",\n  \"metadata\": {\n    \"key_0\": \"string\"\n  },\n  \"hidden\": \"<boolean>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "796370b6-c8d7-49e2-8681-3680a550e2ba",
+          "name": "Delete Block",
+          "request": {
+            "name": "Delete Block",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "_internal_blocks",
+                ":block_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "block_id",
+                  "description": "(Required) The ID of the block in the format 'block-<uuid4>'"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "abb69e77-90f9-469a-9116-e86c701a4c8f",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "_internal_blocks",
+                    ":block_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "block_id",
+                      "description": "(Required) The ID of the block in the format 'block-<uuid4>'"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4f793398-2faf-4ac2-82e2-148560de3d99",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "_internal_blocks",
+                    ":block_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "block_id",
+                      "description": "(Required) The ID of the block in the format 'block-<uuid4>'"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ec2bd3fa-d1d9-498f-81fa-a84b7e3ce791",
+          "name": "List Agents for Block",
+          "request": {
+            "name": "List Agents for Block",
+            "description": {
+              "content": "Retrieves all agents associated with the specified block.\nRaises a 404 if the block does not exist.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "_internal_blocks",
+                ":block_id",
+                "agents"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "before",
+                  "value": "<string>",
+                  "description": "Agent ID cursor for pagination. Returns agents that come before this agent ID in the specified sort order"
+                },
+                {
+                  "disabled": false,
+                  "key": "after",
+                  "value": "<string>",
+                  "description": "Agent ID cursor for pagination. Returns agents that come after this agent ID in the specified sort order"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Maximum number of agents to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "order",
+                  "value": "desc",
+                  "description": "Sort order for agents by creation time. 'asc' for oldest first, 'desc' for newest first"
+                },
+                {
+                  "disabled": false,
+                  "key": "order_by",
+                  "value": "created_at",
+                  "description": "Field to sort by"
+                },
+                {
+                  "disabled": false,
+                  "key": "include_relationships",
+                  "value": "<string>",
+                  "description": "Specify which relational fields (e.g., 'tools', 'sources', 'memory') to include in the response. If not provided, all relationships are loaded by default. Using this can optimize performance by reducing unnecessary joins.This is a legacy parameter, and no longer supported after 1.0.0 SDK versions."
+                },
+                {
+                  "disabled": false,
+                  "key": "include_relationships",
+                  "value": "<string>",
+                  "description": "Specify which relational fields (e.g., 'tools', 'sources', 'memory') to include in the response. If not provided, all relationships are loaded by default. Using this can optimize performance by reducing unnecessary joins.This is a legacy parameter, and no longer supported after 1.0.0 SDK versions."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "block_id",
+                  "description": "(Required) The ID of the block in the format 'block-<uuid4>'"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3453634d-e969-4850-9e14-8f289f24f18f",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "_internal_blocks",
+                    ":block_id",
+                    "agents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "before",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "after",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "order",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "created_at"
+                    },
+                    {
+                      "key": "include_relationships",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include_relationships",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "block_id",
+                      "description": "(Required) The ID of the block in the format 'block-<uuid4>'"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"system\": \"string\",\n    \"agent_type\": \"react_agent\",\n    \"llm_config\": {\n      \"model\": \"string\",\n      \"model_endpoint_type\": \"zai_coding\",\n      \"context_window\": 1186,\n      \"display_name\": \"string\",\n      \"model_endpoint\": \"string\",\n      \"provider_name\": \"string\",\n      \"provider_category\": \"byok\",\n      \"model_wrapper\": \"string\",\n      \"put_inner_thoughts_in_kwargs\": false,\n      \"handle\": \"string\",\n      \"temperature\": 1,\n      \"max_tokens\": 3727,\n      \"enable_reasoner\": true,\n      \"reasoning_effort\": \"low\",\n      \"max_reasoning_tokens\": 0,\n      \"effort\": \"medium\",\n      \"frequency_penalty\": 565.5460067269902,\n      \"compatibility_type\": \"mlx\",\n      \"verbosity\": \"low\",\n      \"tier\": \"string\",\n      \"parallel_tool_calls\": false,\n      \"response_format\": {\n        \"type\": \"text\"\n      },\n      \"strict\": false,\n      \"return_logprobs\": false,\n      \"top_logprobs\": 6271,\n      \"return_token_ids\": false,\n      \"tool_call_parser\": \"string\"\n    },\n    \"memory\": {\n      \"blocks\": [\n        {\n          \"value\": \"string\",\n          \"limit\": 100000,\n          \"project_id\": \"string\",\n          \"template_name\": \"string\",\n          \"is_template\": false,\n          \"template_id\": \"string\",\n          \"base_template_id\": \"string\",\n          \"deployment_id\": \"string\",\n          \"entity_id\": \"string\",\n          \"preserve_on_migration\": true,\n          \"label\": \"string\",\n          \"read_only\": false,\n          \"description\": \"string\",\n          \"metadata\": {\n            \"key_0\": true,\n            \"key_1\": 9240.39531385961,\n            \"key_2\": false,\n            \"key_3\": \"string\",\n            \"key_4\": 6407\n          },\n          \"hidden\": true,\n          \"id\": \"block-123e4567-e89b-12d3-a456-426614174000\",\n          \"created_by_id\": \"string\",\n          \"last_updated_by_id\": \"string\",\n          \"tags\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        },\n        {\n          \"value\": \"string\",\n          \"limit\": 100000,\n          \"project_id\": \"string\",\n          \"template_name\": \"string\",\n          \"is_template\": false,\n          \"template_id\": \"string\",\n          \"base_template_id\": \"string\",\n          \"deployment_id\": \"string\",\n          \"entity_id\": \"string\",\n          \"preserve_on_migration\": true,\n          \"label\": \"string\",\n          \"read_only\": false,\n          \"description\": \"string\",\n          \"metadata\": {\n            \"key_0\": 2577.127907727299,\n            \"key_1\": 2239,\n            \"key_2\": 4069\n          },\n          \"hidden\": false,\n          \"id\": \"block-123e4567-e89b-12d3-a456-426614174000\",\n          \"created_by_id\": \"string\",\n          \"last_updated_by_id\": \"string\",\n          \"tags\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        }\n      ],\n      \"agent_type\": \"voice_convo_agent\",\n      \"git_enabled\": false,\n      \"file_blocks\": [\n        {\n          \"value\": \"string\",\n          \"file_id\": \"string\",\n          \"source_id\": \"string\",\n          \"is_open\": false,\n          \"limit\": 100000,\n          \"project_id\": \"string\",\n          \"template_name\": \"string\",\n          \"is_template\": false,\n          \"template_id\": \"string\",\n          \"base_template_id\": \"string\",\n          \"deployment_id\": \"string\",\n          \"entity_id\": \"string\",\n          \"preserve_on_migration\": false,\n          \"label\": \"string\",\n          \"read_only\": false,\n          \"description\": \"string\",\n          \"metadata\": {\n            \"key_0\": 2521.439630341008,\n            \"key_1\": \"string\"\n          },\n          \"hidden\": true,\n          \"id\": \"block-123e4567-e89b-12d3-a456-426614174000\",\n          \"created_by_id\": \"string\",\n          \"last_updated_by_id\": \"string\",\n          \"tags\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"last_accessed_at\": \"2005-05-26T01:18:11.783Z\"\n        },\n        {\n          \"value\": \"string\",\n          \"file_id\": \"string\",\n          \"source_id\": \"string\",\n          \"is_open\": false,\n          \"limit\": 100000,\n          \"project_id\": \"string\",\n          \"template_name\": \"string\",\n          \"is_template\": false,\n          \"template_id\": \"string\",\n          \"base_template_id\": \"string\",\n          \"deployment_id\": \"string\",\n          \"entity_id\": \"string\",\n          \"preserve_on_migration\": true,\n          \"label\": \"string\",\n          \"read_only\": false,\n          \"description\": \"string\",\n          \"metadata\": {\n            \"key_0\": 8498.00135061228\n          },\n          \"hidden\": true,\n          \"id\": \"block-123e4567-e89b-12d3-a456-426614174000\",\n          \"created_by_id\": \"string\",\n          \"last_updated_by_id\": \"string\",\n          \"tags\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"last_accessed_at\": \"1961-06-26T17:31:57.471Z\"\n        }\n      ],\n      \"prompt_template\": \"\"\n    },\n    \"blocks\": [\n      {\n        \"value\": \"string\",\n        \"limit\": 100000,\n        \"project_id\": \"string\",\n        \"template_name\": \"string\",\n        \"is_template\": false,\n        \"template_id\": \"string\",\n        \"base_template_id\": \"string\",\n        \"deployment_id\": \"string\",\n        \"entity_id\": \"string\",\n        \"preserve_on_migration\": false,\n        \"label\": \"string\",\n        \"read_only\": false,\n        \"description\": \"string\",\n        \"metadata\": {\n          \"key_0\": true,\n          \"key_1\": 5785,\n          \"key_2\": 1827\n        },\n        \"hidden\": false,\n        \"id\": \"block-123e4567-e89b-12d3-a456-426614174000\",\n        \"created_by_id\": \"string\",\n        \"last_updated_by_id\": \"string\",\n        \"tags\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      {\n        \"value\": \"string\",\n        \"limit\": 100000,\n        \"project_id\": \"string\",\n        \"template_name\": \"string\",\n        \"is_template\": false,\n        \"template_id\": \"string\",\n        \"base_template_id\": \"string\",\n        \"deployment_id\": \"string\",\n        \"entity_id\": \"string\",\n        \"preserve_on_migration\": false,\n        \"label\": \"string\",\n        \"read_only\": false,\n        \"description\": \"string\",\n        \"metadata\": {\n          \"key_0\": \"string\"\n        },\n        \"hidden\": false,\n        \"id\": \"block-123e4567-e89b-12d3-a456-426614174000\",\n        \"created_by_id\": \"string\",\n        \"last_updated_by_id\": \"string\",\n        \"tags\": [\n          \"string\",\n          \"string\"\n        ]\n      }\n    ],\n    \"tools\": [\n      {\n        \"id\": \"tool-123e4567-e89b-12d3-a456-426614174000\",\n        \"tool_type\": \"custom\",\n        \"description\": \"string\",\n        \"source_type\": \"string\",\n        \"name\": \"string\",\n        \"source_code\": \"string\",\n        \"json_schema\": {\n          \"key_0\": \"string\"\n        },\n        \"args_json_schema\": {\n          \"key_0\": \"string\",\n          \"key_1\": 6639,\n          \"key_2\": false\n        },\n        \"return_char_limit\": 50000,\n        \"pip_requirements\": [\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"version\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"version\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"npm_requirements\": [\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"version\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"version\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"default_requires_approval\": true,\n        \"enable_parallel_execution\": true,\n        \"created_by_id\": \"string\",\n        \"last_updated_by_id\": \"string\",\n        \"metadata_\": {\n          \"key_0\": \"string\",\n          \"key_1\": 9716,\n          \"key_2\": 689,\n          \"key_3\": true\n        },\n        \"project_id\": \"string\"\n      },\n      {\n        \"id\": \"tool-123e4567-e89b-12d3-a456-426614174000\",\n        \"tool_type\": \"custom\",\n        \"description\": \"string\",\n        \"source_type\": \"string\",\n        \"name\": \"string\",\n        \"source_code\": \"string\",\n        \"json_schema\": {\n          \"key_0\": \"string\"\n        },\n        \"args_json_schema\": {\n          \"key_0\": 6352.840227101073\n        },\n        \"return_char_limit\": 50000,\n        \"pip_requirements\": [\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"version\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"version\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"npm_requirements\": [\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"version\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"version\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"default_requires_approval\": true,\n        \"enable_parallel_execution\": false,\n        \"created_by_id\": \"string\",\n        \"last_updated_by_id\": \"string\",\n        \"metadata_\": {\n          \"key_0\": 6998.444417364674\n        },\n        \"project_id\": \"string\"\n      }\n    ],\n    \"sources\": [\n      {\n        \"name\": \"string\",\n        \"embedding_config\": {\n          \"embedding_endpoint_type\": \"groq\",\n          \"embedding_model\": \"string\",\n          \"embedding_dim\": 9829,\n          \"embedding_endpoint\": \"string\",\n          \"embedding_chunk_size\": 1732,\n          \"handle\": \"string\",\n          \"batch_size\": 32,\n          \"azure_endpoint\": \"string\",\n          \"azure_version\": \"string\",\n          \"azure_deployment\": \"string\"\n        },\n        \"description\": \"string\",\n        \"instructions\": \"string\",\n        \"metadata\": {\n          \"key_0\": 664.1899937845874\n        },\n        \"id\": \"source-123e4567-e89b-12d3-a456-426614174000\",\n        \"vector_db_provider\": \"native\",\n        \"created_by_id\": \"string\",\n        \"last_updated_by_id\": \"string\",\n        \"created_at\": \"1950-05-09T14:59:56.271Z\",\n        \"updated_at\": \"1979-09-10T11:36:18.248Z\"\n      },\n      {\n        \"name\": \"string\",\n        \"embedding_config\": {\n          \"embedding_endpoint_type\": \"pinecone\",\n          \"embedding_model\": \"string\",\n          \"embedding_dim\": 6871,\n          \"embedding_endpoint\": \"string\",\n          \"embedding_chunk_size\": 4418,\n          \"handle\": \"string\",\n          \"batch_size\": 32,\n          \"azure_endpoint\": \"string\",\n          \"azure_version\": \"string\",\n          \"azure_deployment\": \"string\"\n        },\n        \"description\": \"string\",\n        \"instructions\": \"string\",\n        \"metadata\": {\n          \"key_0\": 802,\n          \"key_1\": \"string\",\n          \"key_2\": false\n        },\n        \"id\": \"source-123e4567-e89b-12d3-a456-426614174000\",\n        \"vector_db_provider\": \"native\",\n        \"created_by_id\": \"string\",\n        \"last_updated_by_id\": \"string\",\n        \"created_at\": \"2009-08-18T00:36:41.717Z\",\n        \"updated_at\": \"1965-03-27T18:04:07.342Z\"\n      }\n    ],\n    \"tags\": [\n      \"string\",\n      \"string\"\n    ],\n    \"created_by_id\": \"string\",\n    \"last_updated_by_id\": \"string\",\n    \"created_at\": \"1981-03-01T19:52:00.194Z\",\n    \"updated_at\": \"2002-08-14T11:14:43.748Z\",\n    \"tool_rules\": [\n      {\n        \"tool_name\": \"string\",\n        \"children\": [\n          \"string\",\n          \"string\"\n        ],\n        \"type\": \"constrain_child_tools\",\n        \"prompt_template\": \"string\",\n        \"child_arg_nodes\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      },\n      {\n        \"tool_name\": \"string\",\n        \"children\": [\n          \"string\",\n          \"string\"\n        ],\n        \"type\": \"constrain_child_tools\",\n        \"prompt_template\": \"string\",\n        \"child_arg_nodes\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      }\n    ],\n    \"message_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"embedding_config\": {\n      \"embedding_endpoint_type\": \"lmstudio\",\n      \"embedding_model\": \"string\",\n      \"embedding_dim\": 6129,\n      \"embedding_endpoint\": \"string\",\n      \"embedding_chunk_size\": 2660,\n      \"handle\": \"string\",\n      \"batch_size\": 32,\n      \"azure_endpoint\": \"string\",\n      \"azure_version\": \"string\",\n      \"azure_deployment\": \"string\"\n    },\n    \"model\": \"string\",\n    \"embedding\": \"string\",\n    \"model_settings\": {\n      \"max_output_tokens\": 4096,\n      \"parallel_tool_calls\": true,\n      \"provider_type\": \"openai\",\n      \"temperature\": 0.7,\n      \"reasoning\": {\n        \"reasoning_effort\": \"high\"\n      },\n      \"response_format\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"strict\": true\n    },\n    \"compaction_settings\": {\n      \"model\": \"string\",\n      \"model_settings\": {\n        \"max_output_tokens\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"parallel_tool_calls\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"provider_type\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"temperature\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"reasoning\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"response_format\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"strict\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"prompt\": \"string\",\n      \"prompt_acknowledgement\": false,\n      \"clip_chars\": 8510,\n      \"mode\": \"sliding_window\",\n      \"sliding_window_percentage\": 5150.587752758043\n    },\n    \"response_format\": {\n      \"type\": \"text\"\n    },\n    \"description\": \"string\",\n    \"metadata\": {\n      \"key_0\": 7169,\n      \"key_1\": \"string\",\n      \"key_2\": \"string\"\n    },\n    \"tool_exec_environment_variables\": [\n      {\n        \"key\": \"string\",\n        \"value\": \"string\",\n        \"agent_id\": \"string\",\n        \"created_by_id\": \"string\",\n        \"last_updated_by_id\": \"string\",\n        \"created_at\": \"1968-06-23T18:14:20.825Z\",\n        \"updated_at\": \"2003-03-07T15:20:54.377Z\",\n        \"id\": \"agent-env-123e4567-e89b-12d3-a456-426614174000\",\n        \"description\": \"string\",\n        \"value_enc\": \"string\"\n      },\n      {\n        \"key\": \"string\",\n        \"value\": \"string\",\n        \"agent_id\": \"string\",\n        \"created_by_id\": \"string\",\n        \"last_updated_by_id\": \"string\",\n        \"created_at\": \"2020-04-13T18:25:39.210Z\",\n        \"updated_at\": \"1949-07-16T23:49:02.604Z\",\n        \"id\": \"agent-env-123e4567-e89b-12d3-a456-426614174000\",\n        \"description\": \"string\",\n        \"value_enc\": \"string\"\n      }\n    ],\n    \"secrets\": [\n      {\n        \"key\": \"string\",\n        \"value\": \"string\",\n        \"agent_id\": \"string\",\n        \"created_by_id\": \"string\",\n        \"last_updated_by_id\": \"string\",\n        \"created_at\": \"1978-09-26T20:35:03.772Z\",\n        \"updated_at\": \"2019-12-03T05:23:05.654Z\",\n        \"id\": \"agent-env-123e4567-e89b-12d3-a456-426614174000\",\n        \"description\": \"string\",\n        \"value_enc\": \"string\"\n      },\n      {\n        \"key\": \"string\",\n        \"value\": \"string\",\n        \"agent_id\": \"string\",\n        \"created_by_id\": \"string\",\n        \"last_updated_by_id\": \"string\",\n        \"created_at\": \"1973-07-19T13:34:36.200Z\",\n        \"updated_at\": \"1979-02-06T06:43:00.457Z\",\n        \"id\": \"agent-env-123e4567-e89b-12d3-a456-426614174000\",\n        \"description\": \"string\",\n        \"value_enc\": \"string\"\n      }\n    ],\n    \"project_id\": \"string\",\n    \"template_id\": \"string\",\n    \"base_template_id\": \"string\",\n    \"deployment_id\": \"string\",\n    \"entity_id\": \"string\",\n    \"pending_approval\": {\n      \"id\": \"string\",\n      \"date\": \"2004-03-15T17:39:11.241Z\",\n      \"tool_call\": {\n        \"name\": \"string\",\n        \"arguments\": \"string\",\n        \"tool_call_id\": \"string\"\n      },\n      \"name\": \"string\",\n      \"message_type\": \"approval_request_message\",\n      \"otid\": \"string\",\n      \"sender_id\": \"string\",\n      \"step_id\": \"string\",\n      \"is_err\": false,\n      \"seq_id\": 1441,\n      \"run_id\": \"string\",\n      \"tool_calls\": [\n        {\n          \"name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"arguments\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"tool_call_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"arguments\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"tool_call_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ]\n    },\n    \"message_buffer_autoclear\": false,\n    \"enable_sleeptime\": false,\n    \"multi_agent_group\": {\n      \"id\": \"string\",\n      \"manager_type\": \"voice_sleeptime\",\n      \"agent_ids\": [\n        \"string\",\n        \"string\"\n      ],\n      \"description\": \"string\",\n      \"project_id\": \"string\",\n      \"template_id\": \"string\",\n      \"base_template_id\": \"string\",\n      \"deployment_id\": \"string\",\n      \"manager_agent_id\": \"string\",\n      \"termination_token\": \"string\",\n      \"max_turns\": 8317,\n      \"sleeptime_agent_frequency\": 6854,\n      \"turns_counter\": 61,\n      \"last_processed_message_id\": \"string\",\n      \"max_message_buffer_length\": 9805,\n      \"min_message_buffer_length\": 5358,\n      \"hidden\": true\n    },\n    \"managed_group\": {\n      \"id\": \"string\",\n      \"manager_type\": \"sleeptime\",\n      \"agent_ids\": [\n        \"string\",\n        \"string\"\n      ],\n      \"description\": \"string\",\n      \"project_id\": \"string\",\n      \"template_id\": \"string\",\n      \"base_template_id\": \"string\",\n      \"deployment_id\": \"string\",\n      \"manager_agent_id\": \"string\",\n      \"termination_token\": \"string\",\n      \"max_turns\": 6189,\n      \"sleeptime_agent_frequency\": 4506,\n      \"turns_counter\": 8247,\n      \"last_processed_message_id\": \"string\",\n      \"max_message_buffer_length\": 7508,\n      \"min_message_buffer_length\": 2607,\n      \"hidden\": false\n    },\n    \"last_run_completion\": \"2022-09-04T21:43:59.885Z\",\n    \"last_run_duration_ms\": 6248,\n    \"last_stop_reason\": \"error\",\n    \"timezone\": \"string\",\n    \"max_files_open\": 5232,\n    \"per_file_view_window_char_limit\": 3165,\n    \"hidden\": true\n  },\n  {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"system\": \"string\",\n    \"agent_type\": \"voice_convo_agent\",\n    \"llm_config\": {\n      \"model\": \"string\",\n      \"model_endpoint_type\": \"xai\",\n      \"context_window\": 54,\n      \"display_name\": \"string\",\n      \"model_endpoint\": \"string\",\n      \"provider_name\": \"string\",\n      \"provider_category\": \"base\",\n      \"model_wrapper\": \"string\",\n      \"put_inner_thoughts_in_kwargs\": false,\n      \"handle\": \"string\",\n      \"temperature\": 1,\n      \"max_tokens\": 4005,\n      \"enable_reasoner\": true,\n      \"reasoning_effort\": \"minimal\",\n      \"max_reasoning_tokens\": 0,\n      \"effort\": \"medium\",\n      \"frequency_penalty\": 9214.87063310159,\n      \"compatibility_type\": \"gguf\",\n      \"verbosity\": \"low\",\n      \"tier\": \"string\",\n      \"parallel_tool_calls\": false,\n      \"response_format\": {\n        \"type\": \"text\"\n      },\n      \"strict\": false,\n      \"return_logprobs\": false,\n      \"top_logprobs\": 9126,\n      \"return_token_ids\": false,\n      \"tool_call_parser\": \"string\"\n    },\n    \"memory\": {\n      \"blocks\": [\n        {\n          \"value\": \"string\",\n          \"limit\": 100000,\n          \"project_id\": \"string\",\n          \"template_name\": \"string\",\n          \"is_template\": false,\n          \"template_id\": \"string\",\n          \"base_template_id\": \"string\",\n          \"deployment_id\": \"string\",\n          \"entity_id\": \"string\",\n          \"preserve_on_migration\": true,\n          \"label\": \"string\",\n          \"read_only\": false,\n          \"description\": \"string\",\n          \"metadata\": {\n            \"key_0\": 8209.522419574647\n          },\n          \"hidden\": false,\n          \"id\": \"block-123e4567-e89b-12d3-a456-426614174000\",\n          \"created_by_id\": \"string\",\n          \"last_updated_by_id\": \"string\",\n          \"tags\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        },\n        {\n          \"value\": \"string\",\n          \"limit\": 100000,\n          \"project_id\": \"string\",\n          \"template_name\": \"string\",\n          \"is_template\": false,\n          \"template_id\": \"string\",\n          \"base_template_id\": \"string\",\n          \"deployment_id\": \"string\",\n          \"entity_id\": \"string\",\n          \"preserve_on_migration\": true,\n          \"label\": \"string\",\n          \"read_only\": false,\n          \"description\": \"string\",\n          \"metadata\": {\n            \"key_0\": false\n          },\n          \"hidden\": false,\n          \"id\": \"block-123e4567-e89b-12d3-a456-426614174000\",\n          \"created_by_id\": \"string\",\n          \"last_updated_by_id\": \"string\",\n          \"tags\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        }\n      ],\n      \"agent_type\": \"workflow_agent\",\n      \"git_enabled\": false,\n      \"file_blocks\": [\n        {\n          \"value\": \"string\",\n          \"file_id\": \"string\",\n          \"source_id\": \"string\",\n          \"is_open\": false,\n          \"limit\": 100000,\n          \"project_id\": \"string\",\n          \"template_name\": \"string\",\n          \"is_template\": false,\n          \"template_id\": \"string\",\n          \"base_template_id\": \"string\",\n          \"deployment_id\": \"string\",\n          \"entity_id\": \"string\",\n          \"preserve_on_migration\": false,\n          \"label\": \"string\",\n          \"read_only\": false,\n          \"description\": \"string\",\n          \"metadata\": {\n            \"key_0\": \"string\"\n          },\n          \"hidden\": false,\n          \"id\": \"block-123e4567-e89b-12d3-a456-426614174000\",\n          \"created_by_id\": \"string\",\n          \"last_updated_by_id\": \"string\",\n          \"tags\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"last_accessed_at\": \"2017-04-12T15:23:30.064Z\"\n        },\n        {\n          \"value\": \"string\",\n          \"file_id\": \"string\",\n          \"source_id\": \"string\",\n          \"is_open\": true,\n          \"limit\": 100000,\n          \"project_id\": \"string\",\n          \"template_name\": \"string\",\n          \"is_template\": false,\n          \"template_id\": \"string\",\n          \"base_template_id\": \"string\",\n          \"deployment_id\": \"string\",\n          \"entity_id\": \"string\",\n          \"preserve_on_migration\": false,\n          \"label\": \"string\",\n          \"read_only\": false,\n          \"description\": \"string\",\n          \"metadata\": {\n            \"key_0\": 6103,\n            \"key_1\": 124.76032493914158\n          },\n          \"hidden\": false,\n          \"id\": \"block-123e4567-e89b-12d3-a456-426614174000\",\n          \"created_by_id\": \"string\",\n          \"last_updated_by_id\": \"string\",\n          \"tags\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"last_accessed_at\": \"1982-02-24T18:02:27.078Z\"\n        }\n      ],\n      \"prompt_template\": \"\"\n    },\n    \"blocks\": [\n      {\n        \"value\": \"string\",\n        \"limit\": 100000,\n        \"project_id\": \"string\",\n        \"template_name\": \"string\",\n        \"is_template\": false,\n        \"template_id\": \"string\",\n        \"base_template_id\": \"string\",\n        \"deployment_id\": \"string\",\n        \"entity_id\": \"string\",\n        \"preserve_on_migration\": false,\n        \"label\": \"string\",\n        \"read_only\": false,\n        \"description\": \"string\",\n        \"metadata\": {\n          \"key_0\": 3858.22655829815,\n          \"key_1\": false,\n          \"key_2\": \"string\",\n          \"key_3\": 5115\n        },\n        \"hidden\": false,\n        \"id\": \"block-123e4567-e89b-12d3-a456-426614174000\",\n        \"created_by_id\": \"string\",\n        \"last_updated_by_id\": \"string\",\n        \"tags\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      {\n        \"value\": \"string\",\n        \"limit\": 100000,\n        \"project_id\": \"string\",\n        \"template_name\": \"string\",\n        \"is_template\": false,\n        \"template_id\": \"string\",\n        \"base_template_id\": \"string\",\n        \"deployment_id\": \"string\",\n        \"entity_id\": \"string\",\n        \"preserve_on_migration\": true,\n        \"label\": \"string\",\n        \"read_only\": false,\n        \"description\": \"string\",\n        \"metadata\": {\n          \"key_0\": \"string\"\n        },\n        \"hidden\": true,\n        \"id\": \"block-123e4567-e89b-12d3-a456-426614174000\",\n        \"created_by_id\": \"string\",\n        \"last_updated_by_id\": \"string\",\n        \"tags\": [\n          \"string\",\n          \"string\"\n        ]\n      }\n    ],\n    \"tools\": [\n      {\n        \"id\": \"tool-123e4567-e89b-12d3-a456-426614174000\",\n        \"tool_type\": \"custom\",\n        \"description\": \"string\",\n        \"source_type\": \"string\",\n        \"name\": \"string\",\n        \"source_code\": \"string\",\n        \"json_schema\": {\n          \"key_0\": \"string\",\n          \"key_1\": true\n        },\n        \"args_json_schema\": {\n          \"key_0\": 7675.71696943038,\n          \"key_1\": 8596.289498327544,\n          \"key_2\": 9623,\n          \"key_3\": true\n        },\n        \"return_char_limit\": 50000,\n        \"pip_requirements\": [\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"version\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"version\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"npm_requirements\": [\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"version\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"version\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"default_requires_approval\": false,\n        \"enable_parallel_execution\": true,\n        \"created_by_id\": \"string\",\n        \"last_updated_by_id\": \"string\",\n        \"metadata_\": {\n          \"key_0\": false,\n          \"key_1\": 5093.525120529008\n        },\n        \"project_id\": \"string\"\n      },\n      {\n        \"id\": \"tool-123e4567-e89b-12d3-a456-426614174000\",\n        \"tool_type\": \"custom\",\n        \"description\": \"string\",\n        \"source_type\": \"string\",\n        \"name\": \"string\",\n        \"source_code\": \"string\",\n        \"json_schema\": {\n          \"key_0\": 980.7017667023388,\n          \"key_1\": 3365.0055426596427\n        },\n        \"args_json_schema\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\"\n        },\n        \"return_char_limit\": 50000,\n        \"pip_requirements\": [\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"version\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"version\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"npm_requirements\": [\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"version\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"version\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"default_requires_approval\": true,\n        \"enable_parallel_execution\": false,\n        \"created_by_id\": \"string\",\n        \"last_updated_by_id\": \"string\",\n        \"metadata_\": {\n          \"key_0\": 7992,\n          \"key_1\": 6995.777976698714\n        },\n        \"project_id\": \"string\"\n      }\n    ],\n    \"sources\": [\n      {\n        \"name\": \"string\",\n        \"embedding_config\": {\n          \"embedding_endpoint_type\": \"webui\",\n          \"embedding_model\": \"string\",\n          \"embedding_dim\": 9987,\n          \"embedding_endpoint\": \"string\",\n          \"embedding_chunk_size\": 9940,\n          \"handle\": \"string\",\n          \"batch_size\": 32,\n          \"azure_endpoint\": \"string\",\n          \"azure_version\": \"string\",\n          \"azure_deployment\": \"string\"\n        },\n        \"description\": \"string\",\n        \"instructions\": \"string\",\n        \"metadata\": {\n          \"key_0\": true,\n          \"key_1\": 1600,\n          \"key_2\": false\n        },\n        \"id\": \"source-123e4567-e89b-12d3-a456-426614174000\",\n        \"vector_db_provider\": \"native\",\n        \"created_by_id\": \"string\",\n        \"last_updated_by_id\": \"string\",\n        \"created_at\": \"1993-03-18T04:27:25.914Z\",\n        \"updated_at\": \"1984-08-14T22:28:36.508Z\"\n      },\n      {\n        \"name\": \"string\",\n        \"embedding_config\": {\n          \"embedding_endpoint_type\": \"groq\",\n          \"embedding_model\": \"string\",\n          \"embedding_dim\": 5739,\n          \"embedding_endpoint\": \"string\",\n          \"embedding_chunk_size\": 4637,\n          \"handle\": \"string\",\n          \"batch_size\": 32,\n          \"azure_endpoint\": \"string\",\n          \"azure_version\": \"string\",\n          \"azure_deployment\": \"string\"\n        },\n        \"description\": \"string\",\n        \"instructions\": \"string\",\n        \"metadata\": {\n          \"key_0\": false\n        },\n        \"id\": \"source-123e4567-e89b-12d3-a456-426614174000\",\n        \"vector_db_provider\": \"native\",\n        \"created_by_id\": \"string\",\n        \"last_updated_by_id\": \"string\",\n        \"created_at\": \"1967-04-18T00:31:24.889Z\",\n        \"updated_at\": \"1954-06-18T23:59:09.745Z\"\n      }\n    ],\n    \"tags\": [\n      \"string\",\n      \"string\"\n    ],\n    \"created_by_id\": \"string\",\n    \"last_updated_by_id\": \"string\",\n    \"created_at\": \"1973-06-14T17:53:17.148Z\",\n    \"updated_at\": \"1960-09-21T07:30:34.662Z\",\n    \"tool_rules\": [\n      {\n        \"tool_name\": \"string\",\n        \"children\": [\n          \"string\",\n          \"string\"\n        ],\n        \"type\": \"constrain_child_tools\",\n        \"prompt_template\": \"string\",\n        \"child_arg_nodes\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      },\n      {\n        \"tool_name\": \"string\",\n        \"children\": [\n          \"string\",\n          \"string\"\n        ],\n        \"type\": \"constrain_child_tools\",\n        \"prompt_template\": \"string\",\n        \"child_arg_nodes\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      }\n    ],\n    \"message_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"embedding_config\": {\n      \"embedding_endpoint_type\": \"groq\",\n      \"embedding_model\": \"string\",\n      \"embedding_dim\": 5435,\n      \"embedding_endpoint\": \"string\",\n      \"embedding_chunk_size\": 7440,\n      \"handle\": \"string\",\n      \"batch_size\": 32,\n      \"azure_endpoint\": \"string\",\n      \"azure_version\": \"string\",\n      \"azure_deployment\": \"string\"\n    },\n    \"model\": \"string\",\n    \"embedding\": \"string\",\n    \"model_settings\": {\n      \"max_output_tokens\": 4096,\n      \"parallel_tool_calls\": true,\n      \"provider_type\": \"openai\",\n      \"temperature\": 0.7,\n      \"reasoning\": {\n        \"reasoning_effort\": \"high\"\n      },\n      \"response_format\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"strict\": true\n    },\n    \"compaction_settings\": {\n      \"model\": \"string\",\n      \"model_settings\": {\n        \"max_output_tokens\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"parallel_tool_calls\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"provider_type\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"temperature\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"reasoning\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"response_format\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"strict\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"prompt\": \"string\",\n      \"prompt_acknowledgement\": false,\n      \"clip_chars\": 5951,\n      \"mode\": \"sliding_window\",\n      \"sliding_window_percentage\": 5305.648350575082\n    },\n    \"response_format\": {\n      \"type\": \"text\"\n    },\n    \"description\": \"string\",\n    \"metadata\": {\n      \"key_0\": 5502\n    },\n    \"tool_exec_environment_variables\": [\n      {\n        \"key\": \"string\",\n        \"value\": \"string\",\n        \"agent_id\": \"string\",\n        \"created_by_id\": \"string\",\n        \"last_updated_by_id\": \"string\",\n        \"created_at\": \"1976-12-20T09:41:05.076Z\",\n        \"updated_at\": \"1960-10-29T14:01:48.945Z\",\n        \"id\": \"agent-env-123e4567-e89b-12d3-a456-426614174000\",\n        \"description\": \"string\",\n        \"value_enc\": \"string\"\n      },\n      {\n        \"key\": \"string\",\n        \"value\": \"string\",\n        \"agent_id\": \"string\",\n        \"created_by_id\": \"string\",\n        \"last_updated_by_id\": \"string\",\n        \"created_at\": \"2023-12-26T04:59:00.776Z\",\n        \"updated_at\": \"2025-07-03T05:29:55.227Z\",\n        \"id\": \"agent-env-123e4567-e89b-12d3-a456-426614174000\",\n        \"description\": \"string\",\n        \"value_enc\": \"string\"\n      }\n    ],\n    \"secrets\": [\n      {\n        \"key\": \"string\",\n        \"value\": \"string\",\n        \"agent_id\": \"string\",\n        \"created_by_id\": \"string\",\n        \"last_updated_by_id\": \"string\",\n        \"created_at\": \"1955-02-04T09:00:27.321Z\",\n        \"updated_at\": \"1990-07-25T07:06:42.701Z\",\n        \"id\": \"agent-env-123e4567-e89b-12d3-a456-426614174000\",\n        \"description\": \"string\",\n        \"value_enc\": \"string\"\n      },\n      {\n        \"key\": \"string\",\n        \"value\": \"string\",\n        \"agent_id\": \"string\",\n        \"created_by_id\": \"string\",\n        \"last_updated_by_id\": \"string\",\n        \"created_at\": \"1949-10-12T00:17:00.223Z\",\n        \"updated_at\": \"2024-02-06T05:14:41.426Z\",\n        \"id\": \"agent-env-123e4567-e89b-12d3-a456-426614174000\",\n        \"description\": \"string\",\n        \"value_enc\": \"string\"\n      }\n    ],\n    \"project_id\": \"string\",\n    \"template_id\": \"string\",\n    \"base_template_id\": \"string\",\n    \"deployment_id\": \"string\",\n    \"entity_id\": \"string\",\n    \"pending_approval\": {\n      \"id\": \"string\",\n      \"date\": \"2020-04-02T08:20:07.624Z\",\n      \"tool_call\": {\n        \"name\": \"string\",\n        \"arguments\": \"string\",\n        \"tool_call_id\": \"string\"\n      },\n      \"name\": \"string\",\n      \"message_type\": \"approval_request_message\",\n      \"otid\": \"string\",\n      \"sender_id\": \"string\",\n      \"step_id\": \"string\",\n      \"is_err\": false,\n      \"seq_id\": 4103,\n      \"run_id\": \"string\",\n      \"tool_calls\": [\n        {\n          \"name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"arguments\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"tool_call_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"arguments\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"tool_call_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ]\n    },\n    \"message_buffer_autoclear\": false,\n    \"enable_sleeptime\": true,\n    \"multi_agent_group\": {\n      \"id\": \"string\",\n      \"manager_type\": \"dynamic\",\n      \"agent_ids\": [\n        \"string\",\n        \"string\"\n      ],\n      \"description\": \"string\",\n      \"project_id\": \"string\",\n      \"template_id\": \"string\",\n      \"base_template_id\": \"string\",\n      \"deployment_id\": \"string\",\n      \"manager_agent_id\": \"string\",\n      \"termination_token\": \"string\",\n      \"max_turns\": 7599,\n      \"sleeptime_agent_frequency\": 5852,\n      \"turns_counter\": 5791,\n      \"last_processed_message_id\": \"string\",\n      \"max_message_buffer_length\": 2303,\n      \"min_message_buffer_length\": 1066,\n      \"hidden\": false\n    },\n    \"managed_group\": {\n      \"id\": \"string\",\n      \"manager_type\": \"dynamic\",\n      \"agent_ids\": [\n        \"string\",\n        \"string\"\n      ],\n      \"description\": \"string\",\n      \"project_id\": \"string\",\n      \"template_id\": \"string\",\n      \"base_template_id\": \"string\",\n      \"deployment_id\": \"string\",\n      \"manager_agent_id\": \"string\",\n      \"termination_token\": \"string\",\n      \"max_turns\": 1164,\n      \"sleeptime_agent_frequency\": 1347,\n      \"turns_counter\": 313,\n      \"last_processed_message_id\": \"string\",\n      \"max_message_buffer_length\": 831,\n      \"min_message_buffer_length\": 5890,\n      \"hidden\": false\n    },\n    \"last_run_completion\": \"1992-07-24T02:48:27.811Z\",\n    \"last_run_duration_ms\": 9596,\n    \"last_stop_reason\": \"max_tokens_exceeded\",\n    \"timezone\": \"string\",\n    \"max_files_open\": 4836,\n    \"per_file_view_window_char_limit\": 5163,\n    \"hidden\": true\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d8b091aa-6771-47f3-9f1f-f309e6fb0941",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "_internal_blocks",
+                    ":block_id",
+                    "agents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "before",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "after",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "order",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "created_at"
+                    },
+                    {
+                      "key": "include_relationships",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include_relationships",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "block_id",
+                      "description": "(Required) The ID of the block in the format 'block-<uuid4>'"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.letta.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "c992434d-7f2d-4571-ae91-7a39283f4adf",
+    "name": "Letta Admin Internal Blocks API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST API for Letta, the stateful agents platform. Manage agents, memory blocks, archival passages, sources, custom tools, MCP servers, multi-agent groups, runs, and streaming responses. Available as Letta Cloud (managed) at https://api.letta.com/v1 and as the self-hosted open-source server (Apache-2.0) typically run at http://localhost:8283.\n\nContact Support:\n Name: Letta\n Email: support@letta.com",
+      "type": "text/plain"
+    }
+  }
+}

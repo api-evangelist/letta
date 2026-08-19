@@ -1,0 +1,192 @@
+{
+  "item": [
+    {
+      "id": "5853f1b1-9f4d-4013-873e-150b25ac7bc5",
+      "name": "Telemetry",
+      "description": {
+        "content": "Run-step traces and observability data.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "99d187e8-605a-4b9c-8ec9-8cd08e043c08",
+          "name": "Retrieve Provider Trace",
+          "request": {
+            "name": "Retrieve Provider Trace",
+            "description": {
+              "content": "**DEPRECATED**: Use `GET /steps/{step_id}/trace` instead.\n\nRetrieve provider trace by step ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "telemetry",
+                ":step_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "step_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "28ddc438-176c-456a-ac68-e5b5c436e53a",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "telemetry",
+                    ":step_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "step_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"request_json\": {\n    \"key_0\": 3400.087512107235\n  },\n  \"response_json\": {\n    \"key_0\": true\n  },\n  \"created_by_id\": \"string\",\n  \"last_updated_by_id\": \"string\",\n  \"created_at\": \"2013-02-10T04:46:24.086Z\",\n  \"updated_at\": \"1953-09-25T05:17:02.524Z\",\n  \"id\": \"provider_trace-123e4567-e89b-12d3-a456-426614174000\",\n  \"step_id\": \"string\",\n  \"agent_id\": \"string\",\n  \"agent_tags\": [\n    \"string\",\n    \"string\"\n  ],\n  \"call_type\": \"string\",\n  \"run_id\": \"string\",\n  \"source\": \"string\",\n  \"org_id\": \"string\",\n  \"compaction_settings\": {\n    \"key_0\": 1639.3648718083987,\n    \"key_1\": 9297.708094023295,\n    \"key_2\": 472.66156399787263,\n    \"key_3\": 8879.568914159196,\n    \"key_4\": \"string\"\n  },\n  \"llm_config\": {\n    \"key_0\": 9709.818079296048,\n    \"key_1\": \"string\"\n  },\n  \"billing_context\": {\n    \"plan_type\": \"string\",\n    \"cost_source\": \"string\",\n    \"customer_id\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "76486669-6280-43af-8159-d08ed3d265f0",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "telemetry",
+                    ":step_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "step_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.letta.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "41359368-a29d-4f3a-bb25-6f8f2160b0c8",
+    "name": "Letta Admin Telemetry API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST API for Letta, the stateful agents platform. Manage agents, memory blocks, archival passages, sources, custom tools, MCP servers, multi-agent groups, runs, and streaming responses. Available as Letta Cloud (managed) at https://api.letta.com/v1 and as the self-hosted open-source server (Apache-2.0) typically run at http://localhost:8283.\n\nContact Support:\n Name: Letta\n Email: support@letta.com",
+      "type": "text/plain"
+    }
+  }
+}

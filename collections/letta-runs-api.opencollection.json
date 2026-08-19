@@ -1,0 +1,354 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Letta Admin Runs API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Runs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Runs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/runs/",
+            "params": [
+              {
+                "name": "agent_id",
+                "value": "",
+                "type": "query",
+                "description": "The unique identifier of the agent associated with the run."
+              },
+              {
+                "name": "agent_ids",
+                "value": "",
+                "type": "query",
+                "description": "The unique identifiers of the agents associated with the run. Deprecated in favor of agent_id field."
+              },
+              {
+                "name": "statuses",
+                "value": "",
+                "type": "query",
+                "description": "Filter runs by status. Can specify multiple statuses."
+              },
+              {
+                "name": "background",
+                "value": "",
+                "type": "query",
+                "description": "If True, filters for runs that were created in background mode."
+              },
+              {
+                "name": "stop_reason",
+                "value": "",
+                "type": "query",
+                "description": "Filter runs by stop reason."
+              },
+              {
+                "name": "conversation_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter runs by conversation ID."
+              },
+              {
+                "name": "before",
+                "value": "",
+                "type": "query",
+                "description": "Run ID cursor for pagination. Returns runs that come before this run ID in the specified sort order"
+              },
+              {
+                "name": "after",
+                "value": "",
+                "type": "query",
+                "description": "Run ID cursor for pagination. Returns runs that come after this run ID in the specified sort order"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of runs to return"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Sort order for runs by creation time. 'asc' for oldest first, 'desc' for newest first"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Field to sort by"
+              },
+              {
+                "name": "active",
+                "value": "",
+                "type": "query",
+                "description": "Filter for active runs."
+              },
+              {
+                "name": "ascending",
+                "value": "",
+                "type": "query",
+                "description": "Whether to sort agents oldest to newest (True) or newest to oldest (False, default). Deprecated in favor of order field."
+              }
+            ]
+          },
+          "docs": "List all runs."
+        },
+        {
+          "info": {
+            "name": "List Active Runs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/runs/active",
+            "params": [
+              {
+                "name": "agent_id",
+                "value": "",
+                "type": "query",
+                "description": "The unique identifier of the agent associated with the run."
+              },
+              {
+                "name": "background",
+                "value": "",
+                "type": "query",
+                "description": "If True, filters for runs that were created in background mode."
+              }
+            ]
+          },
+          "docs": "List all active runs."
+        },
+        {
+          "info": {
+            "name": "Retrieve Run",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/runs/:run_id",
+            "params": [
+              {
+                "name": "run_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get the status of a run."
+        },
+        {
+          "info": {
+            "name": "Delete Run",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.letta.com/v1/runs/:run_id",
+            "params": [
+              {
+                "name": "run_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a run by its run_id."
+        },
+        {
+          "info": {
+            "name": "List Messages for Run",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/runs/:run_id/messages",
+            "params": [
+              {
+                "name": "run_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "before",
+                "value": "",
+                "type": "query",
+                "description": "Message ID cursor for pagination. Returns messages that come before this message ID in the specified sort order"
+              },
+              {
+                "name": "after",
+                "value": "",
+                "type": "query",
+                "description": "Message ID cursor for pagination. Returns messages that come after this message ID in the specified sort order"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of messages to return"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Sort order for messages by creation time. 'asc' for oldest first, 'desc' for newest first"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Field to sort by"
+              }
+            ]
+          },
+          "docs": "Get response messages associated with a run."
+        },
+        {
+          "info": {
+            "name": "Retrieve Usage for Run",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/runs/:run_id/usage",
+            "params": [
+              {
+                "name": "run_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get usage statistics for a run."
+        },
+        {
+          "info": {
+            "name": "Retrieve Metrics for Run",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/runs/:run_id/metrics",
+            "params": [
+              {
+                "name": "run_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get run metrics by run ID."
+        },
+        {
+          "info": {
+            "name": "List Steps for Run",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/runs/:run_id/steps",
+            "params": [
+              {
+                "name": "run_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "before",
+                "value": "",
+                "type": "query",
+                "description": "Cursor for pagination"
+              },
+              {
+                "name": "after",
+                "value": "",
+                "type": "query",
+                "description": "Cursor for pagination"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of messages to return"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Sort order for steps by creation time. 'asc' for oldest first, 'desc' for newest first"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Field to sort by"
+              }
+            ]
+          },
+          "docs": "Get steps associated with a run with filtering options."
+        },
+        {
+          "info": {
+            "name": "Retrieve Trace for Run",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/runs/:run_id/trace",
+            "params": [
+              {
+                "name": "run_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of spans to return"
+              }
+            ]
+          },
+          "docs": "Retrieve OTEL trace spans for a run.\n\nReturns a filtered set of spans relevant for observability:\n- agent_step: Individual agent reasoning steps\n- tool executions: Tool call spans\n- Root span: The top-level request span\n- time_to_first_token: TTFT measurement span\n\nRequires ClickHouse to be configured for trace storage."
+        },
+        {
+          "info": {
+            "name": "Retrieve Stream for Run",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.letta.com/v1/runs/:run_id/stream",
+            "params": [
+              {
+                "name": "run_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Retrieve Stream for Run"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

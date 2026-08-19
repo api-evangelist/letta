@@ -1,0 +1,1279 @@
+{
+  "item": [
+    {
+      "id": "3c978c47-1751-41ee-b395-de3c11984a61",
+      "name": "Steps",
+      "description": {
+        "content": "Per-step traces of an agent run.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "684c604e-e758-4d47-97ff-0c77863be137",
+          "name": "List Steps",
+          "request": {
+            "name": "List Steps",
+            "description": {
+              "content": "List steps with optional pagination and date filters.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "steps",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "before",
+                  "value": "<string>",
+                  "description": "Return steps before this step ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "after",
+                  "value": "<string>",
+                  "description": "Return steps after this step ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Maximum number of steps to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "order",
+                  "value": "desc",
+                  "description": "Sort order for steps by creation time. 'asc' for oldest first, 'desc' for newest first"
+                },
+                {
+                  "disabled": false,
+                  "key": "order_by",
+                  "value": "created_at",
+                  "description": "Field to sort by"
+                },
+                {
+                  "disabled": false,
+                  "key": "start_date",
+                  "value": "<string>",
+                  "description": "Return steps after this ISO datetime (e.g. \"2025-01-29T15:01:19-08:00\")"
+                },
+                {
+                  "disabled": false,
+                  "key": "end_date",
+                  "value": "<string>",
+                  "description": "Return steps before this ISO datetime (e.g. \"2025-01-29T15:01:19-08:00\")"
+                },
+                {
+                  "disabled": false,
+                  "key": "model",
+                  "value": "<string>",
+                  "description": "Filter by the name of the model used for the step"
+                },
+                {
+                  "disabled": false,
+                  "key": "agent_id",
+                  "value": "<string>",
+                  "description": "Filter by the ID of the agent that performed the step"
+                },
+                {
+                  "disabled": false,
+                  "key": "trace_ids",
+                  "value": "<string>",
+                  "description": "Filter by trace ids returned by the server"
+                },
+                {
+                  "disabled": false,
+                  "key": "trace_ids",
+                  "value": "<string>",
+                  "description": "Filter by trace ids returned by the server"
+                },
+                {
+                  "disabled": false,
+                  "key": "feedback",
+                  "value": "<string>",
+                  "description": "Filter by feedback"
+                },
+                {
+                  "disabled": false,
+                  "key": "has_feedback",
+                  "value": "<boolean>",
+                  "description": "Filter by whether steps have feedback (true) or not (false)"
+                },
+                {
+                  "disabled": false,
+                  "key": "tags",
+                  "value": "<string>",
+                  "description": "Filter by tags"
+                },
+                {
+                  "disabled": false,
+                  "key": "tags",
+                  "value": "<string>",
+                  "description": "Filter by tags"
+                },
+                {
+                  "disabled": false,
+                  "key": "project_id",
+                  "value": "<string>",
+                  "description": "Filter by the project ID that is associated with the step (cloud only)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Filter by project slug to associate with the group (cloud only).",
+                "key": "X-Project",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "fb9523d5-6930-44a7-a4ba-10cdc1d90c55",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "steps",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "before",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "after",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "order",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "created_at"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "model",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "agent_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "trace_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "trace_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "feedback",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "has_feedback",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "project_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Filter by project slug to associate with the group (cloud only).",
+                    "key": "X-Project",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"string\",\n    \"origin\": \"string\",\n    \"provider_id\": \"string\",\n    \"run_id\": \"string\",\n    \"agent_id\": \"string\",\n    \"provider_name\": \"string\",\n    \"provider_category\": \"string\",\n    \"model\": \"string\",\n    \"model_handle\": \"string\",\n    \"model_endpoint\": \"string\",\n    \"context_window_limit\": 5225,\n    \"completion_tokens\": 2971,\n    \"prompt_tokens\": 44,\n    \"total_tokens\": 6970,\n    \"cached_input_tokens\": 5547,\n    \"cache_write_tokens\": 2120,\n    \"reasoning_tokens\": 1771,\n    \"completion_tokens_details\": {\n      \"key_0\": 3695,\n      \"key_1\": 9003.695645514745\n    },\n    \"prompt_tokens_details\": {\n      \"key_0\": 6863,\n      \"key_1\": 1617.7182448956562\n    },\n    \"stop_reason\": \"cancelled\",\n    \"tid\": \"string\",\n    \"trace_id\": \"string\",\n    \"request_id\": \"string\",\n    \"feedback\": \"positive\",\n    \"project_id\": \"string\",\n    \"error_type\": \"string\",\n    \"error_data\": {\n      \"key_0\": 7038,\n      \"key_1\": 8220,\n      \"key_2\": true,\n      \"key_3\": \"string\",\n      \"key_4\": \"string\"\n    },\n    \"status\": \"pending\"\n  },\n  {\n    \"id\": \"string\",\n    \"origin\": \"string\",\n    \"provider_id\": \"string\",\n    \"run_id\": \"string\",\n    \"agent_id\": \"string\",\n    \"provider_name\": \"string\",\n    \"provider_category\": \"string\",\n    \"model\": \"string\",\n    \"model_handle\": \"string\",\n    \"model_endpoint\": \"string\",\n    \"context_window_limit\": 687,\n    \"completion_tokens\": 8090,\n    \"prompt_tokens\": 9097,\n    \"total_tokens\": 5247,\n    \"cached_input_tokens\": 2599,\n    \"cache_write_tokens\": 3159,\n    \"reasoning_tokens\": 6829,\n    \"completion_tokens_details\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"prompt_tokens_details\": {\n      \"key_0\": 2079,\n      \"key_1\": 6075\n    },\n    \"stop_reason\": \"invalid_llm_response\",\n    \"tid\": \"string\",\n    \"trace_id\": \"string\",\n    \"request_id\": \"string\",\n    \"feedback\": \"negative\",\n    \"project_id\": \"string\",\n    \"error_type\": \"string\",\n    \"error_data\": {\n      \"key_0\": 6589\n    },\n    \"status\": \"cancelled\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0f1d3117-f17a-4074-98a6-f5762adbdfae",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "steps",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "before",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "after",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "order",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "created_at"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "model",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "agent_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "trace_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "trace_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "feedback",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "has_feedback",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "project_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Filter by project slug to associate with the group (cloud only).",
+                    "key": "X-Project",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "dd150d53-45b4-402a-a2a6-92da2a0c56ef",
+          "name": "Retrieve Step",
+          "request": {
+            "name": "Retrieve Step",
+            "description": {
+              "content": "Get a step by ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "steps",
+                ":step_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "step_id",
+                  "description": "(Required) The ID of the step in the format 'step-<uuid4>'"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "32760ee1-4fd2-42d2-ae52-22081f4eb482",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "steps",
+                    ":step_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "step_id",
+                      "description": "(Required) The ID of the step in the format 'step-<uuid4>'"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"origin\": \"string\",\n  \"provider_id\": \"string\",\n  \"run_id\": \"string\",\n  \"agent_id\": \"string\",\n  \"provider_name\": \"string\",\n  \"provider_category\": \"string\",\n  \"model\": \"string\",\n  \"model_handle\": \"string\",\n  \"model_endpoint\": \"string\",\n  \"context_window_limit\": 1776,\n  \"completion_tokens\": 7757,\n  \"prompt_tokens\": 9870,\n  \"total_tokens\": 7721,\n  \"cached_input_tokens\": 5390,\n  \"cache_write_tokens\": 3260,\n  \"reasoning_tokens\": 9655,\n  \"completion_tokens_details\": {\n    \"key_0\": \"string\",\n    \"key_1\": 6736.281908499872,\n    \"key_2\": \"string\"\n  },\n  \"prompt_tokens_details\": {\n    \"key_0\": 531\n  },\n  \"stop_reason\": \"invalid_tool_call\",\n  \"tid\": \"string\",\n  \"trace_id\": \"string\",\n  \"request_id\": \"string\",\n  \"feedback\": \"positive\",\n  \"project_id\": \"string\",\n  \"error_type\": \"string\",\n  \"error_data\": {\n    \"key_0\": \"string\"\n  },\n  \"status\": \"cancelled\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "590d515d-3693-4f33-9856-61f5596fb30a",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "steps",
+                    ":step_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "step_id",
+                      "description": "(Required) The ID of the step in the format 'step-<uuid4>'"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "808afb9a-e2da-4eb7-b008-15cbd06c4c18",
+          "name": "Retrieve Metrics for Step",
+          "request": {
+            "name": "Retrieve Metrics for Step",
+            "description": {
+              "content": "Get step metrics by step ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "steps",
+                ":step_id",
+                "metrics"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "step_id",
+                  "description": "(Required) The ID of the step in the format 'step-<uuid4>'"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e2374755-22cf-48fe-9d85-cebab074dca4",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "steps",
+                    ":step_id",
+                    "metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "step_id",
+                      "description": "(Required) The ID of the step in the format 'step-<uuid4>'"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"provider_id\": \"string\",\n  \"run_id\": \"string\",\n  \"agent_id\": \"string\",\n  \"step_start_ns\": 1747,\n  \"llm_request_start_ns\": 7447,\n  \"llm_request_ns\": 4962,\n  \"tool_execution_ns\": 6267,\n  \"step_ns\": 6017,\n  \"base_template_id\": \"string\",\n  \"template_id\": \"string\",\n  \"project_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8bd9e096-93bf-43a9-954b-41501ea3e8de",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "steps",
+                    ":step_id",
+                    "metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "step_id",
+                      "description": "(Required) The ID of the step in the format 'step-<uuid4>'"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7ddeb3ec-de00-4ffd-8b47-870727640970",
+          "name": "Retrieve Trace for Step",
+          "request": {
+            "name": "Retrieve Trace for Step",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "steps",
+                ":step_id",
+                "trace"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "step_id",
+                  "description": "(Required) The ID of the step in the format 'step-<uuid4>'"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d51c0666-bd7d-4fc3-b923-aa878471bf06",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "steps",
+                    ":step_id",
+                    "trace"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "step_id",
+                      "description": "(Required) The ID of the step in the format 'step-<uuid4>'"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"request_json\": {\n    \"key_0\": 962.5448547926485,\n    \"key_1\": 3094.632666454912\n  },\n  \"response_json\": {\n    \"key_0\": true,\n    \"key_1\": 5207,\n    \"key_2\": 7748,\n    \"key_3\": true\n  },\n  \"created_by_id\": \"string\",\n  \"last_updated_by_id\": \"string\",\n  \"created_at\": \"2016-09-14T23:06:09.038Z\",\n  \"updated_at\": \"2018-03-09T22:24:24.451Z\",\n  \"id\": \"provider_trace-123e4567-e89b-12d3-a456-426614174000\",\n  \"step_id\": \"string\",\n  \"agent_id\": \"string\",\n  \"agent_tags\": [\n    \"string\",\n    \"string\"\n  ],\n  \"call_type\": \"string\",\n  \"run_id\": \"string\",\n  \"source\": \"string\",\n  \"org_id\": \"string\",\n  \"compaction_settings\": {\n    \"key_0\": 3720.392508192786,\n    \"key_1\": 1351.3203885261448\n  },\n  \"llm_config\": {\n    \"key_0\": \"string\",\n    \"key_1\": 7558,\n    \"key_2\": 6229.998788839283\n  },\n  \"billing_context\": {\n    \"plan_type\": \"string\",\n    \"cost_source\": \"string\",\n    \"customer_id\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ad5817d8-1062-4adc-bcd9-a8fefbb7acb1",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "steps",
+                    ":step_id",
+                    "trace"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "step_id",
+                      "description": "(Required) The ID of the step in the format 'step-<uuid4>'"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6afbaf66-d46a-4263-be0a-b2c666ea55b0",
+          "name": "Modify Feedback for Step",
+          "request": {
+            "name": "Modify Feedback for Step",
+            "description": {
+              "content": "Modify feedback for a given step.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "steps",
+                ":step_id",
+                "feedback"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "step_id",
+                  "description": "(Required) The ID of the step in the format 'step-<uuid4>'"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"feedback\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d1bf2280-0144-4d7b-8324-7619ce427bc4",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "steps",
+                    ":step_id",
+                    "feedback"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "step_id",
+                      "description": "(Required) The ID of the step in the format 'step-<uuid4>'"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"feedback\": \"negative\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"origin\": \"string\",\n  \"provider_id\": \"string\",\n  \"run_id\": \"string\",\n  \"agent_id\": \"string\",\n  \"provider_name\": \"string\",\n  \"provider_category\": \"string\",\n  \"model\": \"string\",\n  \"model_handle\": \"string\",\n  \"model_endpoint\": \"string\",\n  \"context_window_limit\": 1776,\n  \"completion_tokens\": 7757,\n  \"prompt_tokens\": 9870,\n  \"total_tokens\": 7721,\n  \"cached_input_tokens\": 5390,\n  \"cache_write_tokens\": 3260,\n  \"reasoning_tokens\": 9655,\n  \"completion_tokens_details\": {\n    \"key_0\": \"string\",\n    \"key_1\": 6736.281908499872,\n    \"key_2\": \"string\"\n  },\n  \"prompt_tokens_details\": {\n    \"key_0\": 531\n  },\n  \"stop_reason\": \"invalid_tool_call\",\n  \"tid\": \"string\",\n  \"trace_id\": \"string\",\n  \"request_id\": \"string\",\n  \"feedback\": \"positive\",\n  \"project_id\": \"string\",\n  \"error_type\": \"string\",\n  \"error_data\": {\n    \"key_0\": \"string\"\n  },\n  \"status\": \"cancelled\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b562fce7-6868-43fa-82fc-133041272a33",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "steps",
+                    ":step_id",
+                    "feedback"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "step_id",
+                      "description": "(Required) The ID of the step in the format 'step-<uuid4>'"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"feedback\": \"negative\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "780fdea0-88cf-45d0-a3be-00e0a1aa9554",
+          "name": "List Messages for Step",
+          "request": {
+            "name": "List Messages for Step",
+            "description": {
+              "content": "List messages for a given step.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "steps",
+                ":step_id",
+                "messages"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "before",
+                  "value": "<string>",
+                  "description": "Message ID cursor for pagination. Returns messages that come before this message ID in the specified sort order"
+                },
+                {
+                  "disabled": false,
+                  "key": "after",
+                  "value": "<string>",
+                  "description": "Message ID cursor for pagination. Returns messages that come after this message ID in the specified sort order"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Maximum number of messages to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "order",
+                  "value": "asc",
+                  "description": "Sort order for messages by creation time. 'asc' for oldest first, 'desc' for newest first"
+                },
+                {
+                  "disabled": false,
+                  "key": "order_by",
+                  "value": "created_at",
+                  "description": "Sort by field"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "step_id",
+                  "description": "(Required) The ID of the step in the format 'step-<uuid4>'"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2fa56a68-f0ce-44f4-8ba9-08a9dca300a3",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "steps",
+                    ":step_id",
+                    "messages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "before",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "after",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "order",
+                      "value": "asc"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "created_at"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "step_id",
+                      "description": "(Required) The ID of the step in the format 'step-<uuid4>'"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"string\",\n    \"date\": \"2015-03-19T22:26:19.862Z\",\n    \"content\": \"string\",\n    \"name\": \"string\",\n    \"message_type\": \"system_message\",\n    \"otid\": \"string\",\n    \"sender_id\": \"string\",\n    \"step_id\": \"string\",\n    \"is_err\": true,\n    \"seq_id\": 6826,\n    \"run_id\": \"string\"\n  },\n  {\n    \"id\": \"string\",\n    \"date\": \"1964-03-06T23:34:43.218Z\",\n    \"content\": \"string\",\n    \"name\": \"string\",\n    \"message_type\": \"system_message\",\n    \"otid\": \"string\",\n    \"sender_id\": \"string\",\n    \"step_id\": \"string\",\n    \"is_err\": true,\n    \"seq_id\": 8091,\n    \"run_id\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4f5c8bb8-5948-4f61-b79a-da7783e22749",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "steps",
+                    ":step_id",
+                    "messages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "before",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "after",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "order",
+                      "value": "asc"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "created_at"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "step_id",
+                      "description": "(Required) The ID of the step in the format 'step-<uuid4>'"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.letta.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "5c2b0a52-24be-4e4e-aa81-d8e247f768ec",
+    "name": "Letta Admin Steps API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST API for Letta, the stateful agents platform. Manage agents, memory blocks, archival passages, sources, custom tools, MCP servers, multi-agent groups, runs, and streaming responses. Available as Letta Cloud (managed) at https://api.letta.com/v1 and as the self-hosted open-source server (Apache-2.0) typically run at http://localhost:8283.\n\nContact Support:\n Name: Letta\n Email: support@letta.com",
+      "type": "text/plain"
+    }
+  }
+}

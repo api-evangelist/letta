@@ -1,0 +1,46 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Letta Admin Health API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Health",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Check Health",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/health/"
+          },
+          "docs": "Liveness endpoint; returns 200 when process is responsive."
+        },
+        {
+          "info": {
+            "name": "Check Readiness",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/ready/"
+          },
+          "docs": "Readiness endpoint gated by internal readiness state when enforcement is enabled."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

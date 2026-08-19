@@ -1,0 +1,126 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Letta Admin Internal Templates API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Internal Templates",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create Group",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.letta.com/v1/_internal_templates/groups",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new multi-agent group with the specified configuration."
+        },
+        {
+          "info": {
+            "name": "Create Agent",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.letta.com/v1/_internal_templates/agents",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new agent with template-related fields."
+        },
+        {
+          "info": {
+            "name": "Create Block",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.letta.com/v1/_internal_templates/blocks",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new block with template-related fields."
+        },
+        {
+          "info": {
+            "name": "Create Blocks Batch",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.letta.com/v1/_internal_templates/blocks/batch",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create multiple blocks with template-related fields."
+        },
+        {
+          "info": {
+            "name": "List Deployment Entities",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/_internal_templates/deployment/:deployment_id",
+            "params": [
+              {
+                "name": "deployment_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "entity_types",
+                "value": "",
+                "type": "query",
+                "description": "Filter by entity types (block, agent, group)"
+              }
+            ]
+          },
+          "docs": "List all entities (blocks, agents, groups) with the specified deployment_id.\nOptionally filter by entity types."
+        },
+        {
+          "info": {
+            "name": "Delete Deployment",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.letta.com/v1/_internal_templates/deployment/:deployment_id",
+            "params": [
+              {
+                "name": "deployment_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete all entities (blocks, agents, groups) with the specified deployment_id.\nDeletion order: blocks -> agents -> groups to maintain referential integrity."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

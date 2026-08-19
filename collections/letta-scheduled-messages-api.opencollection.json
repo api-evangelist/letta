@@ -1,0 +1,124 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Letta Admin Scheduled Messages API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Scheduled Messages",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Scheduled Agent Messages",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/agents/:agent_id/schedule",
+            "params": [
+              {
+                "name": "agent_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "after",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List all scheduled messages for a specific agent."
+        },
+        {
+          "info": {
+            "name": "Schedule Agent Message",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.letta.com/v1/agents/:agent_id/schedule",
+            "params": [
+              {
+                "name": "agent_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Schedule a message to be sent by the agent at a specified time or on a recurring basis."
+        },
+        {
+          "info": {
+            "name": "Retrieve Scheduled Agent Message",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/agents/:agent_id/schedule/:scheduled_message_id",
+            "params": [
+              {
+                "name": "agent_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "scheduled_message_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve a scheduled message by its ID for a specific agent."
+        },
+        {
+          "info": {
+            "name": "Delete Scheduled Agent Message",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.letta.com/v1/agents/:agent_id/schedule/:scheduled_message_id",
+            "params": [
+              {
+                "name": "agent_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "scheduled_message_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Delete a scheduled message by its ID for a specific agent."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

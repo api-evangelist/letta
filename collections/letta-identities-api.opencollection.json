@@ -1,0 +1,329 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Letta Admin Identities API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Identities",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Identities",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/identities/",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "query",
+                "description": "[DEPRECATED: Use X-Project-Id header instead] Filter identities by project ID"
+              },
+              {
+                "name": "identifier_key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "identity_type",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "before",
+                "value": "",
+                "type": "query",
+                "description": "Identity ID cursor for pagination. Returns identities that come before this identity ID in the specified sort order"
+              },
+              {
+                "name": "after",
+                "value": "",
+                "type": "query",
+                "description": "Identity ID cursor for pagination. Returns identities that come after this identity ID in the specified sort order"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of identities to return"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Sort order for identities by creation time. 'asc' for oldest first, 'desc' for newest first"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Field to sort by"
+              }
+            ]
+          },
+          "docs": "Get a list of all identities in the database"
+        },
+        {
+          "info": {
+            "name": "Create Identity",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.letta.com/v1/identities/",
+            "headers": [
+              {
+                "name": "X-Project",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create Identity"
+        },
+        {
+          "info": {
+            "name": "Upsert Identity",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.letta.com/v1/identities/",
+            "headers": [
+              {
+                "name": "X-Project",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Upsert Identity"
+        },
+        {
+          "info": {
+            "name": "Count Identities",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/identities/count"
+          },
+          "docs": "Get count of all identities for a user"
+        },
+        {
+          "info": {
+            "name": "Retrieve Identity",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/identities/:identity_id",
+            "params": [
+              {
+                "name": "identity_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the identity in the format 'identity-<uuid4>'"
+              }
+            ]
+          },
+          "docs": "Retrieve Identity"
+        },
+        {
+          "info": {
+            "name": "Modify Identity",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.letta.com/v1/identities/:identity_id",
+            "params": [
+              {
+                "name": "identity_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the identity in the format 'identity-<uuid4>'"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Modify Identity"
+        },
+        {
+          "info": {
+            "name": "Delete Identity",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.letta.com/v1/identities/:identity_id",
+            "params": [
+              {
+                "name": "identity_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the identity in the format 'identity-<uuid4>'"
+              }
+            ]
+          },
+          "docs": "Delete an identity by its identifier key"
+        },
+        {
+          "info": {
+            "name": "Upsert Properties for Identity",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.letta.com/v1/identities/:identity_id/properties",
+            "params": [
+              {
+                "name": "identity_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the identity in the format 'identity-<uuid4>'"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Upsert Properties for Identity"
+        },
+        {
+          "info": {
+            "name": "List Agents for Identity",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/identities/:identity_id/agents",
+            "params": [
+              {
+                "name": "identity_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the identity in the format 'identity-<uuid4>'"
+              },
+              {
+                "name": "before",
+                "value": "",
+                "type": "query",
+                "description": "Agent ID cursor for pagination. Returns agents that come before this agent ID in the specified sort order"
+              },
+              {
+                "name": "after",
+                "value": "",
+                "type": "query",
+                "description": "Agent ID cursor for pagination. Returns agents that come after this agent ID in the specified sort order"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of agents to return"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Sort order for agents by creation time. 'asc' for oldest first, 'desc' for newest first"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Field to sort by"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Specify which relational fields to include in the response. No relationships are included by default."
+              }
+            ]
+          },
+          "docs": "Get all agents associated with the specified identity."
+        },
+        {
+          "info": {
+            "name": "List Blocks for Identity",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/identities/:identity_id/blocks",
+            "params": [
+              {
+                "name": "identity_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the identity in the format 'identity-<uuid4>'"
+              },
+              {
+                "name": "before",
+                "value": "",
+                "type": "query",
+                "description": "Block ID cursor for pagination. Returns blocks that come before this block ID in the specified sort order"
+              },
+              {
+                "name": "after",
+                "value": "",
+                "type": "query",
+                "description": "Block ID cursor for pagination. Returns blocks that come after this block ID in the specified sort order"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of blocks to return"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Sort order for blocks by creation time. 'asc' for oldest first, 'desc' for newest first"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Field to sort by"
+              }
+            ]
+          },
+          "docs": "Get all blocks associated with the specified identity."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,525 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Letta Admin Tools API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Tools",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve Tool",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/tools/:tool_id",
+            "params": [
+              {
+                "name": "tool_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the tool in the format 'tool-<uuid4>'"
+              }
+            ]
+          },
+          "docs": "Get a tool by ID"
+        },
+        {
+          "info": {
+            "name": "Modify Tool",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.letta.com/v1/tools/:tool_id",
+            "params": [
+              {
+                "name": "tool_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the tool in the format 'tool-<uuid4>'"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an existing tool"
+        },
+        {
+          "info": {
+            "name": "Delete Tool",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.letta.com/v1/tools/:tool_id",
+            "params": [
+              {
+                "name": "tool_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the tool in the format 'tool-<uuid4>'"
+              }
+            ]
+          },
+          "docs": "Delete a tool by name"
+        },
+        {
+          "info": {
+            "name": "Count Tools",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/tools/count",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "names",
+                "value": "",
+                "type": "query",
+                "description": "Filter by specific tool names"
+              },
+              {
+                "name": "tool_ids",
+                "value": "",
+                "type": "query",
+                "description": "Filter by specific tool IDs - accepts repeated params or comma-separated values"
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Search tool names (case-insensitive partial match)"
+              },
+              {
+                "name": "tool_types",
+                "value": "",
+                "type": "query",
+                "description": "Filter by tool type(s) - accepts repeated params or comma-separated values"
+              },
+              {
+                "name": "exclude_tool_types",
+                "value": "",
+                "type": "query",
+                "description": "Tool type(s) to exclude - accepts repeated params or comma-separated values"
+              },
+              {
+                "name": "return_only_letta_tools",
+                "value": "",
+                "type": "query",
+                "description": "Count only tools with tool_type starting with 'letta_'"
+              },
+              {
+                "name": "exclude_letta_tools",
+                "value": "",
+                "type": "query",
+                "description": "Exclude built-in Letta tools from the count"
+              }
+            ]
+          },
+          "docs": "Get a count of all tools available to agents belonging to the org of the user."
+        },
+        {
+          "info": {
+            "name": "List Tools",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/tools/",
+            "params": [
+              {
+                "name": "before",
+                "value": "",
+                "type": "query",
+                "description": "Tool ID cursor for pagination. Returns tools that come before this tool ID in the specified sort order"
+              },
+              {
+                "name": "after",
+                "value": "",
+                "type": "query",
+                "description": "Tool ID cursor for pagination. Returns tools that come after this tool ID in the specified sort order"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of tools to return"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Sort order for tools by creation time. 'asc' for oldest first, 'desc' for newest first"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Field to sort by"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Filter by single tool name"
+              },
+              {
+                "name": "names",
+                "value": "",
+                "type": "query",
+                "description": "Filter by specific tool names"
+              },
+              {
+                "name": "tool_ids",
+                "value": "",
+                "type": "query",
+                "description": "Filter by specific tool IDs - accepts repeated params or comma-separated values"
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Search tool names (case-insensitive partial match)"
+              },
+              {
+                "name": "tool_types",
+                "value": "",
+                "type": "query",
+                "description": "Filter by tool type(s) - accepts repeated params or comma-separated values"
+              },
+              {
+                "name": "exclude_tool_types",
+                "value": "",
+                "type": "query",
+                "description": "Tool type(s) to exclude - accepts repeated params or comma-separated values"
+              },
+              {
+                "name": "return_only_letta_tools",
+                "value": "",
+                "type": "query",
+                "description": "Return only tools with tool_type starting with 'letta_'"
+              }
+            ]
+          },
+          "docs": "Get a list of all tools available to agents."
+        },
+        {
+          "info": {
+            "name": "Create Tool",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.letta.com/v1/tools/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new tool"
+        },
+        {
+          "info": {
+            "name": "Upsert Tool",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.letta.com/v1/tools/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create or update a tool"
+        },
+        {
+          "info": {
+            "name": "Search Tools",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.letta.com/v1/tools/search",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Search tools using semantic search.\n\nRequires tool embedding to be enabled (embed_tools=True). Uses vector search,\nfull-text search, or hybrid mode to find tools matching the query.\n\nReturns tools ranked by relevance with their search scores."
+        },
+        {
+          "info": {
+            "name": "Upsert Base Tools",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.letta.com/v1/tools/add-base-tools"
+          },
+          "docs": "Upsert base tools"
+        },
+        {
+          "info": {
+            "name": "Run Tool from Source",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.letta.com/v1/tools/run",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Attempt to build a tool from source, then run it on the provided arguments"
+        },
+        {
+          "info": {
+            "name": "List MCP Servers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/tools/mcp/servers"
+          },
+          "docs": "Get a list of all configured MCP servers"
+        },
+        {
+          "info": {
+            "name": "Add MCP Server to Config",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.letta.com/v1/tools/mcp/servers",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add a new MCP server to the Letta MCP server config"
+        },
+        {
+          "info": {
+            "name": "List MCP Tools by Server",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/tools/mcp/servers/:mcp_server_name/tools",
+            "params": [
+              {
+                "name": "mcp_server_name",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get a list of all tools for a specific MCP server"
+        },
+        {
+          "info": {
+            "name": "Resync MCP Server Tools",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.letta.com/v1/tools/mcp/servers/:mcp_server_name/resync",
+            "params": [
+              {
+                "name": "mcp_server_name",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "agent_id",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Resync tools for an MCP server by:\n1. Fetching current tools from the MCP server\n2. Deleting tools that no longer exist on the server\n3. Updating schemas for existing tools\n4. Adding new tools from the server\n\nReturns a summary of changes made."
+        },
+        {
+          "info": {
+            "name": "Add MCP Tool",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.letta.com/v1/tools/mcp/servers/:mcp_server_name/:mcp_tool_name",
+            "params": [
+              {
+                "name": "mcp_server_name",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "mcp_tool_name",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Register a new MCP tool as a Letta server by MCP server + tool name"
+        },
+        {
+          "info": {
+            "name": "Update MCP Server",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.letta.com/v1/tools/mcp/servers/:mcp_server_name",
+            "params": [
+              {
+                "name": "mcp_server_name",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an existing MCP server configuration"
+        },
+        {
+          "info": {
+            "name": "Delete MCP Server from Config",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.letta.com/v1/tools/mcp/servers/:mcp_server_name",
+            "params": [
+              {
+                "name": "mcp_server_name",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a MCP server configuration"
+        },
+        {
+          "info": {
+            "name": "Test MCP Server",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.letta.com/v1/tools/mcp/servers/test",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Test connection to an MCP server without adding it.\nReturns the list of available tools if successful."
+        },
+        {
+          "info": {
+            "name": "Connect MCP Server",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.letta.com/v1/tools/mcp/servers/connect",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Connect to an MCP server with support for OAuth via SSE.\nReturns a stream of events handling authorization state and exchange if OAuth is required."
+        },
+        {
+          "info": {
+            "name": "Execute MCP Tool",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.letta.com/v1/tools/mcp/servers/:mcp_server_name/tools/:tool_name/execute",
+            "params": [
+              {
+                "name": "mcp_server_name",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "tool_name",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Execute a specific MCP tool from a configured server.\nReturns the tool execution result."
+        },
+        {
+          "info": {
+            "name": "MCP Oauth Callback",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/tools/mcp/oauth/callback",
+            "params": [
+              {
+                "name": "code",
+                "value": "",
+                "type": "query",
+                "description": "OAuth authorization code"
+              },
+              {
+                "name": "state",
+                "value": "",
+                "type": "query",
+                "description": "OAuth state parameter"
+              },
+              {
+                "name": "error",
+                "value": "",
+                "type": "query",
+                "description": "OAuth error"
+              },
+              {
+                "name": "error_description",
+                "value": "",
+                "type": "query",
+                "description": "OAuth error description"
+              }
+            ]
+          },
+          "docs": "Handle OAuth callback for MCP server authentication.\nSession is identified via the state parameter instead of URL path."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,217 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Letta Admin MCP Servers API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "MCP Servers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List MCP Servers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/mcp-servers/"
+          },
+          "docs": "Get a list of all configured MCP servers"
+        },
+        {
+          "info": {
+            "name": "Create MCP Server",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.letta.com/v1/mcp-servers/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add a new MCP server to the Letta MCP server config"
+        },
+        {
+          "info": {
+            "name": "Retrieve MCP Server",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/mcp-servers/:mcp_server_id",
+            "params": [
+              {
+                "name": "mcp_server_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get a specific MCP server"
+        },
+        {
+          "info": {
+            "name": "Update MCP Server",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.letta.com/v1/mcp-servers/:mcp_server_id",
+            "params": [
+              {
+                "name": "mcp_server_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an existing MCP server configuration"
+        },
+        {
+          "info": {
+            "name": "Delete MCP Server",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.letta.com/v1/mcp-servers/:mcp_server_id",
+            "params": [
+              {
+                "name": "mcp_server_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete an MCP server by its ID"
+        },
+        {
+          "info": {
+            "name": "List Tools for MCP Server",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/mcp-servers/:mcp_server_id/tools",
+            "params": [
+              {
+                "name": "mcp_server_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get a list of all tools for a specific MCP server"
+        },
+        {
+          "info": {
+            "name": "Retrieve MCP Tool",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/mcp-servers/:mcp_server_id/tools/:tool_id",
+            "params": [
+              {
+                "name": "mcp_server_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "tool_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get a specific MCP tool by its ID"
+        },
+        {
+          "info": {
+            "name": "Run MCP Tool",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.letta.com/v1/mcp-servers/:mcp_server_id/tools/:tool_id/run",
+            "params": [
+              {
+                "name": "mcp_server_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "tool_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Execute a specific MCP tool\n\nThe request body should contain the tool arguments in the ToolExecuteRequest format."
+        },
+        {
+          "info": {
+            "name": "Refresh MCP Server Tools",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.letta.com/v1/mcp-servers/:mcp_server_id/refresh",
+            "params": [
+              {
+                "name": "mcp_server_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "agent_id",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Refresh tools for an MCP server by:\n1. Fetching current tools from the MCP server\n2. Deleting tools that no longer exist on the server\n3. Updating schemas for existing tools\n4. Adding new tools from the server\n\nReturns a summary of changes made."
+        },
+        {
+          "info": {
+            "name": "Connect MCP Server",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/mcp-servers/connect/:mcp_server_id",
+            "params": [
+              {
+                "name": "mcp_server_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Connect to an MCP server with support for OAuth via SSE.\nReturns a stream of events handling authorization state and exchange if OAuth is required."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,419 @@
+{
+  "item": [
+    {
+      "id": "c1e06905-29b6-4000-8d2a-eceee50e382d",
+      "name": "Models",
+      "description": {
+        "content": "List available chat and embedding models exposed by configured providers.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c533f63e-65ef-4f2b-82bc-66e145de2390",
+          "name": "List LLM Models",
+          "request": {
+            "name": "List LLM Models",
+            "description": {
+              "content": "List available LLM models using the asynchronous implementation for improved performance.\n\nReturns Model format which extends LLMConfig with additional metadata fields.\nLegacy LLMConfig fields are marked as deprecated but still available for backward compatibility.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "models",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "provider_category",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "provider_category",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "provider_name",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "provider_type",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "228a2616-09a8-4027-88c9-d68c1ded4221",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "models",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "provider_category",
+                      "value": "byok"
+                    },
+                    {
+                      "key": "provider_category",
+                      "value": "base"
+                    },
+                    {
+                      "key": "provider_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "provider_type",
+                      "value": "chatgpt_oauth"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"name\": \"string\",\n    \"provider_type\": \"azure\",\n    \"model\": \"string\",\n    \"model_endpoint_type\": \"lmstudio-legacy\",\n    \"context_window\": 795,\n    \"max_context_window\": 949,\n    \"handle\": \"string\",\n    \"display_name\": \"string\",\n    \"provider_name\": \"string\",\n    \"model_type\": \"llm\",\n    \"model_endpoint\": \"string\",\n    \"provider_category\": \"base\",\n    \"model_wrapper\": \"string\",\n    \"put_inner_thoughts_in_kwargs\": true,\n    \"temperature\": 0.7,\n    \"max_tokens\": 4392,\n    \"enable_reasoner\": true,\n    \"reasoning_effort\": \"minimal\",\n    \"max_reasoning_tokens\": 0,\n    \"effort\": \"low\",\n    \"frequency_penalty\": 6232.372680815714,\n    \"compatibility_type\": \"mlx\",\n    \"verbosity\": \"high\",\n    \"tier\": \"string\",\n    \"parallel_tool_calls\": true,\n    \"response_format\": {\n      \"type\": \"text\"\n    },\n    \"strict\": false,\n    \"return_logprobs\": false,\n    \"top_logprobs\": 4320,\n    \"return_token_ids\": false,\n    \"tool_call_parser\": \"string\"\n  },\n  {\n    \"name\": \"string\",\n    \"provider_type\": \"mistral\",\n    \"model\": \"string\",\n    \"model_endpoint_type\": \"vllm\",\n    \"context_window\": 8751,\n    \"max_context_window\": 5854,\n    \"handle\": \"string\",\n    \"display_name\": \"string\",\n    \"provider_name\": \"string\",\n    \"model_type\": \"llm\",\n    \"model_endpoint\": \"string\",\n    \"provider_category\": \"base\",\n    \"model_wrapper\": \"string\",\n    \"put_inner_thoughts_in_kwargs\": false,\n    \"temperature\": 0.7,\n    \"max_tokens\": 6527,\n    \"enable_reasoner\": true,\n    \"reasoning_effort\": \"low\",\n    \"max_reasoning_tokens\": 0,\n    \"effort\": \"low\",\n    \"frequency_penalty\": 6685.631515415587,\n    \"compatibility_type\": \"mlx\",\n    \"verbosity\": \"low\",\n    \"tier\": \"string\",\n    \"parallel_tool_calls\": true,\n    \"response_format\": {\n      \"type\": \"text\"\n    },\n    \"strict\": false,\n    \"return_logprobs\": false,\n    \"top_logprobs\": 1680,\n    \"return_token_ids\": false,\n    \"tool_call_parser\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e2eeb394-ef4a-4bb7-b307-3d4184d0ead9",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "models",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "provider_category",
+                      "value": "byok"
+                    },
+                    {
+                      "key": "provider_category",
+                      "value": "base"
+                    },
+                    {
+                      "key": "provider_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "provider_type",
+                      "value": "chatgpt_oauth"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1c9911db-613b-48fd-ba28-77d845fa7525",
+          "name": "List Embedding Models",
+          "request": {
+            "name": "List Embedding Models",
+            "description": {
+              "content": "List available embedding models using the asynchronous implementation for improved performance.\n\nReturns EmbeddingModel format which extends EmbeddingConfig with additional metadata fields.\nLegacy EmbeddingConfig fields are marked as deprecated but still available for backward compatibility.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "models",
+                "embedding"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "842de95e-21fa-4ea7-9388-db4b698d2a60",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "models",
+                    "embedding"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"name\": \"string\",\n    \"display_name\": \"string\",\n    \"provider_type\": \"zai_coding\",\n    \"provider_name\": \"string\",\n    \"embedding_endpoint_type\": \"webui\",\n    \"embedding_model\": \"string\",\n    \"embedding_dim\": 3506,\n    \"handle\": \"string\",\n    \"model_type\": \"embedding\",\n    \"embedding_endpoint\": \"string\",\n    \"embedding_chunk_size\": 9201,\n    \"batch_size\": 32,\n    \"azure_endpoint\": \"string\",\n    \"azure_version\": \"string\",\n    \"azure_deployment\": \"string\"\n  },\n  {\n    \"name\": \"string\",\n    \"display_name\": \"string\",\n    \"provider_type\": \"mistral\",\n    \"provider_name\": \"string\",\n    \"embedding_endpoint_type\": \"hugging-face\",\n    \"embedding_model\": \"string\",\n    \"embedding_dim\": 2082,\n    \"handle\": \"string\",\n    \"model_type\": \"embedding\",\n    \"embedding_endpoint\": \"string\",\n    \"embedding_chunk_size\": 2500,\n    \"batch_size\": 32,\n    \"azure_endpoint\": \"string\",\n    \"azure_version\": \"string\",\n    \"azure_deployment\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2855f6cd-d302-4bda-aa69-e65d839ae198",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "models",
+                    "embedding"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "862d15a6-6f6d-46c8-b3f6-625a9b2560cd",
+          "name": "models.list Embedding Models",
+          "request": {
+            "name": "models.list Embedding Models",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "models",
+                "embeddings"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "08699eeb-131a-4ffc-bbb9-e0f4fd16813f",
+              "name": "200",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "models",
+                    "embeddings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.letta.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "0b60f462-4192-424f-a3af-71c9a614c755",
+    "name": "Letta Admin Models API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST API for Letta, the stateful agents platform. Manage agents, memory blocks, archival passages, sources, custom tools, MCP servers, multi-agent groups, runs, and streaming responses. Available as Letta Cloud (managed) at https://api.letta.com/v1 and as the self-hosted open-source server (Apache-2.0) typically run at http://localhost:8283.\n\nContact Support:\n Name: Letta\n Email: support@letta.com",
+      "type": "text/plain"
+    }
+  }
+}

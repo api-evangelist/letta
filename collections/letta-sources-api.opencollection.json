@@ -1,0 +1,348 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Letta Admin Sources API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Sources",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Count Sources",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/sources/count"
+          },
+          "docs": "Count all data sources created by a user."
+        },
+        {
+          "info": {
+            "name": "Retrieve Source",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/sources/:source_id",
+            "params": [
+              {
+                "name": "source_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the source in the format 'source-<uuid4>'"
+              }
+            ]
+          },
+          "docs": "Get all sources"
+        },
+        {
+          "info": {
+            "name": "Modify Source",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.letta.com/v1/sources/:source_id",
+            "params": [
+              {
+                "name": "source_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the source in the format 'source-<uuid4>'"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update the name or documentation of an existing data source."
+        },
+        {
+          "info": {
+            "name": "Delete Source",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.letta.com/v1/sources/:source_id",
+            "params": [
+              {
+                "name": "source_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the source in the format 'source-<uuid4>'"
+              }
+            ]
+          },
+          "docs": "Delete a data source."
+        },
+        {
+          "info": {
+            "name": "Get Source ID by Name",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/sources/name/:source_name",
+            "params": [
+              {
+                "name": "source_name",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get a source by name"
+        },
+        {
+          "info": {
+            "name": "Get Sources Metadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/sources/metadata",
+            "params": [
+              {
+                "name": "include_detailed_per_source_metadata",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get aggregated metadata for all sources in an organization.\n\nReturns structured metadata including:\n- Total number of sources\n- Total number of files across all sources\n- Total size of all files\n- Per-source breakdown with file details (file_name, file_size per file) if include_detailed_per_source_metadata is True"
+        },
+        {
+          "info": {
+            "name": "List Sources",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/sources/"
+          },
+          "docs": "List all data sources created by a user."
+        },
+        {
+          "info": {
+            "name": "Create Source",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.letta.com/v1/sources/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new data source."
+        },
+        {
+          "info": {
+            "name": "Upload File to Source",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.letta.com/v1/sources/:source_id/upload",
+            "params": [
+              {
+                "name": "source_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the source in the format 'source-<uuid4>'"
+              },
+              {
+                "name": "duplicate_handling",
+                "value": "",
+                "type": "query",
+                "description": "How to handle duplicate filenames"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Optional custom name to override the uploaded file's name"
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            }
+          },
+          "docs": "Upload a file to a data source."
+        },
+        {
+          "info": {
+            "name": "Get Agents for Source",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/sources/:source_id/agents",
+            "params": [
+              {
+                "name": "source_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the source in the format 'source-<uuid4>'"
+              }
+            ]
+          },
+          "docs": "Get all agent IDs that have the specified source attached."
+        },
+        {
+          "info": {
+            "name": "List Source Passages",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/sources/:source_id/passages",
+            "params": [
+              {
+                "name": "source_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the source in the format 'source-<uuid4>'"
+              },
+              {
+                "name": "after",
+                "value": "",
+                "type": "query",
+                "description": "Message after which to retrieve the returned messages."
+              },
+              {
+                "name": "before",
+                "value": "",
+                "type": "query",
+                "description": "Message before which to retrieve the returned messages."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of messages to retrieve."
+              }
+            ]
+          },
+          "docs": "List all passages associated with a data source."
+        },
+        {
+          "info": {
+            "name": "List Source Files",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/sources/:source_id/files",
+            "params": [
+              {
+                "name": "source_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the source in the format 'source-<uuid4>'"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of files to return"
+              },
+              {
+                "name": "after",
+                "value": "",
+                "type": "query",
+                "description": "Pagination cursor to fetch the next set of results"
+              },
+              {
+                "name": "include_content",
+                "value": "",
+                "type": "query",
+                "description": "Whether to include full file content"
+              },
+              {
+                "name": "check_status_updates",
+                "value": "",
+                "type": "query",
+                "description": "Whether to check and update file processing status (from the vector db service). If False, will not fetch and update the status, which may lead to performance gains."
+              }
+            ]
+          },
+          "docs": "List paginated files associated with a data source."
+        },
+        {
+          "info": {
+            "name": "Get File Metadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/sources/:source_id/files/:file_id",
+            "params": [
+              {
+                "name": "source_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the source in the format 'source-<uuid4>'"
+              },
+              {
+                "name": "file_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the file in the format 'file-<uuid4>'"
+              },
+              {
+                "name": "include_content",
+                "value": "",
+                "type": "query",
+                "description": "Whether to include full file content"
+              }
+            ]
+          },
+          "docs": "Retrieve metadata for a specific file by its ID."
+        },
+        {
+          "info": {
+            "name": "Delete File from Source",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.letta.com/v1/sources/:source_id/:file_id",
+            "params": [
+              {
+                "name": "source_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the source in the format 'source-<uuid4>'"
+              },
+              {
+                "name": "file_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the file in the format 'file-<uuid4>'"
+              }
+            ]
+          },
+          "docs": "Delete a data source."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,79 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Letta Admin Tag API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Tag",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Tags",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/tags/",
+            "params": [
+              {
+                "name": "before",
+                "value": "",
+                "type": "query",
+                "description": "Tag cursor for pagination. Returns tags that come before this tag in the specified sort order"
+              },
+              {
+                "name": "after",
+                "value": "",
+                "type": "query",
+                "description": "Tag cursor for pagination. Returns tags that come after this tag in the specified sort order"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of tags to return"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Sort order for tags. 'asc' for alphabetical order, 'desc' for reverse alphabetical order"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Field to sort by"
+              },
+              {
+                "name": "query_text",
+                "value": "",
+                "type": "query",
+                "description": "Filter tags by text search. Deprecated, please use name field instead"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Filter tags by name"
+              }
+            ]
+          },
+          "docs": "Get the list of all tags (from agents and blocks) that have been created."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

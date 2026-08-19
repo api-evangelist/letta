@@ -1,0 +1,741 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Letta Agent Templates Runs, Jobs and Steps API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Runs, Jobs and Steps",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Runs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/v1/runs/",
+            "params": [
+              {
+                "name": "agent_id",
+                "value": "",
+                "type": "query",
+                "description": "The unique identifier of the agent associated with the run."
+              },
+              {
+                "name": "agent_ids",
+                "value": "",
+                "type": "query",
+                "description": "The unique identifiers of the agents associated with the run. Deprecated in favor of agent_id field."
+              },
+              {
+                "name": "statuses",
+                "value": "",
+                "type": "query",
+                "description": "Filter runs by status. Can specify multiple statuses."
+              },
+              {
+                "name": "background",
+                "value": "",
+                "type": "query",
+                "description": "If True, filters for runs that were created in background mode."
+              },
+              {
+                "name": "stop_reason",
+                "value": "",
+                "type": "query",
+                "description": "Filter runs by stop reason."
+              },
+              {
+                "name": "conversation_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter runs by conversation ID."
+              },
+              {
+                "name": "before",
+                "value": "",
+                "type": "query",
+                "description": "Run ID cursor for pagination. Returns runs that come before this run ID in the specified sort order"
+              },
+              {
+                "name": "after",
+                "value": "",
+                "type": "query",
+                "description": "Run ID cursor for pagination. Returns runs that come after this run ID in the specified sort order"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of runs to return"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Sort order for runs by creation time. 'asc' for oldest first, 'desc' for newest first"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Field to sort by"
+              },
+              {
+                "name": "active",
+                "value": "",
+                "type": "query",
+                "description": "Filter for active runs."
+              },
+              {
+                "name": "ascending",
+                "value": "",
+                "type": "query",
+                "description": "Whether to sort agents oldest to newest (True) or newest to oldest (False, default). Deprecated in favor of order field."
+              }
+            ]
+          },
+          "docs": "List all runs."
+        },
+        {
+          "info": {
+            "name": "List Active Runs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/v1/runs/active",
+            "params": [
+              {
+                "name": "agent_id",
+                "value": "",
+                "type": "query",
+                "description": "The unique identifier of the agent associated with the run."
+              },
+              {
+                "name": "background",
+                "value": "",
+                "type": "query",
+                "description": "If True, filters for runs that were created in background mode."
+              }
+            ]
+          },
+          "docs": "List all active runs."
+        },
+        {
+          "info": {
+            "name": "Retrieve Run",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/v1/runs/:run_id",
+            "params": [
+              {
+                "name": "run_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get the status of a run."
+        },
+        {
+          "info": {
+            "name": "Delete Run",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.letta.com/v1/v1/runs/:run_id",
+            "params": [
+              {
+                "name": "run_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a run by its run_id."
+        },
+        {
+          "info": {
+            "name": "List Messages For Run",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/v1/runs/:run_id/messages",
+            "params": [
+              {
+                "name": "run_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "before",
+                "value": "",
+                "type": "query",
+                "description": "Message ID cursor for pagination. Returns messages that come before this message ID in the specified sort order"
+              },
+              {
+                "name": "after",
+                "value": "",
+                "type": "query",
+                "description": "Message ID cursor for pagination. Returns messages that come after this message ID in the specified sort order"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of messages to return"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Sort order for messages by creation time. 'asc' for oldest first, 'desc' for newest first"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Field to sort by"
+              }
+            ]
+          },
+          "docs": "Get response messages associated with a run."
+        },
+        {
+          "info": {
+            "name": "Retrieve Metrics For Run",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/v1/runs/:run_id/metrics",
+            "params": [
+              {
+                "name": "run_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get run metrics by run ID."
+        },
+        {
+          "info": {
+            "name": "List Steps For Run",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/v1/runs/:run_id/steps",
+            "params": [
+              {
+                "name": "run_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "before",
+                "value": "",
+                "type": "query",
+                "description": "Cursor for pagination"
+              },
+              {
+                "name": "after",
+                "value": "",
+                "type": "query",
+                "description": "Cursor for pagination"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of messages to return"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Sort order for steps by creation time. 'asc' for oldest first, 'desc' for newest first"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Field to sort by"
+              }
+            ]
+          },
+          "docs": "Get steps associated with a run with filtering options."
+        },
+        {
+          "info": {
+            "name": "Retrieve Stream For Run",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.letta.com/v1/v1/runs/:run_id/stream",
+            "params": [
+              {
+                "name": "run_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Retrieve Stream For Run"
+        },
+        {
+          "info": {
+            "name": "Retrieve Trace For Run",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/v1/runs/:run_id/trace",
+            "params": [
+              {
+                "name": "run_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of spans to return"
+              }
+            ]
+          },
+          "docs": "Retrieve OTEL trace spans for a run."
+        },
+        {
+          "info": {
+            "name": "Retrieve Usage For Run",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/v1/runs/:run_id/usage",
+            "params": [
+              {
+                "name": "run_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get usage statistics for a run."
+        },
+        {
+          "info": {
+            "name": "List Jobs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/v1/jobs/",
+            "params": [
+              {
+                "name": "source_id",
+                "value": "",
+                "type": "query",
+                "description": "Deprecated: Use `folder_id` parameter instead. Only list jobs associated with the source."
+              },
+              {
+                "name": "before",
+                "value": "",
+                "type": "query",
+                "description": "Job ID cursor for pagination. Returns jobs that come before this job ID in the specified sort order"
+              },
+              {
+                "name": "after",
+                "value": "",
+                "type": "query",
+                "description": "Job ID cursor for pagination. Returns jobs that come after this job ID in the specified sort order"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of jobs to return"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Sort order for jobs by creation time. 'asc' for oldest first, 'desc' for newest first"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Field to sort by"
+              },
+              {
+                "name": "active",
+                "value": "",
+                "type": "query",
+                "description": "Filter for active jobs."
+              },
+              {
+                "name": "ascending",
+                "value": "",
+                "type": "query",
+                "description": "Whether to sort jobs oldest to newest (True, default) or newest to oldest (False). Deprecated in favor of order field."
+              }
+            ]
+          },
+          "docs": "List all jobs."
+        },
+        {
+          "info": {
+            "name": "List Active Jobs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/v1/jobs/active",
+            "params": [
+              {
+                "name": "source_id",
+                "value": "",
+                "type": "query",
+                "description": "Deprecated: Use `folder_id` parameter instead. Only list jobs associated with the source."
+              },
+              {
+                "name": "before",
+                "value": "",
+                "type": "query",
+                "description": "Cursor for pagination"
+              },
+              {
+                "name": "after",
+                "value": "",
+                "type": "query",
+                "description": "Cursor for pagination"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Limit for pagination"
+              },
+              {
+                "name": "ascending",
+                "value": "",
+                "type": "query",
+                "description": "Whether to sort jobs oldest to newest (True, default) or newest to oldest (False)"
+              }
+            ]
+          },
+          "docs": "List all active jobs."
+        },
+        {
+          "info": {
+            "name": "Retrieve Job",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/v1/jobs/:job_id",
+            "params": [
+              {
+                "name": "job_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the job in the format 'job-<uuid4>'"
+              }
+            ]
+          },
+          "docs": "Get the status of a job."
+        },
+        {
+          "info": {
+            "name": "Delete Job",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.letta.com/v1/v1/jobs/:job_id",
+            "params": [
+              {
+                "name": "job_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the job in the format 'job-<uuid4>'"
+              }
+            ]
+          },
+          "docs": "Delete a job by its job_id."
+        },
+        {
+          "info": {
+            "name": "Cancel Job",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.letta.com/v1/v1/jobs/:job_id/cancel",
+            "params": [
+              {
+                "name": "job_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the job in the format 'job-<uuid4>'"
+              }
+            ]
+          },
+          "docs": "Cancel a job by its job_id."
+        },
+        {
+          "info": {
+            "name": "List Steps",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/v1/steps/",
+            "params": [
+              {
+                "name": "before",
+                "value": "",
+                "type": "query",
+                "description": "Return steps before this step ID"
+              },
+              {
+                "name": "after",
+                "value": "",
+                "type": "query",
+                "description": "Return steps after this step ID"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of steps to return"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Sort order for steps by creation time. 'asc' for oldest first, 'desc' for newest first"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Field to sort by"
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query",
+                "description": "Return steps after this ISO datetime (e.g. \"2025-01-29T15:01:19-08:00\")"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query",
+                "description": "Return steps before this ISO datetime (e.g. \"2025-01-29T15:01:19-08:00\")"
+              },
+              {
+                "name": "model",
+                "value": "",
+                "type": "query",
+                "description": "Filter by the name of the model used for the step"
+              },
+              {
+                "name": "agent_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by the ID of the agent that performed the step"
+              },
+              {
+                "name": "trace_ids",
+                "value": "",
+                "type": "query",
+                "description": "Filter by trace ids returned by the server"
+              },
+              {
+                "name": "feedback",
+                "value": "",
+                "type": "query",
+                "description": "Filter by feedback"
+              },
+              {
+                "name": "has_feedback",
+                "value": "",
+                "type": "query",
+                "description": "Filter by whether steps have feedback (true) or not (false)"
+              },
+              {
+                "name": "tags",
+                "value": "",
+                "type": "query",
+                "description": "Filter by tags"
+              },
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by the project ID that is associated with the step (cloud only)."
+              }
+            ]
+          },
+          "docs": "List steps with optional pagination and date filters."
+        },
+        {
+          "info": {
+            "name": "Retrieve Step",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/v1/steps/:step_id",
+            "params": [
+              {
+                "name": "step_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the step in the format 'step-<uuid4>'"
+              }
+            ]
+          },
+          "docs": "Get a step by ID."
+        },
+        {
+          "info": {
+            "name": "Modify Feedback For Step",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.letta.com/v1/v1/steps/:step_id/feedback",
+            "params": [
+              {
+                "name": "step_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the step in the format 'step-<uuid4>'"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Modify feedback for a given step."
+        },
+        {
+          "info": {
+            "name": "List Messages For Step",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/v1/steps/:step_id/messages",
+            "params": [
+              {
+                "name": "step_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the step in the format 'step-<uuid4>'"
+              },
+              {
+                "name": "before",
+                "value": "",
+                "type": "query",
+                "description": "Message ID cursor for pagination. Returns messages that come before this message ID in the specified sort order"
+              },
+              {
+                "name": "after",
+                "value": "",
+                "type": "query",
+                "description": "Message ID cursor for pagination. Returns messages that come after this message ID in the specified sort order"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of messages to return"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Sort order for messages by creation time. 'asc' for oldest first, 'desc' for newest first"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Sort by field"
+              }
+            ]
+          },
+          "docs": "List messages for a given step."
+        },
+        {
+          "info": {
+            "name": "Retrieve Metrics For Step",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/v1/steps/:step_id/metrics",
+            "params": [
+              {
+                "name": "step_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the step in the format 'step-<uuid4>'"
+              }
+            ]
+          },
+          "docs": "Get step metrics by step ID."
+        },
+        {
+          "info": {
+            "name": "Retrieve Trace For Step",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/v1/steps/:step_id/trace",
+            "params": [
+              {
+                "name": "step_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the step in the format 'step-<uuid4>'"
+              }
+            ]
+          },
+          "docs": "Retrieve Trace For Step"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

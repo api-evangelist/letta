@@ -1,0 +1,440 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Letta Admin Folders API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Folders",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Count Folders",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/folders/count"
+          },
+          "docs": "Count all data folders created by a user."
+        },
+        {
+          "info": {
+            "name": "Retrieve Folder",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/folders/:folder_id",
+            "params": [
+              {
+                "name": "folder_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the source in the format 'source-<uuid4>'"
+              }
+            ]
+          },
+          "docs": "Get a folder by ID"
+        },
+        {
+          "info": {
+            "name": "Modify Folder",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.letta.com/v1/folders/:folder_id",
+            "params": [
+              {
+                "name": "folder_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the source in the format 'source-<uuid4>'"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update the name or documentation of an existing data folder."
+        },
+        {
+          "info": {
+            "name": "Delete Folder",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.letta.com/v1/folders/:folder_id",
+            "params": [
+              {
+                "name": "folder_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the source in the format 'source-<uuid4>'"
+              }
+            ]
+          },
+          "docs": "Delete a data folder."
+        },
+        {
+          "info": {
+            "name": "Get Folder by Name",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/folders/name/:folder_name",
+            "params": [
+              {
+                "name": "folder_name",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "**Deprecated**: Please use the list endpoint `GET /v1/folders?name=` instead.\n\n\nGet a folder by name."
+        },
+        {
+          "info": {
+            "name": "Retrieve Metadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/folders/metadata",
+            "params": [
+              {
+                "name": "include_detailed_per_source_metadata",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get aggregated metadata for all folders in an organization.\n\nReturns structured metadata including:\n- Total number of folders\n- Total number of files across all folders\n- Total size of all files\n- Per-source breakdown with file details (file_name, file_size per file) if include_detailed_per_source_metadata is True"
+        },
+        {
+          "info": {
+            "name": "List Folders",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/folders/",
+            "params": [
+              {
+                "name": "before",
+                "value": "",
+                "type": "query",
+                "description": "Folder ID cursor for pagination. Returns folders that come before this folder ID in the specified sort order"
+              },
+              {
+                "name": "after",
+                "value": "",
+                "type": "query",
+                "description": "Folder ID cursor for pagination. Returns folders that come after this folder ID in the specified sort order"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of folders to return"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Sort order for folders by creation time. 'asc' for oldest first, 'desc' for newest first"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Field to sort by"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Folder name to filter by"
+              }
+            ]
+          },
+          "docs": "List all data folders created by a user."
+        },
+        {
+          "info": {
+            "name": "Create Folder",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.letta.com/v1/folders/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new data folder."
+        },
+        {
+          "info": {
+            "name": "Upload File to Folder",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.letta.com/v1/folders/:folder_id/upload",
+            "params": [
+              {
+                "name": "folder_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the source in the format 'source-<uuid4>'"
+              },
+              {
+                "name": "duplicate_handling",
+                "value": "",
+                "type": "query",
+                "description": "How to handle duplicate filenames"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Optional custom name to override the uploaded file's name"
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            }
+          },
+          "docs": "Upload a file to a data folder."
+        },
+        {
+          "info": {
+            "name": "List Agents for Folder",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/folders/:folder_id/agents",
+            "params": [
+              {
+                "name": "folder_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the source in the format 'source-<uuid4>'"
+              },
+              {
+                "name": "before",
+                "value": "",
+                "type": "query",
+                "description": "Agent ID cursor for pagination. Returns agents that come before this agent ID in the specified sort order"
+              },
+              {
+                "name": "after",
+                "value": "",
+                "type": "query",
+                "description": "Agent ID cursor for pagination. Returns agents that come after this agent ID in the specified sort order"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of agents to return"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Sort order for agents by creation time. 'asc' for oldest first, 'desc' for newest first"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Field to sort by"
+              }
+            ]
+          },
+          "docs": "Get all agent IDs that have the specified folder attached."
+        },
+        {
+          "info": {
+            "name": "List Folder Passages",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/folders/:folder_id/passages",
+            "params": [
+              {
+                "name": "folder_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the source in the format 'source-<uuid4>'"
+              },
+              {
+                "name": "before",
+                "value": "",
+                "type": "query",
+                "description": "Passage ID cursor for pagination. Returns passages that come before this passage ID in the specified sort order"
+              },
+              {
+                "name": "after",
+                "value": "",
+                "type": "query",
+                "description": "Passage ID cursor for pagination. Returns passages that come after this passage ID in the specified sort order"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of passages to return"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Sort order for passages by creation time. 'asc' for oldest first, 'desc' for newest first"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Field to sort by"
+              }
+            ]
+          },
+          "docs": "List all passages associated with a data folder."
+        },
+        {
+          "info": {
+            "name": "List Files for Folder",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/folders/:folder_id/files",
+            "params": [
+              {
+                "name": "folder_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the source in the format 'source-<uuid4>'"
+              },
+              {
+                "name": "before",
+                "value": "",
+                "type": "query",
+                "description": "File ID cursor for pagination. Returns files that come before this file ID in the specified sort order"
+              },
+              {
+                "name": "after",
+                "value": "",
+                "type": "query",
+                "description": "File ID cursor for pagination. Returns files that come after this file ID in the specified sort order"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of files to return"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Sort order for files by creation time. 'asc' for oldest first, 'desc' for newest first"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Field to sort by"
+              },
+              {
+                "name": "include_content",
+                "value": "",
+                "type": "query",
+                "description": "Whether to include full file content"
+              }
+            ]
+          },
+          "docs": "List paginated files associated with a data folder."
+        },
+        {
+          "info": {
+            "name": "Retrieve File",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/folders/:folder_id/files/:file_id",
+            "params": [
+              {
+                "name": "folder_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the source in the format 'source-<uuid4>'"
+              },
+              {
+                "name": "file_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the file in the format 'file-<uuid4>'"
+              },
+              {
+                "name": "include_content",
+                "value": "",
+                "type": "query",
+                "description": "Whether to include full file content"
+              }
+            ]
+          },
+          "docs": "Retrieve a file from a folder by ID."
+        },
+        {
+          "info": {
+            "name": "Delete File from Folder",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.letta.com/v1/folders/:folder_id/:file_id",
+            "params": [
+              {
+                "name": "folder_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the source in the format 'source-<uuid4>'"
+              },
+              {
+                "name": "file_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the file in the format 'file-<uuid4>'"
+              }
+            ]
+          },
+          "docs": "Delete a file from a folder."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

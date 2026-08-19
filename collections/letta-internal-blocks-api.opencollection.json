@@ -1,0 +1,234 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Letta Admin Internal Blocks API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Internal Blocks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Blocks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/_internal_blocks/",
+            "params": [
+              {
+                "name": "label",
+                "value": "",
+                "type": "query",
+                "description": "Label to include (alphanumeric, hyphens, underscores, forward slashes)"
+              },
+              {
+                "name": "templates_only",
+                "value": "",
+                "type": "query",
+                "description": "Whether to include only templates"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Name filter (alphanumeric, spaces, hyphens, underscores)"
+              },
+              {
+                "name": "identity_id",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the identity in the format 'identity-<uuid4>'"
+              },
+              {
+                "name": "identifier_keys",
+                "value": "",
+                "type": "query",
+                "description": "Search agents by identifier keys"
+              },
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "query",
+                "description": "Search blocks by project id"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of blocks to return"
+              },
+              {
+                "name": "before",
+                "value": "",
+                "type": "query",
+                "description": "Block ID cursor for pagination. Returns blocks that come before this block ID in the specified sort order"
+              },
+              {
+                "name": "after",
+                "value": "",
+                "type": "query",
+                "description": "Block ID cursor for pagination. Returns blocks that come after this block ID in the specified sort order"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Sort order for blocks by creation time. 'asc' for oldest first, 'desc' for newest first"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Field to sort by"
+              },
+              {
+                "name": "label_search",
+                "value": "",
+                "type": "query",
+                "description": "Search blocks by label. If provided, returns blocks whose label matches the search query. This is a full-text search on block labels."
+              },
+              {
+                "name": "description_search",
+                "value": "",
+                "type": "query",
+                "description": "Search blocks by description. If provided, returns blocks whose description matches the search query. This is a full-text search on block descriptions."
+              },
+              {
+                "name": "value_search",
+                "value": "",
+                "type": "query",
+                "description": "Search blocks by value. If provided, returns blocks whose value matches the search query. This is a full-text search on block values."
+              },
+              {
+                "name": "connected_to_agents_count_gt",
+                "value": "",
+                "type": "query",
+                "description": "Filter blocks by the number of connected agents. If provided, returns blocks that have more than this number of connected agents."
+              },
+              {
+                "name": "connected_to_agents_count_lt",
+                "value": "",
+                "type": "query",
+                "description": "Filter blocks by the number of connected agents. If provided, returns blocks that have less than this number of connected agents."
+              },
+              {
+                "name": "connected_to_agents_count_eq",
+                "value": "",
+                "type": "query",
+                "description": "Filter blocks by the exact number of connected agents. If provided, returns blocks that have exactly this number of connected agents."
+              }
+            ]
+          },
+          "docs": "List Blocks"
+        },
+        {
+          "info": {
+            "name": "Create Block",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.letta.com/v1/_internal_blocks/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create Block"
+        },
+        {
+          "info": {
+            "name": "Delete Block",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.letta.com/v1/_internal_blocks/:block_id",
+            "params": [
+              {
+                "name": "block_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the block in the format 'block-<uuid4>'"
+              }
+            ]
+          },
+          "docs": "Delete Block"
+        },
+        {
+          "info": {
+            "name": "List Agents for Block",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/_internal_blocks/:block_id/agents",
+            "params": [
+              {
+                "name": "block_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the block in the format 'block-<uuid4>'"
+              },
+              {
+                "name": "before",
+                "value": "",
+                "type": "query",
+                "description": "Agent ID cursor for pagination. Returns agents that come before this agent ID in the specified sort order"
+              },
+              {
+                "name": "after",
+                "value": "",
+                "type": "query",
+                "description": "Agent ID cursor for pagination. Returns agents that come after this agent ID in the specified sort order"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of agents to return"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Sort order for agents by creation time. 'asc' for oldest first, 'desc' for newest first"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Field to sort by"
+              },
+              {
+                "name": "include_relationships",
+                "value": "",
+                "type": "query",
+                "description": "Specify which relational fields (e.g., 'tools', 'sources', 'memory') to include in the response. If not provided, all relationships are loaded by default. Using this can optimize performance by reducing unnecessary joins.This is a legacy parameter, and no longer supported after 1.0.0 SDK versions."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Specify which relational fields to include in the response. No relationships are included by default."
+              }
+            ]
+          },
+          "docs": "Retrieves all agents associated with the specified block.\nRaises a 404 if the block does not exist."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

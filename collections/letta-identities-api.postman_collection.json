@@ -1,0 +1,1873 @@
+{
+  "item": [
+    {
+      "id": "f49040ec-8d3c-496e-bc5b-d6b6f78a995f",
+      "name": "Identities",
+      "description": {
+        "content": "Map external user identities to agents and memory contexts.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9ffea394-20c7-4230-a151-b0a137985cb8",
+          "name": "List Identities",
+          "request": {
+            "name": "List Identities",
+            "description": {
+              "content": "Get a list of all identities in the database",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "identities",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "project_id",
+                  "value": "<string>",
+                  "description": "[DEPRECATED: Use X-Project-Id header instead] Filter identities by project ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "identifier_key",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "identity_type",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "before",
+                  "value": "<string>",
+                  "description": "Identity ID cursor for pagination. Returns identities that come before this identity ID in the specified sort order"
+                },
+                {
+                  "disabled": false,
+                  "key": "after",
+                  "value": "<string>",
+                  "description": "Identity ID cursor for pagination. Returns identities that come after this identity ID in the specified sort order"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Maximum number of identities to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "order",
+                  "value": "desc",
+                  "description": "Sort order for identities by creation time. 'asc' for oldest first, 'desc' for newest first"
+                },
+                {
+                  "disabled": false,
+                  "key": "order_by",
+                  "value": "created_at",
+                  "description": "Field to sort by"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "012088b5-3337-4747-93db-163eb9878e14",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "identities",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "project_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "identifier_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "identity_type",
+                      "value": "user"
+                    },
+                    {
+                      "key": "before",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "after",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "order",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "created_at"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"identifier_key\": \"string\",\n    \"name\": \"string\",\n    \"identity_type\": \"other\",\n    \"agent_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"block_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"id\": \"identity-123e4567-e89b-12d3-a456-426614174000\",\n    \"project_id\": \"string\",\n    \"properties\": [\n      {\n        \"key\": \"string\",\n        \"value\": \"string\",\n        \"type\": \"number\"\n      },\n      {\n        \"key\": \"string\",\n        \"value\": \"string\",\n        \"type\": \"json\"\n      }\n    ]\n  },\n  {\n    \"identifier_key\": \"string\",\n    \"name\": \"string\",\n    \"identity_type\": \"user\",\n    \"agent_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"block_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"id\": \"identity-123e4567-e89b-12d3-a456-426614174000\",\n    \"project_id\": \"string\",\n    \"properties\": [\n      {\n        \"key\": \"string\",\n        \"value\": \"string\",\n        \"type\": \"json\"\n      },\n      {\n        \"key\": \"string\",\n        \"value\": \"string\",\n        \"type\": \"boolean\"\n      }\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f6b9d322-36de-4538-9229-6c8185c9f39b",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "identities",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "project_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "identifier_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "identity_type",
+                      "value": "user"
+                    },
+                    {
+                      "key": "before",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "after",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "order",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "created_at"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cbfdc2a6-8436-4c5a-ac1b-a1112b79e8e2",
+          "name": "Create Identity",
+          "request": {
+            "name": "Create Identity",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "identities",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "The project slug to associate with the identity (cloud only).",
+                "key": "X-Project",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"identifier_key\": \"<string>\",\n  \"name\": \"<string>\",\n  \"identity_type\": \"<string>\",\n  \"project_id\": \"<string>\",\n  \"agent_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"block_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"properties\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f9a9e4f2-8922-48d7-a938-b564ba27b456",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "identities",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The project slug to associate with the identity (cloud only).",
+                    "key": "X-Project",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"identifier_key\": \"<string>\",\n  \"name\": \"<string>\",\n  \"identity_type\": \"user\",\n  \"project_id\": \"<string>\",\n  \"agent_ids\": [\n    \"agent-123e4567-e89b-42d3-8456-426614174000\",\n    \"agent-123e4567-e89b-42d3-8456-426614174000\"\n  ],\n  \"block_ids\": [\n    \"block-123e4567-e89b-42d3-8456-426614174000\",\n    \"block-123e4567-e89b-42d3-8456-426614174000\"\n  ],\n  \"properties\": [\n    {\n      \"key\": \"string\",\n      \"value\": \"string\",\n      \"type\": \"boolean\"\n    },\n    {\n      \"key\": \"string\",\n      \"value\": \"string\",\n      \"type\": \"json\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"identifier_key\": \"string\",\n  \"name\": \"string\",\n  \"identity_type\": \"org\",\n  \"agent_ids\": [\n    \"string\",\n    \"string\"\n  ],\n  \"block_ids\": [\n    \"string\",\n    \"string\"\n  ],\n  \"id\": \"identity-123e4567-e89b-12d3-a456-426614174000\",\n  \"project_id\": \"string\",\n  \"properties\": [\n    {\n      \"key\": \"string\",\n      \"value\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"key\": \"string\",\n      \"value\": \"string\",\n      \"type\": \"json\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "61d955f7-9cfb-47ba-b973-a7dc9325768f",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "identities",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The project slug to associate with the identity (cloud only).",
+                    "key": "X-Project",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"identifier_key\": \"<string>\",\n  \"name\": \"<string>\",\n  \"identity_type\": \"user\",\n  \"project_id\": \"<string>\",\n  \"agent_ids\": [\n    \"agent-123e4567-e89b-42d3-8456-426614174000\",\n    \"agent-123e4567-e89b-42d3-8456-426614174000\"\n  ],\n  \"block_ids\": [\n    \"block-123e4567-e89b-42d3-8456-426614174000\",\n    \"block-123e4567-e89b-42d3-8456-426614174000\"\n  ],\n  \"properties\": [\n    {\n      \"key\": \"string\",\n      \"value\": \"string\",\n      \"type\": \"boolean\"\n    },\n    {\n      \"key\": \"string\",\n      \"value\": \"string\",\n      \"type\": \"json\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c418db93-6e84-4ac2-8ae5-5b2977d47f34",
+          "name": "Upsert Identity",
+          "request": {
+            "name": "Upsert Identity",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "identities",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "The project slug to associate with the identity (cloud only).",
+                "key": "X-Project",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"identifier_key\": \"<string>\",\n  \"name\": \"<string>\",\n  \"identity_type\": \"<string>\",\n  \"project_id\": \"<string>\",\n  \"agent_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"block_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"properties\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "30790dce-6cda-4397-af69-af440ea49ae2",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "identities",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The project slug to associate with the identity (cloud only).",
+                    "key": "X-Project",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"identifier_key\": \"<string>\",\n  \"name\": \"<string>\",\n  \"identity_type\": \"other\",\n  \"project_id\": \"<string>\",\n  \"agent_ids\": [\n    \"agent-123e4567-e89b-42d3-8456-426614174000\",\n    \"agent-123e4567-e89b-42d3-8456-426614174000\"\n  ],\n  \"block_ids\": [\n    \"block-123e4567-e89b-42d3-8456-426614174000\",\n    \"block-123e4567-e89b-42d3-8456-426614174000\"\n  ],\n  \"properties\": [\n    {\n      \"key\": \"string\",\n      \"value\": \"string\",\n      \"type\": \"boolean\"\n    },\n    {\n      \"key\": \"string\",\n      \"value\": \"string\",\n      \"type\": \"boolean\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"identifier_key\": \"string\",\n  \"name\": \"string\",\n  \"identity_type\": \"org\",\n  \"agent_ids\": [\n    \"string\",\n    \"string\"\n  ],\n  \"block_ids\": [\n    \"string\",\n    \"string\"\n  ],\n  \"id\": \"identity-123e4567-e89b-12d3-a456-426614174000\",\n  \"project_id\": \"string\",\n  \"properties\": [\n    {\n      \"key\": \"string\",\n      \"value\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"key\": \"string\",\n      \"value\": \"string\",\n      \"type\": \"json\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "36ea5af9-fa98-4334-8c41-394fd9f0f266",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "identities",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The project slug to associate with the identity (cloud only).",
+                    "key": "X-Project",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"identifier_key\": \"<string>\",\n  \"name\": \"<string>\",\n  \"identity_type\": \"other\",\n  \"project_id\": \"<string>\",\n  \"agent_ids\": [\n    \"agent-123e4567-e89b-42d3-8456-426614174000\",\n    \"agent-123e4567-e89b-42d3-8456-426614174000\"\n  ],\n  \"block_ids\": [\n    \"block-123e4567-e89b-42d3-8456-426614174000\",\n    \"block-123e4567-e89b-42d3-8456-426614174000\"\n  ],\n  \"properties\": [\n    {\n      \"key\": \"string\",\n      \"value\": \"string\",\n      \"type\": \"boolean\"\n    },\n    {\n      \"key\": \"string\",\n      \"value\": \"string\",\n      \"type\": \"boolean\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "657b8898-46e5-4abc-a920-516988383638",
+          "name": "Count Identities",
+          "request": {
+            "name": "Count Identities",
+            "description": {
+              "content": "Get count of all identities for a user",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "identities",
+                "count"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "445855e7-d030-49b3-9c17-84d570730715",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "identities",
+                    "count"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "172",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bdd151e8-19e4-438a-9f48-7eea4166553a",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "identities",
+                    "count"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8998662c-89bb-4d2d-afc3-e7ea4b005294",
+          "name": "Retrieve Identity",
+          "request": {
+            "name": "Retrieve Identity",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "identities",
+                ":identity_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "identity_id",
+                  "description": "(Required) The ID of the identity in the format 'identity-<uuid4>'"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f3ab29e2-cf60-46d4-8c6f-baa257961558",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "identities",
+                    ":identity_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "identity_id",
+                      "description": "(Required) The ID of the identity in the format 'identity-<uuid4>'"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"identifier_key\": \"string\",\n  \"name\": \"string\",\n  \"identity_type\": \"org\",\n  \"agent_ids\": [\n    \"string\",\n    \"string\"\n  ],\n  \"block_ids\": [\n    \"string\",\n    \"string\"\n  ],\n  \"id\": \"identity-123e4567-e89b-12d3-a456-426614174000\",\n  \"project_id\": \"string\",\n  \"properties\": [\n    {\n      \"key\": \"string\",\n      \"value\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"key\": \"string\",\n      \"value\": \"string\",\n      \"type\": \"json\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "343b2e42-eb82-4553-89e2-cf33a119dccf",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "identities",
+                    ":identity_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "identity_id",
+                      "description": "(Required) The ID of the identity in the format 'identity-<uuid4>'"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "84046dab-c1fb-44d1-ad24-11c71620cf9b",
+          "name": "Modify Identity",
+          "request": {
+            "name": "Modify Identity",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "identities",
+                ":identity_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "identity_id",
+                  "description": "(Required) The ID of the identity in the format 'identity-<uuid4>'"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"identifier_key\": \"<string>\",\n  \"name\": \"<string>\",\n  \"identity_type\": \"<string>\",\n  \"agent_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"block_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"properties\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "21734b7a-fa45-458a-ab67-2dc22780e76e",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "identities",
+                    ":identity_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "identity_id",
+                      "description": "(Required) The ID of the identity in the format 'identity-<uuid4>'"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"identifier_key\": \"<string>\",\n  \"name\": \"<string>\",\n  \"identity_type\": \"other\",\n  \"agent_ids\": [\n    \"agent-123e4567-e89b-42d3-8456-426614174000\",\n    \"agent-123e4567-e89b-42d3-8456-426614174000\"\n  ],\n  \"block_ids\": [\n    \"block-123e4567-e89b-42d3-8456-426614174000\",\n    \"block-123e4567-e89b-42d3-8456-426614174000\"\n  ],\n  \"properties\": [\n    {\n      \"key\": \"string\",\n      \"value\": \"string\",\n      \"type\": \"number\"\n    },\n    {\n      \"key\": \"string\",\n      \"value\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"identifier_key\": \"string\",\n  \"name\": \"string\",\n  \"identity_type\": \"org\",\n  \"agent_ids\": [\n    \"string\",\n    \"string\"\n  ],\n  \"block_ids\": [\n    \"string\",\n    \"string\"\n  ],\n  \"id\": \"identity-123e4567-e89b-12d3-a456-426614174000\",\n  \"project_id\": \"string\",\n  \"properties\": [\n    {\n      \"key\": \"string\",\n      \"value\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"key\": \"string\",\n      \"value\": \"string\",\n      \"type\": \"json\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6b13769b-0c95-446a-8fb9-e120fa004980",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "identities",
+                    ":identity_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "identity_id",
+                      "description": "(Required) The ID of the identity in the format 'identity-<uuid4>'"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"identifier_key\": \"<string>\",\n  \"name\": \"<string>\",\n  \"identity_type\": \"other\",\n  \"agent_ids\": [\n    \"agent-123e4567-e89b-42d3-8456-426614174000\",\n    \"agent-123e4567-e89b-42d3-8456-426614174000\"\n  ],\n  \"block_ids\": [\n    \"block-123e4567-e89b-42d3-8456-426614174000\",\n    \"block-123e4567-e89b-42d3-8456-426614174000\"\n  ],\n  \"properties\": [\n    {\n      \"key\": \"string\",\n      \"value\": \"string\",\n      \"type\": \"number\"\n    },\n    {\n      \"key\": \"string\",\n      \"value\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "39b20db6-6d8b-484a-9831-9d086c8e39be",
+          "name": "Delete Identity",
+          "request": {
+            "name": "Delete Identity",
+            "description": {
+              "content": "Delete an identity by its identifier key",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "identities",
+                ":identity_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "identity_id",
+                  "description": "(Required) The ID of the identity in the format 'identity-<uuid4>'"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "fbb01fbc-d83b-4b05-9384-a5dbb5f40076",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "identities",
+                    ":identity_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "identity_id",
+                      "description": "(Required) The ID of the identity in the format 'identity-<uuid4>'"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "85e99e92-4628-4ee3-95cc-3a79a36ec10c",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "identities",
+                    ":identity_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "identity_id",
+                      "description": "(Required) The ID of the identity in the format 'identity-<uuid4>'"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b96ea8e1-924f-4036-855c-88039f9b2e66",
+          "name": "Upsert Properties for Identity",
+          "request": {
+            "name": "Upsert Properties for Identity",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "identities",
+                ":identity_id",
+                "properties"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "identity_id",
+                  "description": "(Required) The ID of the identity in the format 'identity-<uuid4>'"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"key\": \"<string>\",\n    \"value\": \"<string>\",\n    \"type\": \"<string>\"\n  },\n  {\n    \"key\": \"<string>\",\n    \"value\": \"<string>\",\n    \"type\": \"<string>\"\n  }\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "57ba9b7e-f468-4402-97a1-3955aae247b3",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "identities",
+                    ":identity_id",
+                    "properties"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "identity_id",
+                      "description": "(Required) The ID of the identity in the format 'identity-<uuid4>'"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"key\": \"string\",\n    \"value\": \"string\",\n    \"type\": \"string\"\n  },\n  {\n    \"key\": \"string\",\n    \"value\": \"string\",\n    \"type\": \"string\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "de2561b2-313c-4829-a40e-16bc0a413f0e",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "identities",
+                    ":identity_id",
+                    "properties"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "identity_id",
+                      "description": "(Required) The ID of the identity in the format 'identity-<uuid4>'"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"key\": \"string\",\n    \"value\": \"string\",\n    \"type\": \"string\"\n  },\n  {\n    \"key\": \"string\",\n    \"value\": \"string\",\n    \"type\": \"string\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b4d69540-d74e-4387-8f0e-6faf3eef5b02",
+          "name": "List Agents for Identity",
+          "request": {
+            "name": "List Agents for Identity",
+            "description": {
+              "content": "Get all agents associated with the specified identity.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "identities",
+                ":identity_id",
+                "agents"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "before",
+                  "value": "<string>",
+                  "description": "Agent ID cursor for pagination. Returns agents that come before this agent ID in the specified sort order"
+                },
+                {
+                  "disabled": false,
+                  "key": "after",
+                  "value": "<string>",
+                  "description": "Agent ID cursor for pagination. Returns agents that come after this agent ID in the specified sort order"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Maximum number of agents to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "order",
+                  "value": "desc",
+                  "description": "Sort order for agents by creation time. 'asc' for oldest first, 'desc' for newest first"
+                },
+                {
+                  "disabled": false,
+                  "key": "order_by",
+                  "value": "created_at",
+                  "description": "Field to sort by"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "identity_id",
+                  "description": "(Required) The ID of the identity in the format 'identity-<uuid4>'"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "52b40548-d18b-40ef-ab91-e305a70af743",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "identities",
+                    ":identity_id",
+                    "agents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "before",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "after",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "order",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "created_at"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "identity_id",
+                      "description": "(Required) The ID of the identity in the format 'identity-<uuid4>'"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"system\": \"string\",\n    \"agent_type\": \"voice_sleeptime_agent\",\n    \"llm_config\": {\n      \"model\": \"string\",\n      \"model_endpoint_type\": \"minimax\",\n      \"context_window\": 3304,\n      \"display_name\": \"string\",\n      \"model_endpoint\": \"string\",\n      \"provider_name\": \"string\",\n      \"provider_category\": \"byok\",\n      \"model_wrapper\": \"string\",\n      \"put_inner_thoughts_in_kwargs\": true,\n      \"handle\": \"string\",\n      \"temperature\": 1,\n      \"max_tokens\": 3304,\n      \"enable_reasoner\": true,\n      \"reasoning_effort\": \"low\",\n      \"max_reasoning_tokens\": 0,\n      \"effort\": \"medium\",\n      \"frequency_penalty\": 5857.59887340547,\n      \"compatibility_type\": \"gguf\",\n      \"verbosity\": \"medium\",\n      \"tier\": \"string\",\n      \"parallel_tool_calls\": false,\n      \"response_format\": {\n        \"type\": \"text\"\n      },\n      \"strict\": false,\n      \"return_logprobs\": false,\n      \"top_logprobs\": 2948,\n      \"return_token_ids\": false,\n      \"tool_call_parser\": \"string\"\n    },\n    \"memory\": {\n      \"blocks\": [\n        {\n          \"value\": \"string\",\n          \"limit\": 100000,\n          \"project_id\": \"string\",\n          \"template_name\": \"string\",\n          \"is_template\": false,\n          \"template_id\": \"string\",\n          \"base_template_id\": \"string\",\n          \"deployment_id\": \"string\",\n          \"entity_id\": \"string\",\n          \"preserve_on_migration\": false,\n          \"label\": \"string\",\n          \"read_only\": false,\n          \"description\": \"string\",\n          \"metadata\": {\n            \"key_0\": 6060.834896850528,\n            \"key_1\": true,\n            \"key_2\": \"string\"\n          },\n          \"hidden\": true,\n          \"id\": \"block-123e4567-e89b-12d3-a456-426614174000\",\n          \"created_by_id\": \"string\",\n          \"last_updated_by_id\": \"string\",\n          \"tags\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        },\n        {\n          \"value\": \"string\",\n          \"limit\": 100000,\n          \"project_id\": \"string\",\n          \"template_name\": \"string\",\n          \"is_template\": false,\n          \"template_id\": \"string\",\n          \"base_template_id\": \"string\",\n          \"deployment_id\": \"string\",\n          \"entity_id\": \"string\",\n          \"preserve_on_migration\": false,\n          \"label\": \"string\",\n          \"read_only\": false,\n          \"description\": \"string\",\n          \"metadata\": {\n            \"key_0\": \"string\",\n            \"key_1\": true\n          },\n          \"hidden\": true,\n          \"id\": \"block-123e4567-e89b-12d3-a456-426614174000\",\n          \"created_by_id\": \"string\",\n          \"last_updated_by_id\": \"string\",\n          \"tags\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        }\n      ],\n      \"agent_type\": \"react_agent\",\n      \"git_enabled\": false,\n      \"file_blocks\": [\n        {\n          \"value\": \"string\",\n          \"file_id\": \"string\",\n          \"source_id\": \"string\",\n          \"is_open\": true,\n          \"limit\": 100000,\n          \"project_id\": \"string\",\n          \"template_name\": \"string\",\n          \"is_template\": false,\n          \"template_id\": \"string\",\n          \"base_template_id\": \"string\",\n          \"deployment_id\": \"string\",\n          \"entity_id\": \"string\",\n          \"preserve_on_migration\": false,\n          \"label\": \"string\",\n          \"read_only\": false,\n          \"description\": \"string\",\n          \"metadata\": {\n            \"key_0\": \"string\",\n            \"key_1\": \"string\",\n            \"key_2\": 8829.979326452976\n          },\n          \"hidden\": true,\n          \"id\": \"block-123e4567-e89b-12d3-a456-426614174000\",\n          \"created_by_id\": \"string\",\n          \"last_updated_by_id\": \"string\",\n          \"tags\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"last_accessed_at\": \"1990-05-06T19:24:13.316Z\"\n        },\n        {\n          \"value\": \"string\",\n          \"file_id\": \"string\",\n          \"source_id\": \"string\",\n          \"is_open\": false,\n          \"limit\": 100000,\n          \"project_id\": \"string\",\n          \"template_name\": \"string\",\n          \"is_template\": false,\n          \"template_id\": \"string\",\n          \"base_template_id\": \"string\",\n          \"deployment_id\": \"string\",\n          \"entity_id\": \"string\",\n          \"preserve_on_migration\": true,\n          \"label\": \"string\",\n          \"read_only\": false,\n          \"description\": \"string\",\n          \"metadata\": {\n            \"key_0\": 6031,\n            \"key_1\": 2559\n          },\n          \"hidden\": false,\n          \"id\": \"block-123e4567-e89b-12d3-a456-426614174000\",\n          \"created_by_id\": \"string\",\n          \"last_updated_by_id\": \"string\",\n          \"tags\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"last_accessed_at\": \"1948-05-29T16:31:50.697Z\"\n        }\n      ],\n      \"prompt_template\": \"\"\n    },\n    \"blocks\": [\n      {\n        \"value\": \"string\",\n        \"limit\": 100000,\n        \"project_id\": \"string\",\n        \"template_name\": \"string\",\n        \"is_template\": false,\n        \"template_id\": \"string\",\n        \"base_template_id\": \"string\",\n        \"deployment_id\": \"string\",\n        \"entity_id\": \"string\",\n        \"preserve_on_migration\": true,\n        \"label\": \"string\",\n        \"read_only\": false,\n        \"description\": \"string\",\n        \"metadata\": {\n          \"key_0\": true\n        },\n        \"hidden\": false,\n        \"id\": \"block-123e4567-e89b-12d3-a456-426614174000\",\n        \"created_by_id\": \"string\",\n        \"last_updated_by_id\": \"string\",\n        \"tags\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      {\n        \"value\": \"string\",\n        \"limit\": 100000,\n        \"project_id\": \"string\",\n        \"template_name\": \"string\",\n        \"is_template\": false,\n        \"template_id\": \"string\",\n        \"base_template_id\": \"string\",\n        \"deployment_id\": \"string\",\n        \"entity_id\": \"string\",\n        \"preserve_on_migration\": false,\n        \"label\": \"string\",\n        \"read_only\": false,\n        \"description\": \"string\",\n        \"metadata\": {\n          \"key_0\": false,\n          \"key_1\": \"string\",\n          \"key_2\": 8943.538232936133\n        },\n        \"hidden\": true,\n        \"id\": \"block-123e4567-e89b-12d3-a456-426614174000\",\n        \"created_by_id\": \"string\",\n        \"last_updated_by_id\": \"string\",\n        \"tags\": [\n          \"string\",\n          \"string\"\n        ]\n      }\n    ],\n    \"tools\": [\n      {\n        \"id\": \"tool-123e4567-e89b-12d3-a456-426614174000\",\n        \"tool_type\": \"custom\",\n        \"description\": \"string\",\n        \"source_type\": \"string\",\n        \"name\": \"string\",\n        \"source_code\": \"string\",\n        \"json_schema\": {\n          \"key_0\": 1260.8455489878222,\n          \"key_1\": true\n        },\n        \"args_json_schema\": {\n          \"key_0\": false\n        },\n        \"return_char_limit\": 50000,\n        \"pip_requirements\": [\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"version\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"version\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"npm_requirements\": [\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"version\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"version\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"default_requires_approval\": true,\n        \"enable_parallel_execution\": true,\n        \"created_by_id\": \"string\",\n        \"last_updated_by_id\": \"string\",\n        \"metadata_\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\"\n        },\n        \"project_id\": \"string\"\n      },\n      {\n        \"id\": \"tool-123e4567-e89b-12d3-a456-426614174000\",\n        \"tool_type\": \"custom\",\n        \"description\": \"string\",\n        \"source_type\": \"string\",\n        \"name\": \"string\",\n        \"source_code\": \"string\",\n        \"json_schema\": {\n          \"key_0\": 9634.302198742233,\n          \"key_1\": 6716.704458761053,\n          \"key_2\": 8407\n        },\n        \"args_json_schema\": {\n          \"key_0\": 3790.6879999732946,\n          \"key_1\": 7593\n        },\n        \"return_char_limit\": 50000,\n        \"pip_requirements\": [\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"version\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"version\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"npm_requirements\": [\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"version\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"version\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"default_requires_approval\": true,\n        \"enable_parallel_execution\": false,\n        \"created_by_id\": \"string\",\n        \"last_updated_by_id\": \"string\",\n        \"metadata_\": {\n          \"key_0\": true,\n          \"key_1\": \"string\"\n        },\n        \"project_id\": \"string\"\n      }\n    ],\n    \"sources\": [\n      {\n        \"name\": \"string\",\n        \"embedding_config\": {\n          \"embedding_endpoint_type\": \"bedrock\",\n          \"embedding_model\": \"string\",\n          \"embedding_dim\": 5989,\n          \"embedding_endpoint\": \"string\",\n          \"embedding_chunk_size\": 732,\n          \"handle\": \"string\",\n          \"batch_size\": 32,\n          \"azure_endpoint\": \"string\",\n          \"azure_version\": \"string\",\n          \"azure_deployment\": \"string\"\n        },\n        \"description\": \"string\",\n        \"instructions\": \"string\",\n        \"metadata\": {\n          \"key_0\": 9336.598592127039,\n          \"key_1\": false\n        },\n        \"id\": \"source-123e4567-e89b-12d3-a456-426614174000\",\n        \"vector_db_provider\": \"native\",\n        \"created_by_id\": \"string\",\n        \"last_updated_by_id\": \"string\",\n        \"created_at\": \"2001-04-27T07:03:27.721Z\",\n        \"updated_at\": \"1971-04-02T01:41:12.782Z\"\n      },\n      {\n        \"name\": \"string\",\n        \"embedding_config\": {\n          \"embedding_endpoint_type\": \"koboldcpp\",\n          \"embedding_model\": \"string\",\n          \"embedding_dim\": 616,\n          \"embedding_endpoint\": \"string\",\n          \"embedding_chunk_size\": 8385,\n          \"handle\": \"string\",\n          \"batch_size\": 32,\n          \"azure_endpoint\": \"string\",\n          \"azure_version\": \"string\",\n          \"azure_deployment\": \"string\"\n        },\n        \"description\": \"string\",\n        \"instructions\": \"string\",\n        \"metadata\": {\n          \"key_0\": true,\n          \"key_1\": true,\n          \"key_2\": 2241\n        },\n        \"id\": \"source-123e4567-e89b-12d3-a456-426614174000\",\n        \"vector_db_provider\": \"native\",\n        \"created_by_id\": \"string\",\n        \"last_updated_by_id\": \"string\",\n        \"created_at\": \"2004-09-01T22:23:52.572Z\",\n        \"updated_at\": \"2004-06-06T04:44:15.931Z\"\n      }\n    ],\n    \"tags\": [\n      \"string\",\n      \"string\"\n    ],\n    \"created_by_id\": \"string\",\n    \"last_updated_by_id\": \"string\",\n    \"created_at\": \"2017-04-15T15:09:28.480Z\",\n    \"updated_at\": \"2018-02-26T03:15:45.504Z\",\n    \"tool_rules\": [\n      {\n        \"tool_name\": \"string\",\n        \"children\": [\n          \"string\",\n          \"string\"\n        ],\n        \"type\": \"constrain_child_tools\",\n        \"prompt_template\": \"string\",\n        \"child_arg_nodes\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      },\n      {\n        \"tool_name\": \"string\",\n        \"children\": [\n          \"string\",\n          \"string\"\n        ],\n        \"type\": \"constrain_child_tools\",\n        \"prompt_template\": \"string\",\n        \"child_arg_nodes\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      }\n    ],\n    \"message_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"embedding_config\": {\n      \"embedding_endpoint_type\": \"webui-legacy\",\n      \"embedding_model\": \"string\",\n      \"embedding_dim\": 4026,\n      \"embedding_endpoint\": \"string\",\n      \"embedding_chunk_size\": 9403,\n      \"handle\": \"string\",\n      \"batch_size\": 32,\n      \"azure_endpoint\": \"string\",\n      \"azure_version\": \"string\",\n      \"azure_deployment\": \"string\"\n    },\n    \"model\": \"string\",\n    \"embedding\": \"string\",\n    \"model_settings\": {\n      \"max_output_tokens\": 4096,\n      \"parallel_tool_calls\": true,\n      \"provider_type\": \"openai\",\n      \"temperature\": 0.7,\n      \"reasoning\": {\n        \"reasoning_effort\": \"high\"\n      },\n      \"response_format\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"strict\": true\n    },\n    \"compaction_settings\": {\n      \"model\": \"string\",\n      \"model_settings\": {\n        \"max_output_tokens\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"parallel_tool_calls\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"provider_type\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"temperature\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"reasoning\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"response_format\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"strict\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"prompt\": \"string\",\n      \"prompt_acknowledgement\": false,\n      \"clip_chars\": 1929,\n      \"mode\": \"sliding_window\",\n      \"sliding_window_percentage\": 4188.353375361342\n    },\n    \"response_format\": {\n      \"type\": \"text\"\n    },\n    \"description\": \"string\",\n    \"metadata\": {\n      \"key_0\": 6041\n    },\n    \"tool_exec_environment_variables\": [\n      {\n        \"key\": \"string\",\n        \"value\": \"string\",\n        \"agent_id\": \"string\",\n        \"created_by_id\": \"string\",\n        \"last_updated_by_id\": \"string\",\n        \"created_at\": \"1955-04-28T12:16:42.935Z\",\n        \"updated_at\": \"1964-11-04T18:50:27.817Z\",\n        \"id\": \"agent-env-123e4567-e89b-12d3-a456-426614174000\",\n        \"description\": \"string\",\n        \"value_enc\": \"string\"\n      },\n      {\n        \"key\": \"string\",\n        \"value\": \"string\",\n        \"agent_id\": \"string\",\n        \"created_by_id\": \"string\",\n        \"last_updated_by_id\": \"string\",\n        \"created_at\": \"2007-06-02T19:41:11.743Z\",\n        \"updated_at\": \"1981-02-01T11:40:55.268Z\",\n        \"id\": \"agent-env-123e4567-e89b-12d3-a456-426614174000\",\n        \"description\": \"string\",\n        \"value_enc\": \"string\"\n      }\n    ],\n    \"secrets\": [\n      {\n        \"key\": \"string\",\n        \"value\": \"string\",\n        \"agent_id\": \"string\",\n        \"created_by_id\": \"string\",\n        \"last_updated_by_id\": \"string\",\n        \"created_at\": \"1970-05-21T08:41:05.600Z\",\n        \"updated_at\": \"1964-09-23T23:37:15.380Z\",\n        \"id\": \"agent-env-123e4567-e89b-12d3-a456-426614174000\",\n        \"description\": \"string\",\n        \"value_enc\": \"string\"\n      },\n      {\n        \"key\": \"string\",\n        \"value\": \"string\",\n        \"agent_id\": \"string\",\n        \"created_by_id\": \"string\",\n        \"last_updated_by_id\": \"string\",\n        \"created_at\": \"2004-04-24T09:30:01.637Z\",\n        \"updated_at\": \"1977-02-08T16:12:43.046Z\",\n        \"id\": \"agent-env-123e4567-e89b-12d3-a456-426614174000\",\n        \"description\": \"string\",\n        \"value_enc\": \"string\"\n      }\n    ],\n    \"project_id\": \"string\",\n    \"template_id\": \"string\",\n    \"base_template_id\": \"string\",\n    \"deployment_id\": \"string\",\n    \"entity_id\": \"string\",\n    \"pending_approval\": {\n      \"id\": \"string\",\n      \"date\": \"1962-11-17T00:33:45.231Z\",\n      \"tool_call\": {\n        \"name\": \"string\",\n        \"arguments\": \"string\",\n        \"tool_call_id\": \"string\"\n      },\n      \"name\": \"string\",\n      \"message_type\": \"approval_request_message\",\n      \"otid\": \"string\",\n      \"sender_id\": \"string\",\n      \"step_id\": \"string\",\n      \"is_err\": false,\n      \"seq_id\": 1600,\n      \"run_id\": \"string\",\n      \"tool_calls\": [\n        {\n          \"name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"arguments\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"tool_call_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"arguments\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"tool_call_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ]\n    },\n    \"message_buffer_autoclear\": false,\n    \"enable_sleeptime\": true,\n    \"multi_agent_group\": {\n      \"id\": \"string\",\n      \"manager_type\": \"voice_sleeptime\",\n      \"agent_ids\": [\n        \"string\",\n        \"string\"\n      ],\n      \"description\": \"string\",\n      \"project_id\": \"string\",\n      \"template_id\": \"string\",\n      \"base_template_id\": \"string\",\n      \"deployment_id\": \"string\",\n      \"manager_agent_id\": \"string\",\n      \"termination_token\": \"string\",\n      \"max_turns\": 8090,\n      \"sleeptime_agent_frequency\": 990,\n      \"turns_counter\": 3506,\n      \"last_processed_message_id\": \"string\",\n      \"max_message_buffer_length\": 6877,\n      \"min_message_buffer_length\": 3375,\n      \"hidden\": true\n    },\n    \"managed_group\": {\n      \"id\": \"string\",\n      \"manager_type\": \"sleeptime\",\n      \"agent_ids\": [\n        \"string\",\n        \"string\"\n      ],\n      \"description\": \"string\",\n      \"project_id\": \"string\",\n      \"template_id\": \"string\",\n      \"base_template_id\": \"string\",\n      \"deployment_id\": \"string\",\n      \"manager_agent_id\": \"string\",\n      \"termination_token\": \"string\",\n      \"max_turns\": 8155,\n      \"sleeptime_agent_frequency\": 2549,\n      \"turns_counter\": 994,\n      \"last_processed_message_id\": \"string\",\n      \"max_message_buffer_length\": 2118,\n      \"min_message_buffer_length\": 8455,\n      \"hidden\": true\n    },\n    \"last_run_completion\": \"1958-07-10T14:58:26.670Z\",\n    \"last_run_duration_ms\": 9247,\n    \"last_stop_reason\": \"error\",\n    \"timezone\": \"string\",\n    \"max_files_open\": 8939,\n    \"per_file_view_window_char_limit\": 9477,\n    \"hidden\": true\n  },\n  {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"system\": \"string\",\n    \"agent_type\": \"workflow_agent\",\n    \"llm_config\": {\n      \"model\": \"string\",\n      \"model_endpoint_type\": \"google_ai\",\n      \"context_window\": 7826,\n      \"display_name\": \"string\",\n      \"model_endpoint\": \"string\",\n      \"provider_name\": \"string\",\n      \"provider_category\": \"byok\",\n      \"model_wrapper\": \"string\",\n      \"put_inner_thoughts_in_kwargs\": true,\n      \"handle\": \"string\",\n      \"temperature\": 1,\n      \"max_tokens\": 7426,\n      \"enable_reasoner\": true,\n      \"reasoning_effort\": \"none\",\n      \"max_reasoning_tokens\": 0,\n      \"effort\": \"low\",\n      \"frequency_penalty\": 2376.1846140644516,\n      \"compatibility_type\": \"gguf\",\n      \"verbosity\": \"high\",\n      \"tier\": \"string\",\n      \"parallel_tool_calls\": true,\n      \"response_format\": {\n        \"type\": \"text\"\n      },\n      \"strict\": false,\n      \"return_logprobs\": false,\n      \"top_logprobs\": 4033,\n      \"return_token_ids\": false,\n      \"tool_call_parser\": \"string\"\n    },\n    \"memory\": {\n      \"blocks\": [\n        {\n          \"value\": \"string\",\n          \"limit\": 100000,\n          \"project_id\": \"string\",\n          \"template_name\": \"string\",\n          \"is_template\": false,\n          \"template_id\": \"string\",\n          \"base_template_id\": \"string\",\n          \"deployment_id\": \"string\",\n          \"entity_id\": \"string\",\n          \"preserve_on_migration\": false,\n          \"label\": \"string\",\n          \"read_only\": false,\n          \"description\": \"string\",\n          \"metadata\": {\n            \"key_0\": 4162,\n            \"key_1\": \"string\",\n            \"key_2\": true,\n            \"key_3\": \"string\"\n          },\n          \"hidden\": true,\n          \"id\": \"block-123e4567-e89b-12d3-a456-426614174000\",\n          \"created_by_id\": \"string\",\n          \"last_updated_by_id\": \"string\",\n          \"tags\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        },\n        {\n          \"value\": \"string\",\n          \"limit\": 100000,\n          \"project_id\": \"string\",\n          \"template_name\": \"string\",\n          \"is_template\": false,\n          \"template_id\": \"string\",\n          \"base_template_id\": \"string\",\n          \"deployment_id\": \"string\",\n          \"entity_id\": \"string\",\n          \"preserve_on_migration\": false,\n          \"label\": \"string\",\n          \"read_only\": false,\n          \"description\": \"string\",\n          \"metadata\": {\n            \"key_0\": 436.68616662457913,\n            \"key_1\": 6346,\n            \"key_2\": 6340.189401011224\n          },\n          \"hidden\": false,\n          \"id\": \"block-123e4567-e89b-12d3-a456-426614174000\",\n          \"created_by_id\": \"string\",\n          \"last_updated_by_id\": \"string\",\n          \"tags\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        }\n      ],\n      \"agent_type\": \"voice_convo_agent\",\n      \"git_enabled\": false,\n      \"file_blocks\": [\n        {\n          \"value\": \"string\",\n          \"file_id\": \"string\",\n          \"source_id\": \"string\",\n          \"is_open\": true,\n          \"limit\": 100000,\n          \"project_id\": \"string\",\n          \"template_name\": \"string\",\n          \"is_template\": false,\n          \"template_id\": \"string\",\n          \"base_template_id\": \"string\",\n          \"deployment_id\": \"string\",\n          \"entity_id\": \"string\",\n          \"preserve_on_migration\": false,\n          \"label\": \"string\",\n          \"read_only\": false,\n          \"description\": \"string\",\n          \"metadata\": {\n            \"key_0\": true\n          },\n          \"hidden\": true,\n          \"id\": \"block-123e4567-e89b-12d3-a456-426614174000\",\n          \"created_by_id\": \"string\",\n          \"last_updated_by_id\": \"string\",\n          \"tags\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"last_accessed_at\": \"2022-04-13T05:50:03.715Z\"\n        },\n        {\n          \"value\": \"string\",\n          \"file_id\": \"string\",\n          \"source_id\": \"string\",\n          \"is_open\": true,\n          \"limit\": 100000,\n          \"project_id\": \"string\",\n          \"template_name\": \"string\",\n          \"is_template\": false,\n          \"template_id\": \"string\",\n          \"base_template_id\": \"string\",\n          \"deployment_id\": \"string\",\n          \"entity_id\": \"string\",\n          \"preserve_on_migration\": false,\n          \"label\": \"string\",\n          \"read_only\": false,\n          \"description\": \"string\",\n          \"metadata\": {\n            \"key_0\": 1641.1205228610293,\n            \"key_1\": \"string\"\n          },\n          \"hidden\": true,\n          \"id\": \"block-123e4567-e89b-12d3-a456-426614174000\",\n          \"created_by_id\": \"string\",\n          \"last_updated_by_id\": \"string\",\n          \"tags\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"last_accessed_at\": \"1990-01-24T13:10:13.463Z\"\n        }\n      ],\n      \"prompt_template\": \"\"\n    },\n    \"blocks\": [\n      {\n        \"value\": \"string\",\n        \"limit\": 100000,\n        \"project_id\": \"string\",\n        \"template_name\": \"string\",\n        \"is_template\": false,\n        \"template_id\": \"string\",\n        \"base_template_id\": \"string\",\n        \"deployment_id\": \"string\",\n        \"entity_id\": \"string\",\n        \"preserve_on_migration\": false,\n        \"label\": \"string\",\n        \"read_only\": false,\n        \"description\": \"string\",\n        \"metadata\": {\n          \"key_0\": 8569.755953166754,\n          \"key_1\": false\n        },\n        \"hidden\": true,\n        \"id\": \"block-123e4567-e89b-12d3-a456-426614174000\",\n        \"created_by_id\": \"string\",\n        \"last_updated_by_id\": \"string\",\n        \"tags\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      {\n        \"value\": \"string\",\n        \"limit\": 100000,\n        \"project_id\": \"string\",\n        \"template_name\": \"string\",\n        \"is_template\": false,\n        \"template_id\": \"string\",\n        \"base_template_id\": \"string\",\n        \"deployment_id\": \"string\",\n        \"entity_id\": \"string\",\n        \"preserve_on_migration\": true,\n        \"label\": \"string\",\n        \"read_only\": false,\n        \"description\": \"string\",\n        \"metadata\": {\n          \"key_0\": 1470\n        },\n        \"hidden\": false,\n        \"id\": \"block-123e4567-e89b-12d3-a456-426614174000\",\n        \"created_by_id\": \"string\",\n        \"last_updated_by_id\": \"string\",\n        \"tags\": [\n          \"string\",\n          \"string\"\n        ]\n      }\n    ],\n    \"tools\": [\n      {\n        \"id\": \"tool-123e4567-e89b-12d3-a456-426614174000\",\n        \"tool_type\": \"custom\",\n        \"description\": \"string\",\n        \"source_type\": \"string\",\n        \"name\": \"string\",\n        \"source_code\": \"string\",\n        \"json_schema\": {\n          \"key_0\": \"string\",\n          \"key_1\": 5190.170616529856\n        },\n        \"args_json_schema\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\"\n        },\n        \"return_char_limit\": 50000,\n        \"pip_requirements\": [\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"version\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"version\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"npm_requirements\": [\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"version\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"version\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"default_requires_approval\": false,\n        \"enable_parallel_execution\": false,\n        \"created_by_id\": \"string\",\n        \"last_updated_by_id\": \"string\",\n        \"metadata_\": {\n          \"key_0\": false\n        },\n        \"project_id\": \"string\"\n      },\n      {\n        \"id\": \"tool-123e4567-e89b-12d3-a456-426614174000\",\n        \"tool_type\": \"custom\",\n        \"description\": \"string\",\n        \"source_type\": \"string\",\n        \"name\": \"string\",\n        \"source_code\": \"string\",\n        \"json_schema\": {\n          \"key_0\": false,\n          \"key_1\": true\n        },\n        \"args_json_schema\": {\n          \"key_0\": 8163.73799749425,\n          \"key_1\": \"string\"\n        },\n        \"return_char_limit\": 50000,\n        \"pip_requirements\": [\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"version\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"version\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"npm_requirements\": [\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"version\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"version\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"default_requires_approval\": false,\n        \"enable_parallel_execution\": true,\n        \"created_by_id\": \"string\",\n        \"last_updated_by_id\": \"string\",\n        \"metadata_\": {\n          \"key_0\": \"string\"\n        },\n        \"project_id\": \"string\"\n      }\n    ],\n    \"sources\": [\n      {\n        \"name\": \"string\",\n        \"embedding_config\": {\n          \"embedding_endpoint_type\": \"openai\",\n          \"embedding_model\": \"string\",\n          \"embedding_dim\": 3936,\n          \"embedding_endpoint\": \"string\",\n          \"embedding_chunk_size\": 2233,\n          \"handle\": \"string\",\n          \"batch_size\": 32,\n          \"azure_endpoint\": \"string\",\n          \"azure_version\": \"string\",\n          \"azure_deployment\": \"string\"\n        },\n        \"description\": \"string\",\n        \"instructions\": \"string\",\n        \"metadata\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\"\n        },\n        \"id\": \"source-123e4567-e89b-12d3-a456-426614174000\",\n        \"vector_db_provider\": \"native\",\n        \"created_by_id\": \"string\",\n        \"last_updated_by_id\": \"string\",\n        \"created_at\": \"1995-06-20T08:01:34.982Z\",\n        \"updated_at\": \"1975-05-11T04:12:41.025Z\"\n      },\n      {\n        \"name\": \"string\",\n        \"embedding_config\": {\n          \"embedding_endpoint_type\": \"mistral\",\n          \"embedding_model\": \"string\",\n          \"embedding_dim\": 2441,\n          \"embedding_endpoint\": \"string\",\n          \"embedding_chunk_size\": 818,\n          \"handle\": \"string\",\n          \"batch_size\": 32,\n          \"azure_endpoint\": \"string\",\n          \"azure_version\": \"string\",\n          \"azure_deployment\": \"string\"\n        },\n        \"description\": \"string\",\n        \"instructions\": \"string\",\n        \"metadata\": {\n          \"key_0\": 2416.7562017460677,\n          \"key_1\": true\n        },\n        \"id\": \"source-123e4567-e89b-12d3-a456-426614174000\",\n        \"vector_db_provider\": \"native\",\n        \"created_by_id\": \"string\",\n        \"last_updated_by_id\": \"string\",\n        \"created_at\": \"1990-01-15T11:24:37.922Z\",\n        \"updated_at\": \"1995-12-12T19:43:45.096Z\"\n      }\n    ],\n    \"tags\": [\n      \"string\",\n      \"string\"\n    ],\n    \"created_by_id\": \"string\",\n    \"last_updated_by_id\": \"string\",\n    \"created_at\": \"2017-07-18T03:40:04.882Z\",\n    \"updated_at\": \"1981-08-05T03:22:14.275Z\",\n    \"tool_rules\": [\n      {\n        \"tool_name\": \"string\",\n        \"children\": [\n          \"string\",\n          \"string\"\n        ],\n        \"type\": \"constrain_child_tools\",\n        \"prompt_template\": \"string\",\n        \"child_arg_nodes\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      },\n      {\n        \"tool_name\": \"string\",\n        \"children\": [\n          \"string\",\n          \"string\"\n        ],\n        \"type\": \"constrain_child_tools\",\n        \"prompt_template\": \"string\",\n        \"child_arg_nodes\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      }\n    ],\n    \"message_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"embedding_config\": {\n      \"embedding_endpoint_type\": \"vllm\",\n      \"embedding_model\": \"string\",\n      \"embedding_dim\": 8079,\n      \"embedding_endpoint\": \"string\",\n      \"embedding_chunk_size\": 1087,\n      \"handle\": \"string\",\n      \"batch_size\": 32,\n      \"azure_endpoint\": \"string\",\n      \"azure_version\": \"string\",\n      \"azure_deployment\": \"string\"\n    },\n    \"model\": \"string\",\n    \"embedding\": \"string\",\n    \"model_settings\": {\n      \"max_output_tokens\": 4096,\n      \"parallel_tool_calls\": true,\n      \"provider_type\": \"openai\",\n      \"temperature\": 0.7,\n      \"reasoning\": {\n        \"reasoning_effort\": \"high\"\n      },\n      \"response_format\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"strict\": true\n    },\n    \"compaction_settings\": {\n      \"model\": \"string\",\n      \"model_settings\": {\n        \"max_output_tokens\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"parallel_tool_calls\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"provider_type\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"temperature\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"reasoning\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"response_format\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"strict\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"prompt\": \"string\",\n      \"prompt_acknowledgement\": false,\n      \"clip_chars\": 8460,\n      \"mode\": \"sliding_window\",\n      \"sliding_window_percentage\": 6210.0840662237315\n    },\n    \"response_format\": {\n      \"type\": \"text\"\n    },\n    \"description\": \"string\",\n    \"metadata\": {\n      \"key_0\": \"string\"\n    },\n    \"tool_exec_environment_variables\": [\n      {\n        \"key\": \"string\",\n        \"value\": \"string\",\n        \"agent_id\": \"string\",\n        \"created_by_id\": \"string\",\n        \"last_updated_by_id\": \"string\",\n        \"created_at\": \"1960-07-24T16:14:29.665Z\",\n        \"updated_at\": \"2019-08-29T06:44:11.239Z\",\n        \"id\": \"agent-env-123e4567-e89b-12d3-a456-426614174000\",\n        \"description\": \"string\",\n        \"value_enc\": \"string\"\n      },\n      {\n        \"key\": \"string\",\n        \"value\": \"string\",\n        \"agent_id\": \"string\",\n        \"created_by_id\": \"string\",\n        \"last_updated_by_id\": \"string\",\n        \"created_at\": \"2005-08-07T09:33:06.772Z\",\n        \"updated_at\": \"2009-08-17T20:12:11.912Z\",\n        \"id\": \"agent-env-123e4567-e89b-12d3-a456-426614174000\",\n        \"description\": \"string\",\n        \"value_enc\": \"string\"\n      }\n    ],\n    \"secrets\": [\n      {\n        \"key\": \"string\",\n        \"value\": \"string\",\n        \"agent_id\": \"string\",\n        \"created_by_id\": \"string\",\n        \"last_updated_by_id\": \"string\",\n        \"created_at\": \"1957-01-12T05:35:34.571Z\",\n        \"updated_at\": \"1959-12-08T03:08:05.208Z\",\n        \"id\": \"agent-env-123e4567-e89b-12d3-a456-426614174000\",\n        \"description\": \"string\",\n        \"value_enc\": \"string\"\n      },\n      {\n        \"key\": \"string\",\n        \"value\": \"string\",\n        \"agent_id\": \"string\",\n        \"created_by_id\": \"string\",\n        \"last_updated_by_id\": \"string\",\n        \"created_at\": \"2001-11-15T02:49:49.012Z\",\n        \"updated_at\": \"2023-03-08T08:02:45.221Z\",\n        \"id\": \"agent-env-123e4567-e89b-12d3-a456-426614174000\",\n        \"description\": \"string\",\n        \"value_enc\": \"string\"\n      }\n    ],\n    \"project_id\": \"string\",\n    \"template_id\": \"string\",\n    \"base_template_id\": \"string\",\n    \"deployment_id\": \"string\",\n    \"entity_id\": \"string\",\n    \"pending_approval\": {\n      \"id\": \"string\",\n      \"date\": \"1969-09-16T07:15:22.319Z\",\n      \"tool_call\": {\n        \"name\": \"string\",\n        \"arguments\": \"string\",\n        \"tool_call_id\": \"string\"\n      },\n      \"name\": \"string\",\n      \"message_type\": \"approval_request_message\",\n      \"otid\": \"string\",\n      \"sender_id\": \"string\",\n      \"step_id\": \"string\",\n      \"is_err\": true,\n      \"seq_id\": 3833,\n      \"run_id\": \"string\",\n      \"tool_calls\": [\n        {\n          \"name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"arguments\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"tool_call_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"arguments\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"tool_call_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ]\n    },\n    \"message_buffer_autoclear\": false,\n    \"enable_sleeptime\": false,\n    \"multi_agent_group\": {\n      \"id\": \"string\",\n      \"manager_type\": \"supervisor\",\n      \"agent_ids\": [\n        \"string\",\n        \"string\"\n      ],\n      \"description\": \"string\",\n      \"project_id\": \"string\",\n      \"template_id\": \"string\",\n      \"base_template_id\": \"string\",\n      \"deployment_id\": \"string\",\n      \"manager_agent_id\": \"string\",\n      \"termination_token\": \"string\",\n      \"max_turns\": 8749,\n      \"sleeptime_agent_frequency\": 2133,\n      \"turns_counter\": 9865,\n      \"last_processed_message_id\": \"string\",\n      \"max_message_buffer_length\": 1481,\n      \"min_message_buffer_length\": 4190,\n      \"hidden\": true\n    },\n    \"managed_group\": {\n      \"id\": \"string\",\n      \"manager_type\": \"round_robin\",\n      \"agent_ids\": [\n        \"string\",\n        \"string\"\n      ],\n      \"description\": \"string\",\n      \"project_id\": \"string\",\n      \"template_id\": \"string\",\n      \"base_template_id\": \"string\",\n      \"deployment_id\": \"string\",\n      \"manager_agent_id\": \"string\",\n      \"termination_token\": \"string\",\n      \"max_turns\": 703,\n      \"sleeptime_agent_frequency\": 4577,\n      \"turns_counter\": 7263,\n      \"last_processed_message_id\": \"string\",\n      \"max_message_buffer_length\": 594,\n      \"min_message_buffer_length\": 968,\n      \"hidden\": false\n    },\n    \"last_run_completion\": \"1964-03-26T13:36:34.340Z\",\n    \"last_run_duration_ms\": 9912,\n    \"last_stop_reason\": \"insufficient_credits\",\n    \"timezone\": \"string\",\n    \"max_files_open\": 7586,\n    \"per_file_view_window_char_limit\": 5417,\n    \"hidden\": true\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c334d483-d4a6-49fc-9552-acad01dda5aa",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "identities",
+                    ":identity_id",
+                    "agents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "before",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "after",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "order",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "created_at"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "identity_id",
+                      "description": "(Required) The ID of the identity in the format 'identity-<uuid4>'"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e2c103ef-ac33-4799-a31d-be2afdb7ec5d",
+          "name": "List Blocks for Identity",
+          "request": {
+            "name": "List Blocks for Identity",
+            "description": {
+              "content": "Get all blocks associated with the specified identity.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "identities",
+                ":identity_id",
+                "blocks"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "before",
+                  "value": "<string>",
+                  "description": "Block ID cursor for pagination. Returns blocks that come before this block ID in the specified sort order"
+                },
+                {
+                  "disabled": false,
+                  "key": "after",
+                  "value": "<string>",
+                  "description": "Block ID cursor for pagination. Returns blocks that come after this block ID in the specified sort order"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Maximum number of blocks to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "order",
+                  "value": "desc",
+                  "description": "Sort order for blocks by creation time. 'asc' for oldest first, 'desc' for newest first"
+                },
+                {
+                  "disabled": false,
+                  "key": "order_by",
+                  "value": "created_at",
+                  "description": "Field to sort by"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "identity_id",
+                  "description": "(Required) The ID of the identity in the format 'identity-<uuid4>'"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e3e85f28-3d31-4bc7-b881-d031695ab317",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "identities",
+                    ":identity_id",
+                    "blocks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "before",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "after",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "order",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "created_at"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "identity_id",
+                      "description": "(Required) The ID of the identity in the format 'identity-<uuid4>'"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"value\": \"string\",\n    \"id\": \"string\",\n    \"limit\": 100000,\n    \"project_id\": \"string\",\n    \"template_name\": \"string\",\n    \"is_template\": false,\n    \"template_id\": \"string\",\n    \"base_template_id\": \"string\",\n    \"deployment_id\": \"string\",\n    \"entity_id\": \"string\",\n    \"preserve_on_migration\": false,\n    \"label\": \"string\",\n    \"read_only\": false,\n    \"description\": \"string\",\n    \"metadata\": {\n      \"key_0\": 4888.738632646885,\n      \"key_1\": false,\n      \"key_2\": 5702.796472853876\n    },\n    \"hidden\": true,\n    \"created_by_id\": \"string\",\n    \"last_updated_by_id\": \"string\",\n    \"tags\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  {\n    \"value\": \"string\",\n    \"id\": \"string\",\n    \"limit\": 100000,\n    \"project_id\": \"string\",\n    \"template_name\": \"string\",\n    \"is_template\": false,\n    \"template_id\": \"string\",\n    \"base_template_id\": \"string\",\n    \"deployment_id\": \"string\",\n    \"entity_id\": \"string\",\n    \"preserve_on_migration\": true,\n    \"label\": \"string\",\n    \"read_only\": false,\n    \"description\": \"string\",\n    \"metadata\": {\n      \"key_0\": true,\n      \"key_1\": 7951\n    },\n    \"hidden\": true,\n    \"created_by_id\": \"string\",\n    \"last_updated_by_id\": \"string\",\n    \"tags\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "853ce534-6b94-411a-90d8-25aff6cbbd14",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "identities",
+                    ":identity_id",
+                    "blocks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "before",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "after",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "order",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "created_at"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "identity_id",
+                      "description": "(Required) The ID of the identity in the format 'identity-<uuid4>'"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.letta.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "213c7301-23ec-4bb6-8405-49a6ec189c02",
+    "name": "Letta Admin Identities API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST API for Letta, the stateful agents platform. Manage agents, memory blocks, archival passages, sources, custom tools, MCP servers, multi-agent groups, runs, and streaming responses. Available as Letta Cloud (managed) at https://api.letta.com/v1 and as the self-hosted open-source server (Apache-2.0) typically run at http://localhost:8283.\n\nContact Support:\n Name: Letta\n Email: support@letta.com",
+      "type": "text/plain"
+    }
+  }
+}

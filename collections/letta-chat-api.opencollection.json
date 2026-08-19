@@ -1,0 +1,39 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Letta Admin Chat API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Chat",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create Chat Completion",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.letta.com/v1/chat/completions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a chat completion using a Letta agent (OpenAI-compatible).\n\nThis endpoint provides full OpenAI API compatibility. The agent is selected based on:\n- The 'model' parameter in the request (should contain an agent ID in format 'agent-...')\n\nWhen streaming is enabled (stream=true), the response will be Server-Sent Events\nwith ChatCompletionChunk objects."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

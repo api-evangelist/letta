@@ -1,0 +1,1487 @@
+{
+  "item": [
+    {
+      "id": "170d47d2-da1b-4019-bc6e-f5a10c2a499a",
+      "name": "Messages",
+      "description": {
+        "content": "Send messages, list message history, search, and batch operations.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "71d5a695-abab-44ce-95f2-c19114789fad",
+          "name": "List All Messages",
+          "request": {
+            "name": "List All Messages",
+            "description": {
+              "content": "List messages across all agents for the current user.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "messages",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "before",
+                  "value": "<string>",
+                  "description": "Message ID cursor for pagination. Returns messages that come before this message ID in the specified sort order"
+                },
+                {
+                  "disabled": false,
+                  "key": "after",
+                  "value": "<string>",
+                  "description": "Message ID cursor for pagination. Returns messages that come after this message ID in the specified sort order"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Maximum number of messages to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "order",
+                  "value": "desc",
+                  "description": "Sort order for messages by creation time. 'asc' for oldest first, 'desc' for newest first"
+                },
+                {
+                  "disabled": false,
+                  "key": "conversation_id",
+                  "value": "<string>",
+                  "description": "Conversation ID to filter messages by"
+                },
+                {
+                  "disabled": false,
+                  "key": "include_return_message_types",
+                  "value": "<string>",
+                  "description": "Message types to include in response. When null, all message types are returned."
+                },
+                {
+                  "disabled": false,
+                  "key": "include_return_message_types",
+                  "value": "<string>",
+                  "description": "Message types to include in response. When null, all message types are returned."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "10af60eb-ad95-4402-b27a-d187ae74ac18",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "messages",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "before",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "after",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "order",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "conversation_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include_return_message_types",
+                      "value": "system_message"
+                    },
+                    {
+                      "key": "include_return_message_types",
+                      "value": "summary_message"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"string\",\n    \"date\": \"1995-03-02T18:59:30.733Z\",\n    \"content\": \"string\",\n    \"name\": \"string\",\n    \"message_type\": \"system_message\",\n    \"otid\": \"string\",\n    \"sender_id\": \"string\",\n    \"step_id\": \"string\",\n    \"is_err\": false,\n    \"seq_id\": 4902,\n    \"run_id\": \"string\"\n  },\n  {\n    \"id\": \"string\",\n    \"date\": \"1990-09-30T09:29:55.972Z\",\n    \"content\": \"string\",\n    \"name\": \"string\",\n    \"message_type\": \"system_message\",\n    \"otid\": \"string\",\n    \"sender_id\": \"string\",\n    \"step_id\": \"string\",\n    \"is_err\": false,\n    \"seq_id\": 6998,\n    \"run_id\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "abe75530-e5db-4e18-a26e-e49be151c022",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "messages",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "before",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "after",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "order",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "conversation_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include_return_message_types",
+                      "value": "system_message"
+                    },
+                    {
+                      "key": "include_return_message_types",
+                      "value": "summary_message"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "84d8e3e1-b5b8-48bc-a3a3-06fc85b94f03",
+          "name": "Search All Messages",
+          "request": {
+            "name": "Search All Messages",
+            "description": {
+              "content": "Search messages across the organization with optional agent filtering.\nReturns messages with FTS/vector ranks and total RRF score.\n\n\nThis is a cloud-only feature.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "messages",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"<string>\",\n  \"search_mode\": \"hybrid\",\n  \"agent_id\": \"<string>\",\n  \"conversation_id\": \"<string>\",\n  \"limit\": 50,\n  \"start_date\": \"<dateTime>\",\n  \"end_date\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8472a700-c958-439f-bdeb-11df7599736d",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "messages",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"<string>\",\n  \"search_mode\": \"hybrid\",\n  \"agent_id\": \"<string>\",\n  \"conversation_id\": \"<string>\",\n  \"limit\": 50,\n  \"start_date\": \"<dateTime>\",\n  \"end_date\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"content\": \"string\",\n    \"message_id\": \"string\",\n    \"created_at\": \"1991-01-04T07:31:21.199Z\",\n    \"message_type\": \"system_message\",\n    \"agent_id\": \"string\",\n    \"conversation_id\": \"string\"\n  },\n  {\n    \"content\": \"string\",\n    \"message_id\": \"string\",\n    \"created_at\": \"1958-01-24T01:13:01.227Z\",\n    \"message_type\": \"system_message\",\n    \"agent_id\": \"string\",\n    \"conversation_id\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b6d9aae1-a7dc-438d-a5dc-9d1545711373",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "messages",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"<string>\",\n  \"search_mode\": \"hybrid\",\n  \"agent_id\": \"<string>\",\n  \"conversation_id\": \"<string>\",\n  \"limit\": 50,\n  \"start_date\": \"<dateTime>\",\n  \"end_date\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8617a2db-125a-4b9c-b30f-6067d0e2b38e",
+          "name": "Create Batch",
+          "request": {
+            "name": "Create Batch",
+            "description": {
+              "content": "Submit a batch of agent runs for asynchronous processing.\n\nCreates a job that will fan out messages to all listed agents and process them in parallel.\nThe request will be rejected if it exceeds 256MB.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "messages",
+                "batches"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"requests\": [\n    {\n      \"agent_id\": \"<string>\",\n      \"messages\": [\n        {\n          \"role\": \"<string>\",\n          \"content\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"otid\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"group_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"sender_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"batch_item_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"role\": \"<string>\",\n          \"content\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"otid\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"group_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"sender_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"batch_item_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"input\": \"<string>\",\n      \"max_steps\": 50,\n      \"use_assistant_message\": true,\n      \"assistant_message_tool_name\": \"send_message\",\n      \"assistant_message_tool_kwarg\": \"message\",\n      \"include_return_message_types\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"enable_thinking\": true,\n      \"client_tools\": [\n        {\n          \"name\": \"<string>\",\n          \"description\": \"<string>\",\n          \"parameters\": {\n            \"key_0\": \"string\",\n            \"key_1\": 3356\n          }\n        },\n        {\n          \"name\": \"<string>\",\n          \"description\": \"<string>\",\n          \"parameters\": {\n            \"key_0\": 8714.857776592386,\n            \"key_1\": 9438.151921703036\n          }\n        }\n      ],\n      \"client_skills\": [\n        {\n          \"name\": \"<string>\",\n          \"description\": \"<string>\",\n          \"location\": \"<string>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"description\": \"<string>\",\n          \"location\": \"<string>\"\n        }\n      ],\n      \"override_model\": \"<string>\",\n      \"include_compaction_messages\": false,\n      \"return_logprobs\": false,\n      \"top_logprobs\": \"<integer>\",\n      \"return_token_ids\": false,\n      \"override_system\": \"<string>\"\n    },\n    {\n      \"agent_id\": \"<string>\",\n      \"messages\": [\n        {\n          \"role\": \"<string>\",\n          \"content\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"otid\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"group_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"sender_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"batch_item_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"role\": \"<string>\",\n          \"content\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"otid\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"group_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"sender_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"batch_item_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"input\": \"<string>\",\n      \"max_steps\": 50,\n      \"use_assistant_message\": true,\n      \"assistant_message_tool_name\": \"send_message\",\n      \"assistant_message_tool_kwarg\": \"message\",\n      \"include_return_message_types\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"enable_thinking\": true,\n      \"client_tools\": [\n        {\n          \"name\": \"<string>\",\n          \"description\": \"<string>\",\n          \"parameters\": {\n            \"key_0\": 9386,\n            \"key_1\": 1491.3686544073823\n          }\n        },\n        {\n          \"name\": \"<string>\",\n          \"description\": \"<string>\",\n          \"parameters\": {\n            \"key_0\": 8677.363802235453,\n            \"key_1\": \"string\"\n          }\n        }\n      ],\n      \"client_skills\": [\n        {\n          \"name\": \"<string>\",\n          \"description\": \"<string>\",\n          \"location\": \"<string>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"description\": \"<string>\",\n          \"location\": \"<string>\"\n        }\n      ],\n      \"override_model\": \"<string>\",\n      \"include_compaction_messages\": false,\n      \"return_logprobs\": false,\n      \"top_logprobs\": \"<integer>\",\n      \"return_token_ids\": false,\n      \"override_system\": \"<string>\"\n    }\n  ],\n  \"callback_url\": \"<uri>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "cfcd5e79-a9b4-4d43-86ff-7946e2b0730d",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "messages",
+                    "batches"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"requests\": [\n    {\n      \"agent_id\": \"agent-123e4567-e89b-42d3-8456-426614174000\",\n      \"messages\": [\n        {\n          \"role\": \"system\",\n          \"content\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"otid\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"group_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"sender_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"batch_item_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"role\": \"user\",\n          \"content\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"otid\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"group_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"sender_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"batch_item_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"input\": \"string\",\n      \"max_steps\": 50,\n      \"use_assistant_message\": true,\n      \"assistant_message_tool_name\": \"send_message\",\n      \"assistant_message_tool_kwarg\": \"message\",\n      \"include_return_message_types\": [\n        \"hidden_reasoning_message\",\n        \"system_message\"\n      ],\n      \"enable_thinking\": true,\n      \"client_tools\": [\n        {\n          \"name\": \"string\",\n          \"description\": \"string\",\n          \"parameters\": {\n            \"key_0\": 4435.313225460269,\n            \"key_1\": 6046.1342920990055\n          }\n        },\n        {\n          \"name\": \"string\",\n          \"description\": \"string\",\n          \"parameters\": {\n            \"key_0\": false,\n            \"key_1\": true\n          }\n        }\n      ],\n      \"client_skills\": [\n        {\n          \"name\": \"string\",\n          \"description\": \"string\",\n          \"location\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"description\": \"string\",\n          \"location\": \"string\"\n        }\n      ],\n      \"override_model\": \"string\",\n      \"include_compaction_messages\": false,\n      \"return_logprobs\": false,\n      \"top_logprobs\": 9181,\n      \"return_token_ids\": false,\n      \"override_system\": \"string\"\n    },\n    {\n      \"agent_id\": \"agent-123e4567-e89b-42d3-8456-426614174000\",\n      \"messages\": [\n        {\n          \"role\": \"user\",\n          \"content\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"otid\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"group_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"sender_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"batch_item_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"role\": \"assistant\",\n          \"content\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"otid\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"group_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"sender_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"batch_item_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"input\": \"string\",\n      \"max_steps\": 50,\n      \"use_assistant_message\": true,\n      \"assistant_message_tool_name\": \"send_message\",\n      \"assistant_message_tool_kwarg\": \"message\",\n      \"include_return_message_types\": [\n        \"reasoning_message\",\n        \"hidden_reasoning_message\"\n      ],\n      \"enable_thinking\": true,\n      \"client_tools\": [\n        {\n          \"name\": \"string\",\n          \"description\": \"string\",\n          \"parameters\": {\n            \"key_0\": \"string\",\n            \"key_1\": 7000.713614330115,\n            \"key_2\": 229.64211959486502\n          }\n        },\n        {\n          \"name\": \"string\",\n          \"description\": \"string\",\n          \"parameters\": {\n            \"key_0\": 6280\n          }\n        }\n      ],\n      \"client_skills\": [\n        {\n          \"name\": \"string\",\n          \"description\": \"string\",\n          \"location\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"description\": \"string\",\n          \"location\": \"string\"\n        }\n      ],\n      \"override_model\": \"string\",\n      \"include_compaction_messages\": false,\n      \"return_logprobs\": false,\n      \"top_logprobs\": 4354,\n      \"return_token_ids\": false,\n      \"override_system\": \"string\"\n    }\n  ],\n  \"callback_url\": \"<uri>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"created_by_id\": \"string\",\n  \"last_updated_by_id\": \"string\",\n  \"created_at\": \"1950-07-25T17:31:26.282Z\",\n  \"updated_at\": \"2003-11-16T06:13:39.852Z\",\n  \"status\": \"created\",\n  \"completed_at\": \"1966-11-09T19:42:29.206Z\",\n  \"stop_reason\": \"max_steps\",\n  \"metadata\": {\n    \"key_0\": 8239.39575955473,\n    \"key_1\": 1952.4752793273503,\n    \"key_2\": \"string\",\n    \"key_3\": 8798.77894414931\n  },\n  \"job_type\": \"batch\",\n  \"background\": true,\n  \"agent_id\": \"string\",\n  \"callback_url\": \"string\",\n  \"callback_sent_at\": \"1963-04-15T05:29:08.452Z\",\n  \"callback_status_code\": 4575,\n  \"callback_error\": \"string\",\n  \"ttft_ns\": 2191,\n  \"total_duration_ns\": 1100,\n  \"id\": \"job-123e4567-e89b-12d3-a456-426614174000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "06aa4b5d-eac5-467d-be4c-72153ea7f169",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "messages",
+                    "batches"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"requests\": [\n    {\n      \"agent_id\": \"agent-123e4567-e89b-42d3-8456-426614174000\",\n      \"messages\": [\n        {\n          \"role\": \"system\",\n          \"content\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"otid\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"group_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"sender_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"batch_item_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"role\": \"user\",\n          \"content\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"otid\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"group_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"sender_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"batch_item_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"input\": \"string\",\n      \"max_steps\": 50,\n      \"use_assistant_message\": true,\n      \"assistant_message_tool_name\": \"send_message\",\n      \"assistant_message_tool_kwarg\": \"message\",\n      \"include_return_message_types\": [\n        \"hidden_reasoning_message\",\n        \"system_message\"\n      ],\n      \"enable_thinking\": true,\n      \"client_tools\": [\n        {\n          \"name\": \"string\",\n          \"description\": \"string\",\n          \"parameters\": {\n            \"key_0\": 4435.313225460269,\n            \"key_1\": 6046.1342920990055\n          }\n        },\n        {\n          \"name\": \"string\",\n          \"description\": \"string\",\n          \"parameters\": {\n            \"key_0\": false,\n            \"key_1\": true\n          }\n        }\n      ],\n      \"client_skills\": [\n        {\n          \"name\": \"string\",\n          \"description\": \"string\",\n          \"location\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"description\": \"string\",\n          \"location\": \"string\"\n        }\n      ],\n      \"override_model\": \"string\",\n      \"include_compaction_messages\": false,\n      \"return_logprobs\": false,\n      \"top_logprobs\": 9181,\n      \"return_token_ids\": false,\n      \"override_system\": \"string\"\n    },\n    {\n      \"agent_id\": \"agent-123e4567-e89b-42d3-8456-426614174000\",\n      \"messages\": [\n        {\n          \"role\": \"user\",\n          \"content\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"otid\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"group_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"sender_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"batch_item_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"role\": \"assistant\",\n          \"content\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"otid\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"group_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"sender_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"batch_item_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"input\": \"string\",\n      \"max_steps\": 50,\n      \"use_assistant_message\": true,\n      \"assistant_message_tool_name\": \"send_message\",\n      \"assistant_message_tool_kwarg\": \"message\",\n      \"include_return_message_types\": [\n        \"reasoning_message\",\n        \"hidden_reasoning_message\"\n      ],\n      \"enable_thinking\": true,\n      \"client_tools\": [\n        {\n          \"name\": \"string\",\n          \"description\": \"string\",\n          \"parameters\": {\n            \"key_0\": \"string\",\n            \"key_1\": 7000.713614330115,\n            \"key_2\": 229.64211959486502\n          }\n        },\n        {\n          \"name\": \"string\",\n          \"description\": \"string\",\n          \"parameters\": {\n            \"key_0\": 6280\n          }\n        }\n      ],\n      \"client_skills\": [\n        {\n          \"name\": \"string\",\n          \"description\": \"string\",\n          \"location\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"description\": \"string\",\n          \"location\": \"string\"\n        }\n      ],\n      \"override_model\": \"string\",\n      \"include_compaction_messages\": false,\n      \"return_logprobs\": false,\n      \"top_logprobs\": 4354,\n      \"return_token_ids\": false,\n      \"override_system\": \"string\"\n    }\n  ],\n  \"callback_url\": \"<uri>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e8669db9-f2b2-4720-9f77-2cb1ef4cc4c0",
+          "name": "List Batches",
+          "request": {
+            "name": "List Batches",
+            "description": {
+              "content": "List all batch runs.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "messages",
+                "batches"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "before",
+                  "value": "<string>",
+                  "description": "Job ID cursor for pagination. Returns jobs that come before this job ID in the specified sort order"
+                },
+                {
+                  "disabled": false,
+                  "key": "after",
+                  "value": "<string>",
+                  "description": "Job ID cursor for pagination. Returns jobs that come after this job ID in the specified sort order"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Maximum number of jobs to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "order",
+                  "value": "desc",
+                  "description": "Sort order for jobs by creation time. 'asc' for oldest first, 'desc' for newest first"
+                },
+                {
+                  "disabled": false,
+                  "key": "order_by",
+                  "value": "created_at",
+                  "description": "Field to sort by"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8fcb330a-c29c-464a-a7f3-980902af9ce6",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "messages",
+                    "batches"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "before",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "after",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "order",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "created_at"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"created_by_id\": \"string\",\n    \"last_updated_by_id\": \"string\",\n    \"created_at\": \"1984-03-28T23:20:42.552Z\",\n    \"updated_at\": \"2004-08-14T04:29:07.239Z\",\n    \"status\": \"created\",\n    \"completed_at\": \"2008-04-27T00:07:31.719Z\",\n    \"stop_reason\": \"max_tokens_exceeded\",\n    \"metadata\": {\n      \"key_0\": 3821\n    },\n    \"job_type\": \"batch\",\n    \"background\": false,\n    \"agent_id\": \"string\",\n    \"callback_url\": \"string\",\n    \"callback_sent_at\": \"1953-08-25T01:31:03.595Z\",\n    \"callback_status_code\": 9988,\n    \"callback_error\": \"string\",\n    \"ttft_ns\": 7499,\n    \"total_duration_ns\": 5593,\n    \"id\": \"job-123e4567-e89b-12d3-a456-426614174000\"\n  },\n  {\n    \"created_by_id\": \"string\",\n    \"last_updated_by_id\": \"string\",\n    \"created_at\": \"1947-10-01T23:47:51.517Z\",\n    \"updated_at\": \"1980-03-01T01:22:37.236Z\",\n    \"status\": \"created\",\n    \"completed_at\": \"2004-11-25T04:45:54.069Z\",\n    \"stop_reason\": \"no_tool_call\",\n    \"metadata\": {\n      \"key_0\": false\n    },\n    \"job_type\": \"batch\",\n    \"background\": false,\n    \"agent_id\": \"string\",\n    \"callback_url\": \"string\",\n    \"callback_sent_at\": \"1999-09-06T08:30:12.284Z\",\n    \"callback_status_code\": 3593,\n    \"callback_error\": \"string\",\n    \"ttft_ns\": 2064,\n    \"total_duration_ns\": 3667,\n    \"id\": \"job-123e4567-e89b-12d3-a456-426614174000\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e9ebfe69-b2bc-4cb9-9608-9955f95143d9",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "messages",
+                    "batches"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "before",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "after",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "order",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "created_at"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4de3d665-a8b0-4020-8082-769261f3336b",
+          "name": "Retrieve Batch",
+          "request": {
+            "name": "Retrieve Batch",
+            "description": {
+              "content": "Retrieve the status and details of a batch run.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "messages",
+                "batches",
+                ":batch_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "batch_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e150b639-4b3d-47d4-a366-04e4b151bbe0",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "messages",
+                    "batches",
+                    ":batch_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "batch_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"created_by_id\": \"string\",\n  \"last_updated_by_id\": \"string\",\n  \"created_at\": \"1950-07-25T17:31:26.282Z\",\n  \"updated_at\": \"2003-11-16T06:13:39.852Z\",\n  \"status\": \"created\",\n  \"completed_at\": \"1966-11-09T19:42:29.206Z\",\n  \"stop_reason\": \"max_steps\",\n  \"metadata\": {\n    \"key_0\": 8239.39575955473,\n    \"key_1\": 1952.4752793273503,\n    \"key_2\": \"string\",\n    \"key_3\": 8798.77894414931\n  },\n  \"job_type\": \"batch\",\n  \"background\": true,\n  \"agent_id\": \"string\",\n  \"callback_url\": \"string\",\n  \"callback_sent_at\": \"1963-04-15T05:29:08.452Z\",\n  \"callback_status_code\": 4575,\n  \"callback_error\": \"string\",\n  \"ttft_ns\": 2191,\n  \"total_duration_ns\": 1100,\n  \"id\": \"job-123e4567-e89b-12d3-a456-426614174000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cc078a5d-0635-4689-99ca-d88cc804003c",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "messages",
+                    "batches",
+                    ":batch_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "batch_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "80968c51-7d8b-40e8-9ce4-f34978f3a9fc",
+          "name": "List Messages for Batch",
+          "request": {
+            "name": "List Messages for Batch",
+            "description": {
+              "content": "Get response messages for a specific batch job.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "messages",
+                "batches",
+                ":batch_id",
+                "messages"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "before",
+                  "value": "<string>",
+                  "description": "Message ID cursor for pagination. Returns messages that come before this message ID in the specified sort order"
+                },
+                {
+                  "disabled": false,
+                  "key": "after",
+                  "value": "<string>",
+                  "description": "Message ID cursor for pagination. Returns messages that come after this message ID in the specified sort order"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Maximum number of messages to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "order",
+                  "value": "desc",
+                  "description": "Sort order for messages by creation time. 'asc' for oldest first, 'desc' for newest first"
+                },
+                {
+                  "disabled": false,
+                  "key": "order_by",
+                  "value": "created_at",
+                  "description": "Field to sort by"
+                },
+                {
+                  "disabled": false,
+                  "key": "agent_id",
+                  "value": "<string>",
+                  "description": "Filter messages by agent ID"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "batch_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0467adba-79fa-4677-9df4-08a0f278e5fd",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "messages",
+                    "batches",
+                    ":batch_id",
+                    "messages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "before",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "after",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "order",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "created_at"
+                    },
+                    {
+                      "key": "agent_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "batch_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"created_by_id\": \"string\",\n      \"last_updated_by_id\": \"string\",\n      \"created_at\": \"1973-01-28T09:43:22.030Z\",\n      \"updated_at\": \"2005-08-09T03:59:13.164Z\",\n      \"id\": \"message-123e4567-e89b-12d3-a456-426614174000\",\n      \"agent_id\": \"string\",\n      \"model\": \"string\",\n      \"content\": [\n        {\n          \"text\": \"string\",\n          \"type\": \"text\",\n          \"signature\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"text\": \"string\",\n          \"type\": \"text\",\n          \"signature\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"name\": \"string\",\n      \"tool_calls\": [\n        {\n          \"id\": \"string\",\n          \"function\": {\n            \"arguments\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"type\": \"string\"\n        },\n        {\n          \"id\": \"string\",\n          \"function\": {\n            \"arguments\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"type\": \"string\"\n        }\n      ],\n      \"tool_call_id\": \"string\",\n      \"step_id\": \"string\",\n      \"run_id\": \"string\",\n      \"otid\": \"string\",\n      \"tool_returns\": [\n        {\n          \"status\": \"success\",\n          \"tool_call_id\": {},\n          \"stdout\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"stderr\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"func_response\": \"string\"\n        },\n        {\n          \"status\": \"success\",\n          \"tool_call_id\": {},\n          \"stdout\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"stderr\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"func_response\": \"string\"\n        }\n      ],\n      \"group_id\": \"string\",\n      \"sender_id\": \"string\",\n      \"batch_item_id\": \"string\",\n      \"conversation_id\": \"string\",\n      \"is_err\": false,\n      \"approval_request_id\": \"string\",\n      \"approve\": true,\n      \"denial_reason\": \"string\",\n      \"approvals\": [\n        {\n          \"tool_call_id\": \"string\",\n          \"approve\": true,\n          \"type\": \"approval\",\n          \"reason\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"tool_call_id\": \"string\",\n          \"approve\": true,\n          \"type\": \"approval\",\n          \"reason\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ]\n    },\n    {\n      \"role\": \"approval\",\n      \"created_by_id\": \"string\",\n      \"last_updated_by_id\": \"string\",\n      \"created_at\": \"1949-09-14T12:19:42.715Z\",\n      \"updated_at\": \"1986-12-04T13:58:47.733Z\",\n      \"id\": \"message-123e4567-e89b-12d3-a456-426614174000\",\n      \"agent_id\": \"string\",\n      \"model\": \"string\",\n      \"content\": [\n        {\n          \"text\": \"string\",\n          \"type\": \"text\",\n          \"signature\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"text\": \"string\",\n          \"type\": \"text\",\n          \"signature\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"name\": \"string\",\n      \"tool_calls\": [\n        {\n          \"id\": \"string\",\n          \"function\": {\n            \"arguments\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"type\": \"string\"\n        },\n        {\n          \"id\": \"string\",\n          \"function\": {\n            \"arguments\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"type\": \"string\"\n        }\n      ],\n      \"tool_call_id\": \"string\",\n      \"step_id\": \"string\",\n      \"run_id\": \"string\",\n      \"otid\": \"string\",\n      \"tool_returns\": [\n        {\n          \"status\": \"success\",\n          \"tool_call_id\": {},\n          \"stdout\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"stderr\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"func_response\": \"string\"\n        },\n        {\n          \"status\": \"success\",\n          \"tool_call_id\": {},\n          \"stdout\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"stderr\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"func_response\": \"string\"\n        }\n      ],\n      \"group_id\": \"string\",\n      \"sender_id\": \"string\",\n      \"batch_item_id\": \"string\",\n      \"conversation_id\": \"string\",\n      \"is_err\": false,\n      \"approval_request_id\": \"string\",\n      \"approve\": true,\n      \"denial_reason\": \"string\",\n      \"approvals\": [\n        {\n          \"tool_call_id\": \"string\",\n          \"approve\": true,\n          \"type\": \"approval\",\n          \"reason\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"tool_call_id\": \"string\",\n          \"approve\": false,\n          \"type\": \"approval\",\n          \"reason\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4f61d1c4-ed36-4765-8802-8c6bf22a9f41",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "messages",
+                    "batches",
+                    ":batch_id",
+                    "messages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "before",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "after",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "order",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "created_at"
+                    },
+                    {
+                      "key": "agent_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "batch_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9df0f5ed-bdf0-4910-9deb-4e97690b3af8",
+          "name": "Cancel Batch",
+          "request": {
+            "name": "Cancel Batch",
+            "description": {
+              "content": "Cancel a batch run.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "messages",
+                "batches",
+                ":batch_id",
+                "cancel"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "batch_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "fff67aec-e2da-4520-8b5b-9a3897ac17ee",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "messages",
+                    "batches",
+                    ":batch_id",
+                    "cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "batch_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "30852ce8-b0ee-4649-b5e2-2d67774c3faf",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "messages",
+                    "batches",
+                    ":batch_id",
+                    "cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "batch_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d36ef14c-aab5-41dc-8db3-0ef395e3296e",
+          "name": "Retrieve Message",
+          "request": {
+            "name": "Retrieve Message",
+            "description": {
+              "content": "Retrieve a message by ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "messages",
+                ":message_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "message_id",
+                  "description": "(Required) The ID of the message in the format 'message-<uuid4>'"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "dbb61db2-9c35-4169-95ea-730e61ceae3b",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "messages",
+                    ":message_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "message_id",
+                      "description": "(Required) The ID of the message in the format 'message-<uuid4>'"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"string\",\n    \"date\": \"1997-02-23T00:55:22.417Z\",\n    \"content\": \"string\",\n    \"name\": \"string\",\n    \"message_type\": \"system_message\",\n    \"otid\": \"string\",\n    \"sender_id\": \"string\",\n    \"step_id\": \"string\",\n    \"is_err\": false,\n    \"seq_id\": 5508,\n    \"run_id\": \"string\"\n  },\n  {\n    \"id\": \"string\",\n    \"date\": \"1951-08-30T12:01:12.091Z\",\n    \"content\": \"string\",\n    \"name\": \"string\",\n    \"message_type\": \"system_message\",\n    \"otid\": \"string\",\n    \"sender_id\": \"string\",\n    \"step_id\": \"string\",\n    \"is_err\": true,\n    \"seq_id\": 7997,\n    \"run_id\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ac6816d8-5e5e-424e-9410-207d8b12e24d",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "messages",
+                    ":message_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "message_id",
+                      "description": "(Required) The ID of the message in the format 'message-<uuid4>'"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.letta.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "130dd39c-5a9a-4b1b-a84a-41303280a7e2",
+    "name": "Letta Admin Messages API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST API for Letta, the stateful agents platform. Manage agents, memory blocks, archival passages, sources, custom tools, MCP servers, multi-agent groups, runs, and streaming responses. Available as Letta Cloud (managed) at https://api.letta.com/v1 and as the self-hosted open-source server (Apache-2.0) typically run at http://localhost:8283.\n\nContact Support:\n Name: Letta\n Email: support@letta.com",
+      "type": "text/plain"
+    }
+  }
+}

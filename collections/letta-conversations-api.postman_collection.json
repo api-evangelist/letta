@@ -1,0 +1,2484 @@
+{
+  "item": [
+    {
+      "id": "b8e31bfd-cead-4960-987c-94bde552ff44",
+      "name": "Conversations",
+      "description": {
+        "content": "Conversational session threads anchored to an agent.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "581178b0-d4fa-4fb1-9c49-80e329727e6b",
+          "name": "Create Conversation",
+          "request": {
+            "name": "Create Conversation",
+            "description": {
+              "content": "Create a new conversation for an agent.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "conversations",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "agent_id",
+                  "value": "<string>",
+                  "description": "(Required) The agent ID to create a conversation for"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"summary\": \"<string>\",\n  \"isolated_block_labels\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"model\": \"<string>\",\n  \"model_settings\": {\n    \"max_output_tokens\": 4096,\n    \"parallel_tool_calls\": true,\n    \"provider_type\": \"openai\",\n    \"temperature\": 0.7,\n    \"reasoning\": {\n      \"reasoning_effort\": \"high\"\n    },\n    \"response_format\": {\n      \"type\": \"text\"\n    },\n    \"strict\": true\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "250cb1d4-30d5-4c10-9000-7460f0151713",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "conversations",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "agent_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"summary\": \"<string>\",\n  \"isolated_block_labels\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"model\": \"<string>\",\n  \"model_settings\": {\n    \"max_output_tokens\": 4096,\n    \"parallel_tool_calls\": true,\n    \"provider_type\": \"openai\",\n    \"temperature\": 0.7,\n    \"reasoning\": {\n      \"reasoning_effort\": \"high\"\n    },\n    \"response_format\": {\n      \"type\": \"text\"\n    },\n    \"strict\": true\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"agent_id\": \"string\",\n  \"created_by_id\": \"string\",\n  \"last_updated_by_id\": \"string\",\n  \"created_at\": \"2018-03-28T02:16:39.590Z\",\n  \"updated_at\": \"1975-04-05T07:02:40.795Z\",\n  \"summary\": \"string\",\n  \"in_context_message_ids\": [\n    \"string\",\n    \"string\"\n  ],\n  \"isolated_block_ids\": [\n    \"string\",\n    \"string\"\n  ],\n  \"model\": \"string\",\n  \"model_settings\": {\n    \"max_output_tokens\": 4096,\n    \"parallel_tool_calls\": true,\n    \"provider_type\": \"openai\",\n    \"temperature\": 0.7,\n    \"reasoning\": {\n      \"reasoning_effort\": \"high\"\n    },\n    \"response_format\": {\n      \"type\": \"text\"\n    },\n    \"strict\": true\n  },\n  \"last_message_at\": \"1956-02-16T23:25:12.044Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dc1fa45c-eac7-48fa-a31e-75913ab3c7a0",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "conversations",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "agent_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"summary\": \"<string>\",\n  \"isolated_block_labels\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"model\": \"<string>\",\n  \"model_settings\": {\n    \"max_output_tokens\": 4096,\n    \"parallel_tool_calls\": true,\n    \"provider_type\": \"openai\",\n    \"temperature\": 0.7,\n    \"reasoning\": {\n      \"reasoning_effort\": \"high\"\n    },\n    \"response_format\": {\n      \"type\": \"text\"\n    },\n    \"strict\": true\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ff3412c2-ba56-4055-b274-682948e7daf4",
+          "name": "List Conversations",
+          "request": {
+            "name": "List Conversations",
+            "description": {
+              "content": "List all conversations for an agent (or all conversations if agent_id not provided).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "conversations",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "agent_id",
+                  "value": "<string>",
+                  "description": "The agent ID to list conversations for (optional - returns all conversations if not provided)"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "50",
+                  "description": "Maximum number of conversations to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "after",
+                  "value": "<string>",
+                  "description": "Cursor for pagination (conversation ID)"
+                },
+                {
+                  "disabled": false,
+                  "key": "summary_search",
+                  "value": "<string>",
+                  "description": "Search for text within conversation summaries"
+                },
+                {
+                  "disabled": false,
+                  "key": "order",
+                  "value": "desc",
+                  "description": "Sort order for conversations. 'asc' for oldest first, 'desc' for newest first"
+                },
+                {
+                  "disabled": false,
+                  "key": "order_by",
+                  "value": "created_at",
+                  "description": "Field to sort by"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "149775f0-3895-483d-b5d4-1b71515b33d7",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "conversations",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "agent_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "after",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "summary_search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "order",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "created_at"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"string\",\n    \"agent_id\": \"string\",\n    \"created_by_id\": \"string\",\n    \"last_updated_by_id\": \"string\",\n    \"created_at\": \"1986-02-16T21:17:38.374Z\",\n    \"updated_at\": \"1959-12-28T16:24:24.467Z\",\n    \"summary\": \"string\",\n    \"in_context_message_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"isolated_block_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"model\": \"string\",\n    \"model_settings\": {\n      \"max_output_tokens\": 4096,\n      \"parallel_tool_calls\": true,\n      \"provider_type\": \"openai\",\n      \"temperature\": 0.7,\n      \"reasoning\": {\n        \"reasoning_effort\": \"high\"\n      },\n      \"response_format\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"strict\": true\n    },\n    \"last_message_at\": \"2010-08-06T08:41:19.081Z\"\n  },\n  {\n    \"id\": \"string\",\n    \"agent_id\": \"string\",\n    \"created_by_id\": \"string\",\n    \"last_updated_by_id\": \"string\",\n    \"created_at\": \"2019-04-01T22:17:23.779Z\",\n    \"updated_at\": \"1967-07-11T03:11:44.922Z\",\n    \"summary\": \"string\",\n    \"in_context_message_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"isolated_block_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"model\": \"string\",\n    \"model_settings\": {\n      \"max_output_tokens\": 4096,\n      \"parallel_tool_calls\": true,\n      \"provider_type\": \"openai\",\n      \"temperature\": 0.7,\n      \"reasoning\": {\n        \"reasoning_effort\": \"high\"\n      },\n      \"response_format\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"strict\": true\n    },\n    \"last_message_at\": \"2025-10-12T03:56:29.608Z\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "af251829-324d-46d2-99cb-0dec3f2fcd50",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "conversations",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "agent_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "after",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "summary_search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "order",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "created_at"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b403d78d-2611-4cbe-81d4-7bb080520807",
+          "name": "Retrieve Conversation",
+          "request": {
+            "name": "Retrieve Conversation",
+            "description": {
+              "content": "Retrieve a specific conversation.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "conversations",
+                ":conversation_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "conversation_id",
+                  "description": "(Required) The ID of the conv in the format 'conv-<uuid4>'"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "27d16267-b791-4529-8c10-dea6dc2ad78b",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "conversations",
+                    ":conversation_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversation_id",
+                      "description": "(Required) The ID of the conv in the format 'conv-<uuid4>'"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"agent_id\": \"string\",\n  \"created_by_id\": \"string\",\n  \"last_updated_by_id\": \"string\",\n  \"created_at\": \"2018-03-28T02:16:39.590Z\",\n  \"updated_at\": \"1975-04-05T07:02:40.795Z\",\n  \"summary\": \"string\",\n  \"in_context_message_ids\": [\n    \"string\",\n    \"string\"\n  ],\n  \"isolated_block_ids\": [\n    \"string\",\n    \"string\"\n  ],\n  \"model\": \"string\",\n  \"model_settings\": {\n    \"max_output_tokens\": 4096,\n    \"parallel_tool_calls\": true,\n    \"provider_type\": \"openai\",\n    \"temperature\": 0.7,\n    \"reasoning\": {\n      \"reasoning_effort\": \"high\"\n    },\n    \"response_format\": {\n      \"type\": \"text\"\n    },\n    \"strict\": true\n  },\n  \"last_message_at\": \"1956-02-16T23:25:12.044Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0e4b02d2-7978-4bb6-ba94-4874628cd6e5",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "conversations",
+                    ":conversation_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversation_id",
+                      "description": "(Required) The ID of the conv in the format 'conv-<uuid4>'"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "688dec17-2de6-4c22-b840-d1aafd58bfc6",
+          "name": "Update Conversation",
+          "request": {
+            "name": "Update Conversation",
+            "description": {
+              "content": "Update a conversation.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "conversations",
+                ":conversation_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "conversation_id",
+                  "description": "(Required) The ID of the conv in the format 'conv-<uuid4>'"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"summary\": \"<string>\",\n  \"model\": \"<string>\",\n  \"model_settings\": {\n    \"max_output_tokens\": 4096,\n    \"parallel_tool_calls\": true,\n    \"provider_type\": \"openai\",\n    \"temperature\": 0.7,\n    \"reasoning\": {\n      \"reasoning_effort\": \"high\"\n    },\n    \"response_format\": {\n      \"type\": \"text\"\n    },\n    \"strict\": true\n  },\n  \"last_message_at\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a872f47b-bfbc-4943-8f85-8bb41d2abc8e",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "conversations",
+                    ":conversation_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversation_id",
+                      "description": "(Required) The ID of the conv in the format 'conv-<uuid4>'"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"summary\": \"<string>\",\n  \"model\": \"<string>\",\n  \"model_settings\": {\n    \"max_output_tokens\": 4096,\n    \"parallel_tool_calls\": true,\n    \"provider_type\": \"openai\",\n    \"temperature\": 0.7,\n    \"reasoning\": {\n      \"reasoning_effort\": \"high\"\n    },\n    \"response_format\": {\n      \"type\": \"text\"\n    },\n    \"strict\": true\n  },\n  \"last_message_at\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"agent_id\": \"string\",\n  \"created_by_id\": \"string\",\n  \"last_updated_by_id\": \"string\",\n  \"created_at\": \"2018-03-28T02:16:39.590Z\",\n  \"updated_at\": \"1975-04-05T07:02:40.795Z\",\n  \"summary\": \"string\",\n  \"in_context_message_ids\": [\n    \"string\",\n    \"string\"\n  ],\n  \"isolated_block_ids\": [\n    \"string\",\n    \"string\"\n  ],\n  \"model\": \"string\",\n  \"model_settings\": {\n    \"max_output_tokens\": 4096,\n    \"parallel_tool_calls\": true,\n    \"provider_type\": \"openai\",\n    \"temperature\": 0.7,\n    \"reasoning\": {\n      \"reasoning_effort\": \"high\"\n    },\n    \"response_format\": {\n      \"type\": \"text\"\n    },\n    \"strict\": true\n  },\n  \"last_message_at\": \"1956-02-16T23:25:12.044Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "57ed542e-5029-4fc8-a8b7-8325ada92ed1",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "conversations",
+                    ":conversation_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversation_id",
+                      "description": "(Required) The ID of the conv in the format 'conv-<uuid4>'"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"summary\": \"<string>\",\n  \"model\": \"<string>\",\n  \"model_settings\": {\n    \"max_output_tokens\": 4096,\n    \"parallel_tool_calls\": true,\n    \"provider_type\": \"openai\",\n    \"temperature\": 0.7,\n    \"reasoning\": {\n      \"reasoning_effort\": \"high\"\n    },\n    \"response_format\": {\n      \"type\": \"text\"\n    },\n    \"strict\": true\n  },\n  \"last_message_at\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c93e9728-9a56-4345-adda-f17d06f2a159",
+          "name": "Delete Conversation",
+          "request": {
+            "name": "Delete Conversation",
+            "description": {
+              "content": "Delete a conversation (soft delete).\n\nThis marks the conversation as deleted but does not permanently remove it from the database.\nThe conversation will no longer appear in list operations.\nAny isolated blocks associated with the conversation will be permanently deleted.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "conversations",
+                ":conversation_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "conversation_id",
+                  "description": "(Required) The ID of the conv in the format 'conv-<uuid4>'"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "bd9733b2-23a4-4025-be4f-568442ffde19",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "conversations",
+                    ":conversation_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversation_id",
+                      "description": "(Required) The ID of the conv in the format 'conv-<uuid4>'"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ddc75589-ee06-4049-854e-9d3a5406302e",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "conversations",
+                    ":conversation_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversation_id",
+                      "description": "(Required) The ID of the conv in the format 'conv-<uuid4>'"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5f0c4c7f-e68b-4f80-908f-a362983c5ca9",
+          "name": "Fork Conversation",
+          "request": {
+            "name": "Fork Conversation",
+            "description": {
+              "content": "Fork an existing conversation.\n\nCreates a new conversation that shares the same in-context messages as the source\nconversation, but with a newly compiled system message reflecting the latest memory\nblock values. The forked conversation belongs to the same agent as the source.\n\n**Agent-direct mode**: Pass conversation_id=\"default\" with agent_id query parameter\nto fork the agent's default (agent-direct) message history into a new conversation.\n\n**Deprecated**: Passing an agent ID as conversation_id still works but will be removed.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "conversations",
+                ":conversation_id",
+                "fork"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "agent_id",
+                  "value": "<string>",
+                  "description": "Agent ID for agent-direct mode with 'default' conversation"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "conversation_id",
+                  "description": "(Required) The conversation identifier. Can be a conversation ID ('conv-<uuid4>'), 'default' for agent-direct mode (with agent_id parameter), or an agent ID ('agent-<uuid4>') for backwards compatibility (deprecated)."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0ff96a8c-098a-4627-804a-37ced94b6c01",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "conversations",
+                    ":conversation_id",
+                    "fork"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "agent_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversation_id",
+                      "description": "(Required) The conversation identifier. Can be a conversation ID ('conv-<uuid4>'), 'default' for agent-direct mode (with agent_id parameter), or an agent ID ('agent-<uuid4>') for backwards compatibility (deprecated)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"agent_id\": \"string\",\n  \"created_by_id\": \"string\",\n  \"last_updated_by_id\": \"string\",\n  \"created_at\": \"2018-03-28T02:16:39.590Z\",\n  \"updated_at\": \"1975-04-05T07:02:40.795Z\",\n  \"summary\": \"string\",\n  \"in_context_message_ids\": [\n    \"string\",\n    \"string\"\n  ],\n  \"isolated_block_ids\": [\n    \"string\",\n    \"string\"\n  ],\n  \"model\": \"string\",\n  \"model_settings\": {\n    \"max_output_tokens\": 4096,\n    \"parallel_tool_calls\": true,\n    \"provider_type\": \"openai\",\n    \"temperature\": 0.7,\n    \"reasoning\": {\n      \"reasoning_effort\": \"high\"\n    },\n    \"response_format\": {\n      \"type\": \"text\"\n    },\n    \"strict\": true\n  },\n  \"last_message_at\": \"1956-02-16T23:25:12.044Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "46ba260a-df40-4e1e-95e6-78db949d3192",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "conversations",
+                    ":conversation_id",
+                    "fork"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "agent_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversation_id",
+                      "description": "(Required) The conversation identifier. Can be a conversation ID ('conv-<uuid4>'), 'default' for agent-direct mode (with agent_id parameter), or an agent ID ('agent-<uuid4>') for backwards compatibility (deprecated)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b3d2ac80-bf3e-4f42-848b-42e0e1b63437",
+          "name": "List Conversation Messages",
+          "request": {
+            "name": "List Conversation Messages",
+            "description": {
+              "content": "List all messages in a conversation.\n\nReturns LettaMessage objects (UserMessage, AssistantMessage, etc.) for all\nmessages in the conversation, with support for cursor-based pagination.\n\n**Agent-direct mode**: Pass conversation_id=\"default\" with agent_id parameter\nto list messages from the agent's default conversation.\n\n**Deprecated**: Passing an agent ID as conversation_id still works but will be removed.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "conversations",
+                ":conversation_id",
+                "messages"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "agent_id",
+                  "value": "<string>",
+                  "description": "Agent ID for agent-direct mode with 'default' conversation"
+                },
+                {
+                  "disabled": false,
+                  "key": "before",
+                  "value": "<string>",
+                  "description": "Message ID cursor for pagination. Returns messages that come before this message ID in the specified sort order"
+                },
+                {
+                  "disabled": false,
+                  "key": "after",
+                  "value": "<string>",
+                  "description": "Message ID cursor for pagination. Returns messages that come after this message ID in the specified sort order"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Maximum number of messages to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "order",
+                  "value": "desc",
+                  "description": "Sort order for messages by creation time. 'asc' for oldest first, 'desc' for newest first"
+                },
+                {
+                  "disabled": false,
+                  "key": "order_by",
+                  "value": "created_at",
+                  "description": "Field to sort by"
+                },
+                {
+                  "disabled": false,
+                  "key": "group_id",
+                  "value": "<string>",
+                  "description": "Group ID to filter messages by."
+                },
+                {
+                  "disabled": false,
+                  "key": "include_err",
+                  "value": "<boolean>",
+                  "description": "Whether to include error messages and error statuses. For debugging purposes only."
+                },
+                {
+                  "disabled": false,
+                  "key": "include_return_message_types",
+                  "value": "<string>",
+                  "description": "Message types to include in response. When null, all message types are returned."
+                },
+                {
+                  "disabled": false,
+                  "key": "include_return_message_types",
+                  "value": "<string>",
+                  "description": "Message types to include in response. When null, all message types are returned."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "conversation_id",
+                  "description": "(Required) The conversation identifier. Can be a conversation ID ('conv-<uuid4>'), 'default' for agent-direct mode (with agent_id parameter), or an agent ID ('agent-<uuid4>') for backwards compatibility (deprecated)."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a0d7d69a-7189-40b7-80d5-41128abb74f4",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "conversations",
+                    ":conversation_id",
+                    "messages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "agent_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "before",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "after",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "order",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "created_at"
+                    },
+                    {
+                      "key": "group_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include_err",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "include_return_message_types",
+                      "value": "user_message"
+                    },
+                    {
+                      "key": "include_return_message_types",
+                      "value": "user_message"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversation_id",
+                      "description": "(Required) The conversation identifier. Can be a conversation ID ('conv-<uuid4>'), 'default' for agent-direct mode (with agent_id parameter), or an agent ID ('agent-<uuid4>') for backwards compatibility (deprecated)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"string\",\n    \"date\": \"1978-04-29T01:32:05.565Z\",\n    \"content\": \"string\",\n    \"name\": \"string\",\n    \"message_type\": \"system_message\",\n    \"otid\": \"string\",\n    \"sender_id\": \"string\",\n    \"step_id\": \"string\",\n    \"is_err\": false,\n    \"seq_id\": 7034,\n    \"run_id\": \"string\"\n  },\n  {\n    \"id\": \"string\",\n    \"date\": \"1977-11-06T04:25:59.636Z\",\n    \"content\": \"string\",\n    \"name\": \"string\",\n    \"message_type\": \"system_message\",\n    \"otid\": \"string\",\n    \"sender_id\": \"string\",\n    \"step_id\": \"string\",\n    \"is_err\": true,\n    \"seq_id\": 2250,\n    \"run_id\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d1febee2-b13f-4972-82ad-fc63cf722dd6",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "conversations",
+                    ":conversation_id",
+                    "messages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "agent_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "before",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "after",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "order",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "created_at"
+                    },
+                    {
+                      "key": "group_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include_err",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "include_return_message_types",
+                      "value": "user_message"
+                    },
+                    {
+                      "key": "include_return_message_types",
+                      "value": "user_message"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversation_id",
+                      "description": "(Required) The conversation identifier. Can be a conversation ID ('conv-<uuid4>'), 'default' for agent-direct mode (with agent_id parameter), or an agent ID ('agent-<uuid4>') for backwards compatibility (deprecated)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "388d97df-8408-4eb1-9613-3b1309d91106",
+          "name": "Send Conversation Message",
+          "request": {
+            "name": "Send Conversation Message",
+            "description": {
+              "content": "Send a message to a conversation and get a response.\n\nThis endpoint sends a message to an existing conversation.\nBy default (streaming=true), returns a streaming response (Server-Sent Events).\nSet streaming=false to get a complete JSON response.\n\n**Agent-direct mode**: Pass conversation_id=\"default\" with agent_id in request body\nto send messages to the agent's default conversation with locking.\n\n**Deprecated**: Passing an agent ID as conversation_id still works but will be removed.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "conversations",
+                ":conversation_id",
+                "messages"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "conversation_id",
+                  "description": "(Required) The conversation identifier. Can be a conversation ID ('conv-<uuid4>'), 'default' for agent-direct mode (with agent_id parameter), or an agent ID ('agent-<uuid4>') for backwards compatibility (deprecated)."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"messages\": [\n    {\n      \"role\": \"<string>\",\n      \"content\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ],\n      \"type\": \"<string>\",\n      \"otid\": \"<string>\",\n      \"group_id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"sender_id\": \"<string>\",\n      \"batch_item_id\": \"<string>\"\n    },\n    {\n      \"role\": \"<string>\",\n      \"content\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ],\n      \"type\": \"<string>\",\n      \"otid\": \"<string>\",\n      \"group_id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"sender_id\": \"<string>\",\n      \"batch_item_id\": \"<string>\"\n    }\n  ],\n  \"input\": \"<string>\",\n  \"max_steps\": 50,\n  \"use_assistant_message\": true,\n  \"assistant_message_tool_name\": \"send_message\",\n  \"assistant_message_tool_kwarg\": \"message\",\n  \"include_return_message_types\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"enable_thinking\": true,\n  \"client_tools\": [\n    {\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"parameters\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      }\n    },\n    {\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"parameters\": {\n        \"key_0\": 5795\n      }\n    }\n  ],\n  \"client_skills\": [\n    {\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"location\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"location\": \"<string>\"\n    }\n  ],\n  \"override_model\": \"<string>\",\n  \"include_compaction_messages\": false,\n  \"return_logprobs\": false,\n  \"top_logprobs\": \"<integer>\",\n  \"return_token_ids\": false,\n  \"override_system\": \"<string>\",\n  \"agent_id\": \"<string>\",\n  \"streaming\": true,\n  \"stream_tokens\": false,\n  \"include_pings\": true,\n  \"background\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8120ea0c-0d21-454c-a2fc-38aab3f895c9",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "conversations",
+                    ":conversation_id",
+                    "messages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversation_id",
+                      "description": "(Required) The conversation identifier. Can be a conversation ID ('conv-<uuid4>'), 'default' for agent-direct mode (with agent_id parameter), or an agent ID ('agent-<uuid4>') for backwards compatibility (deprecated)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"messages\": [\n    {\n      \"role\": \"assistant\",\n      \"content\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ],\n      \"type\": \"string\",\n      \"otid\": \"string\",\n      \"group_id\": \"string\",\n      \"name\": \"string\",\n      \"sender_id\": \"string\",\n      \"batch_item_id\": \"string\"\n    },\n    {\n      \"role\": \"system\",\n      \"content\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ],\n      \"type\": \"string\",\n      \"otid\": \"string\",\n      \"group_id\": \"string\",\n      \"name\": \"string\",\n      \"sender_id\": \"string\",\n      \"batch_item_id\": \"string\"\n    }\n  ],\n  \"input\": \"<string>\",\n  \"max_steps\": 50,\n  \"use_assistant_message\": true,\n  \"assistant_message_tool_name\": \"send_message\",\n  \"assistant_message_tool_kwarg\": \"message\",\n  \"include_return_message_types\": [\n    \"approval_response_message\",\n    \"hidden_reasoning_message\"\n  ],\n  \"enable_thinking\": true,\n  \"client_tools\": [\n    {\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"parameters\": {\n        \"key_0\": 9825.597111320194\n      }\n    },\n    {\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"parameters\": {\n        \"key_0\": 5963\n      }\n    }\n  ],\n  \"client_skills\": [\n    {\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"location\": \"string\"\n    },\n    {\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"location\": \"string\"\n    }\n  ],\n  \"override_model\": \"<string>\",\n  \"include_compaction_messages\": false,\n  \"return_logprobs\": false,\n  \"top_logprobs\": \"<integer>\",\n  \"return_token_ids\": false,\n  \"override_system\": \"<string>\",\n  \"agent_id\": \"<string>\",\n  \"streaming\": true,\n  \"stream_tokens\": false,\n  \"include_pings\": true,\n  \"background\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"messages\": [\n    {\n      \"id\": \"string\",\n      \"date\": \"1959-05-17T15:54:36.965Z\",\n      \"content\": \"string\",\n      \"name\": \"string\",\n      \"message_type\": \"system_message\",\n      \"otid\": \"string\",\n      \"sender_id\": \"string\",\n      \"step_id\": \"string\",\n      \"is_err\": false,\n      \"seq_id\": 1397,\n      \"run_id\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"date\": \"1976-02-17T22:53:03.854Z\",\n      \"content\": \"string\",\n      \"name\": \"string\",\n      \"message_type\": \"system_message\",\n      \"otid\": \"string\",\n      \"sender_id\": \"string\",\n      \"step_id\": \"string\",\n      \"is_err\": false,\n      \"seq_id\": 5794,\n      \"run_id\": \"string\"\n    }\n  ],\n  \"stop_reason\": {\n    \"stop_reason\": \"no_tool_call\",\n    \"message_type\": \"stop_reason\"\n  },\n  \"usage\": {\n    \"message_type\": \"usage_statistics\",\n    \"completion_tokens\": 0,\n    \"prompt_tokens\": 0,\n    \"total_tokens\": 0,\n    \"step_count\": 0,\n    \"run_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"cached_input_tokens\": 1499,\n    \"cache_write_tokens\": 8595,\n    \"reasoning_tokens\": 4639,\n    \"context_tokens\": 5055\n  },\n  \"logprobs\": {\n    \"content\": [\n      {\n        \"token\": \"string\",\n        \"logprob\": 9497.028714336366,\n        \"top_logprobs\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"bytes\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      },\n      {\n        \"token\": \"string\",\n        \"logprob\": 7198.450896700365,\n        \"top_logprobs\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"bytes\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      }\n    ],\n    \"refusal\": [\n      {\n        \"token\": \"string\",\n        \"logprob\": 1205.1522845967022,\n        \"top_logprobs\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"bytes\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      },\n      {\n        \"token\": \"string\",\n        \"logprob\": 4924.100921283023,\n        \"top_logprobs\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"bytes\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      }\n    ]\n  },\n  \"turns\": [\n    {\n      \"role\": \"tool\",\n      \"output_ids\": [\n        2651,\n        6454\n      ],\n      \"output_token_logprobs\": [\n        [],\n        []\n      ],\n      \"content\": \"string\",\n      \"tool_name\": \"string\"\n    },\n    {\n      \"role\": \"tool\",\n      \"output_ids\": [\n        3896,\n        7402\n      ],\n      \"output_token_logprobs\": [\n        [],\n        []\n      ],\n      \"content\": \"string\",\n      \"tool_name\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "df42bca0-f04f-483d-a22c-5e3919e12cc5",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "conversations",
+                    ":conversation_id",
+                    "messages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversation_id",
+                      "description": "(Required) The conversation identifier. Can be a conversation ID ('conv-<uuid4>'), 'default' for agent-direct mode (with agent_id parameter), or an agent ID ('agent-<uuid4>') for backwards compatibility (deprecated)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"messages\": [\n    {\n      \"role\": \"assistant\",\n      \"content\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ],\n      \"type\": \"string\",\n      \"otid\": \"string\",\n      \"group_id\": \"string\",\n      \"name\": \"string\",\n      \"sender_id\": \"string\",\n      \"batch_item_id\": \"string\"\n    },\n    {\n      \"role\": \"system\",\n      \"content\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ],\n      \"type\": \"string\",\n      \"otid\": \"string\",\n      \"group_id\": \"string\",\n      \"name\": \"string\",\n      \"sender_id\": \"string\",\n      \"batch_item_id\": \"string\"\n    }\n  ],\n  \"input\": \"<string>\",\n  \"max_steps\": 50,\n  \"use_assistant_message\": true,\n  \"assistant_message_tool_name\": \"send_message\",\n  \"assistant_message_tool_kwarg\": \"message\",\n  \"include_return_message_types\": [\n    \"approval_response_message\",\n    \"hidden_reasoning_message\"\n  ],\n  \"enable_thinking\": true,\n  \"client_tools\": [\n    {\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"parameters\": {\n        \"key_0\": 9825.597111320194\n      }\n    },\n    {\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"parameters\": {\n        \"key_0\": 5963\n      }\n    }\n  ],\n  \"client_skills\": [\n    {\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"location\": \"string\"\n    },\n    {\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"location\": \"string\"\n    }\n  ],\n  \"override_model\": \"<string>\",\n  \"include_compaction_messages\": false,\n  \"return_logprobs\": false,\n  \"top_logprobs\": \"<integer>\",\n  \"return_token_ids\": false,\n  \"override_system\": \"<string>\",\n  \"agent_id\": \"<string>\",\n  \"streaming\": true,\n  \"stream_tokens\": false,\n  \"include_pings\": true,\n  \"background\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9264652a-bc52-4388-9c3e-c5619ddc2a15",
+          "name": "Preview Conversation Model Request",
+          "request": {
+            "name": "Preview Conversation Model Request",
+            "description": {
+              "content": "Inspect the raw LLM request payload for a conversation message without sending it.\n\nThis endpoint processes the message through the same path as send_conversation_message\n(including conversation-scoped messages, isolated blocks, model overrides, and\nclient tools/skills) but stops before the LLM call and returns the raw request\npayload. Useful for debugging and verifying what the LLM will actually see.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "conversations",
+                ":conversation_id",
+                "messages",
+                "preview-raw-payload"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "conversation_id",
+                  "description": "(Required) The conversation identifier. Can be a conversation ID ('conv-<uuid4>'), 'default' for agent-direct mode (with agent_id parameter), or an agent ID ('agent-<uuid4>') for backwards compatibility (deprecated)."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"messages\": [\n    {\n      \"role\": \"<string>\",\n      \"content\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ],\n      \"type\": \"<string>\",\n      \"otid\": \"<string>\",\n      \"group_id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"sender_id\": \"<string>\",\n      \"batch_item_id\": \"<string>\"\n    },\n    {\n      \"role\": \"<string>\",\n      \"content\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ],\n      \"type\": \"<string>\",\n      \"otid\": \"<string>\",\n      \"group_id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"sender_id\": \"<string>\",\n      \"batch_item_id\": \"<string>\"\n    }\n  ],\n  \"input\": \"<string>\",\n  \"max_steps\": 50,\n  \"use_assistant_message\": true,\n  \"assistant_message_tool_name\": \"send_message\",\n  \"assistant_message_tool_kwarg\": \"message\",\n  \"include_return_message_types\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"enable_thinking\": true,\n  \"client_tools\": [\n    {\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"parameters\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      }\n    },\n    {\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"parameters\": {\n        \"key_0\": 5795\n      }\n    }\n  ],\n  \"client_skills\": [\n    {\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"location\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"location\": \"<string>\"\n    }\n  ],\n  \"override_model\": \"<string>\",\n  \"include_compaction_messages\": false,\n  \"return_logprobs\": false,\n  \"top_logprobs\": \"<integer>\",\n  \"return_token_ids\": false,\n  \"override_system\": \"<string>\",\n  \"agent_id\": \"<string>\",\n  \"streaming\": true,\n  \"stream_tokens\": false,\n  \"include_pings\": true,\n  \"background\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "806bf739-f714-4011-abe2-1a7b0bd1178f",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "conversations",
+                    ":conversation_id",
+                    "messages",
+                    "preview-raw-payload"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversation_id",
+                      "description": "(Required) The conversation identifier. Can be a conversation ID ('conv-<uuid4>'), 'default' for agent-direct mode (with agent_id parameter), or an agent ID ('agent-<uuid4>') for backwards compatibility (deprecated)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"messages\": [\n    {\n      \"role\": \"assistant\",\n      \"content\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ],\n      \"type\": \"string\",\n      \"otid\": \"string\",\n      \"group_id\": \"string\",\n      \"name\": \"string\",\n      \"sender_id\": \"string\",\n      \"batch_item_id\": \"string\"\n    },\n    {\n      \"role\": \"system\",\n      \"content\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ],\n      \"type\": \"string\",\n      \"otid\": \"string\",\n      \"group_id\": \"string\",\n      \"name\": \"string\",\n      \"sender_id\": \"string\",\n      \"batch_item_id\": \"string\"\n    }\n  ],\n  \"input\": \"<string>\",\n  \"max_steps\": 50,\n  \"use_assistant_message\": true,\n  \"assistant_message_tool_name\": \"send_message\",\n  \"assistant_message_tool_kwarg\": \"message\",\n  \"include_return_message_types\": [\n    \"approval_response_message\",\n    \"hidden_reasoning_message\"\n  ],\n  \"enable_thinking\": true,\n  \"client_tools\": [\n    {\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"parameters\": {\n        \"key_0\": 9825.597111320194\n      }\n    },\n    {\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"parameters\": {\n        \"key_0\": 5963\n      }\n    }\n  ],\n  \"client_skills\": [\n    {\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"location\": \"string\"\n    },\n    {\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"location\": \"string\"\n    }\n  ],\n  \"override_model\": \"<string>\",\n  \"include_compaction_messages\": false,\n  \"return_logprobs\": false,\n  \"top_logprobs\": \"<integer>\",\n  \"return_token_ids\": false,\n  \"override_system\": \"<string>\",\n  \"agent_id\": \"<string>\",\n  \"streaming\": true,\n  \"stream_tokens\": false,\n  \"include_pings\": true,\n  \"background\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": 1448.180660978723,\n  \"key_1\": 9165,\n  \"key_2\": 2351\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7a899191-9c54-49cf-bb3c-078de12d54d7",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "conversations",
+                    ":conversation_id",
+                    "messages",
+                    "preview-raw-payload"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversation_id",
+                      "description": "(Required) The conversation identifier. Can be a conversation ID ('conv-<uuid4>'), 'default' for agent-direct mode (with agent_id parameter), or an agent ID ('agent-<uuid4>') for backwards compatibility (deprecated)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"messages\": [\n    {\n      \"role\": \"assistant\",\n      \"content\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ],\n      \"type\": \"string\",\n      \"otid\": \"string\",\n      \"group_id\": \"string\",\n      \"name\": \"string\",\n      \"sender_id\": \"string\",\n      \"batch_item_id\": \"string\"\n    },\n    {\n      \"role\": \"system\",\n      \"content\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ],\n      \"type\": \"string\",\n      \"otid\": \"string\",\n      \"group_id\": \"string\",\n      \"name\": \"string\",\n      \"sender_id\": \"string\",\n      \"batch_item_id\": \"string\"\n    }\n  ],\n  \"input\": \"<string>\",\n  \"max_steps\": 50,\n  \"use_assistant_message\": true,\n  \"assistant_message_tool_name\": \"send_message\",\n  \"assistant_message_tool_kwarg\": \"message\",\n  \"include_return_message_types\": [\n    \"approval_response_message\",\n    \"hidden_reasoning_message\"\n  ],\n  \"enable_thinking\": true,\n  \"client_tools\": [\n    {\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"parameters\": {\n        \"key_0\": 9825.597111320194\n      }\n    },\n    {\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"parameters\": {\n        \"key_0\": 5963\n      }\n    }\n  ],\n  \"client_skills\": [\n    {\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"location\": \"string\"\n    },\n    {\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"location\": \"string\"\n    }\n  ],\n  \"override_model\": \"<string>\",\n  \"include_compaction_messages\": false,\n  \"return_logprobs\": false,\n  \"top_logprobs\": \"<integer>\",\n  \"return_token_ids\": false,\n  \"override_system\": \"<string>\",\n  \"agent_id\": \"<string>\",\n  \"streaming\": true,\n  \"stream_tokens\": false,\n  \"include_pings\": true,\n  \"background\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3b9605c1-6c69-4c58-a172-375806748599",
+          "name": "Retrieve Conversation Stream",
+          "request": {
+            "name": "Retrieve Conversation Stream",
+            "description": {
+              "content": "Resume the stream for the most recent active run in a conversation.\n\nThis endpoint allows you to reconnect to an active background stream\nfor a conversation, enabling recovery from network interruptions.\n\n**Agent-direct mode**: Pass conversation_id=\"default\" with agent_id in request body\nto retrieve the stream for the agent's most recent active run.\n\n**Direct run access**: Pass run_id directly to skip run lookup entirely.\nUseful for recovery from duplicate request 409 errors.\n\n**OTID lookup**: Pass otid to look up the run_id from Redis.\nUseful when you have the otid from a 409 error response.\n\n**Deprecated**: Passing an agent ID as conversation_id still works but will be removed.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "conversations",
+                ":conversation_id",
+                "stream"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "conversation_id",
+                  "description": "(Required) The conversation identifier. Can be a conversation ID ('conv-<uuid4>'), 'default' for agent-direct mode (with agent_id parameter), or an agent ID ('agent-<uuid4>') for backwards compatibility (deprecated)."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"agent_id\": \"<string>\",\n  \"run_id\": \"<string>\",\n  \"otid\": \"<string>\",\n  \"starting_after\": 0,\n  \"include_pings\": \"<boolean>\",\n  \"poll_interval\": \"<number>\",\n  \"batch_size\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f123929a-08bc-4059-bef6-4e4fdf5dfe32",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "conversations",
+                    ":conversation_id",
+                    "stream"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversation_id",
+                      "description": "(Required) The conversation identifier. Can be a conversation ID ('conv-<uuid4>'), 'default' for agent-direct mode (with agent_id parameter), or an agent ID ('agent-<uuid4>') for backwards compatibility (deprecated)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"agent_id\": \"<string>\",\n  \"run_id\": \"<string>\",\n  \"otid\": \"<string>\",\n  \"starting_after\": 0,\n  \"include_pings\": \"<boolean>\",\n  \"poll_interval\": \"<number>\",\n  \"batch_size\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f8b03854-a54c-4080-be63-cce85582242f",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "conversations",
+                    ":conversation_id",
+                    "stream"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversation_id",
+                      "description": "(Required) The conversation identifier. Can be a conversation ID ('conv-<uuid4>'), 'default' for agent-direct mode (with agent_id parameter), or an agent ID ('agent-<uuid4>') for backwards compatibility (deprecated)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"agent_id\": \"<string>\",\n  \"run_id\": \"<string>\",\n  \"otid\": \"<string>\",\n  \"starting_after\": 0,\n  \"include_pings\": \"<boolean>\",\n  \"poll_interval\": \"<number>\",\n  \"batch_size\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f09d9fc9-d092-4e97-9ee8-d5b01874bb07",
+          "name": "Cancel Conversation",
+          "request": {
+            "name": "Cancel Conversation",
+            "description": {
+              "content": "Cancel runs associated with a conversation.\n\nNote: To cancel active runs, Redis is required.\n\n**Agent-direct mode**: Pass conversation_id=\"default\" with agent_id query parameter\nto cancel runs for the agent's default conversation.\n\n**Deprecated**: Passing an agent ID as conversation_id still works but will be removed.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "conversations",
+                ":conversation_id",
+                "cancel"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "agent_id",
+                  "value": "<string>",
+                  "description": "Agent ID for agent-direct mode with 'default' conversation"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "conversation_id",
+                  "description": "(Required) The conversation identifier. Can be a conversation ID ('conv-<uuid4>'), 'default' for agent-direct mode (with agent_id parameter), or an agent ID ('agent-<uuid4>') for backwards compatibility (deprecated)."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e59acb43-9d12-4ed4-ab96-e6c342d8d2a5",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "conversations",
+                    ":conversation_id",
+                    "cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "agent_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversation_id",
+                      "description": "(Required) The conversation identifier. Can be a conversation ID ('conv-<uuid4>'), 'default' for agent-direct mode (with agent_id parameter), or an agent ID ('agent-<uuid4>') for backwards compatibility (deprecated)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": \"string\",\n  \"key_1\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9b0d017e-8c56-444e-8ebb-0bb04a8d8147",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "conversations",
+                    ":conversation_id",
+                    "cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "agent_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversation_id",
+                      "description": "(Required) The conversation identifier. Can be a conversation ID ('conv-<uuid4>'), 'default' for agent-direct mode (with agent_id parameter), or an agent ID ('agent-<uuid4>') for backwards compatibility (deprecated)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b8710cb4-1430-447e-ada3-48e44621253d",
+          "name": "Recompile Conversation",
+          "request": {
+            "name": "Recompile Conversation",
+            "description": {
+              "content": "Manually trigger system prompt recompilation for a conversation.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "conversations",
+                ":conversation_id",
+                "recompile"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "dry_run",
+                  "value": "false",
+                  "description": "If True, do not persist changes; still returns the compiled system prompt."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "conversation_id",
+                  "description": "(Required) The conversation identifier. Can be a conversation ID ('conv-<uuid4>'), 'default' for agent-direct mode (with agent_id parameter), or an agent ID ('agent-<uuid4>') for backwards compatibility (deprecated)."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"agent_id\": \"<string>\",\n  \"compaction_settings\": {\n    \"model\": \"<string>\",\n    \"model_settings\": {\n      \"max_output_tokens\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"parallel_tool_calls\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"provider_type\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"temperature\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"reasoning\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"response_format\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"strict\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      }\n    },\n    \"prompt\": \"<string>\",\n    \"prompt_acknowledgement\": false,\n    \"clip_chars\": \"<integer>\",\n    \"mode\": \"sliding_window\",\n    \"sliding_window_percentage\": \"<number>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1caae125-ee7b-468f-9973-0c72ebd24fa1",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "conversations",
+                    ":conversation_id",
+                    "recompile"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "dry_run",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversation_id",
+                      "description": "(Required) The conversation identifier. Can be a conversation ID ('conv-<uuid4>'), 'default' for agent-direct mode (with agent_id parameter), or an agent ID ('agent-<uuid4>') for backwards compatibility (deprecated)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"agent_id\": \"string\",\n  \"compaction_settings\": {\n    \"model\": \"string\",\n    \"model_settings\": {\n      \"max_output_tokens\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"parallel_tool_calls\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"provider_type\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"temperature\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"reasoning\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"response_format\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"strict\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      }\n    },\n    \"prompt\": \"string\",\n    \"prompt_acknowledgement\": false,\n    \"clip_chars\": 6293,\n    \"mode\": \"sliding_window\",\n    \"sliding_window_percentage\": 5842.252023072557\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"string\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d9a3a25c-ee0f-4e89-8171-16fb46534aaf",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "conversations",
+                    ":conversation_id",
+                    "recompile"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "dry_run",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversation_id",
+                      "description": "(Required) The conversation identifier. Can be a conversation ID ('conv-<uuid4>'), 'default' for agent-direct mode (with agent_id parameter), or an agent ID ('agent-<uuid4>') for backwards compatibility (deprecated)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"agent_id\": \"string\",\n  \"compaction_settings\": {\n    \"model\": \"string\",\n    \"model_settings\": {\n      \"max_output_tokens\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"parallel_tool_calls\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"provider_type\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"temperature\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"reasoning\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"response_format\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"strict\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      }\n    },\n    \"prompt\": \"string\",\n    \"prompt_acknowledgement\": false,\n    \"clip_chars\": 6293,\n    \"mode\": \"sliding_window\",\n    \"sliding_window_percentage\": 5842.252023072557\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ec377cb2-3d77-4788-975f-d93a0ff06d09",
+          "name": "Compact Conversation",
+          "request": {
+            "name": "Compact Conversation",
+            "description": {
+              "content": "Compact (summarize) a conversation's message history.\n\nThis endpoint summarizes the in-context messages for a specific conversation,\nreducing the message count while preserving important context.\n\n**Agent-direct mode**: Pass conversation_id=\"default\" with agent_id in request body\nto compact the agent's default conversation messages.\n\n**Deprecated**: Passing an agent ID as conversation_id still works but will be removed.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "conversations",
+                ":conversation_id",
+                "compact"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "conversation_id",
+                  "description": "(Required) The conversation identifier. Can be a conversation ID ('conv-<uuid4>'), 'default' for agent-direct mode (with agent_id parameter), or an agent ID ('agent-<uuid4>') for backwards compatibility (deprecated)."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"agent_id\": \"<string>\",\n  \"compaction_settings\": {\n    \"model\": \"<string>\",\n    \"model_settings\": {\n      \"max_output_tokens\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"parallel_tool_calls\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"provider_type\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"temperature\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"reasoning\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"response_format\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"strict\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      }\n    },\n    \"prompt\": \"<string>\",\n    \"prompt_acknowledgement\": false,\n    \"clip_chars\": \"<integer>\",\n    \"mode\": \"sliding_window\",\n    \"sliding_window_percentage\": \"<number>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "179fca16-aa9b-46b9-9915-7ba6a27f37f9",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "conversations",
+                    ":conversation_id",
+                    "compact"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversation_id",
+                      "description": "(Required) The conversation identifier. Can be a conversation ID ('conv-<uuid4>'), 'default' for agent-direct mode (with agent_id parameter), or an agent ID ('agent-<uuid4>') for backwards compatibility (deprecated)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"agent_id\": \"string\",\n  \"compaction_settings\": {\n    \"model\": \"string\",\n    \"model_settings\": {\n      \"max_output_tokens\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"parallel_tool_calls\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"provider_type\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"temperature\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"reasoning\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"response_format\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"strict\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      }\n    },\n    \"prompt\": \"string\",\n    \"prompt_acknowledgement\": false,\n    \"clip_chars\": 6293,\n    \"mode\": \"sliding_window\",\n    \"sliding_window_percentage\": 5842.252023072557\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"summary\": \"string\",\n  \"num_messages_before\": 1943,\n  \"num_messages_after\": 4272\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6ca3c8a9-afad-4154-bf52-50a4df6fd329",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "conversations",
+                    ":conversation_id",
+                    "compact"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversation_id",
+                      "description": "(Required) The conversation identifier. Can be a conversation ID ('conv-<uuid4>'), 'default' for agent-direct mode (with agent_id parameter), or an agent ID ('agent-<uuid4>') for backwards compatibility (deprecated)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"agent_id\": \"string\",\n  \"compaction_settings\": {\n    \"model\": \"string\",\n    \"model_settings\": {\n      \"max_output_tokens\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"parallel_tool_calls\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"provider_type\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"temperature\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"reasoning\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"response_format\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"strict\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      }\n    },\n    \"prompt\": \"string\",\n    \"prompt_acknowledgement\": false,\n    \"clip_chars\": 6293,\n    \"mode\": \"sliding_window\",\n    \"sliding_window_percentage\": 5842.252023072557\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.letta.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "7fe4f80c-78d0-4508-8fe2-f551145443b6",
+    "name": "Letta Admin Conversations API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST API for Letta, the stateful agents platform. Manage agents, memory blocks, archival passages, sources, custom tools, MCP servers, multi-agent groups, runs, and streaming responses. Available as Letta Cloud (managed) at https://api.letta.com/v1 and as the self-hosted open-source server (Apache-2.0) typically run at http://localhost:8283.\n\nContact Support:\n Name: Letta\n Email: support@letta.com",
+      "type": "text/plain"
+    }
+  }
+}

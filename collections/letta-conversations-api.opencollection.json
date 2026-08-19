@@ -1,0 +1,401 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Letta Admin Conversations API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Conversations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Conversations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/conversations/",
+            "params": [
+              {
+                "name": "agent_id",
+                "value": "",
+                "type": "query",
+                "description": "The agent ID to list conversations for (optional - returns all conversations if not provided)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of conversations to return"
+              },
+              {
+                "name": "after",
+                "value": "",
+                "type": "query",
+                "description": "Cursor for pagination (conversation ID)"
+              },
+              {
+                "name": "summary_search",
+                "value": "",
+                "type": "query",
+                "description": "Search for text within conversation summaries"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Sort order for conversations. 'asc' for oldest first, 'desc' for newest first"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Field to sort by"
+              }
+            ]
+          },
+          "docs": "List all conversations for an agent (or all conversations if agent_id not provided)."
+        },
+        {
+          "info": {
+            "name": "Create Conversation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.letta.com/v1/conversations/",
+            "params": [
+              {
+                "name": "agent_id",
+                "value": "",
+                "type": "query",
+                "description": "The agent ID to create a conversation for"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new conversation for an agent."
+        },
+        {
+          "info": {
+            "name": "Retrieve Conversation",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/conversations/:conversation_id",
+            "params": [
+              {
+                "name": "conversation_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the conv in the format 'conv-<uuid4>'"
+              }
+            ]
+          },
+          "docs": "Retrieve a specific conversation."
+        },
+        {
+          "info": {
+            "name": "Update Conversation",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.letta.com/v1/conversations/:conversation_id",
+            "params": [
+              {
+                "name": "conversation_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the conv in the format 'conv-<uuid4>'"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a conversation."
+        },
+        {
+          "info": {
+            "name": "Delete Conversation",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.letta.com/v1/conversations/:conversation_id",
+            "params": [
+              {
+                "name": "conversation_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the conv in the format 'conv-<uuid4>'"
+              }
+            ]
+          },
+          "docs": "Delete a conversation (soft delete).\n\nThis marks the conversation as deleted but does not permanently remove it from the database.\nThe conversation will no longer appear in list operations.\nAny isolated blocks associated with the conversation will be permanently deleted."
+        },
+        {
+          "info": {
+            "name": "Fork Conversation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.letta.com/v1/conversations/:conversation_id/fork",
+            "params": [
+              {
+                "name": "conversation_id",
+                "value": "",
+                "type": "path",
+                "description": "The conversation identifier. Can be a conversation ID ('conv-<uuid4>'), 'default' for agent-direct mode (with agent_id parameter), or an agent ID ('agent-<uuid4>') for backwards compatibility (deprecated)."
+              },
+              {
+                "name": "agent_id",
+                "value": "",
+                "type": "query",
+                "description": "Agent ID for agent-direct mode with 'default' conversation"
+              }
+            ]
+          },
+          "docs": "Fork an existing conversation.\n\nCreates a new conversation that shares the same in-context messages as the source\nconversation, but with a newly compiled system message reflecting the latest memory\nblock values. The forked conversation belongs to the same agent as the source.\n\n**Agent-direct mode**: Pass conversation_id=\"default\" with agent_id query parameter\nto fork the agent's default (agent-direct) message history into a new conversation.\n\n**Deprecated**: Passing an agent ID as conversation_i"
+        },
+        {
+          "info": {
+            "name": "List Conversation Messages",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/conversations/:conversation_id/messages",
+            "params": [
+              {
+                "name": "conversation_id",
+                "value": "",
+                "type": "path",
+                "description": "The conversation identifier. Can be a conversation ID ('conv-<uuid4>'), 'default' for agent-direct mode (with agent_id parameter), or an agent ID ('agent-<uuid4>') for backwards compatibility (deprecated)."
+              },
+              {
+                "name": "agent_id",
+                "value": "",
+                "type": "query",
+                "description": "Agent ID for agent-direct mode with 'default' conversation"
+              },
+              {
+                "name": "before",
+                "value": "",
+                "type": "query",
+                "description": "Message ID cursor for pagination. Returns messages that come before this message ID in the specified sort order"
+              },
+              {
+                "name": "after",
+                "value": "",
+                "type": "query",
+                "description": "Message ID cursor for pagination. Returns messages that come after this message ID in the specified sort order"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of messages to return"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Sort order for messages by creation time. 'asc' for oldest first, 'desc' for newest first"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Field to sort by"
+              },
+              {
+                "name": "group_id",
+                "value": "",
+                "type": "query",
+                "description": "Group ID to filter messages by."
+              },
+              {
+                "name": "include_err",
+                "value": "",
+                "type": "query",
+                "description": "Whether to include error messages and error statuses. For debugging purposes only."
+              },
+              {
+                "name": "include_return_message_types",
+                "value": "",
+                "type": "query",
+                "description": "Message types to include in response. When null, all message types are returned."
+              }
+            ]
+          },
+          "docs": "List all messages in a conversation.\n\nReturns LettaMessage objects (UserMessage, AssistantMessage, etc.) for all\nmessages in the conversation, with support for cursor-based pagination.\n\n**Agent-direct mode**: Pass conversation_id=\"default\" with agent_id parameter\nto list messages from the agent's default conversation.\n\n**Deprecated**: Passing an agent ID as conversation_id still works but will be removed."
+        },
+        {
+          "info": {
+            "name": "Send Conversation Message",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.letta.com/v1/conversations/:conversation_id/messages",
+            "params": [
+              {
+                "name": "conversation_id",
+                "value": "",
+                "type": "path",
+                "description": "The conversation identifier. Can be a conversation ID ('conv-<uuid4>'), 'default' for agent-direct mode (with agent_id parameter), or an agent ID ('agent-<uuid4>') for backwards compatibility (deprecated)."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Send a message to a conversation and get a response.\n\nThis endpoint sends a message to an existing conversation.\nBy default (streaming=true), returns a streaming response (Server-Sent Events).\nSet streaming=false to get a complete JSON response.\n\n**Agent-direct mode**: Pass conversation_id=\"default\" with agent_id in request body\nto send messages to the agent's default conversation with locking.\n\n**Deprecated**: Passing an agent ID as conversation_id still works but will be removed."
+        },
+        {
+          "info": {
+            "name": "Preview Conversation Model Request",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.letta.com/v1/conversations/:conversation_id/messages/preview-raw-payload",
+            "params": [
+              {
+                "name": "conversation_id",
+                "value": "",
+                "type": "path",
+                "description": "The conversation identifier. Can be a conversation ID ('conv-<uuid4>'), 'default' for agent-direct mode (with agent_id parameter), or an agent ID ('agent-<uuid4>') for backwards compatibility (deprecated)."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Inspect the raw LLM request payload for a conversation message without sending it.\n\nThis endpoint processes the message through the same path as send_conversation_message\n(including conversation-scoped messages, isolated blocks, model overrides, and\nclient tools/skills) but stops before the LLM call and returns the raw request\npayload. Useful for debugging and verifying what the LLM will actually see."
+        },
+        {
+          "info": {
+            "name": "Retrieve Conversation Stream",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.letta.com/v1/conversations/:conversation_id/stream",
+            "params": [
+              {
+                "name": "conversation_id",
+                "value": "",
+                "type": "path",
+                "description": "The conversation identifier. Can be a conversation ID ('conv-<uuid4>'), 'default' for agent-direct mode (with agent_id parameter), or an agent ID ('agent-<uuid4>') for backwards compatibility (deprecated)."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Resume the stream for the most recent active run in a conversation.\n\nThis endpoint allows you to reconnect to an active background stream\nfor a conversation, enabling recovery from network interruptions.\n\n**Agent-direct mode**: Pass conversation_id=\"default\" with agent_id in request body\nto retrieve the stream for the agent's most recent active run.\n\n**Direct run access**: Pass run_id directly to skip run lookup entirely.\nUseful for recovery from duplicate request 409 errors.\n\n**OTID lookup**: P"
+        },
+        {
+          "info": {
+            "name": "Cancel Conversation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.letta.com/v1/conversations/:conversation_id/cancel",
+            "params": [
+              {
+                "name": "conversation_id",
+                "value": "",
+                "type": "path",
+                "description": "The conversation identifier. Can be a conversation ID ('conv-<uuid4>'), 'default' for agent-direct mode (with agent_id parameter), or an agent ID ('agent-<uuid4>') for backwards compatibility (deprecated)."
+              },
+              {
+                "name": "agent_id",
+                "value": "",
+                "type": "query",
+                "description": "Agent ID for agent-direct mode with 'default' conversation"
+              }
+            ]
+          },
+          "docs": "Cancel runs associated with a conversation.\n\nNote: To cancel active runs, Redis is required.\n\n**Agent-direct mode**: Pass conversation_id=\"default\" with agent_id query parameter\nto cancel runs for the agent's default conversation.\n\n**Deprecated**: Passing an agent ID as conversation_id still works but will be removed."
+        },
+        {
+          "info": {
+            "name": "Recompile Conversation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.letta.com/v1/conversations/:conversation_id/recompile",
+            "params": [
+              {
+                "name": "conversation_id",
+                "value": "",
+                "type": "path",
+                "description": "The conversation identifier. Can be a conversation ID ('conv-<uuid4>'), 'default' for agent-direct mode (with agent_id parameter), or an agent ID ('agent-<uuid4>') for backwards compatibility (deprecated)."
+              },
+              {
+                "name": "dry_run",
+                "value": "",
+                "type": "query",
+                "description": "If True, do not persist changes; still returns the compiled system prompt."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Manually trigger system prompt recompilation for a conversation."
+        },
+        {
+          "info": {
+            "name": "Compact Conversation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.letta.com/v1/conversations/:conversation_id/compact",
+            "params": [
+              {
+                "name": "conversation_id",
+                "value": "",
+                "type": "path",
+                "description": "The conversation identifier. Can be a conversation ID ('conv-<uuid4>'), 'default' for agent-direct mode (with agent_id parameter), or an agent ID ('agent-<uuid4>') for backwards compatibility (deprecated)."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Compact (summarize) a conversation's message history.\n\nThis endpoint summarizes the in-context messages for a specific conversation,\nreducing the message count while preserving important context.\n\n**Agent-direct mode**: Pass conversation_id=\"default\" with agent_id in request body\nto compact the agent's default conversation messages.\n\n**Deprecated**: Passing an agent ID as conversation_id still works but will be removed."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

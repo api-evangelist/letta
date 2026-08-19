@@ -1,0 +1,275 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Letta Agent Templates Archival Memory API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Archival Memory",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Archives",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/v1/archives/",
+            "params": [
+              {
+                "name": "before",
+                "value": "",
+                "type": "query",
+                "description": "Archive ID cursor for pagination. Returns archives that come before this archive ID in the specified sort order"
+              },
+              {
+                "name": "after",
+                "value": "",
+                "type": "query",
+                "description": "Archive ID cursor for pagination. Returns archives that come after this archive ID in the specified sort order"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of archives to return"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Sort order for archives by creation time. 'asc' for oldest first, 'desc' for newest first"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Field to sort by"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Filter by archive name (exact match)"
+              },
+              {
+                "name": "agent_id",
+                "value": "",
+                "type": "query",
+                "description": "Only archives attached to this agent ID"
+              }
+            ]
+          },
+          "docs": "Get a list of all archives for the current organization with optional filters and pagination."
+        },
+        {
+          "info": {
+            "name": "Create Archive",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.letta.com/v1/v1/archives/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new archive."
+        },
+        {
+          "info": {
+            "name": "Retrieve Archive",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/v1/archives/:archive_id",
+            "params": [
+              {
+                "name": "archive_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the archive in the format 'archive-<uuid4>'"
+              }
+            ]
+          },
+          "docs": "Get a single archive by its ID."
+        },
+        {
+          "info": {
+            "name": "Modify Archive",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.letta.com/v1/v1/archives/:archive_id",
+            "params": [
+              {
+                "name": "archive_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the archive in the format 'archive-<uuid4>'"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an existing archive's name and/or description."
+        },
+        {
+          "info": {
+            "name": "Delete Archive",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.letta.com/v1/v1/archives/:archive_id",
+            "params": [
+              {
+                "name": "archive_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the archive in the format 'archive-<uuid4>'"
+              }
+            ]
+          },
+          "docs": "Delete an archive by its ID."
+        },
+        {
+          "info": {
+            "name": "List Agents For Archive",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/v1/archives/:archive_id/agents",
+            "params": [
+              {
+                "name": "archive_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the archive in the format 'archive-<uuid4>'"
+              },
+              {
+                "name": "before",
+                "value": "",
+                "type": "query",
+                "description": "Agent ID cursor for pagination. Returns agents that come before this agent ID in the specified sort order"
+              },
+              {
+                "name": "after",
+                "value": "",
+                "type": "query",
+                "description": "Agent ID cursor for pagination. Returns agents that come after this agent ID in the specified sort order"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of agents to return"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Sort order for agents by creation time. 'asc' for oldest first, 'desc' for newest first"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Specify which relational fields to include in the response. No relationships are included by default."
+              }
+            ]
+          },
+          "docs": "Get a list of agents that have access to an archive with pagination support."
+        },
+        {
+          "info": {
+            "name": "Create Passage In Archive",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.letta.com/v1/v1/archives/:archive_id/passages",
+            "params": [
+              {
+                "name": "archive_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the archive in the format 'archive-<uuid4>'"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new passage in an archive."
+        },
+        {
+          "info": {
+            "name": "Create Passages In Archive",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.letta.com/v1/v1/archives/:archive_id/passages/batch",
+            "params": [
+              {
+                "name": "archive_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the archive in the format 'archive-<uuid4>'"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create multiple passages in an archive."
+        },
+        {
+          "info": {
+            "name": "Delete Passage From Archive",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.letta.com/v1/v1/archives/:archive_id/passages/:passage_id",
+            "params": [
+              {
+                "name": "archive_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the archive in the format 'archive-<uuid4>'"
+              },
+              {
+                "name": "passage_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the passage in the format 'passage-<uuid4>'"
+              }
+            ]
+          },
+          "docs": "Delete a passage from an archive."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

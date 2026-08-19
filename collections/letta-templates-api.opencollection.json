@@ -1,0 +1,621 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Letta Admin Templates API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Templates",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create Agents from Template",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.letta.com/v1/templates/:project_id/:template_version/agents",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "The project id"
+              },
+              {
+                "name": "template_version",
+                "value": "",
+                "type": "path",
+                "description": "The template version, formatted as {template-name}:{version-number} or {template-name}:latest. This endpoint is not available for self-hosted Letta."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates an Agent or multiple Agents from a template"
+        },
+        {
+          "info": {
+            "name": "Create Agents from Template",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.letta.com/v1/templates/:template_version/agents",
+            "params": [
+              {
+                "name": "template_version",
+                "value": "",
+                "type": "path",
+                "description": "The template version, formatted as {template-name}:{version-number} or {template-name}:latest. This endpoint is not available for self-hosted Letta."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates an Agent or multiple Agents from a template"
+        },
+        {
+          "info": {
+            "name": "List Templates (Cloud-only)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/templates",
+            "params": [
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "exact",
+                "value": "",
+                "type": "query",
+                "description": "Whether to search for an exact name match"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "query",
+                "description": "Specify the version you want to return, otherwise will return the latest version"
+              },
+              {
+                "name": "template_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "project_slug",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List all templates"
+        },
+        {
+          "info": {
+            "name": "Create Template (Cloud-only)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.letta.com/v1/templates",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new template from an existing agent or agent file"
+        },
+        {
+          "info": {
+            "name": "Save Template Version (Cloud-only)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.letta.com/v1/templates/:template_name/save",
+            "params": [
+              {
+                "name": "template_name",
+                "value": "",
+                "type": "path",
+                "description": "The template version, formatted as {template-name}, any version appended will be ignored"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Saves the current version of the template as a new version"
+        },
+        {
+          "info": {
+            "name": "Save Template Version (Cloud-only)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.letta.com/v1/templates/:project_id/:template_name",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "The project id"
+              },
+              {
+                "name": "template_name",
+                "value": "",
+                "type": "path",
+                "description": "The template version, formatted as {template-name}, any version appended will be ignored"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Saves the current version of the template as a new version"
+        },
+        {
+          "info": {
+            "name": "Delete Template (Cloud-only)",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.letta.com/v1/templates/:project_id/:template_name",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "The project id"
+              },
+              {
+                "name": "template_name",
+                "value": "",
+                "type": "path",
+                "description": "The template name (without version)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Deletes all versions of a template with the specified name"
+        },
+        {
+          "info": {
+            "name": "Get Template Snapshot (Cloud-only)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/templates/:project_id/:template_version/snapshot",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "The project id"
+              },
+              {
+                "name": "template_version",
+                "value": "",
+                "type": "path",
+                "description": "The template version, formatted as {template-name}:{version-number} or {template-name}:latest"
+              }
+            ]
+          },
+          "docs": "Get a snapshot of the template version, this will return the template state at a specific version"
+        },
+        {
+          "info": {
+            "name": "Set Current Template from Snapshot (Cloud-only)",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.letta.com/v1/templates/:project_id/:template_version/snapshot",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "The project id"
+              },
+              {
+                "name": "template_version",
+                "value": "",
+                "type": "path",
+                "description": "The template name with :dev version (e.g., my-template:dev)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the current working version of a template from a snapshot"
+        },
+        {
+          "info": {
+            "name": "Fork Template (Cloud-only)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.letta.com/v1/templates/:project_id/:template_version/fork",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "The project id"
+              },
+              {
+                "name": "template_version",
+                "value": "",
+                "type": "path",
+                "description": "The template version, formatted as {template-name}:{version-number} or {template-name}:latest"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Forks a template version into a new template"
+        },
+        {
+          "info": {
+            "name": "Create Template (Cloud-only)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.letta.com/v1/templates/:project_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "The project id"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new template from an existing agent or agent file"
+        },
+        {
+          "info": {
+            "name": "Update Current Template from Agent File (Cloud-only)",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.letta.com/v1/templates/:template_name",
+            "params": [
+              {
+                "name": "template_name",
+                "value": "",
+                "type": "path",
+                "description": "The template name (without version)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the current working version of a template from an agent file"
+        },
+        {
+          "info": {
+            "name": "Delete Template (Cloud-only)",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.letta.com/v1/templates/:template_name",
+            "params": [
+              {
+                "name": "template_name",
+                "value": "",
+                "type": "path",
+                "description": "The template name (without version)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Deletes all versions of a template with the specified name"
+        },
+        {
+          "info": {
+            "name": "Rename Template (Cloud-only)",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.letta.com/v1/templates/:project_id/:template_name/name",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "The project id"
+              },
+              {
+                "name": "template_name",
+                "value": "",
+                "type": "path",
+                "description": "The current template name (version will be automatically stripped if included)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Renames all versions of a template with the specified name. Versions are automatically stripped from the current template name if accidentally included."
+        },
+        {
+          "info": {
+            "name": "Update Template Description (Cloud-only)",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.letta.com/v1/templates/:project_id/:template_name/description",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "The project id"
+              },
+              {
+                "name": "template_name",
+                "value": "",
+                "type": "path",
+                "description": "The template name (version will be automatically stripped if included)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the description for all versions of a template with the specified name. Versions are automatically stripped from the current template name if accidentally included."
+        },
+        {
+          "info": {
+            "name": "List Template Versions (Cloud-only)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/templates/:project_id/:name/versions",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "The project id"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "The template name (without version)"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List all versions of a specific template"
+        },
+        {
+          "info": {
+            "name": "Migrate Deployment to Template Version (Cloud-only)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.letta.com/v1/templates/:project_id/:template_name/deployments/:deployment_id/migrate",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "The project id"
+              },
+              {
+                "name": "template_name",
+                "value": "",
+                "type": "path",
+                "description": "The template name (without version)"
+              },
+              {
+                "name": "deployment_id",
+                "value": "",
+                "type": "path",
+                "description": "The deployment ID to migrate"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Migrates a deployment to a specific template version"
+        },
+        {
+          "info": {
+            "name": "Rollback Template to Previous Version (Cloud-only)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.letta.com/v1/templates/:template_name/rollback",
+            "params": [
+              {
+                "name": "template_name",
+                "value": "",
+                "type": "path",
+                "description": "The template name (without version)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Rollback the current working version of a template to a previous saved version. If the current version has unsaved changes, they will be automatically saved as a new version before rollback."
+        },
+        {
+          "info": {
+            "name": "Rollback Template to Previous Version (Cloud-only)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.letta.com/v1/templates/:project_id/:template_name/rollback",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "The project id"
+              },
+              {
+                "name": "template_name",
+                "value": "",
+                "type": "path",
+                "description": "The template name (without version)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Rollback the current working version of a template to a previous saved version. If the current version has unsaved changes, they will be automatically saved as a new version before rollback."
+        },
+        {
+          "info": {
+            "name": "Update Current Template from Agent File (Cloud-only)",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.letta.com/v1/templates/:project_id/:template_name/agent-file",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "The project id"
+              },
+              {
+                "name": "template_name",
+                "value": "",
+                "type": "path",
+                "description": "The template name (without version)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the current working version of a template from an agent file"
+        },
+        {
+          "info": {
+            "name": "Migrate Template from Legacy Project (Cloud-only)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.letta.com/v1/legacy-templates/:templateId/migrates",
+            "params": [
+              {
+                "name": "templateId",
+                "value": "",
+                "type": "path",
+                "description": "The template ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Migrates a template from a legacy project to the default project. Only works if the template is currently in a legacy project."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

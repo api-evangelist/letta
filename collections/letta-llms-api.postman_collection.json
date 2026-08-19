@@ -1,0 +1,350 @@
+{
+  "item": [
+    {
+      "id": "35c38d54-4bc6-416d-941b-4ad4009f70d3",
+      "name": "LLMs",
+      "description": {
+        "content": "List available LLM models and configurations.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ccf90d7d-cce4-477c-9aa0-254b92e40178",
+          "name": "List LLM Models",
+          "request": {
+            "name": "List LLM Models",
+            "description": {
+              "content": "List available LLM models using the asynchronous implementation for improved performance.\n\nReturns Model format which extends LLMConfig with additional metadata fields.\nLegacy LLMConfig fields are marked as deprecated but still available for backward compatibility.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "models",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "provider_category",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "provider_category",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "provider_name",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "provider_type",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1d82fe67-387a-41aa-b97f-d279401ef0ab",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "models",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "provider_category",
+                      "value": "byok"
+                    },
+                    {
+                      "key": "provider_category",
+                      "value": "base"
+                    },
+                    {
+                      "key": "provider_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "provider_type",
+                      "value": "zai_coding"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"name\": \"string\",\n    \"provider_type\": \"zai\",\n    \"model\": \"string\",\n    \"model_endpoint_type\": \"baseten\",\n    \"context_window\": 2299,\n    \"max_context_window\": 2771,\n    \"handle\": \"string\",\n    \"display_name\": \"string\",\n    \"provider_name\": \"string\",\n    \"model_type\": \"llm\",\n    \"model_endpoint\": \"string\",\n    \"provider_category\": \"byok\",\n    \"model_wrapper\": \"string\",\n    \"put_inner_thoughts_in_kwargs\": false,\n    \"temperature\": 0.7,\n    \"max_tokens\": 3753,\n    \"enable_reasoner\": true,\n    \"reasoning_effort\": \"low\",\n    \"max_reasoning_tokens\": 0,\n    \"effort\": \"low\",\n    \"frequency_penalty\": 3904.8349020449323,\n    \"compatibility_type\": \"gguf\",\n    \"verbosity\": \"low\",\n    \"tier\": \"string\",\n    \"parallel_tool_calls\": true,\n    \"response_format\": {\n      \"type\": \"text\"\n    },\n    \"strict\": false,\n    \"return_logprobs\": false,\n    \"top_logprobs\": 2459,\n    \"return_token_ids\": false,\n    \"tool_call_parser\": \"string\"\n  },\n  {\n    \"name\": \"string\",\n    \"provider_type\": \"google_vertex\",\n    \"model\": \"string\",\n    \"model_endpoint_type\": \"openrouter\",\n    \"context_window\": 8143,\n    \"max_context_window\": 2251,\n    \"handle\": \"string\",\n    \"display_name\": \"string\",\n    \"provider_name\": \"string\",\n    \"model_type\": \"llm\",\n    \"model_endpoint\": \"string\",\n    \"provider_category\": \"byok\",\n    \"model_wrapper\": \"string\",\n    \"put_inner_thoughts_in_kwargs\": true,\n    \"temperature\": 0.7,\n    \"max_tokens\": 4082,\n    \"enable_reasoner\": true,\n    \"reasoning_effort\": \"none\",\n    \"max_reasoning_tokens\": 0,\n    \"effort\": \"low\",\n    \"frequency_penalty\": 5828.655357117738,\n    \"compatibility_type\": \"mlx\",\n    \"verbosity\": \"medium\",\n    \"tier\": \"string\",\n    \"parallel_tool_calls\": true,\n    \"response_format\": {\n      \"type\": \"text\"\n    },\n    \"strict\": false,\n    \"return_logprobs\": false,\n    \"top_logprobs\": 7583,\n    \"return_token_ids\": false,\n    \"tool_call_parser\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "51ca6547-19d3-447a-99c3-49ef3e88746e",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "models",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "provider_category",
+                      "value": "byok"
+                    },
+                    {
+                      "key": "provider_category",
+                      "value": "base"
+                    },
+                    {
+                      "key": "provider_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "provider_type",
+                      "value": "zai_coding"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "97cf0509-c917-48c2-a3c5-e569d4274e73",
+          "name": "List Embedding Models",
+          "request": {
+            "name": "List Embedding Models",
+            "description": {
+              "content": "List available embedding models using the asynchronous implementation for improved performance.\n\nReturns EmbeddingModel format which extends EmbeddingConfig with additional metadata fields.\nLegacy EmbeddingConfig fields are marked as deprecated but still available for backward compatibility.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "models",
+                "embedding"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "22270b1a-594a-4161-a4c1-9a96dcc7c81b",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "models",
+                    "embedding"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"name\": \"string\",\n    \"display_name\": \"string\",\n    \"provider_type\": \"groq\",\n    \"provider_name\": \"string\",\n    \"embedding_endpoint_type\": \"vllm\",\n    \"embedding_model\": \"string\",\n    \"embedding_dim\": 4787,\n    \"handle\": \"string\",\n    \"model_type\": \"embedding\",\n    \"embedding_endpoint\": \"string\",\n    \"embedding_chunk_size\": 7875,\n    \"batch_size\": 32,\n    \"azure_endpoint\": \"string\",\n    \"azure_version\": \"string\",\n    \"azure_deployment\": \"string\"\n  },\n  {\n    \"name\": \"string\",\n    \"display_name\": \"string\",\n    \"provider_type\": \"google_vertex\",\n    \"provider_name\": \"string\",\n    \"embedding_endpoint_type\": \"koboldcpp\",\n    \"embedding_model\": \"string\",\n    \"embedding_dim\": 7533,\n    \"handle\": \"string\",\n    \"model_type\": \"embedding\",\n    \"embedding_endpoint\": \"string\",\n    \"embedding_chunk_size\": 6534,\n    \"batch_size\": 32,\n    \"azure_endpoint\": \"string\",\n    \"azure_version\": \"string\",\n    \"azure_deployment\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "27f599d9-6903-462c-a9e4-61fae2a6360c",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "models",
+                    "embedding"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.letta.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "2aeebd41-1c9b-489d-9eef-0d07da29748f",
+    "name": "Letta Admin LLMs API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST API for Letta, the stateful agents platform. Manage agents, memory blocks, archival passages, sources, custom tools, MCP servers, multi-agent groups, runs, and streaming responses. Available as Letta Cloud (managed) at https://api.letta.com/v1 and as the self-hosted open-source server (Apache-2.0) typically run at http://localhost:8283.\n\nContact Support:\n Name: Letta\n Email: support@letta.com",
+      "type": "text/plain"
+    }
+  }
+}

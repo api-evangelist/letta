@@ -1,0 +1,549 @@
+{
+  "item": [
+    {
+      "id": "af92a73e-e5a5-4c52-8351-6b2e7e4d6f73",
+      "name": "Internal Runs",
+      "description": {
+        "content": "Internal Runs operations.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "4671d45f-e3f2-4a67-ba3a-5283c4596009",
+          "name": "List Runs",
+          "request": {
+            "name": "List Runs",
+            "description": {
+              "content": "List all runs.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "_internal_runs",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "run_id",
+                  "value": "<string>",
+                  "description": "Filter by a specific run ID."
+                },
+                {
+                  "disabled": false,
+                  "key": "agent_id",
+                  "value": "<string>",
+                  "description": "The unique identifier of the agent associated with the run."
+                },
+                {
+                  "disabled": false,
+                  "key": "agent_ids",
+                  "value": "<string>",
+                  "description": "The unique identifiers of the agents associated with the run. Deprecated in favor of agent_id field."
+                },
+                {
+                  "disabled": false,
+                  "key": "agent_ids",
+                  "value": "<string>",
+                  "description": "The unique identifiers of the agents associated with the run. Deprecated in favor of agent_id field."
+                },
+                {
+                  "disabled": false,
+                  "key": "statuses",
+                  "value": "<string>",
+                  "description": "Filter runs by status. Can specify multiple statuses."
+                },
+                {
+                  "disabled": false,
+                  "key": "statuses",
+                  "value": "<string>",
+                  "description": "Filter runs by status. Can specify multiple statuses."
+                },
+                {
+                  "disabled": false,
+                  "key": "background",
+                  "value": "<boolean>",
+                  "description": "If True, filters for runs that were created in background mode."
+                },
+                {
+                  "disabled": false,
+                  "key": "stop_reason",
+                  "value": "<string>",
+                  "description": "Filter runs by stop reason."
+                },
+                {
+                  "disabled": false,
+                  "key": "template_family",
+                  "value": "<string>",
+                  "description": "Filter runs by template family (base_template_id)."
+                },
+                {
+                  "disabled": false,
+                  "key": "step_count",
+                  "value": "<integer>",
+                  "description": "Filter runs by step count. Must be provided with step_count_operator."
+                },
+                {
+                  "disabled": false,
+                  "key": "step_count_operator",
+                  "value": "eq",
+                  "description": "Operator for step_count filter: 'eq' for equals, 'gte' for greater than or equal, 'lte' for less than or equal."
+                },
+                {
+                  "disabled": false,
+                  "key": "tools_used",
+                  "value": "<string>",
+                  "description": "Filter runs that used any of the specified tools."
+                },
+                {
+                  "disabled": false,
+                  "key": "tools_used",
+                  "value": "<string>",
+                  "description": "Filter runs that used any of the specified tools."
+                },
+                {
+                  "disabled": false,
+                  "key": "before",
+                  "value": "<string>",
+                  "description": "Run ID cursor for pagination. Returns runs that come before this run ID in the specified sort order"
+                },
+                {
+                  "disabled": false,
+                  "key": "after",
+                  "value": "<string>",
+                  "description": "Run ID cursor for pagination. Returns runs that come after this run ID in the specified sort order"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Maximum number of runs to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "order",
+                  "value": "desc",
+                  "description": "Sort order for runs by creation time. 'asc' for oldest first, 'desc' for newest first"
+                },
+                {
+                  "disabled": false,
+                  "key": "order_by",
+                  "value": "created_at",
+                  "description": "Field to sort by"
+                },
+                {
+                  "disabled": false,
+                  "key": "active",
+                  "value": "false",
+                  "description": "Filter for active runs."
+                },
+                {
+                  "disabled": false,
+                  "key": "ascending",
+                  "value": "false",
+                  "description": "Whether to sort agents oldest to newest (True) or newest to oldest (False, default). Deprecated in favor of order field."
+                },
+                {
+                  "disabled": false,
+                  "key": "project_id",
+                  "value": "<string>",
+                  "description": "Filter runs by project ID."
+                },
+                {
+                  "disabled": false,
+                  "key": "conversation_id",
+                  "value": "<string>",
+                  "description": "Filter runs by conversation ID."
+                },
+                {
+                  "disabled": false,
+                  "key": "duration_percentile",
+                  "value": "<integer>",
+                  "description": "Filter runs by duration percentile (1-100). Returns runs slower than this percentile."
+                },
+                {
+                  "disabled": false,
+                  "key": "duration_value",
+                  "value": "<integer>",
+                  "description": "Duration value in nanoseconds for filtering. Must be used with duration_operator."
+                },
+                {
+                  "disabled": false,
+                  "key": "duration_operator",
+                  "value": "<string>",
+                  "description": "Comparison operator for duration filter: 'gt' (greater than), 'lt' (less than), 'eq' (equals)."
+                },
+                {
+                  "disabled": false,
+                  "key": "start_date",
+                  "value": "<dateTime>",
+                  "description": "Filter runs created on or after this date (ISO 8601 format)."
+                },
+                {
+                  "disabled": false,
+                  "key": "end_date",
+                  "value": "<dateTime>",
+                  "description": "Filter runs created on or before this date (ISO 8601 format)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "53c4fff4-8b7e-49bd-aa7b-2f84a4f784e5",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "_internal_runs",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "run_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "agent_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "agent_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "agent_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "statuses",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "statuses",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "background",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "stop_reason",
+                      "value": "insufficient_credits"
+                    },
+                    {
+                      "key": "template_family",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "step_count",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "step_count_operator",
+                      "value": "eq"
+                    },
+                    {
+                      "key": "tools_used",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tools_used",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "before",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "after",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "order",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "created_at"
+                    },
+                    {
+                      "key": "active",
+                      "value": "false"
+                    },
+                    {
+                      "key": "ascending",
+                      "value": "false"
+                    },
+                    {
+                      "key": "project_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "conversation_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "duration_percentile",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "duration_value",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "duration_operator",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<dateTime>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"agent_id\": \"string\",\n    \"id\": \"run-123e4567-e89b-12d3-a456-426614174000\",\n    \"status\": \"created\",\n    \"created_at\": \"1998-04-16T16:46:06.145Z\",\n    \"completed_at\": \"1978-09-12T10:25:51.692Z\",\n    \"conversation_id\": \"string\",\n    \"base_template_id\": \"string\",\n    \"background\": true,\n    \"metadata\": {\n      \"key_0\": false\n    },\n    \"request_config\": {\n      \"use_assistant_message\": true,\n      \"assistant_message_tool_name\": \"send_message\",\n      \"assistant_message_tool_kwarg\": \"message\",\n      \"include_return_message_types\": [\n        \"hidden_reasoning_message\",\n        \"tool_return_message\"\n      ]\n    },\n    \"stop_reason\": \"cancelled\",\n    \"callback_url\": \"string\",\n    \"callback_sent_at\": \"1999-04-02T23:14:16.662Z\",\n    \"callback_status_code\": 345,\n    \"callback_error\": \"string\",\n    \"ttft_ns\": 6795,\n    \"total_duration_ns\": 5361\n  },\n  {\n    \"agent_id\": \"string\",\n    \"id\": \"run-123e4567-e89b-12d3-a456-426614174000\",\n    \"status\": \"created\",\n    \"created_at\": \"1997-10-30T07:02:52.979Z\",\n    \"completed_at\": \"1989-10-18T04:13:23.801Z\",\n    \"conversation_id\": \"string\",\n    \"base_template_id\": \"string\",\n    \"background\": false,\n    \"metadata\": {\n      \"key_0\": 5425,\n      \"key_1\": true\n    },\n    \"request_config\": {\n      \"use_assistant_message\": true,\n      \"assistant_message_tool_name\": \"send_message\",\n      \"assistant_message_tool_kwarg\": \"message\",\n      \"include_return_message_types\": [\n        \"hidden_reasoning_message\",\n        \"user_message\"\n      ]\n    },\n    \"stop_reason\": \"llm_api_error\",\n    \"callback_url\": \"string\",\n    \"callback_sent_at\": \"2021-04-14T13:15:45.962Z\",\n    \"callback_status_code\": 4266,\n    \"callback_error\": \"string\",\n    \"ttft_ns\": 6374,\n    \"total_duration_ns\": 4885\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "36387d66-8a2a-4edc-99d4-42baceb2dfb3",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "_internal_runs",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "run_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "agent_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "agent_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "agent_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "statuses",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "statuses",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "background",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "stop_reason",
+                      "value": "insufficient_credits"
+                    },
+                    {
+                      "key": "template_family",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "step_count",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "step_count_operator",
+                      "value": "eq"
+                    },
+                    {
+                      "key": "tools_used",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tools_used",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "before",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "after",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "order",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "created_at"
+                    },
+                    {
+                      "key": "active",
+                      "value": "false"
+                    },
+                    {
+                      "key": "ascending",
+                      "value": "false"
+                    },
+                    {
+                      "key": "project_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "conversation_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "duration_percentile",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "duration_value",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "duration_operator",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<dateTime>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.letta.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "a3264ba9-0bb3-41bb-874e-560547ad721a",
+    "name": "Letta Admin Internal Runs API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST API for Letta, the stateful agents platform. Manage agents, memory blocks, archival passages, sources, custom tools, MCP servers, multi-agent groups, runs, and streaming responses. Available as Letta Cloud (managed) at https://api.letta.com/v1 and as the self-hosted open-source server (Apache-2.0) typically run at http://localhost:8283.\n\nContact Support:\n Name: Letta\n Email: support@letta.com",
+      "type": "text/plain"
+    }
+  }
+}

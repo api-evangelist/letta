@@ -1,0 +1,41 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Letta Admin Embeddings API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Embeddings",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Embeddings Total Storage Size",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/embeddings/total_storage_size",
+            "headers": [
+              {
+                "name": "storage-unit",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Get the total size of all embeddings in the database for a user in the storage unit given."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

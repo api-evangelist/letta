@@ -1,0 +1,425 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Letta Admin Feeds API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Feeds",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Feeds",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/feeds",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List all feeds with optional filters and pagination"
+        },
+        {
+          "info": {
+            "name": "Create Feed",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.letta.com/v1/feeds",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new feed in a project"
+        },
+        {
+          "info": {
+            "name": "Get Feed",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/feeds/:feed_id",
+            "params": [
+              {
+                "name": "feed_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve feed details by ID"
+        },
+        {
+          "info": {
+            "name": "Delete Feed",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.letta.com/v1/feeds/:feed_id",
+            "params": [
+              {
+                "name": "feed_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Soft delete a feed and clean up its sequence"
+        },
+        {
+          "info": {
+            "name": "List Feed Messages",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/feeds/:feed_id/messages",
+            "params": [
+              {
+                "name": "feed_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "after_sequence",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List messages from a feed (for debugging/inspection)"
+        },
+        {
+          "info": {
+            "name": "Publish Messages",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.letta.com/v1/feeds/:feed_id/messages",
+            "params": [
+              {
+                "name": "feed_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Batch insert messages into a feed (up to 10,000 per request)"
+        },
+        {
+          "info": {
+            "name": "Get Feed Message",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/feeds/:feed_id/messages/:message_id",
+            "params": [
+              {
+                "name": "feed_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "message_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get full content of a feed message"
+        },
+        {
+          "info": {
+            "name": "Subscribe Agent to Feed",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.letta.com/v1/feeds/:feed_id/subscribe",
+            "params": [
+              {
+                "name": "feed_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Subscribe an agent to a feed with polling configuration"
+        },
+        {
+          "info": {
+            "name": "Update Subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.letta.com/v1/feeds/:feed_id/subscriptions/:subscription_id",
+            "params": [
+              {
+                "name": "feed_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "subscription_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update subscription configuration (cron schedule, enable/disable)"
+        },
+        {
+          "info": {
+            "name": "Delete Subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.letta.com/v1/feeds/:feed_id/subscriptions/:subscription_id",
+            "params": [
+              {
+                "name": "feed_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "subscription_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Remove agent subscription from a feed (by subscription_id)"
+        },
+        {
+          "info": {
+            "name": "Unsubscribe Agent from Feed",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.letta.com/v1/feeds/:feed_id/unsubscribe",
+            "params": [
+              {
+                "name": "feed_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Remove agent subscription from a feed (by agent_id)"
+        },
+        {
+          "info": {
+            "name": "Trigger Subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.letta.com/v1/feeds/:feed_id/subscriptions/:subscription_id/trigger",
+            "params": [
+              {
+                "name": "feed_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "subscription_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Immediately trigger a subscription to process pending messages"
+        },
+        {
+          "info": {
+            "name": "Backfill Subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.letta.com/v1/feeds/:feed_id/subscriptions/:subscription_id/backfill",
+            "params": [
+              {
+                "name": "feed_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "subscription_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Start a background job to send historical messages to an agent subscription. Returns immediately with workflow ID. Does not update last_consumed_sequence."
+        },
+        {
+          "info": {
+            "name": "List Subscription History",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/feeds/:feed_id/subscriptions/:subscription_id/history",
+            "params": [
+              {
+                "name": "feed_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "subscription_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "next_page_token",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List the run history for a subscription including scheduled runs, manual triggers, and backfills."
+        },
+        {
+          "info": {
+            "name": "Update All Subscriptions Cron Schedule",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.letta.com/v1/feeds/:feed_id/subscriptions/cron",
+            "params": [
+              {
+                "name": "feed_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update the cron schedule for all subscriptions of a feed"
+        },
+        {
+          "info": {
+            "name": "List Feed Subscriptions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/feeds/:feed_id/subscriptions",
+            "params": [
+              {
+                "name": "feed_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "agent_id",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List all agent subscriptions for a feed"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

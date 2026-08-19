@@ -1,0 +1,42 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Letta Admin Telemetry API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Telemetry",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve Provider Trace",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/telemetry/:step_id",
+            "params": [
+              {
+                "name": "step_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "**DEPRECATED**: Use `GET /steps/{step_id}/trace` instead.\n\nRetrieve provider trace by step ID."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,46 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Letta Admin Voice API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Voice",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create Voice Chat Completions",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.letta.com/v1/voice-beta/:agent_id/chat/completions",
+            "params": [
+              {
+                "name": "agent_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "DEPRECATED: This voice-beta endpoint has been deprecated.\n\nThe voice functionality has been integrated into the main chat completions endpoint.\nPlease use the standard /v1/agents/{agent_id}/messages endpoint instead.\n\nThis endpoint will be removed in a future version."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

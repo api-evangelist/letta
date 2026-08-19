@@ -1,0 +1,87 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Letta Admin Metadata API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Metadata",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve Current Organization Balance",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/metadata/balance"
+          },
+          "docs": "Retrieve the current usage balances for the organization."
+        },
+        {
+          "info": {
+            "name": "Send User Feedback",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.letta.com/v1/metadata/feedback",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Send feedback from users to improve our services."
+        },
+        {
+          "info": {
+            "name": "Send Telemetry Event",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.letta.com/v1/metadata/telemetry",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Send telemetry events for usage tracking and analysis."
+        },
+        {
+          "info": {
+            "name": "Gets Your Letta Cloud Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/metadata/status"
+          },
+          "docs": "Gets Your Letta Cloud Status"
+        },
+        {
+          "info": {
+            "name": "Get Current User Information",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/metadata/user"
+          },
+          "docs": "Retrieve information about the current authenticated user including email, name, organization, and current project."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

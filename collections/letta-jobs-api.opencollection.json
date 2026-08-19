@@ -1,0 +1,185 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Letta Admin Jobs API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Jobs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Jobs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/jobs/",
+            "params": [
+              {
+                "name": "source_id",
+                "value": "",
+                "type": "query",
+                "description": "Deprecated: Use `folder_id` parameter instead. Only list jobs associated with the source."
+              },
+              {
+                "name": "before",
+                "value": "",
+                "type": "query",
+                "description": "Job ID cursor for pagination. Returns jobs that come before this job ID in the specified sort order"
+              },
+              {
+                "name": "after",
+                "value": "",
+                "type": "query",
+                "description": "Job ID cursor for pagination. Returns jobs that come after this job ID in the specified sort order"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of jobs to return"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Sort order for jobs by creation time. 'asc' for oldest first, 'desc' for newest first"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Field to sort by"
+              },
+              {
+                "name": "active",
+                "value": "",
+                "type": "query",
+                "description": "Filter for active jobs."
+              },
+              {
+                "name": "ascending",
+                "value": "",
+                "type": "query",
+                "description": "Whether to sort jobs oldest to newest (True, default) or newest to oldest (False). Deprecated in favor of order field."
+              }
+            ]
+          },
+          "docs": "List all jobs."
+        },
+        {
+          "info": {
+            "name": "List Active Jobs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/jobs/active",
+            "params": [
+              {
+                "name": "source_id",
+                "value": "",
+                "type": "query",
+                "description": "Deprecated: Use `folder_id` parameter instead. Only list jobs associated with the source."
+              },
+              {
+                "name": "before",
+                "value": "",
+                "type": "query",
+                "description": "Cursor for pagination"
+              },
+              {
+                "name": "after",
+                "value": "",
+                "type": "query",
+                "description": "Cursor for pagination"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Limit for pagination"
+              },
+              {
+                "name": "ascending",
+                "value": "",
+                "type": "query",
+                "description": "Whether to sort jobs oldest to newest (True, default) or newest to oldest (False)"
+              }
+            ]
+          },
+          "docs": "List all active jobs."
+        },
+        {
+          "info": {
+            "name": "Retrieve Job",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/jobs/:job_id",
+            "params": [
+              {
+                "name": "job_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the job in the format 'job-<uuid4>'"
+              }
+            ]
+          },
+          "docs": "Get the status of a job."
+        },
+        {
+          "info": {
+            "name": "Delete Job",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.letta.com/v1/jobs/:job_id",
+            "params": [
+              {
+                "name": "job_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the job in the format 'job-<uuid4>'"
+              }
+            ]
+          },
+          "docs": "Delete a job by its job_id."
+        },
+        {
+          "info": {
+            "name": "Cancel Job",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.letta.com/v1/jobs/:job_id/cancel",
+            "params": [
+              {
+                "name": "job_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the job in the format 'job-<uuid4>'"
+              }
+            ]
+          },
+          "docs": "Cancel a job by its job_id.\n\nThis endpoint marks a job as cancelled, which will cause any associated\nagent execution to terminate as soon as possible."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

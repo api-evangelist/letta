@@ -1,0 +1,71 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Letta Admin Internal Agents API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Internal Agents",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Count Agents",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/_internal_agents/count",
+            "params": [
+              {
+                "name": "exclude_hidden",
+                "value": "",
+                "type": "query",
+                "description": "If True, excludes hidden agents from the count. If False, includes all agents."
+              }
+            ]
+          },
+          "docs": "Get the total number of agents for a user, with option to exclude hidden agents."
+        },
+        {
+          "info": {
+            "name": "Modify Block for Agent",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.letta.com/v1/_internal_agents/:agent_id/core-memory/blocks/:block_label",
+            "params": [
+              {
+                "name": "block_label",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "agent_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the agent in the format 'agent-<uuid4>'"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates a core memory block of an agent."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

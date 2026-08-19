@@ -1,0 +1,1947 @@
+{
+  "item": [
+    {
+      "id": "e966a72f-55d8-4b52-8123-fbafd0ef4f90",
+      "name": "Blocks",
+      "description": {
+        "content": "Manage in-context memory blocks (core memory) shared across agents.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "80862adc-da98-470d-bbb4-d7ca201a4009",
+          "name": "List Blocks",
+          "request": {
+            "name": "List Blocks",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "blocks",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "label",
+                  "value": "<string>",
+                  "description": "Label to include (alphanumeric, hyphens, underscores, forward slashes)"
+                },
+                {
+                  "disabled": false,
+                  "key": "templates_only",
+                  "value": "false",
+                  "description": "Whether to include only templates"
+                },
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "Name filter (alphanumeric, spaces, hyphens, underscores)"
+                },
+                {
+                  "disabled": false,
+                  "key": "identity_id",
+                  "value": "<string>",
+                  "description": "The ID of the identity in the format 'identity-<uuid4>'"
+                },
+                {
+                  "disabled": false,
+                  "key": "identifier_keys",
+                  "value": "<string>",
+                  "description": "Search agents by identifier keys"
+                },
+                {
+                  "disabled": false,
+                  "key": "identifier_keys",
+                  "value": "<string>",
+                  "description": "Search agents by identifier keys"
+                },
+                {
+                  "disabled": false,
+                  "key": "project_id",
+                  "value": "<string>",
+                  "description": "Search blocks by project id"
+                },
+                {
+                  "disabled": false,
+                  "key": "tags",
+                  "value": "<string>",
+                  "description": "List of tags to filter blocks by"
+                },
+                {
+                  "disabled": false,
+                  "key": "tags",
+                  "value": "<string>",
+                  "description": "List of tags to filter blocks by"
+                },
+                {
+                  "disabled": false,
+                  "key": "match_all_tags",
+                  "value": "false",
+                  "description": "If True, only returns blocks that match ALL given tags. Otherwise, return blocks that have ANY of the passed-in tags."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Number of blocks to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "before",
+                  "value": "<string>",
+                  "description": "Block ID cursor for pagination. Returns blocks that come before this block ID in the specified sort order"
+                },
+                {
+                  "disabled": false,
+                  "key": "after",
+                  "value": "<string>",
+                  "description": "Block ID cursor for pagination. Returns blocks that come after this block ID in the specified sort order"
+                },
+                {
+                  "disabled": false,
+                  "key": "order",
+                  "value": "asc",
+                  "description": "Sort order for blocks by creation time. 'asc' for oldest first, 'desc' for newest first"
+                },
+                {
+                  "disabled": false,
+                  "key": "order_by",
+                  "value": "created_at",
+                  "description": "Field to sort by"
+                },
+                {
+                  "disabled": false,
+                  "key": "label_search",
+                  "value": "<string>",
+                  "description": "Search blocks by label. If provided, returns blocks whose label matches the search query. This is a full-text search on block labels."
+                },
+                {
+                  "disabled": false,
+                  "key": "description_search",
+                  "value": "<string>",
+                  "description": "Search blocks by description. If provided, returns blocks whose description matches the search query. This is a full-text search on block descriptions."
+                },
+                {
+                  "disabled": false,
+                  "key": "value_search",
+                  "value": "<string>",
+                  "description": "Search blocks by value. If provided, returns blocks whose value matches the search query. This is a full-text search on block values."
+                },
+                {
+                  "disabled": false,
+                  "key": "connected_to_agents_count_gt",
+                  "value": "<integer>",
+                  "description": "Filter blocks by the number of connected agents. If provided, returns blocks that have more than this number of connected agents."
+                },
+                {
+                  "disabled": false,
+                  "key": "connected_to_agents_count_lt",
+                  "value": "<integer>",
+                  "description": "Filter blocks by the number of connected agents. If provided, returns blocks that have less than this number of connected agents."
+                },
+                {
+                  "disabled": false,
+                  "key": "connected_to_agents_count_eq",
+                  "value": "<integer>",
+                  "description": "Filter blocks by the exact number of connected agents. If provided, returns blocks that have exactly this number of connected agents."
+                },
+                {
+                  "disabled": false,
+                  "key": "connected_to_agents_count_eq",
+                  "value": "<integer>",
+                  "description": "Filter blocks by the exact number of connected agents. If provided, returns blocks that have exactly this number of connected agents."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e5081604-9475-4e0d-b944-1a9153281971",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "blocks",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "label",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "templates_only",
+                      "value": "false"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "identity_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "identifier_keys",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "identifier_keys",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "project_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "match_all_tags",
+                      "value": "false"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "before",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "after",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "order",
+                      "value": "asc"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "created_at"
+                    },
+                    {
+                      "key": "label_search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "description_search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "value_search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "connected_to_agents_count_gt",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "connected_to_agents_count_lt",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "connected_to_agents_count_eq",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "connected_to_agents_count_eq",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"value\": \"string\",\n    \"id\": \"string\",\n    \"limit\": 100000,\n    \"project_id\": \"string\",\n    \"template_name\": \"string\",\n    \"is_template\": false,\n    \"template_id\": \"string\",\n    \"base_template_id\": \"string\",\n    \"deployment_id\": \"string\",\n    \"entity_id\": \"string\",\n    \"preserve_on_migration\": false,\n    \"label\": \"string\",\n    \"read_only\": false,\n    \"description\": \"string\",\n    \"metadata\": {\n      \"key_0\": 2321,\n      \"key_1\": \"string\",\n      \"key_2\": 1151\n    },\n    \"hidden\": true,\n    \"created_by_id\": \"string\",\n    \"last_updated_by_id\": \"string\",\n    \"tags\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  {\n    \"value\": \"string\",\n    \"id\": \"string\",\n    \"limit\": 100000,\n    \"project_id\": \"string\",\n    \"template_name\": \"string\",\n    \"is_template\": false,\n    \"template_id\": \"string\",\n    \"base_template_id\": \"string\",\n    \"deployment_id\": \"string\",\n    \"entity_id\": \"string\",\n    \"preserve_on_migration\": true,\n    \"label\": \"string\",\n    \"read_only\": false,\n    \"description\": \"string\",\n    \"metadata\": {\n      \"key_0\": 8134\n    },\n    \"hidden\": true,\n    \"created_by_id\": \"string\",\n    \"last_updated_by_id\": \"string\",\n    \"tags\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e0a90329-b733-41ed-92a4-5dccf54ecf70",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "blocks",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "label",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "templates_only",
+                      "value": "false"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "identity_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "identifier_keys",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "identifier_keys",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "project_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "match_all_tags",
+                      "value": "false"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "before",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "after",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "order",
+                      "value": "asc"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "created_at"
+                    },
+                    {
+                      "key": "label_search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "description_search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "value_search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "connected_to_agents_count_gt",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "connected_to_agents_count_lt",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "connected_to_agents_count_eq",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "connected_to_agents_count_eq",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6ba8a95e-3b63-4add-97d9-057a64c170c7",
+          "name": "Create Block",
+          "request": {
+            "name": "Create Block",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "blocks",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"value\": \"<string>\",\n  \"label\": \"<string>\",\n  \"limit\": 100000,\n  \"project_id\": \"<string>\",\n  \"template_name\": \"<string>\",\n  \"is_template\": false,\n  \"template_id\": \"<string>\",\n  \"base_template_id\": \"<string>\",\n  \"deployment_id\": \"<string>\",\n  \"entity_id\": \"<string>\",\n  \"preserve_on_migration\": \"<boolean>\",\n  \"read_only\": false,\n  \"description\": \"<string>\",\n  \"metadata\": {\n    \"key_0\": true,\n    \"key_1\": \"string\"\n  },\n  \"hidden\": \"<boolean>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "367c15de-7e51-48e9-b4f8-1a227bc27a51",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "blocks",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"value\": \"<string>\",\n  \"label\": \"<string>\",\n  \"limit\": 100000,\n  \"project_id\": \"<string>\",\n  \"template_name\": \"<string>\",\n  \"is_template\": false,\n  \"template_id\": \"<string>\",\n  \"base_template_id\": \"<string>\",\n  \"deployment_id\": \"<string>\",\n  \"entity_id\": \"<string>\",\n  \"preserve_on_migration\": \"<boolean>\",\n  \"read_only\": false,\n  \"description\": \"<string>\",\n  \"metadata\": {\n    \"key_0\": 2457.3531320087495,\n    \"key_1\": true,\n    \"key_2\": \"string\",\n    \"key_3\": \"string\"\n  },\n  \"hidden\": \"<boolean>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"value\": \"string\",\n  \"id\": \"string\",\n  \"limit\": 100000,\n  \"project_id\": \"string\",\n  \"template_name\": \"string\",\n  \"is_template\": false,\n  \"template_id\": \"string\",\n  \"base_template_id\": \"string\",\n  \"deployment_id\": \"string\",\n  \"entity_id\": \"string\",\n  \"preserve_on_migration\": false,\n  \"label\": \"string\",\n  \"read_only\": false,\n  \"description\": \"string\",\n  \"metadata\": {\n    \"key_0\": 7336.935355203395,\n    \"key_1\": 8038,\n    \"key_2\": 5816.372785424847,\n    \"key_3\": false\n  },\n  \"hidden\": false,\n  \"created_by_id\": \"string\",\n  \"last_updated_by_id\": \"string\",\n  \"tags\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3938dc1c-10a8-45f7-beed-780281481c99",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "blocks",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"value\": \"<string>\",\n  \"label\": \"<string>\",\n  \"limit\": 100000,\n  \"project_id\": \"<string>\",\n  \"template_name\": \"<string>\",\n  \"is_template\": false,\n  \"template_id\": \"<string>\",\n  \"base_template_id\": \"<string>\",\n  \"deployment_id\": \"<string>\",\n  \"entity_id\": \"<string>\",\n  \"preserve_on_migration\": \"<boolean>\",\n  \"read_only\": false,\n  \"description\": \"<string>\",\n  \"metadata\": {\n    \"key_0\": 2457.3531320087495,\n    \"key_1\": true,\n    \"key_2\": \"string\",\n    \"key_3\": \"string\"\n  },\n  \"hidden\": \"<boolean>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9df02b8a-b581-4901-bad2-fbbc51f46c42",
+          "name": "Count Blocks",
+          "request": {
+            "name": "Count Blocks",
+            "description": {
+              "content": "Count all blocks with optional filtering.\nSupports the same filters as list_blocks for consistent querying.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "blocks",
+                "count"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "label",
+                  "value": "<string>",
+                  "description": "Label to include (alphanumeric, hyphens, underscores, forward slashes)"
+                },
+                {
+                  "disabled": false,
+                  "key": "templates_only",
+                  "value": "false",
+                  "description": "Whether to include only templates"
+                },
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "Name filter (alphanumeric, spaces, hyphens, underscores)"
+                },
+                {
+                  "disabled": false,
+                  "key": "tags",
+                  "value": "<string>",
+                  "description": "List of tags to filter blocks by"
+                },
+                {
+                  "disabled": false,
+                  "key": "tags",
+                  "value": "<string>",
+                  "description": "List of tags to filter blocks by"
+                },
+                {
+                  "disabled": false,
+                  "key": "match_all_tags",
+                  "value": "false",
+                  "description": "If True, only counts blocks that match ALL given tags. Otherwise, counts blocks that have ANY of the passed-in tags."
+                },
+                {
+                  "disabled": false,
+                  "key": "project_id",
+                  "value": "<string>",
+                  "description": "Search blocks by project id"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6cc5d53c-ecb2-42a8-8f8d-3b52e5be5502",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "blocks",
+                    "count"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "label",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "templates_only",
+                      "value": "false"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "match_all_tags",
+                      "value": "false"
+                    },
+                    {
+                      "key": "project_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "7989",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "aa700b3b-a343-4714-88b1-51de248f0d41",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "blocks",
+                    "count"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "label",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "templates_only",
+                      "value": "false"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "match_all_tags",
+                      "value": "false"
+                    },
+                    {
+                      "key": "project_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1ddede14-8987-4b83-9ea0-aac2f83a2325",
+          "name": "Modify Block",
+          "request": {
+            "name": "Modify Block",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "blocks",
+                ":block_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "block_id",
+                  "description": "(Required) The ID of the block in the format 'block-<uuid4>'"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"value\": \"<string>\",\n  \"limit\": \"<integer>\",\n  \"project_id\": \"<string>\",\n  \"template_name\": \"<string>\",\n  \"is_template\": false,\n  \"template_id\": \"<string>\",\n  \"base_template_id\": \"<string>\",\n  \"deployment_id\": \"<string>\",\n  \"entity_id\": \"<string>\",\n  \"preserve_on_migration\": \"<boolean>\",\n  \"label\": \"<string>\",\n  \"read_only\": false,\n  \"description\": \"<string>\",\n  \"metadata\": {\n    \"key_0\": false\n  },\n  \"hidden\": \"<boolean>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4919bc22-de6f-441f-9b66-56ee1350c682",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "blocks",
+                    ":block_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "block_id",
+                      "description": "(Required) The ID of the block in the format 'block-<uuid4>'"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"value\": \"<string>\",\n  \"limit\": \"<integer>\",\n  \"project_id\": \"<string>\",\n  \"template_name\": \"<string>\",\n  \"is_template\": false,\n  \"template_id\": \"<string>\",\n  \"base_template_id\": \"<string>\",\n  \"deployment_id\": \"<string>\",\n  \"entity_id\": \"<string>\",\n  \"preserve_on_migration\": \"<boolean>\",\n  \"label\": \"<string>\",\n  \"read_only\": false,\n  \"description\": \"<string>\",\n  \"metadata\": {\n    \"key_0\": \"string\"\n  },\n  \"hidden\": \"<boolean>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"value\": \"string\",\n  \"id\": \"string\",\n  \"limit\": 100000,\n  \"project_id\": \"string\",\n  \"template_name\": \"string\",\n  \"is_template\": false,\n  \"template_id\": \"string\",\n  \"base_template_id\": \"string\",\n  \"deployment_id\": \"string\",\n  \"entity_id\": \"string\",\n  \"preserve_on_migration\": false,\n  \"label\": \"string\",\n  \"read_only\": false,\n  \"description\": \"string\",\n  \"metadata\": {\n    \"key_0\": 7336.935355203395,\n    \"key_1\": 8038,\n    \"key_2\": 5816.372785424847,\n    \"key_3\": false\n  },\n  \"hidden\": false,\n  \"created_by_id\": \"string\",\n  \"last_updated_by_id\": \"string\",\n  \"tags\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "91f8c848-e171-416a-a69c-636ed0fe2766",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "blocks",
+                    ":block_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "block_id",
+                      "description": "(Required) The ID of the block in the format 'block-<uuid4>'"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"value\": \"<string>\",\n  \"limit\": \"<integer>\",\n  \"project_id\": \"<string>\",\n  \"template_name\": \"<string>\",\n  \"is_template\": false,\n  \"template_id\": \"<string>\",\n  \"base_template_id\": \"<string>\",\n  \"deployment_id\": \"<string>\",\n  \"entity_id\": \"<string>\",\n  \"preserve_on_migration\": \"<boolean>\",\n  \"label\": \"<string>\",\n  \"read_only\": false,\n  \"description\": \"<string>\",\n  \"metadata\": {\n    \"key_0\": \"string\"\n  },\n  \"hidden\": \"<boolean>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cdd570b1-2636-4557-8019-3da78d52b449",
+          "name": "Delete Block",
+          "request": {
+            "name": "Delete Block",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "blocks",
+                ":block_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "block_id",
+                  "description": "(Required) The ID of the block in the format 'block-<uuid4>'"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ff786f45-f232-4369-9d47-0eeace046f3c",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "blocks",
+                    ":block_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "block_id",
+                      "description": "(Required) The ID of the block in the format 'block-<uuid4>'"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5fdb3e36-f133-48a5-b3ca-0f9a6380e823",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "blocks",
+                    ":block_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "block_id",
+                      "description": "(Required) The ID of the block in the format 'block-<uuid4>'"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b21531d6-0017-402a-8da5-3675d6872d3a",
+          "name": "Retrieve Block",
+          "request": {
+            "name": "Retrieve Block",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "blocks",
+                ":block_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "block_id",
+                  "description": "(Required) The ID of the block in the format 'block-<uuid4>'"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "41282f8f-e324-4721-9cbe-31639f1ca84c",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "blocks",
+                    ":block_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "block_id",
+                      "description": "(Required) The ID of the block in the format 'block-<uuid4>'"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"value\": \"string\",\n  \"id\": \"string\",\n  \"limit\": 100000,\n  \"project_id\": \"string\",\n  \"template_name\": \"string\",\n  \"is_template\": false,\n  \"template_id\": \"string\",\n  \"base_template_id\": \"string\",\n  \"deployment_id\": \"string\",\n  \"entity_id\": \"string\",\n  \"preserve_on_migration\": false,\n  \"label\": \"string\",\n  \"read_only\": false,\n  \"description\": \"string\",\n  \"metadata\": {\n    \"key_0\": 7336.935355203395,\n    \"key_1\": 8038,\n    \"key_2\": 5816.372785424847,\n    \"key_3\": false\n  },\n  \"hidden\": false,\n  \"created_by_id\": \"string\",\n  \"last_updated_by_id\": \"string\",\n  \"tags\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1e0a3c79-683a-4fdd-95d9-8c3bf745894f",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "blocks",
+                    ":block_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "block_id",
+                      "description": "(Required) The ID of the block in the format 'block-<uuid4>'"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "90d6eec5-0b96-4e7a-a67d-bccaa7e78886",
+          "name": "List Agents for Block",
+          "request": {
+            "name": "List Agents for Block",
+            "description": {
+              "content": "Retrieves all agents associated with the specified block.\nRaises a 404 if the block does not exist.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "blocks",
+                ":block_id",
+                "agents"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "before",
+                  "value": "<string>",
+                  "description": "Agent ID cursor for pagination. Returns agents that come before this agent ID in the specified sort order"
+                },
+                {
+                  "disabled": false,
+                  "key": "after",
+                  "value": "<string>",
+                  "description": "Agent ID cursor for pagination. Returns agents that come after this agent ID in the specified sort order"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Maximum number of agents to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "order",
+                  "value": "desc",
+                  "description": "Sort order for agents by creation time. 'asc' for oldest first, 'desc' for newest first"
+                },
+                {
+                  "disabled": false,
+                  "key": "order_by",
+                  "value": "created_at",
+                  "description": "Field to sort by"
+                },
+                {
+                  "disabled": false,
+                  "key": "include_relationships",
+                  "value": "<string>",
+                  "description": "Specify which relational fields (e.g., 'tools', 'sources', 'memory') to include in the response. If not provided, all relationships are loaded by default. Using this can optimize performance by reducing unnecessary joins.This is a legacy parameter, and no longer supported after 1.0.0 SDK versions."
+                },
+                {
+                  "disabled": false,
+                  "key": "include_relationships",
+                  "value": "<string>",
+                  "description": "Specify which relational fields (e.g., 'tools', 'sources', 'memory') to include in the response. If not provided, all relationships are loaded by default. Using this can optimize performance by reducing unnecessary joins.This is a legacy parameter, and no longer supported after 1.0.0 SDK versions."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "block_id",
+                  "description": "(Required) The ID of the block in the format 'block-<uuid4>'"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d69a545b-de65-4b6d-9842-83a5edd630b0",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "blocks",
+                    ":block_id",
+                    "agents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "before",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "after",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "order",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "created_at"
+                    },
+                    {
+                      "key": "include_relationships",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include_relationships",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "block_id",
+                      "description": "(Required) The ID of the block in the format 'block-<uuid4>'"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"system\": \"string\",\n    \"agent_type\": \"memgpt_v2_agent\",\n    \"llm_config\": {\n      \"model\": \"string\",\n      \"model_endpoint_type\": \"openrouter\",\n      \"context_window\": 4497,\n      \"display_name\": \"string\",\n      \"model_endpoint\": \"string\",\n      \"provider_name\": \"string\",\n      \"provider_category\": \"base\",\n      \"model_wrapper\": \"string\",\n      \"put_inner_thoughts_in_kwargs\": false,\n      \"handle\": \"string\",\n      \"temperature\": 1,\n      \"max_tokens\": 8659,\n      \"enable_reasoner\": true,\n      \"reasoning_effort\": \"xhigh\",\n      \"max_reasoning_tokens\": 0,\n      \"effort\": \"medium\",\n      \"frequency_penalty\": 7547.78624660204,\n      \"compatibility_type\": \"mlx\",\n      \"verbosity\": \"high\",\n      \"tier\": \"string\",\n      \"parallel_tool_calls\": true,\n      \"response_format\": {\n        \"type\": \"text\"\n      },\n      \"strict\": false,\n      \"return_logprobs\": false,\n      \"top_logprobs\": 166,\n      \"return_token_ids\": false,\n      \"tool_call_parser\": \"string\"\n    },\n    \"memory\": {\n      \"blocks\": [\n        {\n          \"value\": \"string\",\n          \"limit\": 100000,\n          \"project_id\": \"string\",\n          \"template_name\": \"string\",\n          \"is_template\": false,\n          \"template_id\": \"string\",\n          \"base_template_id\": \"string\",\n          \"deployment_id\": \"string\",\n          \"entity_id\": \"string\",\n          \"preserve_on_migration\": false,\n          \"label\": \"string\",\n          \"read_only\": false,\n          \"description\": \"string\",\n          \"metadata\": {\n            \"key_0\": false,\n            \"key_1\": true,\n            \"key_2\": \"string\",\n            \"key_3\": \"string\"\n          },\n          \"hidden\": false,\n          \"id\": \"block-123e4567-e89b-12d3-a456-426614174000\",\n          \"created_by_id\": \"string\",\n          \"last_updated_by_id\": \"string\",\n          \"tags\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        },\n        {\n          \"value\": \"string\",\n          \"limit\": 100000,\n          \"project_id\": \"string\",\n          \"template_name\": \"string\",\n          \"is_template\": false,\n          \"template_id\": \"string\",\n          \"base_template_id\": \"string\",\n          \"deployment_id\": \"string\",\n          \"entity_id\": \"string\",\n          \"preserve_on_migration\": false,\n          \"label\": \"string\",\n          \"read_only\": false,\n          \"description\": \"string\",\n          \"metadata\": {\n            \"key_0\": 5101.729743929082,\n            \"key_1\": 8152.258167733252,\n            \"key_2\": \"string\"\n          },\n          \"hidden\": true,\n          \"id\": \"block-123e4567-e89b-12d3-a456-426614174000\",\n          \"created_by_id\": \"string\",\n          \"last_updated_by_id\": \"string\",\n          \"tags\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        }\n      ],\n      \"agent_type\": \"memgpt_v2_agent\",\n      \"git_enabled\": false,\n      \"file_blocks\": [\n        {\n          \"value\": \"string\",\n          \"file_id\": \"string\",\n          \"source_id\": \"string\",\n          \"is_open\": true,\n          \"limit\": 100000,\n          \"project_id\": \"string\",\n          \"template_name\": \"string\",\n          \"is_template\": false,\n          \"template_id\": \"string\",\n          \"base_template_id\": \"string\",\n          \"deployment_id\": \"string\",\n          \"entity_id\": \"string\",\n          \"preserve_on_migration\": false,\n          \"label\": \"string\",\n          \"read_only\": false,\n          \"description\": \"string\",\n          \"metadata\": {\n            \"key_0\": \"string\",\n            \"key_1\": 4381.606479734867\n          },\n          \"hidden\": true,\n          \"id\": \"block-123e4567-e89b-12d3-a456-426614174000\",\n          \"created_by_id\": \"string\",\n          \"last_updated_by_id\": \"string\",\n          \"tags\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"last_accessed_at\": \"2023-03-22T03:24:26.263Z\"\n        },\n        {\n          \"value\": \"string\",\n          \"file_id\": \"string\",\n          \"source_id\": \"string\",\n          \"is_open\": true,\n          \"limit\": 100000,\n          \"project_id\": \"string\",\n          \"template_name\": \"string\",\n          \"is_template\": false,\n          \"template_id\": \"string\",\n          \"base_template_id\": \"string\",\n          \"deployment_id\": \"string\",\n          \"entity_id\": \"string\",\n          \"preserve_on_migration\": true,\n          \"label\": \"string\",\n          \"read_only\": false,\n          \"description\": \"string\",\n          \"metadata\": {\n            \"key_0\": 626\n          },\n          \"hidden\": true,\n          \"id\": \"block-123e4567-e89b-12d3-a456-426614174000\",\n          \"created_by_id\": \"string\",\n          \"last_updated_by_id\": \"string\",\n          \"tags\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"last_accessed_at\": \"1991-04-27T08:07:41.220Z\"\n        }\n      ],\n      \"prompt_template\": \"\"\n    },\n    \"blocks\": [\n      {\n        \"value\": \"string\",\n        \"limit\": 100000,\n        \"project_id\": \"string\",\n        \"template_name\": \"string\",\n        \"is_template\": false,\n        \"template_id\": \"string\",\n        \"base_template_id\": \"string\",\n        \"deployment_id\": \"string\",\n        \"entity_id\": \"string\",\n        \"preserve_on_migration\": false,\n        \"label\": \"string\",\n        \"read_only\": false,\n        \"description\": \"string\",\n        \"metadata\": {\n          \"key_0\": 1362.6190889332079\n        },\n        \"hidden\": true,\n        \"id\": \"block-123e4567-e89b-12d3-a456-426614174000\",\n        \"created_by_id\": \"string\",\n        \"last_updated_by_id\": \"string\",\n        \"tags\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      {\n        \"value\": \"string\",\n        \"limit\": 100000,\n        \"project_id\": \"string\",\n        \"template_name\": \"string\",\n        \"is_template\": false,\n        \"template_id\": \"string\",\n        \"base_template_id\": \"string\",\n        \"deployment_id\": \"string\",\n        \"entity_id\": \"string\",\n        \"preserve_on_migration\": false,\n        \"label\": \"string\",\n        \"read_only\": false,\n        \"description\": \"string\",\n        \"metadata\": {\n          \"key_0\": \"string\",\n          \"key_1\": true\n        },\n        \"hidden\": false,\n        \"id\": \"block-123e4567-e89b-12d3-a456-426614174000\",\n        \"created_by_id\": \"string\",\n        \"last_updated_by_id\": \"string\",\n        \"tags\": [\n          \"string\",\n          \"string\"\n        ]\n      }\n    ],\n    \"tools\": [\n      {\n        \"id\": \"tool-123e4567-e89b-12d3-a456-426614174000\",\n        \"tool_type\": \"custom\",\n        \"description\": \"string\",\n        \"source_type\": \"string\",\n        \"name\": \"string\",\n        \"source_code\": \"string\",\n        \"json_schema\": {\n          \"key_0\": false\n        },\n        \"args_json_schema\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\",\n          \"key_2\": false\n        },\n        \"return_char_limit\": 50000,\n        \"pip_requirements\": [\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"version\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"version\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"npm_requirements\": [\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"version\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"version\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"default_requires_approval\": false,\n        \"enable_parallel_execution\": true,\n        \"created_by_id\": \"string\",\n        \"last_updated_by_id\": \"string\",\n        \"metadata_\": {\n          \"key_0\": \"string\",\n          \"key_1\": true\n        },\n        \"project_id\": \"string\"\n      },\n      {\n        \"id\": \"tool-123e4567-e89b-12d3-a456-426614174000\",\n        \"tool_type\": \"custom\",\n        \"description\": \"string\",\n        \"source_type\": \"string\",\n        \"name\": \"string\",\n        \"source_code\": \"string\",\n        \"json_schema\": {\n          \"key_0\": \"string\",\n          \"key_1\": 7761.924670140298,\n          \"key_2\": true\n        },\n        \"args_json_schema\": {\n          \"key_0\": 8532.971114694143,\n          \"key_1\": \"string\"\n        },\n        \"return_char_limit\": 50000,\n        \"pip_requirements\": [\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"version\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"version\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"npm_requirements\": [\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"version\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"version\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"default_requires_approval\": true,\n        \"enable_parallel_execution\": true,\n        \"created_by_id\": \"string\",\n        \"last_updated_by_id\": \"string\",\n        \"metadata_\": {\n          \"key_0\": true,\n          \"key_1\": \"string\"\n        },\n        \"project_id\": \"string\"\n      }\n    ],\n    \"sources\": [\n      {\n        \"name\": \"string\",\n        \"embedding_config\": {\n          \"embedding_endpoint_type\": \"anthropic\",\n          \"embedding_model\": \"string\",\n          \"embedding_dim\": 676,\n          \"embedding_endpoint\": \"string\",\n          \"embedding_chunk_size\": 8213,\n          \"handle\": \"string\",\n          \"batch_size\": 32,\n          \"azure_endpoint\": \"string\",\n          \"azure_version\": \"string\",\n          \"azure_deployment\": \"string\"\n        },\n        \"description\": \"string\",\n        \"instructions\": \"string\",\n        \"metadata\": {\n          \"key_0\": \"string\",\n          \"key_1\": 3569,\n          \"key_2\": 2634.8451976907972\n        },\n        \"id\": \"source-123e4567-e89b-12d3-a456-426614174000\",\n        \"vector_db_provider\": \"native\",\n        \"created_by_id\": \"string\",\n        \"last_updated_by_id\": \"string\",\n        \"created_at\": \"1993-07-01T02:39:37.899Z\",\n        \"updated_at\": \"1991-08-05T07:45:09.043Z\"\n      },\n      {\n        \"name\": \"string\",\n        \"embedding_config\": {\n          \"embedding_endpoint_type\": \"google_vertex\",\n          \"embedding_model\": \"string\",\n          \"embedding_dim\": 817,\n          \"embedding_endpoint\": \"string\",\n          \"embedding_chunk_size\": 4579,\n          \"handle\": \"string\",\n          \"batch_size\": 32,\n          \"azure_endpoint\": \"string\",\n          \"azure_version\": \"string\",\n          \"azure_deployment\": \"string\"\n        },\n        \"description\": \"string\",\n        \"instructions\": \"string\",\n        \"metadata\": {\n          \"key_0\": \"string\"\n        },\n        \"id\": \"source-123e4567-e89b-12d3-a456-426614174000\",\n        \"vector_db_provider\": \"native\",\n        \"created_by_id\": \"string\",\n        \"last_updated_by_id\": \"string\",\n        \"created_at\": \"1964-05-22T17:40:27.737Z\",\n        \"updated_at\": \"1982-02-09T17:24:43.631Z\"\n      }\n    ],\n    \"tags\": [\n      \"string\",\n      \"string\"\n    ],\n    \"created_by_id\": \"string\",\n    \"last_updated_by_id\": \"string\",\n    \"created_at\": \"1970-06-03T06:10:29.183Z\",\n    \"updated_at\": \"1952-04-04T15:05:58.414Z\",\n    \"tool_rules\": [\n      {\n        \"tool_name\": \"string\",\n        \"children\": [\n          \"string\",\n          \"string\"\n        ],\n        \"type\": \"constrain_child_tools\",\n        \"prompt_template\": \"string\",\n        \"child_arg_nodes\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      },\n      {\n        \"tool_name\": \"string\",\n        \"children\": [\n          \"string\",\n          \"string\"\n        ],\n        \"type\": \"constrain_child_tools\",\n        \"prompt_template\": \"string\",\n        \"child_arg_nodes\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      }\n    ],\n    \"message_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"embedding_config\": {\n      \"embedding_endpoint_type\": \"webui\",\n      \"embedding_model\": \"string\",\n      \"embedding_dim\": 3558,\n      \"embedding_endpoint\": \"string\",\n      \"embedding_chunk_size\": 1388,\n      \"handle\": \"string\",\n      \"batch_size\": 32,\n      \"azure_endpoint\": \"string\",\n      \"azure_version\": \"string\",\n      \"azure_deployment\": \"string\"\n    },\n    \"model\": \"string\",\n    \"embedding\": \"string\",\n    \"model_settings\": {\n      \"max_output_tokens\": 4096,\n      \"parallel_tool_calls\": true,\n      \"provider_type\": \"openai\",\n      \"temperature\": 0.7,\n      \"reasoning\": {\n        \"reasoning_effort\": \"high\"\n      },\n      \"response_format\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"strict\": true\n    },\n    \"compaction_settings\": {\n      \"model\": \"string\",\n      \"model_settings\": {\n        \"max_output_tokens\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"parallel_tool_calls\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"provider_type\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"temperature\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"reasoning\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"response_format\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"strict\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"prompt\": \"string\",\n      \"prompt_acknowledgement\": false,\n      \"clip_chars\": 8042,\n      \"mode\": \"sliding_window\",\n      \"sliding_window_percentage\": 161.10217901032064\n    },\n    \"response_format\": {\n      \"type\": \"text\"\n    },\n    \"description\": \"string\",\n    \"metadata\": {\n      \"key_0\": 3360.7808016840013,\n      \"key_1\": false\n    },\n    \"tool_exec_environment_variables\": [\n      {\n        \"key\": \"string\",\n        \"value\": \"string\",\n        \"agent_id\": \"string\",\n        \"created_by_id\": \"string\",\n        \"last_updated_by_id\": \"string\",\n        \"created_at\": \"1957-09-12T02:15:00.299Z\",\n        \"updated_at\": \"1948-08-01T12:06:59.997Z\",\n        \"id\": \"agent-env-123e4567-e89b-12d3-a456-426614174000\",\n        \"description\": \"string\",\n        \"value_enc\": \"string\"\n      },\n      {\n        \"key\": \"string\",\n        \"value\": \"string\",\n        \"agent_id\": \"string\",\n        \"created_by_id\": \"string\",\n        \"last_updated_by_id\": \"string\",\n        \"created_at\": \"1962-07-09T19:21:26.300Z\",\n        \"updated_at\": \"2006-04-19T14:16:52.450Z\",\n        \"id\": \"agent-env-123e4567-e89b-12d3-a456-426614174000\",\n        \"description\": \"string\",\n        \"value_enc\": \"string\"\n      }\n    ],\n    \"secrets\": [\n      {\n        \"key\": \"string\",\n        \"value\": \"string\",\n        \"agent_id\": \"string\",\n        \"created_by_id\": \"string\",\n        \"last_updated_by_id\": \"string\",\n        \"created_at\": \"1977-12-08T12:15:45.695Z\",\n        \"updated_at\": \"1975-11-04T18:23:34.988Z\",\n        \"id\": \"agent-env-123e4567-e89b-12d3-a456-426614174000\",\n        \"description\": \"string\",\n        \"value_enc\": \"string\"\n      },\n      {\n        \"key\": \"string\",\n        \"value\": \"string\",\n        \"agent_id\": \"string\",\n        \"created_by_id\": \"string\",\n        \"last_updated_by_id\": \"string\",\n        \"created_at\": \"2005-12-08T09:07:15.125Z\",\n        \"updated_at\": \"2012-11-22T04:08:25.269Z\",\n        \"id\": \"agent-env-123e4567-e89b-12d3-a456-426614174000\",\n        \"description\": \"string\",\n        \"value_enc\": \"string\"\n      }\n    ],\n    \"project_id\": \"string\",\n    \"template_id\": \"string\",\n    \"base_template_id\": \"string\",\n    \"deployment_id\": \"string\",\n    \"entity_id\": \"string\",\n    \"pending_approval\": {\n      \"id\": \"string\",\n      \"date\": \"1987-12-15T05:14:10.451Z\",\n      \"tool_call\": {\n        \"name\": \"string\",\n        \"arguments\": \"string\",\n        \"tool_call_id\": \"string\"\n      },\n      \"name\": \"string\",\n      \"message_type\": \"approval_request_message\",\n      \"otid\": \"string\",\n      \"sender_id\": \"string\",\n      \"step_id\": \"string\",\n      \"is_err\": false,\n      \"seq_id\": 9281,\n      \"run_id\": \"string\",\n      \"tool_calls\": [\n        {\n          \"name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"arguments\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"tool_call_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"arguments\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"tool_call_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ]\n    },\n    \"message_buffer_autoclear\": false,\n    \"enable_sleeptime\": false,\n    \"multi_agent_group\": {\n      \"id\": \"string\",\n      \"manager_type\": \"swarm\",\n      \"agent_ids\": [\n        \"string\",\n        \"string\"\n      ],\n      \"description\": \"string\",\n      \"project_id\": \"string\",\n      \"template_id\": \"string\",\n      \"base_template_id\": \"string\",\n      \"deployment_id\": \"string\",\n      \"manager_agent_id\": \"string\",\n      \"termination_token\": \"string\",\n      \"max_turns\": 2644,\n      \"sleeptime_agent_frequency\": 9418,\n      \"turns_counter\": 3108,\n      \"last_processed_message_id\": \"string\",\n      \"max_message_buffer_length\": 9194,\n      \"min_message_buffer_length\": 6652,\n      \"hidden\": false\n    },\n    \"managed_group\": {\n      \"id\": \"string\",\n      \"manager_type\": \"round_robin\",\n      \"agent_ids\": [\n        \"string\",\n        \"string\"\n      ],\n      \"description\": \"string\",\n      \"project_id\": \"string\",\n      \"template_id\": \"string\",\n      \"base_template_id\": \"string\",\n      \"deployment_id\": \"string\",\n      \"manager_agent_id\": \"string\",\n      \"termination_token\": \"string\",\n      \"max_turns\": 5311,\n      \"sleeptime_agent_frequency\": 4609,\n      \"turns_counter\": 4627,\n      \"last_processed_message_id\": \"string\",\n      \"max_message_buffer_length\": 6413,\n      \"min_message_buffer_length\": 5103,\n      \"hidden\": true\n    },\n    \"last_run_completion\": \"1953-03-22T20:37:43.432Z\",\n    \"last_run_duration_ms\": 694,\n    \"last_stop_reason\": \"tool_rule\",\n    \"timezone\": \"string\",\n    \"max_files_open\": 5867,\n    \"per_file_view_window_char_limit\": 9723,\n    \"hidden\": true\n  },\n  {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"system\": \"string\",\n    \"agent_type\": \"workflow_agent\",\n    \"llm_config\": {\n      \"model\": \"string\",\n      \"model_endpoint_type\": \"xai\",\n      \"context_window\": 3136,\n      \"display_name\": \"string\",\n      \"model_endpoint\": \"string\",\n      \"provider_name\": \"string\",\n      \"provider_category\": \"byok\",\n      \"model_wrapper\": \"string\",\n      \"put_inner_thoughts_in_kwargs\": true,\n      \"handle\": \"string\",\n      \"temperature\": 1,\n      \"max_tokens\": 1769,\n      \"enable_reasoner\": true,\n      \"reasoning_effort\": \"low\",\n      \"max_reasoning_tokens\": 0,\n      \"effort\": \"medium\",\n      \"frequency_penalty\": 1135.532958686435,\n      \"compatibility_type\": \"gguf\",\n      \"verbosity\": \"medium\",\n      \"tier\": \"string\",\n      \"parallel_tool_calls\": false,\n      \"response_format\": {\n        \"type\": \"text\"\n      },\n      \"strict\": false,\n      \"return_logprobs\": false,\n      \"top_logprobs\": 5143,\n      \"return_token_ids\": false,\n      \"tool_call_parser\": \"string\"\n    },\n    \"memory\": {\n      \"blocks\": [\n        {\n          \"value\": \"string\",\n          \"limit\": 100000,\n          \"project_id\": \"string\",\n          \"template_name\": \"string\",\n          \"is_template\": false,\n          \"template_id\": \"string\",\n          \"base_template_id\": \"string\",\n          \"deployment_id\": \"string\",\n          \"entity_id\": \"string\",\n          \"preserve_on_migration\": false,\n          \"label\": \"string\",\n          \"read_only\": false,\n          \"description\": \"string\",\n          \"metadata\": {\n            \"key_0\": 1836.7947127209882\n          },\n          \"hidden\": false,\n          \"id\": \"block-123e4567-e89b-12d3-a456-426614174000\",\n          \"created_by_id\": \"string\",\n          \"last_updated_by_id\": \"string\",\n          \"tags\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        },\n        {\n          \"value\": \"string\",\n          \"limit\": 100000,\n          \"project_id\": \"string\",\n          \"template_name\": \"string\",\n          \"is_template\": false,\n          \"template_id\": \"string\",\n          \"base_template_id\": \"string\",\n          \"deployment_id\": \"string\",\n          \"entity_id\": \"string\",\n          \"preserve_on_migration\": true,\n          \"label\": \"string\",\n          \"read_only\": false,\n          \"description\": \"string\",\n          \"metadata\": {\n            \"key_0\": \"string\",\n            \"key_1\": \"string\"\n          },\n          \"hidden\": true,\n          \"id\": \"block-123e4567-e89b-12d3-a456-426614174000\",\n          \"created_by_id\": \"string\",\n          \"last_updated_by_id\": \"string\",\n          \"tags\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        }\n      ],\n      \"agent_type\": \"split_thread_agent\",\n      \"git_enabled\": false,\n      \"file_blocks\": [\n        {\n          \"value\": \"string\",\n          \"file_id\": \"string\",\n          \"source_id\": \"string\",\n          \"is_open\": false,\n          \"limit\": 100000,\n          \"project_id\": \"string\",\n          \"template_name\": \"string\",\n          \"is_template\": false,\n          \"template_id\": \"string\",\n          \"base_template_id\": \"string\",\n          \"deployment_id\": \"string\",\n          \"entity_id\": \"string\",\n          \"preserve_on_migration\": true,\n          \"label\": \"string\",\n          \"read_only\": false,\n          \"description\": \"string\",\n          \"metadata\": {\n            \"key_0\": false,\n            \"key_1\": \"string\",\n            \"key_2\": 2235.0641112048843,\n            \"key_3\": 8129\n          },\n          \"hidden\": false,\n          \"id\": \"block-123e4567-e89b-12d3-a456-426614174000\",\n          \"created_by_id\": \"string\",\n          \"last_updated_by_id\": \"string\",\n          \"tags\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"last_accessed_at\": \"1973-10-27T10:48:25.482Z\"\n        },\n        {\n          \"value\": \"string\",\n          \"file_id\": \"string\",\n          \"source_id\": \"string\",\n          \"is_open\": false,\n          \"limit\": 100000,\n          \"project_id\": \"string\",\n          \"template_name\": \"string\",\n          \"is_template\": false,\n          \"template_id\": \"string\",\n          \"base_template_id\": \"string\",\n          \"deployment_id\": \"string\",\n          \"entity_id\": \"string\",\n          \"preserve_on_migration\": false,\n          \"label\": \"string\",\n          \"read_only\": false,\n          \"description\": \"string\",\n          \"metadata\": {\n            \"key_0\": \"string\",\n            \"key_1\": \"string\",\n            \"key_2\": 3322.845802845791\n          },\n          \"hidden\": true,\n          \"id\": \"block-123e4567-e89b-12d3-a456-426614174000\",\n          \"created_by_id\": \"string\",\n          \"last_updated_by_id\": \"string\",\n          \"tags\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"last_accessed_at\": \"1986-01-12T07:17:20.126Z\"\n        }\n      ],\n      \"prompt_template\": \"\"\n    },\n    \"blocks\": [\n      {\n        \"value\": \"string\",\n        \"limit\": 100000,\n        \"project_id\": \"string\",\n        \"template_name\": \"string\",\n        \"is_template\": false,\n        \"template_id\": \"string\",\n        \"base_template_id\": \"string\",\n        \"deployment_id\": \"string\",\n        \"entity_id\": \"string\",\n        \"preserve_on_migration\": true,\n        \"label\": \"string\",\n        \"read_only\": false,\n        \"description\": \"string\",\n        \"metadata\": {\n          \"key_0\": true,\n          \"key_1\": 9076.375942364617\n        },\n        \"hidden\": true,\n        \"id\": \"block-123e4567-e89b-12d3-a456-426614174000\",\n        \"created_by_id\": \"string\",\n        \"last_updated_by_id\": \"string\",\n        \"tags\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      {\n        \"value\": \"string\",\n        \"limit\": 100000,\n        \"project_id\": \"string\",\n        \"template_name\": \"string\",\n        \"is_template\": false,\n        \"template_id\": \"string\",\n        \"base_template_id\": \"string\",\n        \"deployment_id\": \"string\",\n        \"entity_id\": \"string\",\n        \"preserve_on_migration\": true,\n        \"label\": \"string\",\n        \"read_only\": false,\n        \"description\": \"string\",\n        \"metadata\": {\n          \"key_0\": \"string\"\n        },\n        \"hidden\": false,\n        \"id\": \"block-123e4567-e89b-12d3-a456-426614174000\",\n        \"created_by_id\": \"string\",\n        \"last_updated_by_id\": \"string\",\n        \"tags\": [\n          \"string\",\n          \"string\"\n        ]\n      }\n    ],\n    \"tools\": [\n      {\n        \"id\": \"tool-123e4567-e89b-12d3-a456-426614174000\",\n        \"tool_type\": \"custom\",\n        \"description\": \"string\",\n        \"source_type\": \"string\",\n        \"name\": \"string\",\n        \"source_code\": \"string\",\n        \"json_schema\": {\n          \"key_0\": \"string\",\n          \"key_1\": true,\n          \"key_2\": \"string\"\n        },\n        \"args_json_schema\": {\n          \"key_0\": 2566.8548861600084,\n          \"key_1\": 8339.295065283683,\n          \"key_2\": 5816,\n          \"key_3\": \"string\"\n        },\n        \"return_char_limit\": 50000,\n        \"pip_requirements\": [\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"version\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"version\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"npm_requirements\": [\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"version\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"version\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"default_requires_approval\": true,\n        \"enable_parallel_execution\": false,\n        \"created_by_id\": \"string\",\n        \"last_updated_by_id\": \"string\",\n        \"metadata_\": {\n          \"key_0\": \"string\",\n          \"key_1\": true\n        },\n        \"project_id\": \"string\"\n      },\n      {\n        \"id\": \"tool-123e4567-e89b-12d3-a456-426614174000\",\n        \"tool_type\": \"custom\",\n        \"description\": \"string\",\n        \"source_type\": \"string\",\n        \"name\": \"string\",\n        \"source_code\": \"string\",\n        \"json_schema\": {\n          \"key_0\": 5325.273167930318\n        },\n        \"args_json_schema\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\"\n        },\n        \"return_char_limit\": 50000,\n        \"pip_requirements\": [\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"version\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"version\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"npm_requirements\": [\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"version\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"version\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"default_requires_approval\": true,\n        \"enable_parallel_execution\": true,\n        \"created_by_id\": \"string\",\n        \"last_updated_by_id\": \"string\",\n        \"metadata_\": {\n          \"key_0\": \"string\",\n          \"key_1\": false\n        },\n        \"project_id\": \"string\"\n      }\n    ],\n    \"sources\": [\n      {\n        \"name\": \"string\",\n        \"embedding_config\": {\n          \"embedding_endpoint_type\": \"koboldcpp\",\n          \"embedding_model\": \"string\",\n          \"embedding_dim\": 2710,\n          \"embedding_endpoint\": \"string\",\n          \"embedding_chunk_size\": 3348,\n          \"handle\": \"string\",\n          \"batch_size\": 32,\n          \"azure_endpoint\": \"string\",\n          \"azure_version\": \"string\",\n          \"azure_deployment\": \"string\"\n        },\n        \"description\": \"string\",\n        \"instructions\": \"string\",\n        \"metadata\": {\n          \"key_0\": 3549,\n          \"key_1\": 1006\n        },\n        \"id\": \"source-123e4567-e89b-12d3-a456-426614174000\",\n        \"vector_db_provider\": \"native\",\n        \"created_by_id\": \"string\",\n        \"last_updated_by_id\": \"string\",\n        \"created_at\": \"2016-02-29T12:07:56.516Z\",\n        \"updated_at\": \"1968-07-20T12:48:43.735Z\"\n      },\n      {\n        \"name\": \"string\",\n        \"embedding_config\": {\n          \"embedding_endpoint_type\": \"lmstudio-legacy\",\n          \"embedding_model\": \"string\",\n          \"embedding_dim\": 2442,\n          \"embedding_endpoint\": \"string\",\n          \"embedding_chunk_size\": 9024,\n          \"handle\": \"string\",\n          \"batch_size\": 32,\n          \"azure_endpoint\": \"string\",\n          \"azure_version\": \"string\",\n          \"azure_deployment\": \"string\"\n        },\n        \"description\": \"string\",\n        \"instructions\": \"string\",\n        \"metadata\": {\n          \"key_0\": \"string\",\n          \"key_1\": false\n        },\n        \"id\": \"source-123e4567-e89b-12d3-a456-426614174000\",\n        \"vector_db_provider\": \"native\",\n        \"created_by_id\": \"string\",\n        \"last_updated_by_id\": \"string\",\n        \"created_at\": \"2009-01-28T10:38:36.109Z\",\n        \"updated_at\": \"1951-01-19T16:34:48.867Z\"\n      }\n    ],\n    \"tags\": [\n      \"string\",\n      \"string\"\n    ],\n    \"created_by_id\": \"string\",\n    \"last_updated_by_id\": \"string\",\n    \"created_at\": \"1989-07-10T18:04:44.874Z\",\n    \"updated_at\": \"2010-04-22T12:21:20.869Z\",\n    \"tool_rules\": [\n      {\n        \"tool_name\": \"string\",\n        \"children\": [\n          \"string\",\n          \"string\"\n        ],\n        \"type\": \"constrain_child_tools\",\n        \"prompt_template\": \"string\",\n        \"child_arg_nodes\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      },\n      {\n        \"tool_name\": \"string\",\n        \"children\": [\n          \"string\",\n          \"string\"\n        ],\n        \"type\": \"constrain_child_tools\",\n        \"prompt_template\": \"string\",\n        \"child_arg_nodes\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      }\n    ],\n    \"message_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"embedding_config\": {\n      \"embedding_endpoint_type\": \"google_vertex\",\n      \"embedding_model\": \"string\",\n      \"embedding_dim\": 6047,\n      \"embedding_endpoint\": \"string\",\n      \"embedding_chunk_size\": 9406,\n      \"handle\": \"string\",\n      \"batch_size\": 32,\n      \"azure_endpoint\": \"string\",\n      \"azure_version\": \"string\",\n      \"azure_deployment\": \"string\"\n    },\n    \"model\": \"string\",\n    \"embedding\": \"string\",\n    \"model_settings\": {\n      \"max_output_tokens\": 4096,\n      \"parallel_tool_calls\": true,\n      \"provider_type\": \"openai\",\n      \"temperature\": 0.7,\n      \"reasoning\": {\n        \"reasoning_effort\": \"high\"\n      },\n      \"response_format\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"strict\": true\n    },\n    \"compaction_settings\": {\n      \"model\": \"string\",\n      \"model_settings\": {\n        \"max_output_tokens\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"parallel_tool_calls\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"provider_type\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"temperature\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"reasoning\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"response_format\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"strict\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"prompt\": \"string\",\n      \"prompt_acknowledgement\": false,\n      \"clip_chars\": 512,\n      \"mode\": \"sliding_window\",\n      \"sliding_window_percentage\": 5082.970110239387\n    },\n    \"response_format\": {\n      \"type\": \"text\"\n    },\n    \"description\": \"string\",\n    \"metadata\": {\n      \"key_0\": 1876.6939412019844\n    },\n    \"tool_exec_environment_variables\": [\n      {\n        \"key\": \"string\",\n        \"value\": \"string\",\n        \"agent_id\": \"string\",\n        \"created_by_id\": \"string\",\n        \"last_updated_by_id\": \"string\",\n        \"created_at\": \"1984-05-26T22:04:52.650Z\",\n        \"updated_at\": \"1957-11-25T11:03:41.041Z\",\n        \"id\": \"agent-env-123e4567-e89b-12d3-a456-426614174000\",\n        \"description\": \"string\",\n        \"value_enc\": \"string\"\n      },\n      {\n        \"key\": \"string\",\n        \"value\": \"string\",\n        \"agent_id\": \"string\",\n        \"created_by_id\": \"string\",\n        \"last_updated_by_id\": \"string\",\n        \"created_at\": \"1959-10-30T17:55:03.955Z\",\n        \"updated_at\": \"1950-03-29T20:59:25.635Z\",\n        \"id\": \"agent-env-123e4567-e89b-12d3-a456-426614174000\",\n        \"description\": \"string\",\n        \"value_enc\": \"string\"\n      }\n    ],\n    \"secrets\": [\n      {\n        \"key\": \"string\",\n        \"value\": \"string\",\n        \"agent_id\": \"string\",\n        \"created_by_id\": \"string\",\n        \"last_updated_by_id\": \"string\",\n        \"created_at\": \"2002-11-12T16:48:47.301Z\",\n        \"updated_at\": \"1950-07-29T07:55:32.938Z\",\n        \"id\": \"agent-env-123e4567-e89b-12d3-a456-426614174000\",\n        \"description\": \"string\",\n        \"value_enc\": \"string\"\n      },\n      {\n        \"key\": \"string\",\n        \"value\": \"string\",\n        \"agent_id\": \"string\",\n        \"created_by_id\": \"string\",\n        \"last_updated_by_id\": \"string\",\n        \"created_at\": \"1962-09-24T08:00:50.221Z\",\n        \"updated_at\": \"2002-11-18T20:24:56.236Z\",\n        \"id\": \"agent-env-123e4567-e89b-12d3-a456-426614174000\",\n        \"description\": \"string\",\n        \"value_enc\": \"string\"\n      }\n    ],\n    \"project_id\": \"string\",\n    \"template_id\": \"string\",\n    \"base_template_id\": \"string\",\n    \"deployment_id\": \"string\",\n    \"entity_id\": \"string\",\n    \"pending_approval\": {\n      \"id\": \"string\",\n      \"date\": \"1953-10-11T10:55:15.014Z\",\n      \"tool_call\": {\n        \"name\": \"string\",\n        \"arguments\": \"string\",\n        \"tool_call_id\": \"string\"\n      },\n      \"name\": \"string\",\n      \"message_type\": \"approval_request_message\",\n      \"otid\": \"string\",\n      \"sender_id\": \"string\",\n      \"step_id\": \"string\",\n      \"is_err\": true,\n      \"seq_id\": 3002,\n      \"run_id\": \"string\",\n      \"tool_calls\": [\n        {\n          \"name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"arguments\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"tool_call_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"arguments\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"tool_call_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ]\n    },\n    \"message_buffer_autoclear\": false,\n    \"enable_sleeptime\": false,\n    \"multi_agent_group\": {\n      \"id\": \"string\",\n      \"manager_type\": \"voice_sleeptime\",\n      \"agent_ids\": [\n        \"string\",\n        \"string\"\n      ],\n      \"description\": \"string\",\n      \"project_id\": \"string\",\n      \"template_id\": \"string\",\n      \"base_template_id\": \"string\",\n      \"deployment_id\": \"string\",\n      \"manager_agent_id\": \"string\",\n      \"termination_token\": \"string\",\n      \"max_turns\": 6659,\n      \"sleeptime_agent_frequency\": 749,\n      \"turns_counter\": 2026,\n      \"last_processed_message_id\": \"string\",\n      \"max_message_buffer_length\": 4005,\n      \"min_message_buffer_length\": 5893,\n      \"hidden\": true\n    },\n    \"managed_group\": {\n      \"id\": \"string\",\n      \"manager_type\": \"dynamic\",\n      \"agent_ids\": [\n        \"string\",\n        \"string\"\n      ],\n      \"description\": \"string\",\n      \"project_id\": \"string\",\n      \"template_id\": \"string\",\n      \"base_template_id\": \"string\",\n      \"deployment_id\": \"string\",\n      \"manager_agent_id\": \"string\",\n      \"termination_token\": \"string\",\n      \"max_turns\": 6062,\n      \"sleeptime_agent_frequency\": 7139,\n      \"turns_counter\": 4856,\n      \"last_processed_message_id\": \"string\",\n      \"max_message_buffer_length\": 3407,\n      \"min_message_buffer_length\": 522,\n      \"hidden\": true\n    },\n    \"last_run_completion\": \"1949-11-26T18:54:45.617Z\",\n    \"last_run_duration_ms\": 787,\n    \"last_stop_reason\": \"no_tool_call\",\n    \"timezone\": \"string\",\n    \"max_files_open\": 1259,\n    \"per_file_view_window_char_limit\": 2795,\n    \"hidden\": true\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6993eae6-261d-40a7-a3a2-073d31c3a37d",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "blocks",
+                    ":block_id",
+                    "agents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "before",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "after",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "order",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "created_at"
+                    },
+                    {
+                      "key": "include_relationships",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include_relationships",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "block_id",
+                      "description": "(Required) The ID of the block in the format 'block-<uuid4>'"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "14762130-9bb3-4b97-a229-65499fb1dc41",
+          "name": "Attach Identity to Block",
+          "request": {
+            "name": "Attach Identity to Block",
+            "description": {
+              "content": "Attach an identity to a block.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "blocks",
+                ":block_id",
+                "identities",
+                "attach",
+                ":identity_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "identity_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "block_id",
+                  "description": "(Required) The ID of the block in the format 'block-<uuid4>'"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "cb51cf72-a646-45a1-8544-0625ada06e59",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "blocks",
+                    ":block_id",
+                    "identities",
+                    "attach",
+                    ":identity_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "identity_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "block_id",
+                      "description": "(Required) The ID of the block in the format 'block-<uuid4>'"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"value\": \"string\",\n  \"id\": \"string\",\n  \"limit\": 100000,\n  \"project_id\": \"string\",\n  \"template_name\": \"string\",\n  \"is_template\": false,\n  \"template_id\": \"string\",\n  \"base_template_id\": \"string\",\n  \"deployment_id\": \"string\",\n  \"entity_id\": \"string\",\n  \"preserve_on_migration\": false,\n  \"label\": \"string\",\n  \"read_only\": false,\n  \"description\": \"string\",\n  \"metadata\": {\n    \"key_0\": 7336.935355203395,\n    \"key_1\": 8038,\n    \"key_2\": 5816.372785424847,\n    \"key_3\": false\n  },\n  \"hidden\": false,\n  \"created_by_id\": \"string\",\n  \"last_updated_by_id\": \"string\",\n  \"tags\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9235d5ae-6041-4b5e-ac6e-d3f24a752d3b",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "blocks",
+                    ":block_id",
+                    "identities",
+                    "attach",
+                    ":identity_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "identity_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "block_id",
+                      "description": "(Required) The ID of the block in the format 'block-<uuid4>'"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "44c2deea-d8d0-49fe-97a3-afdea5895e23",
+          "name": "Detach Identity from Block",
+          "request": {
+            "name": "Detach Identity from Block",
+            "description": {
+              "content": "Detach an identity from a block.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "blocks",
+                ":block_id",
+                "identities",
+                "detach",
+                ":identity_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "identity_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "block_id",
+                  "description": "(Required) The ID of the block in the format 'block-<uuid4>'"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5d924166-eac6-46c0-855b-3da5a883aa2a",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "blocks",
+                    ":block_id",
+                    "identities",
+                    "detach",
+                    ":identity_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "identity_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "block_id",
+                      "description": "(Required) The ID of the block in the format 'block-<uuid4>'"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"value\": \"string\",\n  \"id\": \"string\",\n  \"limit\": 100000,\n  \"project_id\": \"string\",\n  \"template_name\": \"string\",\n  \"is_template\": false,\n  \"template_id\": \"string\",\n  \"base_template_id\": \"string\",\n  \"deployment_id\": \"string\",\n  \"entity_id\": \"string\",\n  \"preserve_on_migration\": false,\n  \"label\": \"string\",\n  \"read_only\": false,\n  \"description\": \"string\",\n  \"metadata\": {\n    \"key_0\": 7336.935355203395,\n    \"key_1\": 8038,\n    \"key_2\": 5816.372785424847,\n    \"key_3\": false\n  },\n  \"hidden\": false,\n  \"created_by_id\": \"string\",\n  \"last_updated_by_id\": \"string\",\n  \"tags\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4f198c4c-7b3e-468a-89af-8bc7fd708434",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "blocks",
+                    ":block_id",
+                    "identities",
+                    "detach",
+                    ":identity_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "identity_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "block_id",
+                      "description": "(Required) The ID of the block in the format 'block-<uuid4>'"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.letta.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "e6d04539-d288-4d4a-878c-b0e7448a0a71",
+    "name": "Letta Admin Blocks API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST API for Letta, the stateful agents platform. Manage agents, memory blocks, archival passages, sources, custom tools, MCP servers, multi-agent groups, runs, and streaming responses. Available as Letta Cloud (managed) at https://api.letta.com/v1 and as the self-hosted open-source server (Apache-2.0) typically run at http://localhost:8283.\n\nContact Support:\n Name: Letta\n Email: support@letta.com",
+      "type": "text/plain"
+    }
+  }
+}

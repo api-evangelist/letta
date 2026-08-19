@@ -1,0 +1,535 @@
+{
+  "item": [
+    {
+      "id": "faee9f7b-279c-460f-a81f-644c2880126c",
+      "name": "Scheduled Messages",
+      "description": {
+        "content": "Schedule one-time or recurring messages to drive agents over time.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "0172cb9c-7e1b-432a-b2ac-12ff62755494",
+          "name": "Schedule Agent Message",
+          "request": {
+            "name": "Schedule Agent Message",
+            "description": {
+              "content": "Schedule a message to be sent by the agent at a specified time or on a recurring basis.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "agents",
+                ":agent_id",
+                "schedule"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "agent_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"messages\": [\n    {\n      \"content\": [\n        {\n          \"text\": \"<string>\",\n          \"signature\": \"<string>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"text\": \"<string>\",\n          \"signature\": \"<string>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"role\": \"<string>\",\n      \"name\": \"<string>\",\n      \"otid\": \"<string>\",\n      \"sender_id\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"content\": [\n        {\n          \"text\": \"<string>\",\n          \"signature\": \"<string>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"text\": \"<string>\",\n          \"signature\": \"<string>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"role\": \"<string>\",\n      \"name\": \"<string>\",\n      \"otid\": \"<string>\",\n      \"sender_id\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"schedule\": {\n    \"scheduled_at\": \"<number>\",\n    \"type\": \"<string>\"\n  },\n  \"max_steps\": \"<number>\",\n  \"callback_url\": \"<uri>\",\n  \"include_return_message_types\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2e852b58-0e36-46ca-a161-7ecddee69475",
+              "name": "201",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "agents",
+                    ":agent_id",
+                    "schedule"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "agent_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"messages\": [\n    {\n      \"content\": [\n        {\n          \"text\": \"<string>\",\n          \"signature\": \"<string>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"text\": \"<string>\",\n          \"signature\": \"<string>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"role\": \"<string>\",\n      \"name\": \"<string>\",\n      \"otid\": \"<string>\",\n      \"sender_id\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"content\": [\n        {\n          \"text\": \"<string>\",\n          \"signature\": \"<string>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"text\": \"<string>\",\n          \"signature\": \"<string>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"role\": \"<string>\",\n      \"name\": \"<string>\",\n      \"otid\": \"<string>\",\n      \"sender_id\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"schedule\": {\n    \"scheduled_at\": \"<number>\",\n    \"type\": \"<string>\"\n  },\n  \"max_steps\": \"<number>\",\n  \"callback_url\": \"<uri>\",\n  \"include_return_message_types\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"next_scheduled_at\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a4905a1c-cd75-4ee8-96e8-906213db2b92",
+          "name": "List Scheduled Agent Messages",
+          "request": {
+            "name": "List Scheduled Agent Messages",
+            "description": {
+              "content": "List all scheduled messages for a specific agent.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "agents",
+                ":agent_id",
+                "schedule"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "after",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "agent_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "912fabba-e88f-45a6-92c5-a99689384df6",
+              "name": "200",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "agents",
+                    ":agent_id",
+                    "schedule"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "after",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "agent_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"scheduled_messages\": [\n    {\n      \"id\": \"string\",\n      \"agent_id\": \"string\",\n      \"message\": {\n        \"messages\": [\n          {\n            \"content\": [\n              {\n                \"text\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"signature\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"type\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              },\n              {\n                \"text\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"signature\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"type\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              }\n            ],\n            \"role\": \"system\",\n            \"name\": \"string\",\n            \"otid\": \"string\",\n            \"sender_id\": \"string\",\n            \"type\": \"message\"\n          },\n          {\n            \"content\": [\n              {\n                \"text\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"signature\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"type\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              },\n              {\n                \"text\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"signature\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"type\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              }\n            ],\n            \"role\": \"user\",\n            \"name\": \"string\",\n            \"otid\": \"string\",\n            \"sender_id\": \"string\",\n            \"type\": \"message\"\n          }\n        ],\n        \"max_steps\": 7884.75795901955,\n        \"callback_url\": \"https://dZy.bikY4oODs5-ZfWuNRC63Ra8WVVD8gfaa6+dwAatm\",\n        \"include_return_message_types\": [\n          \"tool_call_message\",\n          \"approval_response_message\"\n        ]\n      },\n      \"schedule\": {\n        \"scheduled_at\": 4046.757541040129,\n        \"type\": \"one-time\"\n      },\n      \"next_scheduled_time\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"agent_id\": \"string\",\n      \"message\": {\n        \"messages\": [\n          {\n            \"content\": [\n              {\n                \"text\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"signature\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"type\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              },\n              {\n                \"text\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"signature\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"type\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              }\n            ],\n            \"role\": \"user\",\n            \"name\": \"string\",\n            \"otid\": \"string\",\n            \"sender_id\": \"string\",\n            \"type\": \"message\"\n          },\n          {\n            \"content\": [\n              {\n                \"text\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"signature\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"type\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              },\n              {\n                \"text\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"signature\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"type\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              }\n            ],\n            \"role\": \"system\",\n            \"name\": \"string\",\n            \"otid\": \"string\",\n            \"sender_id\": \"string\",\n            \"type\": \"message\"\n          }\n        ],\n        \"max_steps\": 2542.563049854668,\n        \"callback_url\": \"http://oEmcGj.rvlMC,zUbHNS5QOil+AyTIoDu\",\n        \"include_return_message_types\": [\n          \"hidden_reasoning_message\",\n          \"system_message\"\n        ]\n      },\n      \"schedule\": {\n        \"scheduled_at\": 461.43754702831166,\n        \"type\": \"one-time\"\n      },\n      \"next_scheduled_time\": \"string\"\n    }\n  ],\n  \"has_next_page\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c0a59678-5758-4ef3-a174-a2bd7ad709de",
+          "name": "Delete Scheduled Agent Message",
+          "request": {
+            "name": "Delete Scheduled Agent Message",
+            "description": {
+              "content": "Delete a scheduled message by its ID for a specific agent.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "agents",
+                ":agent_id",
+                "schedule",
+                ":scheduled_message_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "agent_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "scheduled_message_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "94101bc1-1739-425b-98c4-a4a5a9bb069d",
+              "name": "200",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "agents",
+                    ":agent_id",
+                    "schedule",
+                    ":scheduled_message_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "agent_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "scheduled_message_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8780d4e1-e137-4624-96de-aa9bee86d2a3",
+          "name": "Retrieve Scheduled Agent Message",
+          "request": {
+            "name": "Retrieve Scheduled Agent Message",
+            "description": {
+              "content": "Retrieve a scheduled message by its ID for a specific agent.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "agents",
+                ":agent_id",
+                "schedule",
+                ":scheduled_message_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "agent_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "scheduled_message_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "30674bd6-25cb-4171-9956-7878b6b2a847",
+              "name": "200",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "agents",
+                    ":agent_id",
+                    "schedule",
+                    ":scheduled_message_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "agent_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "scheduled_message_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"agent_id\": \"string\",\n  \"message\": {\n    \"messages\": [\n      {\n        \"content\": [\n          {\n            \"text\": \"string\",\n            \"signature\": \"string\",\n            \"type\": \"text\"\n          },\n          {\n            \"text\": \"string\",\n            \"signature\": \"string\",\n            \"type\": \"text\"\n          }\n        ],\n        \"role\": \"assistant\",\n        \"name\": \"string\",\n        \"otid\": \"string\",\n        \"sender_id\": \"string\",\n        \"type\": \"message\"\n      },\n      {\n        \"content\": [\n          {\n            \"text\": \"string\",\n            \"signature\": \"string\",\n            \"type\": \"text\"\n          },\n          {\n            \"text\": \"string\",\n            \"signature\": \"string\",\n            \"type\": \"text\"\n          }\n        ],\n        \"role\": \"user\",\n        \"name\": \"string\",\n        \"otid\": \"string\",\n        \"sender_id\": \"string\",\n        \"type\": \"message\"\n      }\n    ],\n    \"max_steps\": 5890.813257118441,\n    \"callback_url\": \"http://VjCYxFjsTteVZCXZUgSaR.achnl8BGdA8jOUxy2ZgktQ7yZ5mB2\",\n    \"include_return_message_types\": [\n      \"hidden_reasoning_message\",\n      \"assistant_message\"\n    ]\n  },\n  \"schedule\": {\n    \"scheduled_at\": 7842.403175373115,\n    \"type\": \"one-time\"\n  },\n  \"next_scheduled_time\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.letta.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "f3adc5fb-9486-446b-ac24-1dd77ef2fb6b",
+    "name": "Letta Admin Scheduled Messages API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST API for Letta, the stateful agents platform. Manage agents, memory blocks, archival passages, sources, custom tools, MCP servers, multi-agent groups, runs, and streaming responses. Available as Letta Cloud (managed) at https://api.letta.com/v1 and as the self-hosted open-source server (Apache-2.0) typically run at http://localhost:8283.\n\nContact Support:\n Name: Letta\n Email: support@letta.com",
+      "type": "text/plain"
+    }
+  }
+}

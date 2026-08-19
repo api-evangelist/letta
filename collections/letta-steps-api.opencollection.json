@@ -1,0 +1,256 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Letta Admin Steps API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Steps",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Steps",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/steps/",
+            "headers": [
+              {
+                "name": "X-Project",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "before",
+                "value": "",
+                "type": "query",
+                "description": "Return steps before this step ID"
+              },
+              {
+                "name": "after",
+                "value": "",
+                "type": "query",
+                "description": "Return steps after this step ID"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of steps to return"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Sort order for steps by creation time. 'asc' for oldest first, 'desc' for newest first"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Field to sort by"
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query",
+                "description": "Return steps after this ISO datetime (e.g. \"2025-01-29T15:01:19-08:00\")"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query",
+                "description": "Return steps before this ISO datetime (e.g. \"2025-01-29T15:01:19-08:00\")"
+              },
+              {
+                "name": "model",
+                "value": "",
+                "type": "query",
+                "description": "Filter by the name of the model used for the step"
+              },
+              {
+                "name": "agent_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by the ID of the agent that performed the step"
+              },
+              {
+                "name": "trace_ids",
+                "value": "",
+                "type": "query",
+                "description": "Filter by trace ids returned by the server"
+              },
+              {
+                "name": "feedback",
+                "value": "",
+                "type": "query",
+                "description": "Filter by feedback"
+              },
+              {
+                "name": "has_feedback",
+                "value": "",
+                "type": "query",
+                "description": "Filter by whether steps have feedback (true) or not (false)"
+              },
+              {
+                "name": "tags",
+                "value": "",
+                "type": "query",
+                "description": "Filter by tags"
+              },
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by the project ID that is associated with the step (cloud only)."
+              }
+            ]
+          },
+          "docs": "List steps with optional pagination and date filters."
+        },
+        {
+          "info": {
+            "name": "Retrieve Step",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/steps/:step_id",
+            "params": [
+              {
+                "name": "step_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the step in the format 'step-<uuid4>'"
+              }
+            ]
+          },
+          "docs": "Get a step by ID."
+        },
+        {
+          "info": {
+            "name": "Retrieve Metrics for Step",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/steps/:step_id/metrics",
+            "params": [
+              {
+                "name": "step_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the step in the format 'step-<uuid4>'"
+              }
+            ]
+          },
+          "docs": "Get step metrics by step ID."
+        },
+        {
+          "info": {
+            "name": "Retrieve Trace for Step",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/steps/:step_id/trace",
+            "params": [
+              {
+                "name": "step_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the step in the format 'step-<uuid4>'"
+              }
+            ]
+          },
+          "docs": "Retrieve Trace for Step"
+        },
+        {
+          "info": {
+            "name": "Modify Feedback for Step",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.letta.com/v1/steps/:step_id/feedback",
+            "params": [
+              {
+                "name": "step_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the step in the format 'step-<uuid4>'"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Modify feedback for a given step."
+        },
+        {
+          "info": {
+            "name": "List Messages for Step",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/steps/:step_id/messages",
+            "params": [
+              {
+                "name": "step_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the step in the format 'step-<uuid4>'"
+              },
+              {
+                "name": "before",
+                "value": "",
+                "type": "query",
+                "description": "Message ID cursor for pagination. Returns messages that come before this message ID in the specified sort order"
+              },
+              {
+                "name": "after",
+                "value": "",
+                "type": "query",
+                "description": "Message ID cursor for pagination. Returns messages that come after this message ID in the specified sort order"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of messages to return"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Sort order for messages by creation time. 'asc' for oldest first, 'desc' for newest first"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Sort by field"
+              }
+            ]
+          },
+          "docs": "List messages for a given step."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

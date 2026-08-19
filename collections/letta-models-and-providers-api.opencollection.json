@@ -1,0 +1,247 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Letta Agent Templates Models and Providers API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Models and Providers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Llm Models",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/v1/models/",
+            "params": [
+              {
+                "name": "provider_category",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "provider_name",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "provider_type",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List available LLM models using the asynchronous implementation for improved performance."
+        },
+        {
+          "info": {
+            "name": "List Embedding Models",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/v1/models/embedding"
+          },
+          "docs": "List available embedding models using the asynchronous implementation for improved performance."
+        },
+        {
+          "info": {
+            "name": "List Providers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/v1/providers/",
+            "params": [
+              {
+                "name": "before",
+                "value": "",
+                "type": "query",
+                "description": "Provider ID cursor for pagination. Returns providers that come before this provider ID in the specified sort order"
+              },
+              {
+                "name": "after",
+                "value": "",
+                "type": "query",
+                "description": "Provider ID cursor for pagination. Returns providers that come after this provider ID in the specified sort order"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of providers to return"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Sort order for providers by creation time. 'asc' for oldest first, 'desc' for newest first"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Field to sort by"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Filter providers by name"
+              },
+              {
+                "name": "provider_type",
+                "value": "",
+                "type": "query",
+                "description": "Filter providers by type"
+              }
+            ]
+          },
+          "docs": "Get a list of all custom providers."
+        },
+        {
+          "info": {
+            "name": "Create Provider",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.letta.com/v1/v1/providers/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new custom provider."
+        },
+        {
+          "info": {
+            "name": "Check Provider",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.letta.com/v1/v1/providers/check",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Verify the API key and additional parameters for a provider."
+        },
+        {
+          "info": {
+            "name": "Retrieve Provider",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/v1/providers/:provider_id",
+            "params": [
+              {
+                "name": "provider_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the provider in the format 'provider-<uuid4>'"
+              }
+            ]
+          },
+          "docs": "Get a provider by ID."
+        },
+        {
+          "info": {
+            "name": "Modify Provider",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.letta.com/v1/v1/providers/:provider_id",
+            "params": [
+              {
+                "name": "provider_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the provider in the format 'provider-<uuid4>'"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an existing custom provider."
+        },
+        {
+          "info": {
+            "name": "Delete Provider",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.letta.com/v1/v1/providers/:provider_id",
+            "params": [
+              {
+                "name": "provider_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the provider in the format 'provider-<uuid4>'"
+              }
+            ]
+          },
+          "docs": "Delete an existing custom provider."
+        },
+        {
+          "info": {
+            "name": "Check Existing Provider",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.letta.com/v1/v1/providers/:provider_id/check",
+            "params": [
+              {
+                "name": "provider_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the provider in the format 'provider-<uuid4>'"
+              }
+            ]
+          },
+          "docs": "Verify the API key and additional parameters for an existing provider."
+        },
+        {
+          "info": {
+            "name": "Refresh Provider Models",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.letta.com/v1/v1/providers/:provider_id/refresh",
+            "params": [
+              {
+                "name": "provider_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the provider in the format 'provider-<uuid4>'"
+              }
+            ]
+          },
+          "docs": "Refresh models for a BYOK provider by querying the provider's API.\nAdds new models and removes ones no longer available."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

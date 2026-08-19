@@ -1,0 +1,63 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Letta Admin LLMs API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "LLMs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List LLM Models",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/models/",
+            "params": [
+              {
+                "name": "provider_category",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "provider_name",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "provider_type",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List available LLM models using the asynchronous implementation for improved performance.\n\nReturns Model format which extends LLMConfig with additional metadata fields.\nLegacy LLMConfig fields are marked as deprecated but still available for backward compatibility."
+        },
+        {
+          "info": {
+            "name": "List Embedding Models",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/models/embedding"
+          },
+          "docs": "List available embedding models using the asynchronous implementation for improved performance.\n\nReturns EmbeddingModel format which extends EmbeddingConfig with additional metadata fields.\nLegacy EmbeddingConfig fields are marked as deprecated but still available for backward compatibility."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

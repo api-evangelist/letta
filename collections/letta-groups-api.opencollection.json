@@ -1,0 +1,347 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Letta Admin Groups API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Groups",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Groups",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/groups/",
+            "params": [
+              {
+                "name": "manager_type",
+                "value": "",
+                "type": "query",
+                "description": "Search groups by manager type"
+              },
+              {
+                "name": "before",
+                "value": "",
+                "type": "query",
+                "description": "Group ID cursor for pagination. Returns groups that come before this group ID in the specified sort order"
+              },
+              {
+                "name": "after",
+                "value": "",
+                "type": "query",
+                "description": "Group ID cursor for pagination. Returns groups that come after this group ID in the specified sort order"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of groups to return"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Sort order for groups by creation time. 'asc' for oldest first, 'desc' for newest first"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Field to sort by"
+              },
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "query",
+                "description": "Search groups by project id"
+              }
+            ]
+          },
+          "docs": "Fetch all multi-agent groups matching query."
+        },
+        {
+          "info": {
+            "name": "Create Group",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.letta.com/v1/groups/",
+            "headers": [
+              {
+                "name": "X-Project",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new multi-agent group with the specified configuration."
+        },
+        {
+          "info": {
+            "name": "Count Groups",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/groups/count"
+          },
+          "docs": "Get the count of all groups associated with a given user."
+        },
+        {
+          "info": {
+            "name": "Retrieve Group",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/groups/:group_id",
+            "params": [
+              {
+                "name": "group_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the group in the format 'group-<uuid4>'"
+              }
+            ]
+          },
+          "docs": "Retrieve the group by id."
+        },
+        {
+          "info": {
+            "name": "Modify Group",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.letta.com/v1/groups/:group_id",
+            "headers": [
+              {
+                "name": "X-Project",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "group_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the group in the format 'group-<uuid4>'"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new multi-agent group with the specified configuration."
+        },
+        {
+          "info": {
+            "name": "Delete Group",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.letta.com/v1/groups/:group_id",
+            "params": [
+              {
+                "name": "group_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the group in the format 'group-<uuid4>'"
+              }
+            ]
+          },
+          "docs": "Delete a multi-agent group."
+        },
+        {
+          "info": {
+            "name": "Modify Group Message",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.letta.com/v1/groups/:group_id/messages/:message_id",
+            "params": [
+              {
+                "name": "group_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the group in the format 'group-<uuid4>'"
+              },
+              {
+                "name": "message_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the message in the format 'message-<uuid4>'"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update the details of a message associated with an agent."
+        },
+        {
+          "info": {
+            "name": "List Group Messages",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.letta.com/v1/groups/:group_id/messages",
+            "params": [
+              {
+                "name": "group_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the group in the format 'group-<uuid4>'"
+              },
+              {
+                "name": "before",
+                "value": "",
+                "type": "query",
+                "description": "Message ID cursor for pagination. Returns messages that come before this message ID in the specified sort order"
+              },
+              {
+                "name": "after",
+                "value": "",
+                "type": "query",
+                "description": "Message ID cursor for pagination. Returns messages that come after this message ID in the specified sort order"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of messages to retrieve"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Sort order for messages by creation time. 'asc' for oldest first, 'desc' for newest first"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Field to sort by"
+              },
+              {
+                "name": "use_assistant_message",
+                "value": "",
+                "type": "query",
+                "description": "Whether to use assistant messages"
+              },
+              {
+                "name": "assistant_message_tool_name",
+                "value": "",
+                "type": "query",
+                "description": "The name of the designated message tool."
+              },
+              {
+                "name": "assistant_message_tool_kwarg",
+                "value": "",
+                "type": "query",
+                "description": "The name of the message argument."
+              },
+              {
+                "name": "include_return_message_types",
+                "value": "",
+                "type": "query",
+                "description": "Message types to include in response. When null, all message types are returned."
+              }
+            ]
+          },
+          "docs": "Retrieve message history for an agent."
+        },
+        {
+          "info": {
+            "name": "Reset Group Messages",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.letta.com/v1/groups/:group_id/reset-messages",
+            "params": [
+              {
+                "name": "group_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the group in the format 'group-<uuid4>'"
+              }
+            ]
+          },
+          "docs": "Delete the group messages for all agents that are part of the multi-agent group."
+        },
+        {
+          "info": {
+            "name": "Attach Block to Group",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.letta.com/v1/groups/:group_id/blocks/attach/:block_id",
+            "params": [
+              {
+                "name": "block_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "group_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the group in the format 'group-<uuid4>'"
+              }
+            ]
+          },
+          "docs": "Attach a block to a group.\nThis will add the block to the group and all agents within the group."
+        },
+        {
+          "info": {
+            "name": "Detach Block from Group",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.letta.com/v1/groups/:group_id/blocks/detach/:block_id",
+            "params": [
+              {
+                "name": "block_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "group_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the group in the format 'group-<uuid4>'"
+              }
+            ]
+          },
+          "docs": "Detach a block from a group.\nThis will remove the block from the group and all agents within the group."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
