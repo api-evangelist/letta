@@ -1,108 +1,55 @@
-specification: API Commons Plans
-specificationVersion: '0.1'
-schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
-provider: Letta
-providerId: letta
-created: '2026-05-08'
-# Provenance stamped 2026-08-11: this artifact was written by the API Evangelist
-# bulk sweep dated 2026-05-08, not harvested from the provider. See roadmap#35.
-method: generated
-modified: '2026-05-22'
-reconciled: true
-tags:
-- AI
-- Agents
-- Memory
-- MemGPT
-- Stateful
-- Plans
-description: >-
-  Letta API Cloud is $20/month base + $0.10 per active agent per month + $0.00015/sec for
-  tool execution + pay-as-you-go LLM usage at provider cost. Self-hosted Letta is free
-  except for hosting and your own LLM API costs. Enterprise plans are custom.
-notes: Reconciled from docs.letta.com/guides/api/plans (May 2026).
+# Pricing transcribed from the provider's own page — see provenance. Numbers are quoted, not derived.
+generated: '2026-09-20'
+method: searched
+source: https://docs.letta.com/pricing
 sources:
+- https://docs.letta.com/pricing
 - https://docs.letta.com/guides/api/plans
-- https://www.letta.com/pricing
+provenance:
+  tool: planning/api-economics/harvest_pricing.py
+  run: 20260920T120546
+  grounding: every price_text was found verbatim in the fetched page text
+audience: developer-api
+pricing_basis: tiered-subscription
+published: true
+note: Mixed subscription tiers with usage-based add-ons (per active agent, per second tool execution);
+  Enterprise is custom.
+plan_count: 5
+currency: USD
 plans:
-- id: letta-self-hosted
-  name: Self-Hosted (Open Source)
-  type: free
-  description: Self-host the open-source Letta server; pay only your hosting and LLM API costs.
-  entries:
-  - label: Plan Fee
-    name: plan_fee
-    type: flat
-    metric: month
-    limit: 1
-    timeFrame: month
-    geo: global
-    unit: 1
-    price: 0 USD/month (Letta is free; you pay infra and LLM)
-    userMultiplied: false
-- id: letta-api
-  name: API Plan (Cloud)
-  type: subscription
-  description: Letta Cloud monthly fee plus pay-as-you-go agent and tool execution charges.
-  entries:
-  - label: Plan Fee
-    name: plan_fee
-    type: flat
-    metric: month
-    limit: 1
-    timeFrame: month
-    geo: global
-    unit: 1
-    price: 20 USD/month
-    userMultiplied: false
-  - label: Active Agent
-    name: active_agent
-    type: subscription
-    metric: agent-month
-    limit: -1
-    timeFrame: month
-    geo: global
-    unit: 1
-    price: 0.10 USD per active agent per month
-    userMultiplied: false
-  - label: Tool Execution
-    name: tool_execution
-    type: per_unit
-    metric: second
-    limit: -1
-    timeFrame: usage
-    geo: global
-    unit: 1
-    price: 0.00015 USD/sec
-    userMultiplied: false
-  - label: LLM Usage
-    name: llm_usage
-    type: passthrough
-    metric: token
-    limit: -1
-    timeFrame: usage
-    geo: global
-    unit: 1
-    price: provider cost (pay-as-you-go)
-    userMultiplied: false
-  elements:
-  - name: Unlimited agents
-  - name: API key authentication
-- id: letta-enterprise
-  name: Enterprise
-  type: enterprise
-  description: Volume pricing, increased quotas, RBAC, SAML/OIDC SSO, dedicated support.
-  entries:
-  - label: Enterprise Contract
-    name: enterprise
-    type: flat
-    metric: contract
-    limit: -1
-    timeFrame: annual
-    geo: global
-    unit: 1
-    price: contact sales
-    userMultiplied: false
-maintainers:
-- FN: Kin Lane
-  email: kin@apievangelist.com
+- name: Free
+  price_text: $0 /month
+  price: 0
+  currency: USD
+  period: month
+  included_quota: Limited agents; Limited usage of Letta Auto; Bring your own API keys and external coding
+    plans
+- name: Pro
+  price_text: $20 /month
+  price: 20
+  currency: USD
+  period: month
+  included_quota: Letta Auto weekly + monthly quota; Up to 20 stateful agents
+  overage: Pay-as-you-go overage
+- name: API Plan
+  price_text: $20 /month
+  price: 20
+  currency: USD
+  period: month
+  included_quota: Unlimited agents; API key authentication
+  overage: $0.10 / active agent / mo; $0.00015 / sec tool execution; Pay-as-you-go LLM usage
+- name: Teams Pro
+  price_text: $20 /seat/month
+  price: 20
+  currency: USD
+  period: month
+  unit: seat
+  included_quota: Add teammates to your organization; Letta Auto weekly + monthly quota; Share agents
+    and set access control
+- name: Enterprise
+  price_text: Custom
+  period: none
+  included_quota: Volume-based pricing; Increased quotas; RBAC; SAML/OIDC SSO; Dedicated support
+rate_limit_statements:
+- Free plans are limited to 3 stateful agents.
+- Up to 20 stateful agents
