@@ -1,0 +1,56 @@
+slug: letta
+provider: Letta
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 4
+edges:
+- tag: LLMs
+  spec_file: letta-llms-api-openapi.yml
+  capability_id: BC-610.60
+  capability_id_l1: BC-610
+  capability_name: Artificial Intelligence Management
+  confidence: 0.72
+  evidence: GET /v1/models/ list_models List LLM Models; GET /v1/models/embedding list_embedding_models
+    List Embedding Models; schemas Model, EmbeddingModel, ProviderType
+  reason: Enumerates available LLM and embedding models and their providers — model catalogue for AI workloads,
+    which falls under Artificial Intelligence Management (AI/ML model lifecycle).
+- tag: Models
+  spec_file: letta-models-api-openapi.yml
+  capability_id: BC-610.60
+  capability_id_l1: BC-610
+  capability_name: Artificial Intelligence Management
+  confidence: 0.72
+  evidence: GET /v1/models/ list_models List LLM Models; GET /v1/models/embeddings models.listEmbeddingModels;
+    schemas Model, EmbeddingModel, ProviderCategory
+  reason: Catalogue of available LLM and embedding models across providers — AI model inventory/lifecycle,
+    i.e. Artificial Intelligence Management.
+- tag: Agents
+  spec_file: letta-agents-api-openapi.yml
+  capability_id: BC-610.60
+  capability_id_l1: BC-610
+  capability_name: Artificial Intelligence Management
+  confidence: 0.7
+  evidence: POST /v1/agents/ 'Create Agent'; GET /v1/agents/{agent_id}/context 'Retrieve Agent Context
+    Window'; PATCH /v1/agents/{agent_id}/tools/attach/{tool_id} 'Attach Tool to Agent'
+  reason: Full lifecycle of stateful LLM agents — create, modify, export/import, attach tools and inspect
+    context — is AI/ML asset lifecycle management for the buyer, not an industry-specific capability.
+- tag: Tools
+  spec_file: letta-tools-api-openapi.yml
+  capability_id: BC-610.60
+  capability_id_l1: BC-610
+  capability_name: Artificial Intelligence Management
+  confidence: 0.7
+  evidence: POST /v1/tools/run  run_tool_from_source  Run Tool from Source; PUT /v1/tools/mcp/servers  add_mcp_server  Add
+    MCP Server to Config; schemas ToolCreate, MCPServerType, ToolReturnMessage
+  reason: Registration, search and sandboxed execution of agent tools plus MCP server configuration —
+    the tool-calling layer of an LLM agent runtime. Maps to AI/ML model and agent lifecycle management
+    (BC-610.60); no business-domain capability is realised by tool registry operations.
