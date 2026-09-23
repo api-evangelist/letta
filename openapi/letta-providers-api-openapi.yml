@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Letta Admin Providers API
+  title: Letta Providers API
   version: 1.0.0
   description: REST API for Letta, the stateful agents platform. Manage agents, memory blocks, archival passages, sources, custom tools, MCP servers, multi-agent groups, runs, and streaming responses. Available as Letta Cloud (managed) at https://api.letta.com/v1 and as the self-hosted open-source server (Apache-2.0) typically run at http://localhost:8283.
   contact:
@@ -349,41 +349,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    ProviderUpdate:
-      properties:
-        api_key:
-          type: string
-          title: Api Key
-          description: API key or secret key used for requests to the provider.
-        access_key:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Access Key
-          description: Access key used for requests to the provider.
-        region:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Region
-          description: Region used for requests to the provider.
-        base_url:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Base Url
-          description: Base URL used for requests to the provider.
-        api_version:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Api Version
-          description: API version used for requests to the provider.
-      additionalProperties: false
-      type: object
-      required:
-      - api_key
-      title: ProviderUpdate
     ProviderCreate:
       properties:
         name:
@@ -428,71 +393,6 @@ components:
       - provider_type
       - api_key
       title: ProviderCreate
-    ProviderCheck:
-      properties:
-        provider_type:
-          $ref: '#/components/schemas/ProviderType'
-          description: The type of the provider.
-        api_key:
-          type: string
-          title: Api Key
-          description: API key or secret key used for requests to the provider.
-        access_key:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Access Key
-          description: Access key used for requests to the provider.
-        region:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Region
-          description: Region used for requests to the provider.
-        base_url:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Base Url
-          description: Base URL used for requests to the provider.
-        api_version:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Api Version
-          description: API version used for requests to the provider.
-      type: object
-      required:
-      - provider_type
-      - api_key
-      title: ProviderCheck
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    ProviderCategory:
-      type: string
-      enum:
-      - base
-      - byok
-      title: ProviderCategory
     ProviderType:
       type: string
       enum:
@@ -522,6 +422,27 @@ components:
       - zai
       - zai_coding
       title: ProviderType
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
     Provider:
       properties:
         id:
@@ -609,6 +530,85 @@ components:
       - provider_type
       - provider_category
       title: Provider
+    ProviderCategory:
+      type: string
+      enum:
+      - base
+      - byok
+      title: ProviderCategory
+    ProviderUpdate:
+      properties:
+        api_key:
+          type: string
+          title: Api Key
+          description: API key or secret key used for requests to the provider.
+        access_key:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Access Key
+          description: Access key used for requests to the provider.
+        region:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Region
+          description: Region used for requests to the provider.
+        base_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Base Url
+          description: Base URL used for requests to the provider.
+        api_version:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Api Version
+          description: API version used for requests to the provider.
+      additionalProperties: false
+      type: object
+      required:
+      - api_key
+      title: ProviderUpdate
+    ProviderCheck:
+      properties:
+        provider_type:
+          $ref: '#/components/schemas/ProviderType'
+          description: The type of the provider.
+        api_key:
+          type: string
+          title: Api Key
+          description: API key or secret key used for requests to the provider.
+        access_key:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Access Key
+          description: Access key used for requests to the provider.
+        region:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Region
+          description: Region used for requests to the provider.
+        base_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Base Url
+          description: Base URL used for requests to the provider.
+        api_version:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Api Version
+          description: API version used for requests to the provider.
+      type: object
+      required:
+      - provider_type
+      - api_key
+      title: ProviderCheck
     HTTPValidationError:
       properties:
         detail:

@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Letta Admin Folders API
+  title: Letta Folders API
   version: 1.0.0
   description: REST API for Letta, the stateful agents platform. Manage agents, memory blocks, archival passages, sources, custom tools, MCP servers, multi-agent groups, runs, and streaming responses. Available as Letta Cloud (managed) at https://api.letta.com/v1 and as the self-hosted open-source server (Apache-2.0) typically run at http://localhost:8283.
   contact:
@@ -158,7 +158,6 @@ paths:
       - Folders
       summary: Get Folder by Name
       description: '**Deprecated**: Please use the list endpoint `GET /v1/folders?name=` instead.
-
 
 
         Get a folder by name.'
@@ -775,394 +774,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    Body_upload_file_to_folder:
-      properties:
-        file:
-          type: string
-          format: binary
-          title: File
-      type: object
-      required:
-      - file
-      title: Body_upload_file_to_folder
-    Folder:
-      properties:
-        name:
-          type: string
-          title: Name
-          description: The name of the folder.
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Description
-          description: The description of the folder.
-        instructions:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Instructions
-          description: Instructions for how to use the folder.
-        metadata:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Metadata
-          description: Metadata associated with the folder.
-        id:
-          type: string
-          pattern: ^source-[a-fA-F0-9]{8}
-          title: Id
-          description: The human-friendly ID of the Source
-          examples:
-          - source-123e4567-e89b-12d3-a456-426614174000
-        embedding_config:
-          $ref: '#/components/schemas/EmbeddingConfig'
-          description: The embedding configuration used by the folder.
-        created_by_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Created By Id
-          description: The id of the user that made this Tool.
-        last_updated_by_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Last Updated By Id
-          description: The id of the user that made this Tool.
-        created_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Created At
-          description: The timestamp when the folder was created.
-        updated_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Updated At
-          description: The timestamp when the folder was last updated.
-      additionalProperties: false
-      type: object
-      required:
-      - name
-      - embedding_config
-      title: Folder
-      description: Representation of a folder, which is a collection of files and passages.
-    SourceCreate:
-      properties:
-        name:
-          type: string
-          title: Name
-          description: The name of the source.
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Description
-          description: The description of the source.
-        instructions:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Instructions
-          description: Instructions for how to use the source.
-        metadata:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Metadata
-          description: Metadata associated with the source.
-        embedding:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Embedding
-          description: The handle for the embedding config used by the source.
-        embedding_chunk_size:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Embedding Chunk Size
-          description: The chunk size of the embedding.
-        embedding_config:
-          anyOf:
-          - $ref: '#/components/schemas/EmbeddingConfig'
-          - type: 'null'
-          description: (Legacy) The embedding configuration used by the source.
-      additionalProperties: false
-      type: object
-      required:
-      - name
-      title: SourceCreate
-      description: Schema for creating a new Source.
-    DuplicateFileHandling:
-      type: string
-      enum:
-      - skip
-      - error
-      - suffix
-      - replace
-      title: DuplicateFileHandling
-      description: How to handle duplicate filenames when uploading files
-    FileMetadata:
-      properties:
-        source_id:
-          type: string
-          title: Source Id
-          description: 'Deprecated: Use `folder_id` field instead. The unique identifier of the source associated with the document.'
-          deprecated: true
-        file_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: File Name
-          description: The name of the file.
-        original_file_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Original File Name
-          description: The original name of the file as uploaded.
-        file_path:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: File Path
-          description: The path to the file.
-        file_type:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: File Type
-          description: The type of the file (MIME type).
-        file_size:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: File Size
-          description: The size of the file in bytes.
-        file_creation_date:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: File Creation Date
-          description: The creation date of the file.
-        file_last_modified_date:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: File Last Modified Date
-          description: The last modified date of the file.
-        processing_status:
-          $ref: '#/components/schemas/FileProcessingStatus'
-          description: The current processing status of the file (e.g. pending, parsing, embedding, completed, error).
-          default: pending
-        error_message:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Error Message
-          description: Optional error message if the file failed processing.
-        total_chunks:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Total Chunks
-          description: Total number of chunks for the file.
-        chunks_embedded:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Chunks Embedded
-          description: Number of chunks that have been embedded.
-        content:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Content
-          description: Optional full-text content of the file; only populated on demand due to its size.
-        id:
-          type: string
-          pattern: ^file-[a-fA-F0-9]{8}
-          title: Id
-          description: The human-friendly ID of the File
-          examples:
-          - file-123e4567-e89b-12d3-a456-426614174000
-        created_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Created At
-          description: The creation date of the file.
-        updated_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Updated At
-          description: The update date of the file.
-      additionalProperties: false
-      type: object
-      required:
-      - source_id
-      title: FileMetadata
-      description: Representation of a single FileMetadata
-    SourceUpdate:
-      properties:
-        name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Name
-          description: The name of the source.
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Description
-          description: The description of the source.
-        instructions:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Instructions
-          description: Instructions for how to use the source.
-        metadata:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Metadata
-          description: Metadata associated with the source.
-        embedding_config:
-          anyOf:
-          - $ref: '#/components/schemas/EmbeddingConfig'
-          - type: 'null'
-          description: The embedding configuration used by the source.
-      additionalProperties: false
-      type: object
-      title: SourceUpdate
-      description: Schema for updating an existing Source.
-    FileProcessingStatus:
-      type: string
-      enum:
-      - pending
-      - parsing
-      - embedding
-      - completed
-      - error
-      title: FileProcessingStatus
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    EmbeddingConfig:
-      properties:
-        embedding_endpoint_type:
-          type: string
-          enum:
-          - openai
-          - anthropic
-          - bedrock
-          - google_ai
-          - google_vertex
-          - azure
-          - groq
-          - ollama
-          - webui
-          - webui-legacy
-          - lmstudio
-          - lmstudio-legacy
-          - llamacpp
-          - koboldcpp
-          - vllm
-          - hugging-face
-          - mistral
-          - together
-          - pinecone
-          title: Embedding Endpoint Type
-          description: The endpoint type for the model.
-        embedding_endpoint:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Embedding Endpoint
-          description: The endpoint for the model (`None` if local).
-        embedding_model:
-          type: string
-          title: Embedding Model
-          description: The model for the embedding.
-        embedding_dim:
-          type: integer
-          title: Embedding Dim
-          description: The dimension of the embedding.
-        embedding_chunk_size:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Embedding Chunk Size
-          description: The chunk size of the embedding.
-          default: 300
-        handle:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Handle
-          description: The handle for this config, in the format provider/model-name.
-        batch_size:
-          type: integer
-          title: Batch Size
-          description: The maximum batch size for processing embeddings.
-          default: 32
-        azure_endpoint:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Azure Endpoint
-          description: The Azure endpoint for the model.
-        azure_version:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Azure Version
-          description: The Azure version for the model.
-        azure_deployment:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Azure Deployment
-          description: The Azure deployment for the model.
-      type: object
-      required:
-      - embedding_endpoint_type
-      - embedding_model
-      - embedding_dim
-      title: EmbeddingConfig
-      description: Configuration for embedding model connection and processing parameters.
     FileStats:
       properties:
         file_id:
@@ -1186,6 +797,15 @@ components:
       - file_name
       title: FileStats
       description: File statistics for metadata endpoint
+    FileProcessingStatus:
+      type: string
+      enum:
+      - pending
+      - parsing
+      - embedding
+      - completed
+      - error
+      title: FileProcessingStatus
     Passage:
       properties:
         created_by_id:
@@ -1292,6 +912,385 @@ components:
       - embedding_config
       title: Passage
       description: Representation of a passage, which is stored in archival memory.
+    DuplicateFileHandling:
+      type: string
+      enum:
+      - skip
+      - error
+      - suffix
+      - replace
+      title: DuplicateFileHandling
+      description: How to handle duplicate filenames when uploading files
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    FileMetadata:
+      properties:
+        source_id:
+          type: string
+          title: Source Id
+          description: 'Deprecated: Use `folder_id` field instead. The unique identifier of the source associated with the document.'
+          deprecated: true
+        file_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: File Name
+          description: The name of the file.
+        original_file_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Original File Name
+          description: The original name of the file as uploaded.
+        file_path:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: File Path
+          description: The path to the file.
+        file_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: File Type
+          description: The type of the file (MIME type).
+        file_size:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: File Size
+          description: The size of the file in bytes.
+        file_creation_date:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: File Creation Date
+          description: The creation date of the file.
+        file_last_modified_date:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: File Last Modified Date
+          description: The last modified date of the file.
+        processing_status:
+          $ref: '#/components/schemas/FileProcessingStatus'
+          description: The current processing status of the file (e.g. pending, parsing, embedding, completed, error).
+          default: pending
+        error_message:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Error Message
+          description: Optional error message if the file failed processing.
+        total_chunks:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Total Chunks
+          description: Total number of chunks for the file.
+        chunks_embedded:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Chunks Embedded
+          description: Number of chunks that have been embedded.
+        content:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Content
+          description: Optional full-text content of the file; only populated on demand due to its size.
+        id:
+          type: string
+          pattern: ^file-[a-fA-F0-9]{8}
+          title: Id
+          description: The human-friendly ID of the File
+          examples:
+          - file-123e4567-e89b-12d3-a456-426614174000
+        created_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created At
+          description: The creation date of the file.
+        updated_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated At
+          description: The update date of the file.
+      additionalProperties: false
+      type: object
+      required:
+      - source_id
+      title: FileMetadata
+      description: Representation of a single FileMetadata
+    EmbeddingConfig:
+      properties:
+        embedding_endpoint_type:
+          type: string
+          enum:
+          - openai
+          - anthropic
+          - bedrock
+          - google_ai
+          - google_vertex
+          - azure
+          - groq
+          - ollama
+          - webui
+          - webui-legacy
+          - lmstudio
+          - lmstudio-legacy
+          - llamacpp
+          - koboldcpp
+          - vllm
+          - hugging-face
+          - mistral
+          - together
+          - pinecone
+          title: Embedding Endpoint Type
+          description: The endpoint type for the model.
+        embedding_endpoint:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Embedding Endpoint
+          description: The endpoint for the model (`None` if local).
+        embedding_model:
+          type: string
+          title: Embedding Model
+          description: The model for the embedding.
+        embedding_dim:
+          type: integer
+          title: Embedding Dim
+          description: The dimension of the embedding.
+        embedding_chunk_size:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Embedding Chunk Size
+          description: The chunk size of the embedding.
+          default: 300
+        handle:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Handle
+          description: The handle for this config, in the format provider/model-name.
+        batch_size:
+          type: integer
+          title: Batch Size
+          description: The maximum batch size for processing embeddings.
+          default: 32
+        azure_endpoint:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Azure Endpoint
+          description: The Azure endpoint for the model.
+        azure_version:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Azure Version
+          description: The Azure version for the model.
+        azure_deployment:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Azure Deployment
+          description: The Azure deployment for the model.
+      type: object
+      required:
+      - embedding_endpoint_type
+      - embedding_model
+      - embedding_dim
+      title: EmbeddingConfig
+      description: Configuration for embedding model connection and processing parameters.
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    Folder:
+      properties:
+        name:
+          type: string
+          title: Name
+          description: The name of the folder.
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+          description: The description of the folder.
+        instructions:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Instructions
+          description: Instructions for how to use the folder.
+        metadata:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Metadata
+          description: Metadata associated with the folder.
+        id:
+          type: string
+          pattern: ^source-[a-fA-F0-9]{8}
+          title: Id
+          description: The human-friendly ID of the Source
+          examples:
+          - source-123e4567-e89b-12d3-a456-426614174000
+        embedding_config:
+          $ref: '#/components/schemas/EmbeddingConfig'
+          description: The embedding configuration used by the folder.
+        created_by_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Created By Id
+          description: The id of the user that made this Tool.
+        last_updated_by_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Last Updated By Id
+          description: The id of the user that made this Tool.
+        created_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created At
+          description: The timestamp when the folder was created.
+        updated_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated At
+          description: The timestamp when the folder was last updated.
+      additionalProperties: false
+      type: object
+      required:
+      - name
+      - embedding_config
+      title: Folder
+      description: Representation of a folder, which is a collection of files and passages.
+    Body_upload_file_to_folder:
+      properties:
+        file:
+          type: string
+          format: binary
+          title: File
+      type: object
+      required:
+      - file
+      title: Body_upload_file_to_folder
+    SourceCreate:
+      properties:
+        name:
+          type: string
+          title: Name
+          description: The name of the source.
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+          description: The description of the source.
+        instructions:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Instructions
+          description: Instructions for how to use the source.
+        metadata:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Metadata
+          description: Metadata associated with the source.
+        embedding:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Embedding
+          description: The handle for the embedding config used by the source.
+        embedding_chunk_size:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Embedding Chunk Size
+          description: The chunk size of the embedding.
+        embedding_config:
+          anyOf:
+          - $ref: '#/components/schemas/EmbeddingConfig'
+          - type: 'null'
+          description: (Legacy) The embedding configuration used by the source.
+      additionalProperties: false
+      type: object
+      required:
+      - name
+      title: SourceCreate
+      description: Schema for creating a new Source.
+    OrganizationSourcesStats:
+      properties:
+        total_sources:
+          type: integer
+          title: Total Sources
+          description: Total number of sources
+          default: 0
+        total_files:
+          type: integer
+          title: Total Files
+          description: Total number of files across all sources
+          default: 0
+        total_size:
+          type: integer
+          title: Total Size
+          description: Total size of all files in bytes
+          default: 0
+        sources:
+          items:
+            $ref: '#/components/schemas/SourceStats'
+          type: array
+          title: Sources
+          description: List of source metadata
+      additionalProperties: false
+      type: object
+      title: OrganizationSourcesStats
+      description: Complete metadata response for organization sources
     SourceStats:
       properties:
         source_id:
@@ -1327,42 +1326,42 @@ components:
       - source_name
       title: SourceStats
       description: Aggregated metadata for a source
-    OrganizationSourcesStats:
+    SourceUpdate:
       properties:
-        total_sources:
-          type: integer
-          title: Total Sources
-          description: Total number of sources
-          default: 0
-        total_files:
-          type: integer
-          title: Total Files
-          description: Total number of files across all sources
-          default: 0
-        total_size:
-          type: integer
-          title: Total Size
-          description: Total size of all files in bytes
-          default: 0
-        sources:
-          items:
-            $ref: '#/components/schemas/SourceStats'
-          type: array
-          title: Sources
-          description: List of source metadata
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+          description: The name of the source.
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+          description: The description of the source.
+        instructions:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Instructions
+          description: Instructions for how to use the source.
+        metadata:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Metadata
+          description: Metadata associated with the source.
+        embedding_config:
+          anyOf:
+          - $ref: '#/components/schemas/EmbeddingConfig'
+          - type: 'null'
+          description: The embedding configuration used by the source.
       additionalProperties: false
       type: object
-      title: OrganizationSourcesStats
-      description: Complete metadata response for organization sources
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
+      title: SourceUpdate
+      description: Schema for updating an existing Source.
   securitySchemes:
     bearerAuth:
       type: http

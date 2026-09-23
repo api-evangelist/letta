@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Letta Admin Tools API
+  title: Letta Tools API
   version: 1.0.0
   description: REST API for Letta, the stateful agents platform. Manage agents, memory blocks, archival passages, sources, custom tools, MCP servers, multi-agent groups, runs, and streaming responses. Available as Letta Cloud (managed) at https://api.letta.com/v1 and as the self-hosted open-source server (Apache-2.0) typically run at http://localhost:8283.
   contact:
@@ -951,351 +951,113 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    Tool:
+    StdioServerConfig:
       properties:
-        id:
+        server_name:
           type: string
-          pattern: ^tool-[a-fA-F0-9]{8}
-          title: Id
-          description: The human-friendly ID of the Tool
-          examples:
-          - tool-123e4567-e89b-12d3-a456-426614174000
-        tool_type:
-          $ref: '#/components/schemas/ToolType'
-          description: The type of the tool.
-          default: custom
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Description
-          description: The description of the tool.
-        source_type:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Source Type
-          description: The type of the source code.
-        name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Name
-          description: The name of the function.
-        tags:
+          title: Server Name
+          description: The name of the server
+        type:
+          $ref: '#/components/schemas/MCPServerType'
+          default: stdio
+        command:
+          type: string
+          title: Command
+          description: The command to run (MCP 'local' client will run this command)
+        args:
           items:
             type: string
           type: array
-          title: Tags
-          description: Metadata tags.
-          default: []
-        source_code:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Source Code
-          description: The source code of the function.
-        json_schema:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Json Schema
-          description: The JSON schema of the function.
-        args_json_schema:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Args Json Schema
-          description: The args JSON schema of the function.
-        return_char_limit:
-          type: integer
-          maximum: 1000000
-          minimum: 1
-          title: Return Char Limit
-          description: The maximum number of characters in the response.
-          default: 50000
-        pip_requirements:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/PipRequirement'
-            type: array
-          - type: 'null'
-          title: Pip Requirements
-          description: Optional list of pip packages required by this tool.
-        npm_requirements:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/NpmRequirement'
-            type: array
-          - type: 'null'
-          title: Npm Requirements
-          description: Optional list of npm packages required by this tool.
-        default_requires_approval:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Default Requires Approval
-          description: Default value for whether or not executing this tool requires approval.
-        enable_parallel_execution:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Enable Parallel Execution
-          description: If set to True, then this tool will potentially be executed concurrently with other tools. Default False.
-          default: false
-        created_by_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Created By Id
-          description: The id of the user that made this Tool.
-        last_updated_by_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Last Updated By Id
-          description: The id of the user that made this Tool.
-        metadata_:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Metadata
-          description: A dictionary of additional metadata for the tool.
-        project_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Project Id
-          description: The project id of the tool.
-      additionalProperties: false
-      type: object
-      title: Tool
-      description: Representation of a tool, which is a function that can be called by the agent.
-    ImageContent:
-      properties:
-        type:
-          type: string
-          const: image
-          title: Type
-          description: The type of the message.
-          default: image
-        source:
-          oneOf:
-          - $ref: '#/components/schemas/UrlImage'
-          - $ref: '#/components/schemas/Base64Image'
-          - $ref: '#/components/schemas/LettaImage'
-          title: Source
-          description: The source of the image.
-          discriminator:
-            propertyName: type
-            mapping:
-              base64: '#/components/schemas/Base64Image'
-              letta: '#/components/schemas/LettaImage'
-              url: '#/components/schemas/UrlImage'
-      type: object
-      required:
-      - source
-      title: ImageContent
-    ToolType:
-      type: string
-      enum:
-      - custom
-      - letta_core
-      - letta_memory_core
-      - letta_multi_agent_core
-      - letta_sleeptime_core
-      - letta_voice_sleeptime_core
-      - letta_builtin
-      - letta_files_core
-      - external_langchain
-      - external_composio
-      - external_mcp
-      title: ToolType
-    letta__schemas__mcp__UpdateStreamableHTTPMCPServer:
-      properties:
-        server_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Server Name
-          description: The name of the MCP server
-        server_url:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Server Url
-          description: The URL path for the streamable HTTP server (e.g., 'example/mcp')
-        auth_header:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Auth Header
-          description: The name of the authentication header (e.g., 'Authorization')
-        auth_token:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Auth Token
-          description: The authentication token or API key value
-        custom_headers:
+          title: Args
+          description: The arguments to pass to the command
+        env:
           anyOf:
           - additionalProperties:
               type: string
             type: object
           - type: 'null'
-          title: Custom Headers
-          description: Custom authentication headers as key-value pairs
-      additionalProperties: false
-      type: object
-      title: UpdateStreamableHTTPMCPServer
-      description: Update a Streamable HTTP MCP server
-    MCPToolHealth:
-      properties:
-        status:
-          type: string
-          title: Status
-          description: 'Schema health status: STRICT_COMPLIANT, NON_STRICT_ONLY, or INVALID'
-        reasons:
-          items:
-            type: string
-          type: array
-          title: Reasons
-          description: List of reasons for the health status
+          title: Env
+          description: Environment variables to set
       type: object
       required:
-      - status
-      title: MCPToolHealth
-      description: Health status for an MCP tool's schema.
-    ToolSearchResult:
+      - server_name
+      - command
+      - args
+      title: StdioServerConfig
+    Base64Image:
       properties:
-        tool:
-          $ref: '#/components/schemas/Tool'
-          description: The matched tool.
-        embedded_text:
+        type:
+          type: string
+          const: base64
+          title: Type
+          description: The source type for the image.
+          default: base64
+        media_type:
+          type: string
+          title: Media Type
+          description: The media type for the image.
+        data:
+          type: string
+          title: Data
+          description: The base64 encoded image data.
+        detail:
           anyOf:
           - type: string
           - type: 'null'
-          title: Embedded Text
-          description: The embedded text content used for matching.
-        fts_rank:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Fts Rank
-          description: Full-text search rank position.
-        vector_rank:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Vector Rank
-          description: Vector search rank position.
-        combined_score:
-          type: number
-          title: Combined Score
-          description: Combined relevance score (RRF for hybrid mode).
-      additionalProperties: false
+          title: Detail
+          description: What level of detail to use when processing and understanding the image (low, high, or auto to let the model decide)
       type: object
       required:
-      - tool
-      - combined_score
-      title: ToolSearchResult
-      description: Result from a tool search operation.
-    NpmRequirement:
+      - media_type
+      - data
+      title: Base64Image
+    MCPTool:
       properties:
         name:
           type: string
-          minLength: 1
           title: Name
-          description: Name of the npm package.
-        version:
+        title:
           anyOf:
           - type: string
           - type: 'null'
-          title: Version
-          description: Optional version of the package, following semantic versioning.
+          title: Title
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        inputSchema:
+          additionalProperties: true
+          type: object
+          title: Inputschema
+        outputSchema:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Outputschema
+        annotations:
+          anyOf:
+          - $ref: '#/components/schemas/ToolAnnotations'
+          - type: 'null'
+        _meta:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Meta
+        health:
+          anyOf:
+          - $ref: '#/components/schemas/MCPToolHealth'
+          - type: 'null'
+          description: Schema health status for OpenAI strict mode
+      additionalProperties: true
       type: object
       required:
       - name
-      title: NpmRequirement
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    letta__schemas__letta_message__ToolReturn:
-      properties:
-        type:
-          type: string
-          const: tool
-          title: Type
-          description: The message type to be created.
-          default: tool
-        tool_return:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/LettaToolReturnContentUnion'
-            type: array
-          - type: string
-          title: Tool Return
-          description: The tool return value - either a string or list of content parts (text/image)
-        status:
-          type: string
-          enum:
-          - success
-          - error
-          title: Status
-        tool_call_id:
-          type: string
-          title: Tool Call Id
-        stdout:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Stdout
-        stderr:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Stderr
-      type: object
-      required:
-      - tool_return
-      - status
-      - tool_call_id
-      title: ToolReturn
-    TextContent:
-      properties:
-        type:
-          type: string
-          const: text
-          title: Type
-          description: The type of the message.
-          default: text
-        text:
-          type: string
-          title: Text
-          description: The text content of the message.
-        signature:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Signature
-          description: Stores a unique identifier for any reasoning associated with this text content.
-      type: object
-      required:
-      - text
-      title: TextContent
+      - inputSchema
+      title: MCPTool
+      description: A simple wrapper around MCP's tool definition (to avoid conflict with our own)
     ToolReturnMessage:
       properties:
         id:
@@ -1394,24 +1156,23 @@ components:
       - tool_call_id
       title: ToolReturnMessage
       description: "A message representing the return value of a tool call (generated by Letta executing the requested tool).\n\nArgs:\n    id (str): The ID of the message\n    date (datetime): The date the message was created in ISO format\n    name (Optional[str]): The name of the sender of the message\n    tool_return (str): The return value of the tool (deprecated, use tool_returns)\n    status (Literal[\"success\", \"error\"]): The status of the tool call (deprecated, use tool_returns)\n    tool_call_id (str): A unique identifier for the tool call that generated this message (deprecated, use tool_returns)\n    stdout (Optional[List(str)]): Captured stdout (e.g. prints, logs) from the tool invocation (deprecated, use tool_returns)\n    stderr (Optional[List(str)]): Captured stderr from the tool invocation (deprecated, use tool_returns)\n    tool_returns (Optional[List[ToolReturn]]): List of tool returns for multi-tool support"
-    LettaToolReturnContentUnion:
-      oneOf:
-      - $ref: '#/components/schemas/TextContent'
-      - $ref: '#/components/schemas/ImageContent'
-      discriminator:
-        propertyName: type
-        mapping:
-          text: '#/components/schemas/TextContent'
-          image: '#/components/schemas/ImageContent'
-    letta__server__rest_api__routers__v1__tools__ToolExecuteRequest:
+    NpmRequirement:
       properties:
-        args:
-          additionalProperties: true
-          type: object
-          title: Args
-          description: Arguments to pass to the tool
+        name:
+          type: string
+          minLength: 1
+          title: Name
+          description: Name of the npm package.
+        version:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Version
+          description: Optional version of the package, following semantic versioning.
       type: object
-      title: ToolExecuteRequest
+      required:
+      - name
+      title: NpmRequirement
     ToolUpdate:
       properties:
         description:
@@ -1565,162 +1326,22 @@ components:
       - source_code
       - args
       title: ToolRunFromSource
-    MCPTool:
-      properties:
-        name:
-          type: string
-          title: Name
-        title:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Title
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Description
-        inputSchema:
-          additionalProperties: true
-          type: object
-          title: Inputschema
-        outputSchema:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Outputschema
-        annotations:
-          anyOf:
-          - $ref: '#/components/schemas/ToolAnnotations'
-          - type: 'null'
-        _meta:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Meta
-        health:
-          anyOf:
-          - $ref: '#/components/schemas/MCPToolHealth'
-          - type: 'null'
-          description: Schema health status for OpenAI strict mode
-      additionalProperties: true
-      type: object
-      required:
-      - name
-      - inputSchema
-      title: MCPTool
-      description: A simple wrapper around MCP's tool definition (to avoid conflict with our own)
-    Base64Image:
-      properties:
-        type:
-          type: string
-          const: base64
-          title: Type
-          description: The source type for the image.
-          default: base64
-        media_type:
-          type: string
-          title: Media Type
-          description: The media type for the image.
-        data:
-          type: string
-          title: Data
-          description: The base64 encoded image data.
-        detail:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Detail
-          description: What level of detail to use when processing and understanding the image (low, high, or auto to let the model decide)
-      type: object
-      required:
-      - media_type
-      - data
-      title: Base64Image
-    ToolSearchRequest:
-      properties:
-        query:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Query
-          description: Text query for semantic search.
-        search_mode:
-          type: string
-          enum:
-          - vector
-          - fts
-          - hybrid
-          title: Search Mode
-          description: 'Search mode: vector, fts, or hybrid.'
-          default: hybrid
-        tool_types:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Tool Types
-          description: Filter by tool types (e.g., 'custom', 'letta_core').
-        tags:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Tags
-          description: Filter by tags (match any).
-        limit:
-          type: integer
-          maximum: 100
-          minimum: 1
-          title: Limit
-          description: Maximum number of results to return.
-          default: 50
-      additionalProperties: false
-      type: object
-      title: ToolSearchRequest
-      description: Request model for searching tools using semantic search.
-    letta__schemas__mcp__UpdateStdioMCPServer:
-      properties:
-        server_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Server Name
-          description: The name of the MCP server
-        stdio_config:
-          anyOf:
-          - $ref: '#/components/schemas/StdioServerConfig'
-          - type: 'null'
-          description: The configuration for the server (MCP 'local' client will run this command)
-      additionalProperties: false
-      type: object
-      title: UpdateStdioMCPServer
-      description: Update a Stdio MCP server
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
+    LettaToolReturnContentUnion:
+      oneOf:
+      - $ref: '#/components/schemas/TextContent'
+      - $ref: '#/components/schemas/ImageContent'
+      discriminator:
+        propertyName: type
+        mapping:
+          text: '#/components/schemas/TextContent'
+          image: '#/components/schemas/ImageContent'
+    MCPServerType:
+      type: string
+      enum:
+      - sse
+      - stdio
+      - streamable_http
+      title: MCPServerType
     StreamableHTTPServerConfig:
       properties:
         server_name:
@@ -1760,47 +1381,6 @@ components:
       - server_url
       title: StreamableHTTPServerConfig
       description: Configuration for an MCP server using Streamable HTTP
-    MCPServerType:
-      type: string
-      enum:
-      - sse
-      - stdio
-      - streamable_http
-      title: MCPServerType
-    LettaImage:
-      properties:
-        type:
-          type: string
-          const: letta
-          title: Type
-          description: The source type for the image.
-          default: letta
-        file_id:
-          type: string
-          title: File Id
-          description: The unique identifier of the image file persisted in storage.
-        media_type:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Media Type
-          description: The media type for the image.
-        data:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Data
-          description: The base64 encoded image data.
-        detail:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Detail
-          description: What level of detail to use when processing and understanding the image (low, high, or auto to let the model decide)
-      type: object
-      required:
-      - file_id
-      title: LettaImage
     UrlImage:
       properties:
         type:
@@ -1817,7 +1397,7 @@ components:
       required:
       - url
       title: UrlImage
-    letta__schemas__mcp__UpdateSSEMCPServer:
+    letta__schemas__mcp__UpdateStdioMCPServer:
       properties:
         server_name:
           anyOf:
@@ -1825,129 +1405,37 @@ components:
           - type: 'null'
           title: Server Name
           description: The name of the MCP server
-        server_url:
+        stdio_config:
           anyOf:
-          - type: string
+          - $ref: '#/components/schemas/StdioServerConfig'
           - type: 'null'
-          title: Server Url
-          description: The URL of the server (MCP SSE client will connect to this URL)
-        token:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Token
-          description: The access token or API key for the MCP server (used for SSE authentication)
-        custom_headers:
-          anyOf:
-          - additionalProperties:
-              type: string
-            type: object
-          - type: 'null'
-          title: Custom Headers
-          description: Custom authentication headers as key-value pairs
+          description: The configuration for the server (MCP 'local' client will run this command)
       additionalProperties: false
       type: object
-      title: UpdateSSEMCPServer
-      description: Update an SSE MCP server
-    SSEServerConfig:
+      title: UpdateStdioMCPServer
+      description: Update a Stdio MCP server
+    TextContent:
       properties:
-        server_name:
-          type: string
-          title: Server Name
-          description: The name of the server
         type:
-          $ref: '#/components/schemas/MCPServerType'
-          default: sse
-        server_url:
           type: string
-          title: Server Url
-          description: The URL of the server
-        auth_header:
+          const: text
+          title: Type
+          description: The type of the message.
+          default: text
+        text:
+          type: string
+          title: Text
+          description: The text content of the message.
+        signature:
           anyOf:
           - type: string
           - type: 'null'
-          title: Auth Header
-          description: The name of the authentication header (e.g., 'Authorization')
-        auth_token:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Auth Token
-          description: The authentication token or API key value
-        custom_headers:
-          anyOf:
-          - additionalProperties:
-              type: string
-            type: object
-          - type: 'null'
-          title: Custom Headers
-          description: Custom HTTP headers to include with requests
+          title: Signature
+          description: Stores a unique identifier for any reasoning associated with this text content.
       type: object
       required:
-      - server_name
-      - server_url
-      title: SSEServerConfig
-      description: Configuration for an MCP server using SSE
-    PipRequirement:
-      properties:
-        name:
-          type: string
-          minLength: 1
-          title: Name
-          description: Name of the pip package.
-        version:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Version
-          description: Optional version of the package, following semantic versioning.
-      type: object
-      required:
-      - name
-      title: PipRequirement
-    ToolAnnotations:
-      properties:
-        title:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Title
-        readOnlyHint:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Readonlyhint
-        destructiveHint:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Destructivehint
-        idempotentHint:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Idempotenthint
-        openWorldHint:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Openworldhint
-      additionalProperties: true
-      type: object
-      title: ToolAnnotations
-      description: 'Additional properties describing a Tool to clients.
-
-
-        NOTE: all properties in ToolAnnotations are **hints**.
-
-        They are not guaranteed to provide a faithful description of
-
-        tool behavior (including descriptive properties like `title`).
-
-
-        Clients should never make tool use decisions based on ToolAnnotations
-
-        received from untrusted servers.'
+      - text
+      title: TextContent
     ToolCreate:
       properties:
         description:
@@ -2028,7 +1516,398 @@ components:
       required:
       - source_code
       title: ToolCreate
-    StdioServerConfig:
+    ToolType:
+      type: string
+      enum:
+      - custom
+      - letta_core
+      - letta_memory_core
+      - letta_multi_agent_core
+      - letta_sleeptime_core
+      - letta_voice_sleeptime_core
+      - letta_builtin
+      - letta_files_core
+      - external_langchain
+      - external_composio
+      - external_mcp
+      title: ToolType
+    ToolAnnotations:
+      properties:
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+        readOnlyHint:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Readonlyhint
+        destructiveHint:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Destructivehint
+        idempotentHint:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Idempotenthint
+        openWorldHint:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Openworldhint
+      additionalProperties: true
+      type: object
+      title: ToolAnnotations
+      description: 'Additional properties describing a Tool to clients.
+
+
+        NOTE: all properties in ToolAnnotations are **hints**.
+
+        They are not guaranteed to provide a faithful description of
+
+        tool behavior (including descriptive properties like `title`).
+
+
+        Clients should never make tool use decisions based on ToolAnnotations
+
+        received from untrusted servers.'
+    MCPToolHealth:
+      properties:
+        status:
+          type: string
+          title: Status
+          description: 'Schema health status: STRICT_COMPLIANT, NON_STRICT_ONLY, or INVALID'
+        reasons:
+          items:
+            type: string
+          type: array
+          title: Reasons
+          description: List of reasons for the health status
+      type: object
+      required:
+      - status
+      title: MCPToolHealth
+      description: Health status for an MCP tool's schema.
+    ToolSearchRequest:
+      properties:
+        query:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Query
+          description: Text query for semantic search.
+        search_mode:
+          type: string
+          enum:
+          - vector
+          - fts
+          - hybrid
+          title: Search Mode
+          description: 'Search mode: vector, fts, or hybrid.'
+          default: hybrid
+        tool_types:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Tool Types
+          description: Filter by tool types (e.g., 'custom', 'letta_core').
+        tags:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Tags
+          description: Filter by tags (match any).
+        limit:
+          type: integer
+          maximum: 100
+          minimum: 1
+          title: Limit
+          description: Maximum number of results to return.
+          default: 50
+      additionalProperties: false
+      type: object
+      title: ToolSearchRequest
+      description: Request model for searching tools using semantic search.
+    letta__schemas__letta_message__ToolReturn:
+      properties:
+        type:
+          type: string
+          const: tool
+          title: Type
+          description: The message type to be created.
+          default: tool
+        tool_return:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/LettaToolReturnContentUnion'
+            type: array
+          - type: string
+          title: Tool Return
+          description: The tool return value - either a string or list of content parts (text/image)
+        status:
+          type: string
+          enum:
+          - success
+          - error
+          title: Status
+        tool_call_id:
+          type: string
+          title: Tool Call Id
+        stdout:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Stdout
+        stderr:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Stderr
+      type: object
+      required:
+      - tool_return
+      - status
+      - tool_call_id
+      title: ToolReturn
+    PipRequirement:
+      properties:
+        name:
+          type: string
+          minLength: 1
+          title: Name
+          description: Name of the pip package.
+        version:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Version
+          description: Optional version of the package, following semantic versioning.
+      type: object
+      required:
+      - name
+      title: PipRequirement
+    Tool:
+      properties:
+        id:
+          type: string
+          pattern: ^tool-[a-fA-F0-9]{8}
+          title: Id
+          description: The human-friendly ID of the Tool
+          examples:
+          - tool-123e4567-e89b-12d3-a456-426614174000
+        tool_type:
+          $ref: '#/components/schemas/ToolType'
+          description: The type of the tool.
+          default: custom
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+          description: The description of the tool.
+        source_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Source Type
+          description: The type of the source code.
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+          description: The name of the function.
+        tags:
+          items:
+            type: string
+          type: array
+          title: Tags
+          description: Metadata tags.
+          default: []
+        source_code:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Source Code
+          description: The source code of the function.
+        json_schema:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Json Schema
+          description: The JSON schema of the function.
+        args_json_schema:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Args Json Schema
+          description: The args JSON schema of the function.
+        return_char_limit:
+          type: integer
+          maximum: 1000000
+          minimum: 1
+          title: Return Char Limit
+          description: The maximum number of characters in the response.
+          default: 50000
+        pip_requirements:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/PipRequirement'
+            type: array
+          - type: 'null'
+          title: Pip Requirements
+          description: Optional list of pip packages required by this tool.
+        npm_requirements:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/NpmRequirement'
+            type: array
+          - type: 'null'
+          title: Npm Requirements
+          description: Optional list of npm packages required by this tool.
+        default_requires_approval:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Default Requires Approval
+          description: Default value for whether or not executing this tool requires approval.
+        enable_parallel_execution:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Enable Parallel Execution
+          description: If set to True, then this tool will potentially be executed concurrently with other tools. Default False.
+          default: false
+        created_by_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Created By Id
+          description: The id of the user that made this Tool.
+        last_updated_by_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Last Updated By Id
+          description: The id of the user that made this Tool.
+        metadata_:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Metadata
+          description: A dictionary of additional metadata for the tool.
+        project_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Project Id
+          description: The project id of the tool.
+      additionalProperties: false
+      type: object
+      title: Tool
+      description: Representation of a tool, which is a function that can be called by the agent.
+    letta__schemas__mcp__UpdateSSEMCPServer:
+      properties:
+        server_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Server Name
+          description: The name of the MCP server
+        server_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Server Url
+          description: The URL of the server (MCP SSE client will connect to this URL)
+        token:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Token
+          description: The access token or API key for the MCP server (used for SSE authentication)
+        custom_headers:
+          anyOf:
+          - additionalProperties:
+              type: string
+            type: object
+          - type: 'null'
+          title: Custom Headers
+          description: Custom authentication headers as key-value pairs
+      additionalProperties: false
+      type: object
+      title: UpdateSSEMCPServer
+      description: Update an SSE MCP server
+    ToolSearchResult:
+      properties:
+        tool:
+          $ref: '#/components/schemas/Tool'
+          description: The matched tool.
+        embedded_text:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Embedded Text
+          description: The embedded text content used for matching.
+        fts_rank:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Fts Rank
+          description: Full-text search rank position.
+        vector_rank:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Vector Rank
+          description: Vector search rank position.
+        combined_score:
+          type: number
+          title: Combined Score
+          description: Combined relevance score (RRF for hybrid mode).
+      additionalProperties: false
+      type: object
+      required:
+      - tool
+      - combined_score
+      title: ToolSearchResult
+      description: Result from a tool search operation.
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    SSEServerConfig:
       properties:
         server_name:
           type: string
@@ -2036,31 +1915,152 @@ components:
           description: The name of the server
         type:
           $ref: '#/components/schemas/MCPServerType'
-          default: stdio
-        command:
+          default: sse
+        server_url:
           type: string
-          title: Command
-          description: The command to run (MCP 'local' client will run this command)
-        args:
-          items:
-            type: string
-          type: array
-          title: Args
-          description: The arguments to pass to the command
-        env:
+          title: Server Url
+          description: The URL of the server
+        auth_header:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Auth Header
+          description: The name of the authentication header (e.g., 'Authorization')
+        auth_token:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Auth Token
+          description: The authentication token or API key value
+        custom_headers:
           anyOf:
           - additionalProperties:
               type: string
             type: object
           - type: 'null'
-          title: Env
-          description: Environment variables to set
+          title: Custom Headers
+          description: Custom HTTP headers to include with requests
       type: object
       required:
       - server_name
-      - command
-      - args
-      title: StdioServerConfig
+      - server_url
+      title: SSEServerConfig
+      description: Configuration for an MCP server using SSE
+    letta__server__rest_api__routers__v1__tools__ToolExecuteRequest:
+      properties:
+        args:
+          additionalProperties: true
+          type: object
+          title: Args
+          description: Arguments to pass to the tool
+      type: object
+      title: ToolExecuteRequest
+    letta__schemas__mcp__UpdateStreamableHTTPMCPServer:
+      properties:
+        server_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Server Name
+          description: The name of the MCP server
+        server_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Server Url
+          description: The URL path for the streamable HTTP server (e.g., 'example/mcp')
+        auth_header:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Auth Header
+          description: The name of the authentication header (e.g., 'Authorization')
+        auth_token:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Auth Token
+          description: The authentication token or API key value
+        custom_headers:
+          anyOf:
+          - additionalProperties:
+              type: string
+            type: object
+          - type: 'null'
+          title: Custom Headers
+          description: Custom authentication headers as key-value pairs
+      additionalProperties: false
+      type: object
+      title: UpdateStreamableHTTPMCPServer
+      description: Update a Streamable HTTP MCP server
+    LettaImage:
+      properties:
+        type:
+          type: string
+          const: letta
+          title: Type
+          description: The source type for the image.
+          default: letta
+        file_id:
+          type: string
+          title: File Id
+          description: The unique identifier of the image file persisted in storage.
+        media_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Media Type
+          description: The media type for the image.
+        data:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Data
+          description: The base64 encoded image data.
+        detail:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Detail
+          description: What level of detail to use when processing and understanding the image (low, high, or auto to let the model decide)
+      type: object
+      required:
+      - file_id
+      title: LettaImage
+    ImageContent:
+      properties:
+        type:
+          type: string
+          const: image
+          title: Type
+          description: The type of the message.
+          default: image
+        source:
+          oneOf:
+          - $ref: '#/components/schemas/UrlImage'
+          - $ref: '#/components/schemas/Base64Image'
+          - $ref: '#/components/schemas/LettaImage'
+          title: Source
+          description: The source of the image.
+          discriminator:
+            propertyName: type
+            mapping:
+              base64: '#/components/schemas/Base64Image'
+              letta: '#/components/schemas/LettaImage'
+              url: '#/components/schemas/UrlImage'
+      type: object
+      required:
+      - source
+      title: ImageContent
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
   securitySchemes:
     bearerAuth:
       type: http

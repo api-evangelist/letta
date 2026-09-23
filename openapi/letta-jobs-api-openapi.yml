@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Letta Admin Jobs API
+  title: Letta Jobs API
   version: 1.0.0
   description: REST API for Letta, the stateful agents platform. Manage agents, memory blocks, archival passages, sources, custom tools, MCP servers, multi-agent groups, runs, and streaming responses. Available as Letta Cloud (managed) at https://api.letta.com/v1 and as the self-hosted open-source server (Apache-2.0) typically run at http://localhost:8283.
   contact:
@@ -432,6 +432,18 @@ components:
       type: object
       title: Job
       description: Representation of offline jobs, used for tracking status of data loading tasks (involving parsing and embedding files).
+    JobStatus:
+      type: string
+      enum:
+      - created
+      - running
+      - completed
+      - failed
+      - pending
+      - cancelled
+      - expired
+      title: JobStatus
+      description: Status of the job.
     JobType:
       type: string
       enum:
@@ -460,18 +472,6 @@ components:
       - msg
       - type
       title: ValidationError
-    JobStatus:
-      type: string
-      enum:
-      - created
-      - running
-      - completed
-      - failed
-      - pending
-      - cancelled
-      - expired
-      title: JobStatus
-      description: Status of the job.
     StopReasonType:
       type: string
       enum:

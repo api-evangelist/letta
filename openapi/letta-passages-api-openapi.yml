@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Letta Admin Passages API
+  title: Letta Passages API
   version: 1.0.0
   description: REST API for Letta, the stateful agents platform. Manage agents, memory blocks, archival passages, sources, custom tools, MCP servers, multi-agent groups, runs, and streaming responses. Available as Letta Cloud (managed) at https://api.letta.com/v1 and as the self-hosted open-source server (Apache-2.0) typically run at http://localhost:8283.
   contact:
@@ -70,170 +70,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    EmbeddingConfig:
-      properties:
-        embedding_endpoint_type:
-          type: string
-          enum:
-          - openai
-          - anthropic
-          - bedrock
-          - google_ai
-          - google_vertex
-          - azure
-          - groq
-          - ollama
-          - webui
-          - webui-legacy
-          - lmstudio
-          - lmstudio-legacy
-          - llamacpp
-          - koboldcpp
-          - vllm
-          - hugging-face
-          - mistral
-          - together
-          - pinecone
-          title: Embedding Endpoint Type
-          description: The endpoint type for the model.
-        embedding_endpoint:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Embedding Endpoint
-          description: The endpoint for the model (`None` if local).
-        embedding_model:
-          type: string
-          title: Embedding Model
-          description: The model for the embedding.
-        embedding_dim:
-          type: integer
-          title: Embedding Dim
-          description: The dimension of the embedding.
-        embedding_chunk_size:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Embedding Chunk Size
-          description: The chunk size of the embedding.
-          default: 300
-        handle:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Handle
-          description: The handle for this config, in the format provider/model-name.
-        batch_size:
-          type: integer
-          title: Batch Size
-          description: The maximum batch size for processing embeddings.
-          default: 32
-        azure_endpoint:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Azure Endpoint
-          description: The Azure endpoint for the model.
-        azure_version:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Azure Version
-          description: The Azure version for the model.
-        azure_deployment:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Azure Deployment
-          description: The Azure deployment for the model.
-      type: object
-      required:
-      - embedding_endpoint_type
-      - embedding_model
-      - embedding_dim
-      title: EmbeddingConfig
-      description: Configuration for embedding model connection and processing parameters.
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    PassageSearchRequest:
-      properties:
-        query:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Query
-          description: Text query for semantic search
-        agent_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Agent Id
-          description: Filter passages by agent ID
-        archive_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Archive Id
-          description: Filter passages by archive ID
-        tags:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Tags
-          description: Optional list of tags to filter search results
-        tag_match_mode:
-          type: string
-          enum:
-          - any
-          - all
-          title: Tag Match Mode
-          description: How to match tags - 'any' to match passages with any of the tags, 'all' to match only passages with all tags
-          default: any
-        limit:
-          type: integer
-          maximum: 100
-          minimum: 1
-          title: Limit
-          description: Maximum number of results to return
-          default: 50
-        start_date:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Start Date
-          description: Filter results to passages created after this datetime
-        end_date:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: End Date
-          description: Filter results to passages created before this datetime
-      type: object
-      title: PassageSearchRequest
-      description: Request model for searching passages across archives.
     Passage:
       properties:
         created_by_id:
@@ -340,6 +176,179 @@ components:
       - embedding_config
       title: Passage
       description: Representation of a passage, which is stored in archival memory.
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    EmbeddingConfig:
+      properties:
+        embedding_endpoint_type:
+          type: string
+          enum:
+          - openai
+          - anthropic
+          - bedrock
+          - google_ai
+          - google_vertex
+          - azure
+          - groq
+          - ollama
+          - webui
+          - webui-legacy
+          - lmstudio
+          - lmstudio-legacy
+          - llamacpp
+          - koboldcpp
+          - vllm
+          - hugging-face
+          - mistral
+          - together
+          - pinecone
+          title: Embedding Endpoint Type
+          description: The endpoint type for the model.
+        embedding_endpoint:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Embedding Endpoint
+          description: The endpoint for the model (`None` if local).
+        embedding_model:
+          type: string
+          title: Embedding Model
+          description: The model for the embedding.
+        embedding_dim:
+          type: integer
+          title: Embedding Dim
+          description: The dimension of the embedding.
+        embedding_chunk_size:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Embedding Chunk Size
+          description: The chunk size of the embedding.
+          default: 300
+        handle:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Handle
+          description: The handle for this config, in the format provider/model-name.
+        batch_size:
+          type: integer
+          title: Batch Size
+          description: The maximum batch size for processing embeddings.
+          default: 32
+        azure_endpoint:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Azure Endpoint
+          description: The Azure endpoint for the model.
+        azure_version:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Azure Version
+          description: The Azure version for the model.
+        azure_deployment:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Azure Deployment
+          description: The Azure deployment for the model.
+      type: object
+      required:
+      - embedding_endpoint_type
+      - embedding_model
+      - embedding_dim
+      title: EmbeddingConfig
+      description: Configuration for embedding model connection and processing parameters.
+    PassageSearchRequest:
+      properties:
+        query:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Query
+          description: Text query for semantic search
+        agent_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Agent Id
+          description: Filter passages by agent ID
+        archive_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Archive Id
+          description: Filter passages by archive ID
+        tags:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Tags
+          description: Optional list of tags to filter search results
+        tag_match_mode:
+          type: string
+          enum:
+          - any
+          - all
+          title: Tag Match Mode
+          description: How to match tags - 'any' to match passages with any of the tags, 'all' to match only passages with all tags
+          default: any
+        limit:
+          type: integer
+          maximum: 100
+          minimum: 1
+          title: Limit
+          description: Maximum number of results to return
+          default: 50
+        start_date:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Start Date
+          description: Filter results to passages created after this datetime
+        end_date:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: End Date
+          description: Filter results to passages created before this datetime
+      type: object
+      title: PassageSearchRequest
+      description: Request model for searching passages across archives.
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     PassageSearchResult:
       properties:
         passage:
@@ -360,15 +369,6 @@ components:
       - score
       title: PassageSearchResult
       description: Result from a passage search operation with scoring details.
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
   securitySchemes:
     bearerAuth:
       type: http

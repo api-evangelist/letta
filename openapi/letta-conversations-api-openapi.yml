@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Letta Admin Conversations API
+  title: Letta Conversations API
   version: 1.0.0
   description: REST API for Letta, the stateful agents platform. Manage agents, memory blocks, archival passages, sources, custom tools, MCP servers, multi-agent groups, runs, and streaming responses. Available as Letta Cloud (managed) at https://api.letta.com/v1 and as the self-hosted open-source server (Apache-2.0) typically run at http://localhost:8283.
   contact:
@@ -830,6 +830,2381 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    ChatGPTOAuthReasoning:
+      properties:
+        reasoning_effort:
+          type: string
+          enum:
+          - none
+          - low
+          - medium
+          - high
+          - xhigh
+          title: Reasoning Effort
+          description: The reasoning effort level for GPT-5.x and o-series models.
+          default: medium
+      type: object
+      title: ChatGPTOAuthReasoning
+      description: Reasoning configuration for ChatGPT OAuth models (GPT-5.x, o-series).
+    LettaErrorMessage:
+      properties:
+        message_type:
+          type: string
+          const: error_message
+          title: Message Type
+          description: The type of the message.
+          default: error_message
+        run_id:
+          type: string
+          title: Run ID
+          description: The ID of the run.
+        error_type:
+          type: string
+          title: Error Type
+          description: The type of error.
+        message:
+          type: string
+          title: Message
+          description: The error message.
+        detail:
+          type: string
+          title: Detail
+          description: An optional error detail.
+        seq_id:
+          type: integer
+          title: Seq ID
+          description: The sequence ID for cursor-based pagination.
+      type: object
+      required:
+      - message_type
+      - run_id
+      - error_type
+      - message
+      title: LettaErrorMessage
+      description: Error messages are used to notify the client of an error that occurred during the agent's execution.
+    LettaToolReturnContentUnion:
+      oneOf:
+      - $ref: '#/components/schemas/TextContent'
+      - $ref: '#/components/schemas/ImageContent'
+      discriminator:
+        propertyName: type
+        mapping:
+          text: '#/components/schemas/TextContent'
+          image: '#/components/schemas/ImageContent'
+    AnthropicModelSettings:
+      properties:
+        max_output_tokens:
+          type: integer
+          title: Max Output Tokens
+          description: The maximum number of tokens the model can generate.
+          default: 4096
+        parallel_tool_calls:
+          type: boolean
+          title: Parallel Tool Calls
+          description: Whether to enable parallel tool calling.
+          default: true
+        provider_type:
+          type: string
+          const: anthropic
+          title: Provider Type
+          description: The type of the provider.
+          default: anthropic
+        temperature:
+          type: number
+          title: Temperature
+          description: The temperature of the model.
+          default: 1
+        thinking:
+          $ref: '#/components/schemas/AnthropicThinking'
+          description: The thinking configuration for the model.
+          default:
+            type: enabled
+            budget_tokens: 1024
+        response_format:
+          anyOf:
+          - oneOf:
+            - $ref: '#/components/schemas/TextResponseFormat'
+            - $ref: '#/components/schemas/JsonSchemaResponseFormat'
+            - $ref: '#/components/schemas/JsonObjectResponseFormat'
+            discriminator:
+              propertyName: type
+              mapping:
+                json_object: '#/components/schemas/JsonObjectResponseFormat'
+                json_schema: '#/components/schemas/JsonSchemaResponseFormat'
+                text: '#/components/schemas/TextResponseFormat'
+          - type: 'null'
+          title: Response Format
+          description: The response format for the model.
+        verbosity:
+          anyOf:
+          - type: string
+            enum:
+            - low
+            - medium
+            - high
+          - type: 'null'
+          title: Verbosity
+          description: Soft control for how verbose model output should be, used for GPT-5 models.
+        effort:
+          anyOf:
+          - type: string
+            enum:
+            - low
+            - medium
+            - high
+            - max
+          - type: 'null'
+          title: Effort
+          description: Effort level for supported Anthropic models (controls token spending). 'max' is only available on Opus 4.6. Not setting this gives similar performance to 'high'.
+        strict:
+          type: boolean
+          title: Strict
+          description: Enable strict mode for tool calling. When true, tool outputs are guaranteed to match JSON schemas.
+          default: false
+      type: object
+      title: AnthropicModelSettings
+    LettaAssistantMessageContentUnion:
+      oneOf:
+      - $ref: '#/components/schemas/TextContent'
+      discriminator:
+        propertyName: type
+        mapping:
+          text: '#/components/schemas/TextContent'
+    RedactedReasoningContent:
+      properties:
+        type:
+          type: string
+          const: redacted_reasoning
+          title: Type
+          description: Indicates this is a redacted thinking step.
+          default: redacted_reasoning
+        data:
+          type: string
+          title: Data
+          description: The redacted or filtered intermediate reasoning content.
+      type: object
+      required:
+      - data
+      title: RedactedReasoningContent
+      description: Sent via the Anthropic Messages API
+    ToolReturnContent:
+      properties:
+        type:
+          type: string
+          const: tool_return
+          title: Type
+          description: Indicates this content represents a tool return event.
+          default: tool_return
+        tool_call_id:
+          type: string
+          title: Tool Call Id
+          description: References the ID of the ToolCallContent that initiated this tool call.
+        content:
+          type: string
+          title: Content
+          description: The content returned by the tool execution.
+        is_error:
+          type: boolean
+          title: Is Error
+          description: Indicates whether the tool execution resulted in an error.
+      type: object
+      required:
+      - tool_call_id
+      - content
+      - is_error
+      title: ToolReturnContent
+    ZAIThinking:
+      properties:
+        type:
+          type: string
+          enum:
+          - enabled
+          - disabled
+          title: Type
+          description: Whether thinking is enabled or disabled.
+          default: enabled
+        clear_thinking:
+          type: boolean
+          title: Clear Thinking
+          description: If False, preserved thinking is used (recommended for agents).
+          default: false
+      type: object
+      title: ZAIThinking
+      description: Thinking configuration for ZAI GLM-4.5+ models.
+    TextContent:
+      properties:
+        type:
+          type: string
+          const: text
+          title: Type
+          description: The type of the message.
+          default: text
+        text:
+          type: string
+          title: Text
+          description: The text content of the message.
+        signature:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Signature
+          description: Stores a unique identifier for any reasoning associated with this text content.
+      type: object
+      required:
+      - text
+      title: TextContent
+    letta__server__rest_api__routers__v1__conversations__CompactionRequest:
+      properties:
+        agent_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Agent Id
+          description: Agent ID for agent-direct mode with 'default' conversation. Use with conversation_id='default' in the URL path.
+        compaction_settings:
+          anyOf:
+          - $ref: '#/components/schemas/CompactionSettings-Input'
+          - type: 'null'
+          description: Optional compaction settings to use for this summarization request. If not provided, the agent's default settings will be used.
+      type: object
+      title: CompactionRequest
+    CreateConversation:
+      properties:
+        summary:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Summary
+          description: A summary of the conversation.
+        isolated_block_labels:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Isolated Block Labels
+          description: List of block labels that should be isolated (conversation-specific) rather than shared across conversations. New blocks will be created as copies of the agent's blocks with these labels.
+        model:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Model
+          description: 'The model handle for this conversation (overrides agent''s model). Format: provider/model-name.'
+        model_settings:
+          anyOf:
+          - oneOf:
+            - $ref: '#/components/schemas/OpenAIModelSettings'
+            - $ref: '#/components/schemas/SGLangModelSettings'
+            - $ref: '#/components/schemas/AnthropicModelSettings'
+            - $ref: '#/components/schemas/GoogleAIModelSettings'
+            - $ref: '#/components/schemas/GoogleVertexModelSettings'
+            - $ref: '#/components/schemas/AzureModelSettings'
+            - $ref: '#/components/schemas/XAIModelSettings'
+            - $ref: '#/components/schemas/ZAIModelSettings'
+            - $ref: '#/components/schemas/GroqModelSettings'
+            - $ref: '#/components/schemas/DeepseekModelSettings'
+            - $ref: '#/components/schemas/TogetherModelSettings'
+            - $ref: '#/components/schemas/BedrockModelSettings'
+            - $ref: '#/components/schemas/BasetenModelSettings'
+            - $ref: '#/components/schemas/OpenRouterModelSettings'
+            - $ref: '#/components/schemas/ChatGPTOAuthModelSettings'
+            discriminator:
+              propertyName: provider_type
+              mapping:
+                anthropic: '#/components/schemas/AnthropicModelSettings'
+                azure: '#/components/schemas/AzureModelSettings'
+                baseten: '#/components/schemas/BasetenModelSettings'
+                bedrock: '#/components/schemas/BedrockModelSettings'
+                chatgpt_oauth: '#/components/schemas/ChatGPTOAuthModelSettings'
+                deepseek: '#/components/schemas/DeepseekModelSettings'
+                google_ai: '#/components/schemas/GoogleAIModelSettings'
+                google_vertex: '#/components/schemas/GoogleVertexModelSettings'
+                groq: '#/components/schemas/GroqModelSettings'
+                openai: '#/components/schemas/OpenAIModelSettings'
+                openrouter: '#/components/schemas/OpenRouterModelSettings'
+                sglang: '#/components/schemas/SGLangModelSettings'
+                together: '#/components/schemas/TogetherModelSettings'
+                xai: '#/components/schemas/XAIModelSettings'
+                zai: '#/components/schemas/ZAIModelSettings'
+          - type: 'null'
+          title: Model Settings
+          description: The model settings for this conversation (overrides agent's model settings).
+      type: object
+      title: CreateConversation
+      description: Request model for creating a new conversation.
+    ClientToolSchema:
+      properties:
+        name:
+          type: string
+          title: Name
+          description: The name of the tool function
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+          description: Description of what the tool does
+        parameters:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Parameters
+          description: JSON Schema for the function parameters
+      type: object
+      required:
+      - name
+      title: ClientToolSchema
+      description: 'Schema for a client-side tool passed in the request.
+
+
+        Client-side tools are executed by the client, not the server. When the agent
+
+        calls a client-side tool, execution pauses and returns control to the client
+
+        to execute the tool and provide the result.'
+    LettaResponse:
+      properties:
+        messages:
+          items:
+            $ref: '#/components/schemas/LettaMessageUnion'
+          type: array
+          title: Messages
+          description: The messages returned by the agent.
+        stop_reason:
+          $ref: '#/components/schemas/LettaStopReason'
+        usage:
+          $ref: '#/components/schemas/LettaUsageStatistics'
+          description: The usage statistics of the agent.
+        logprobs:
+          anyOf:
+          - $ref: '#/components/schemas/letta__schemas__openai__chat_completion_response__ChoiceLogprobs'
+          - type: 'null'
+          description: Log probabilities of the output tokens from the last LLM call. Only present if return_logprobs was enabled.
+        turns:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/TurnTokenData'
+            type: array
+          - type: 'null'
+          title: Turns
+          description: Token data for all LLM generations in multi-turn agent interaction. Includes token IDs and logprobs for each assistant turn, plus tool result content. Only present if return_token_ids was enabled. Used for RL training with loss masking.
+      type: object
+      required:
+      - messages
+      - stop_reason
+      - usage
+      title: LettaResponse
+      description: "Response object from an agent interaction, consisting of the new messages generated by the agent and usage statistics.\nThe type of the returned messages can be either `Message` or `LettaMessage`, depending on what was specified in the request.\n\nAttributes:\n    messages (List[Union[Message, LettaMessage]]): The messages returned by the agent.\n    usage (LettaUsageStatistics): The usage statistics"
+    SummarizedReasoningContentPart:
+      properties:
+        index:
+          type: integer
+          title: Index
+          description: The index of the summary part.
+        text:
+          type: string
+          title: Text
+          description: The text of the summary part.
+      type: object
+      required:
+      - index
+      - text
+      title: SummarizedReasoningContentPart
+    ApprovalResponseMessage:
+      properties:
+        id:
+          type: string
+          title: Id
+        date:
+          type: string
+          format: date-time
+          title: Date
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        message_type:
+          type: string
+          const: approval_response_message
+          title: Message Type
+          description: The type of the message.
+          default: approval_response_message
+        otid:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Otid
+          description: The offline threading id (OTID). Set by the client to deduplicate requests. Used for idempotency in background streaming mode — each message in a request must have a unique OTID. Retries of the same request should reuse the same OTIDs.
+        sender_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Sender Id
+        step_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Step Id
+        is_err:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Err
+        seq_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Seq Id
+        run_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Run Id
+        approvals:
+          anyOf:
+          - items:
+              oneOf:
+              - $ref: '#/components/schemas/ApprovalReturn'
+              - $ref: '#/components/schemas/letta__schemas__letta_message__ToolReturn'
+              discriminator:
+                propertyName: type
+                mapping:
+                  approval: '#/components/schemas/ApprovalReturn'
+                  tool: '#/components/schemas/letta__schemas__letta_message__ToolReturn'
+            type: array
+          - type: 'null'
+          title: Approvals
+          description: The list of approval responses
+        approve:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Approve
+          description: Whether the tool has been approved
+          deprecated: true
+        approval_request_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Approval Request Id
+          description: The message ID of the approval request
+          deprecated: true
+        reason:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Reason
+          description: An optional explanation for the provided approval status
+          deprecated: true
+      type: object
+      required:
+      - id
+      - date
+      title: ApprovalResponseMessage
+      description: "A message representing a response form the user indicating whether a tool has been approved to run.\n\nArgs:\n    id (str): The ID of the message\n    date (datetime): The date the message was created in ISO format\n    name (Optional[str]): The name of the sender of the message\n    approve: (bool) Whether the tool has been approved\n    approval_request_id: The ID of the approval request\n    reason: (Optional[str]) An optional explanation for the provided approval status"
+    CompactionStats:
+      properties:
+        trigger:
+          type: string
+          title: Trigger
+          description: What triggered the compaction (e.g., 'context_window_exceeded', 'post_step_context_check')
+        context_tokens_before:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Context Tokens Before
+          description: Token count before compaction (from LLM usage stats, includes full context sent to LLM)
+        context_tokens_after:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Context Tokens After
+          description: Token count after compaction (message tokens only, does not include tool definitions)
+        context_window:
+          type: integer
+          title: Context Window
+          description: The model's context window size
+        messages_count_before:
+          type: integer
+          title: Messages Count Before
+          description: Number of messages before compaction
+        messages_count_after:
+          type: integer
+          title: Messages Count After
+          description: Number of messages after compaction
+      type: object
+      required:
+      - trigger
+      - context_window
+      - messages_count_before
+      - messages_count_after
+      title: CompactionStats
+      description: Statistics about a memory compaction operation.
+    letta__schemas__letta_message__ToolReturn:
+      properties:
+        type:
+          type: string
+          const: tool
+          title: Type
+          description: The message type to be created.
+          default: tool
+        tool_return:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/LettaToolReturnContentUnion'
+            type: array
+          - type: string
+          title: Tool Return
+          description: The tool return value - either a string or list of content parts (text/image)
+        status:
+          type: string
+          enum:
+          - success
+          - error
+          title: Status
+        tool_call_id:
+          type: string
+          title: Tool Call Id
+        stdout:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Stdout
+        stderr:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Stderr
+      type: object
+      required:
+      - tool_return
+      - status
+      - tool_call_id
+      title: ToolReturn
+    letta__schemas__openai__chat_completion_response__ChatCompletionTokenLogprob:
+      properties:
+        token:
+          type: string
+          title: Token
+        bytes:
+          anyOf:
+          - items:
+              type: integer
+            type: array
+          - type: 'null'
+          title: Bytes
+        logprob:
+          type: number
+          title: Logprob
+        top_logprobs:
+          items:
+            $ref: '#/components/schemas/letta__schemas__openai__chat_completion_response__TopLogprob'
+          type: array
+          title: Top Logprobs
+      type: object
+      required:
+      - token
+      - logprob
+      - top_logprobs
+      title: ChatCompletionTokenLogprob
+    SystemMessage:
+      properties:
+        id:
+          type: string
+          title: Id
+        date:
+          type: string
+          format: date-time
+          title: Date
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        message_type:
+          type: string
+          const: system_message
+          title: Message Type
+          description: The type of the message.
+          default: system_message
+        otid:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Otid
+          description: The offline threading id (OTID). Set by the client to deduplicate requests. Used for idempotency in background streaming mode — each message in a request must have a unique OTID. Retries of the same request should reuse the same OTIDs.
+        sender_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Sender Id
+        step_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Step Id
+        is_err:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Err
+        seq_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Seq Id
+        run_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Run Id
+        content:
+          type: string
+          title: Content
+          description: The message content sent by the system
+      type: object
+      required:
+      - id
+      - date
+      - content
+      title: SystemMessage
+      description: "A message generated by the system. Never streamed back on a response, only used for cursor pagination.\n\nArgs:\n    id (str): The ID of the message\n    date (datetime): The date the message was created in ISO format\n    name (Optional[str]): The name of the sender of the message\n    content (str): The message content sent by the system"
+    ReasoningMessage:
+      properties:
+        id:
+          type: string
+          title: Id
+        date:
+          type: string
+          format: date-time
+          title: Date
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        message_type:
+          type: string
+          const: reasoning_message
+          title: Message Type
+          description: The type of the message.
+          default: reasoning_message
+        otid:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Otid
+          description: The offline threading id (OTID). Set by the client to deduplicate requests. Used for idempotency in background streaming mode — each message in a request must have a unique OTID. Retries of the same request should reuse the same OTIDs.
+        sender_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Sender Id
+        step_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Step Id
+        is_err:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Err
+        seq_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Seq Id
+        run_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Run Id
+        source:
+          type: string
+          enum:
+          - reasoner_model
+          - non_reasoner_model
+          title: Source
+          default: non_reasoner_model
+        reasoning:
+          type: string
+          title: Reasoning
+        signature:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Signature
+      type: object
+      required:
+      - id
+      - date
+      - reasoning
+      title: ReasoningMessage
+      description: "Representation of an agent's internal reasoning.\n\nArgs:\n    id (str): The ID of the message\n    date (datetime): The date the message was created in ISO format\n    name (Optional[str]): The name of the sender of the message\n    source (Literal[\"reasoner_model\", \"non_reasoner_model\"]): Whether the reasoning\n        content was generated natively by a reasoner model or derived via prompting\n    reasoning (str): The internal reasoning of the agent\n    signature (Optional[str]): The model-generated signature of the reasoning step"
+    SummaryMessage:
+      properties:
+        id:
+          type: string
+          title: Id
+        date:
+          type: string
+          format: date-time
+          title: Date
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        message_type:
+          type: string
+          const: summary_message
+          title: Message Type
+          default: summary_message
+        otid:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Otid
+          description: The offline threading id (OTID). Set by the client to deduplicate requests. Used for idempotency in background streaming mode — each message in a request must have a unique OTID. Retries of the same request should reuse the same OTIDs.
+        sender_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Sender Id
+        step_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Step Id
+        is_err:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Err
+        seq_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Seq Id
+        run_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Run Id
+        summary:
+          type: string
+          title: Summary
+        compaction_stats:
+          anyOf:
+          - $ref: '#/components/schemas/CompactionStats'
+          - type: 'null'
+      type: object
+      required:
+      - id
+      - date
+      - summary
+      title: SummaryMessage
+      description: A message representing a summary of the conversation. Sent to the LLM as a user or system message depending on the provider.
+    BasetenModelSettings:
+      properties:
+        max_output_tokens:
+          type: integer
+          title: Max Output Tokens
+          description: The maximum number of tokens the model can generate.
+          default: 4096
+        parallel_tool_calls:
+          type: boolean
+          title: Parallel Tool Calls
+          description: Whether to enable parallel tool calling.
+          default: true
+        provider_type:
+          type: string
+          const: baseten
+          title: Provider Type
+          description: The type of the provider.
+          default: baseten
+        temperature:
+          type: number
+          title: Temperature
+          description: The temperature of the model.
+          default: 0.7
+      type: object
+      title: BasetenModelSettings
+      description: Baseten model configuration (OpenAI-compatible).
+    Base64Image:
+      properties:
+        type:
+          type: string
+          const: base64
+          title: Type
+          description: The source type for the image.
+          default: base64
+        media_type:
+          type: string
+          title: Media Type
+          description: The media type for the image.
+        data:
+          type: string
+          title: Data
+          description: The base64 encoded image data.
+        detail:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Detail
+          description: What level of detail to use when processing and understanding the image (low, high, or auto to let the model decide)
+      type: object
+      required:
+      - media_type
+      - data
+      title: Base64Image
+    ToolReturnMessage:
+      properties:
+        id:
+          type: string
+          title: Id
+        date:
+          type: string
+          format: date-time
+          title: Date
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        message_type:
+          type: string
+          const: tool_return_message
+          title: Message Type
+          description: The type of the message.
+          default: tool_return_message
+        otid:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Otid
+          description: The offline threading id (OTID). Set by the client to deduplicate requests. Used for idempotency in background streaming mode — each message in a request must have a unique OTID. Retries of the same request should reuse the same OTIDs.
+        sender_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Sender Id
+        step_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Step Id
+        is_err:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Err
+        seq_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Seq Id
+        run_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Run Id
+        tool_return:
+          type: string
+          title: Tool Return
+          deprecated: true
+        status:
+          type: string
+          enum:
+          - success
+          - error
+          title: Status
+          deprecated: true
+        tool_call_id:
+          type: string
+          title: Tool Call Id
+          deprecated: true
+        stdout:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Stdout
+          deprecated: true
+        stderr:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Stderr
+          deprecated: true
+        tool_returns:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/letta__schemas__letta_message__ToolReturn'
+            type: array
+          - type: 'null'
+          title: Tool Returns
+      type: object
+      required:
+      - id
+      - date
+      - tool_return
+      - status
+      - tool_call_id
+      title: ToolReturnMessage
+      description: "A message representing the return value of a tool call (generated by Letta executing the requested tool).\n\nArgs:\n    id (str): The ID of the message\n    date (datetime): The date the message was created in ISO format\n    name (Optional[str]): The name of the sender of the message\n    tool_return (str): The return value of the tool (deprecated, use tool_returns)\n    status (Literal[\"success\", \"error\"]): The status of the tool call (deprecated, use tool_returns)\n    tool_call_id (str): A unique identifier for the tool call that generated this message (deprecated, use tool_returns)\n    stdout (Optional[List(str)]): Captured stdout (e.g. prints, logs) from the tool invocation (deprecated, use tool_returns)\n    stderr (Optional[List(str)]): Captured stderr from the tool invocation (deprecated, use tool_returns)\n    tool_returns (Optional[List[ToolReturn]]): List of tool returns for multi-tool support"
+    SummarizedReasoningContent:
+      properties:
+        type:
+          type: string
+          const: summarized_reasoning
+          title: Type
+          description: Indicates this is a summarized reasoning step.
+          default: summarized_reasoning
+        id:
+          type: string
+          title: Id
+          description: The unique identifier for this reasoning step.
+        summary:
+          items:
+            $ref: '#/components/schemas/SummarizedReasoningContentPart'
+          type: array
+          title: Summary
+          description: Summaries of the reasoning content.
+        encrypted_content:
+          type: string
+          title: Encrypted Content
+          description: The encrypted reasoning content.
+      type: object
+      required:
+      - id
+      - summary
+      title: SummarizedReasoningContent
+      description: The style of reasoning content returned by the OpenAI Responses API
+    GroqModelSettings:
+      properties:
+        max_output_tokens:
+          type: integer
+          title: Max Output Tokens
+          description: The maximum number of tokens the model can generate.
+          default: 4096
+        parallel_tool_calls:
+          type: boolean
+          title: Parallel Tool Calls
+          description: Whether to enable parallel tool calling.
+          default: true
+        provider_type:
+          type: string
+          const: groq
+          title: Provider Type
+          description: The type of the provider.
+          default: groq
+        temperature:
+          type: number
+          title: Temperature
+          description: The temperature of the model.
+          default: 0.7
+        response_format:
+          anyOf:
+          - oneOf:
+            - $ref: '#/components/schemas/TextResponseFormat'
+            - $ref: '#/components/schemas/JsonSchemaResponseFormat'
+            - $ref: '#/components/schemas/JsonObjectResponseFormat'
+            discriminator:
+              propertyName: type
+              mapping:
+                json_object: '#/components/schemas/JsonObjectResponseFormat'
+                json_schema: '#/components/schemas/JsonSchemaResponseFormat'
+                text: '#/components/schemas/TextResponseFormat'
+          - type: 'null'
+          title: Response Format
+          description: The response format for the model.
+      type: object
+      title: GroqModelSettings
+      description: Groq model configuration (OpenAI-compatible).
+    MessageType:
+      type: string
+      enum:
+      - system_message
+      - user_message
+      - assistant_message
+      - reasoning_message
+      - hidden_reasoning_message
+      - tool_call_message
+      - tool_return_message
+      - approval_request_message
+      - approval_response_message
+      - summary_message
+      - event_message
+      title: MessageType
+    BedrockModelSettings:
+      properties:
+        max_output_tokens:
+          type: integer
+          title: Max Output Tokens
+          description: The maximum number of tokens the model can generate.
+          default: 4096
+        parallel_tool_calls:
+          type: boolean
+          title: Parallel Tool Calls
+          description: Whether to enable parallel tool calling.
+          default: true
+        provider_type:
+          type: string
+          const: bedrock
+          title: Provider Type
+          description: The type of the provider.
+          default: bedrock
+        temperature:
+          type: number
+          title: Temperature
+          description: The temperature of the model.
+          default: 0.7
+        response_format:
+          anyOf:
+          - oneOf:
+            - $ref: '#/components/schemas/TextResponseFormat'
+            - $ref: '#/components/schemas/JsonSchemaResponseFormat'
+            - $ref: '#/components/schemas/JsonObjectResponseFormat'
+            discriminator:
+              propertyName: type
+              mapping:
+                json_object: '#/components/schemas/JsonObjectResponseFormat'
+                json_schema: '#/components/schemas/JsonSchemaResponseFormat'
+                text: '#/components/schemas/TextResponseFormat'
+          - type: 'null'
+          title: Response Format
+          description: The response format for the model.
+      type: object
+      title: BedrockModelSettings
+      description: AWS Bedrock model configuration.
+    ToolReturnCreate:
+      properties:
+        type:
+          type: string
+          const: tool_return
+          title: Type
+          description: The message type to be created.
+          default: tool_return
+        otid:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Otid
+          description: The offline threading id (OTID). Set by the client to deduplicate requests. Used for idempotency in background streaming mode — each message in a request must have a unique OTID. Retries of the same request should reuse the same OTIDs.
+        group_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Group Id
+          description: The multi-agent group that the message was sent in
+        tool_returns:
+          items:
+            $ref: '#/components/schemas/letta__schemas__letta_message__ToolReturn'
+          type: array
+          title: Tool Returns
+          description: List of tool returns from client-side execution
+      type: object
+      required:
+      - tool_returns
+      title: ToolReturnCreate
+      description: 'Submit tool return(s) from client-side tool execution.
+
+
+        This is the preferred way to send tool results back to the agent after
+
+        client-side tool execution. It is equivalent to sending an ApprovalCreate
+
+        with tool return approvals, but provides a cleaner API for the common case.'
+    ApprovalRequestMessage:
+      properties:
+        id:
+          type: string
+          title: Id
+        date:
+          type: string
+          format: date-time
+          title: Date
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        message_type:
+          type: string
+          const: approval_request_message
+          title: Message Type
+          description: The type of the message.
+          default: approval_request_message
+        otid:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Otid
+          description: The offline threading id (OTID). Set by the client to deduplicate requests. Used for idempotency in background streaming mode — each message in a request must have a unique OTID. Retries of the same request should reuse the same OTIDs.
+        sender_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Sender Id
+        step_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Step Id
+        is_err:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Err
+        seq_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Seq Id
+        run_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Run Id
+        tool_call:
+          anyOf:
+          - $ref: '#/components/schemas/ToolCall'
+          - $ref: '#/components/schemas/ToolCallDelta'
+          title: Tool Call
+          description: The tool call that has been requested by the llm to run
+          deprecated: true
+        tool_calls:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/ToolCall'
+            type: array
+          - $ref: '#/components/schemas/ToolCallDelta'
+          - type: 'null'
+          title: Tool Calls
+          description: The tool calls that have been requested by the llm to run, which are pending approval
+      type: object
+      required:
+      - id
+      - date
+      - tool_call
+      title: ApprovalRequestMessage
+      description: "A message representing a request for approval to call a tool (generated by the LLM to trigger tool execution).\n\nArgs:\n    id (str): The ID of the message\n    date (datetime): The date the message was created in ISO format\n    name (Optional[str]): The name of the sender of the message\n    tool_call (ToolCall): The tool call"
+    TurnTokenData:
+      properties:
+        role:
+          type: string
+          enum:
+          - assistant
+          - tool
+          title: Role
+          description: 'Role of this turn: ''assistant'' for LLM generations (trainable), ''tool'' for tool results (non-trainable).'
+        output_ids:
+          anyOf:
+          - items:
+              type: integer
+            type: array
+          - type: 'null'
+          title: Output Ids
+          description: Token IDs from SGLang native endpoint. Only present for assistant turns.
+        output_token_logprobs:
+          anyOf:
+          - items:
+              items: {}
+              type: array
+            type: array
+          - type: 'null'
+          title: Output Token Logprobs
+          description: 'Logprobs from SGLang: [[logprob, token_id, top_logprob_or_null], ...]. Only present for assistant turns.'
+        content:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Content
+          description: Text content. For tool turns, client tokenizes this with loss_mask=0.
+        tool_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Tool Name
+          description: Name of the tool called. Only present for tool turns.
+      type: object
+      required:
+      - role
+      title: TurnTokenData
+      description: 'Token data for a single LLM generation turn in a multi-turn agent interaction.
+
+
+        Used for RL training to track token IDs and logprobs across all LLM calls,
+
+        not just the final one. Tool results are included so the client can tokenize
+
+        them with loss_mask=0 (non-trainable).'
+    CompactionSettings-Input:
+      properties:
+        model:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Model
+          description: 'Model handle to use for sliding_window/all summarization (format: provider/model-name). If None, uses lightweight provider-specific defaults.'
+        model_settings:
+          anyOf:
+          - oneOf:
+            - $ref: '#/components/schemas/OpenAIModelSettings'
+            - $ref: '#/components/schemas/SGLangModelSettings'
+            - $ref: '#/components/schemas/AnthropicModelSettings'
+            - $ref: '#/components/schemas/GoogleAIModelSettings'
+            - $ref: '#/components/schemas/GoogleVertexModelSettings'
+            - $ref: '#/components/schemas/AzureModelSettings'
+            - $ref: '#/components/schemas/XAIModelSettings'
+            - $ref: '#/components/schemas/ZAIModelSettings'
+            - $ref: '#/components/schemas/GroqModelSettings'
+            - $ref: '#/components/schemas/DeepseekModelSettings'
+            - $ref: '#/components/schemas/TogetherModelSettings'
+            - $ref: '#/components/schemas/BedrockModelSettings'
+            - $ref: '#/components/schemas/BasetenModelSettings'
+            - $ref: '#/components/schemas/OpenRouterModelSettings'
+            - $ref: '#/components/schemas/ChatGPTOAuthModelSettings'
+            discriminator:
+              propertyName: provider_type
+              mapping:
+                anthropic: '#/components/schemas/AnthropicModelSettings'
+                azure: '#/components/schemas/AzureModelSettings'
+                baseten: '#/components/schemas/BasetenModelSettings'
+                bedrock: '#/components/schemas/BedrockModelSettings'
+                chatgpt_oauth: '#/components/schemas/ChatGPTOAuthModelSettings'
+                deepseek: '#/components/schemas/DeepseekModelSettings'
+                google_ai: '#/components/schemas/GoogleAIModelSettings'
+                google_vertex: '#/components/schemas/GoogleVertexModelSettings'
+                groq: '#/components/schemas/GroqModelSettings'
+                openai: '#/components/schemas/OpenAIModelSettings'
+                openrouter: '#/components/schemas/OpenRouterModelSettings'
+                sglang: '#/components/schemas/SGLangModelSettings'
+                together: '#/components/schemas/TogetherModelSettings'
+                xai: '#/components/schemas/XAIModelSettings'
+                zai: '#/components/schemas/ZAIModelSettings'
+          - type: 'null'
+          title: Model Settings
+          description: Optional model settings used to override defaults for the summarizer model.
+        prompt:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Prompt
+          description: The prompt to use for summarization. If None, uses mode-specific default.
+        prompt_acknowledgement:
+          type: boolean
+          title: Prompt Acknowledgement
+          description: Whether to include an acknowledgement post-prompt (helps prevent non-summary outputs).
+          default: false
+        clip_chars:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Clip Chars
+          description: The maximum length of the summary in characters. If none, no clipping is performed.
+          default: 50000
+        mode:
+          type: string
+          enum:
+          - all
+          - sliding_window
+          - self_compact_all
+          - self_compact_sliding_window
+          title: Mode
+          description: The type of summarization technique use.
+          default: sliding_window
+        sliding_window_percentage:
+          type: number
+          title: Sliding Window Percentage
+          description: The percentage of the context window to keep post-summarization (only used in sliding window modes).
+      type: object
+      title: CompactionSettings
+      description: 'Configuration for conversation compaction / summarization.
+
+
+        Per-model settings (temperature,
+
+        max tokens, etc.) are derived from the default configuration for that handle.'
+    HiddenReasoningMessage:
+      properties:
+        id:
+          type: string
+          title: Id
+        date:
+          type: string
+          format: date-time
+          title: Date
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        message_type:
+          type: string
+          const: hidden_reasoning_message
+          title: Message Type
+          description: The type of the message.
+          default: hidden_reasoning_message
+        otid:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Otid
+          description: The offline threading id (OTID). Set by the client to deduplicate requests. Used for idempotency in background streaming mode — each message in a request must have a unique OTID. Retries of the same request should reuse the same OTIDs.
+        sender_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Sender Id
+        step_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Step Id
+        is_err:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Err
+        seq_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Seq Id
+        run_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Run Id
+        state:
+          type: string
+          enum:
+          - redacted
+          - omitted
+          title: State
+        hidden_reasoning:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Hidden Reasoning
+      type: object
+      required:
+      - id
+      - date
+      - state
+      title: HiddenReasoningMessage
+      description: "Representation of an agent's internal reasoning where reasoning content\nhas been hidden from the response.\n\nArgs:\n    id (str): The ID of the message\n    date (datetime): The date the message was created in ISO format\n    name (Optional[str]): The name of the sender of the message\n    state (Literal[\"redacted\", \"omitted\"]): Whether the reasoning\n        content was redacted by the provider or simply omitted by the API\n    hidden_reasoning (Optional[str]): The internal reasoning of the agent"
+    ToolCallMessage:
+      properties:
+        id:
+          type: string
+          title: Id
+        date:
+          type: string
+          format: date-time
+          title: Date
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        message_type:
+          type: string
+          const: tool_call_message
+          title: Message Type
+          description: The type of the message.
+          default: tool_call_message
+        otid:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Otid
+          description: The offline threading id (OTID). Set by the client to deduplicate requests. Used for idempotency in background streaming mode — each message in a request must have a unique OTID. Retries of the same request should reuse the same OTIDs.
+        sender_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Sender Id
+        step_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Step Id
+        is_err:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Err
+        seq_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Seq Id
+        run_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Run Id
+        tool_call:
+          anyOf:
+          - $ref: '#/components/schemas/ToolCall'
+          - $ref: '#/components/schemas/ToolCallDelta'
+          title: Tool Call
+          deprecated: true
+        tool_calls:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/ToolCall'
+            type: array
+          - $ref: '#/components/schemas/ToolCallDelta'
+          - type: 'null'
+          title: Tool Calls
+      type: object
+      required:
+      - id
+      - date
+      - tool_call
+      title: ToolCallMessage
+      description: "A message representing a request to call a tool (generated by the LLM to trigger tool execution).\n\nArgs:\n    id (str): The ID of the message\n    date (datetime): The date the message was created in ISO format\n    name (Optional[str]): The name of the sender of the message\n    tool_call (Union[ToolCall, ToolCallDelta]): The tool call"
+    LettaUserMessageContentUnion:
+      oneOf:
+      - $ref: '#/components/schemas/TextContent'
+      - $ref: '#/components/schemas/ImageContent'
+      discriminator:
+        propertyName: type
+        mapping:
+          text: '#/components/schemas/TextContent'
+          image: '#/components/schemas/ImageContent'
+    ToolCallDelta:
+      properties:
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        arguments:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Arguments
+        tool_call_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Tool Call Id
+      type: object
+      title: ToolCallDelta
+    OpenAIModelSettings:
+      properties:
+        max_output_tokens:
+          type: integer
+          title: Max Output Tokens
+          description: The maximum number of tokens the model can generate.
+          default: 4096
+        parallel_tool_calls:
+          type: boolean
+          title: Parallel Tool Calls
+          description: Whether to enable parallel tool calling.
+          default: true
+        provider_type:
+          type: string
+          const: openai
+          title: Provider Type
+          description: The type of the provider.
+          default: openai
+        temperature:
+          type: number
+          title: Temperature
+          description: The temperature of the model.
+          default: 0.7
+        reasoning:
+          $ref: '#/components/schemas/OpenAIReasoning'
+          description: The reasoning configuration for the model.
+          default:
+            reasoning_effort: high
+        response_format:
+          anyOf:
+          - oneOf:
+            - $ref: '#/components/schemas/TextResponseFormat'
+            - $ref: '#/components/schemas/JsonSchemaResponseFormat'
+            - $ref: '#/components/schemas/JsonObjectResponseFormat'
+            discriminator:
+              propertyName: type
+              mapping:
+                json_object: '#/components/schemas/JsonObjectResponseFormat'
+                json_schema: '#/components/schemas/JsonSchemaResponseFormat'
+                text: '#/components/schemas/TextResponseFormat'
+          - type: 'null'
+          title: Response Format
+          description: The response format for the model.
+        strict:
+          type: boolean
+          title: Strict
+          description: Enable strict mode for tool calling. When true, tool outputs are guaranteed to match JSON schemas.
+          default: true
+      type: object
+      title: OpenAIModelSettings
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    OpenAIReasoning:
+      properties:
+        reasoning_effort:
+          type: string
+          enum:
+          - none
+          - minimal
+          - low
+          - medium
+          - high
+          - xhigh
+          title: Reasoning Effort
+          description: The reasoning effort to use when generating text reasoning models
+          default: minimal
+      type: object
+      title: OpenAIReasoning
+    LettaImage:
+      properties:
+        type:
+          type: string
+          const: letta
+          title: Type
+          description: The source type for the image.
+          default: letta
+        file_id:
+          type: string
+          title: File Id
+          description: The unique identifier of the image file persisted in storage.
+        media_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Media Type
+          description: The media type for the image.
+        data:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Data
+          description: The base64 encoded image data.
+        detail:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Detail
+          description: What level of detail to use when processing and understanding the image (low, high, or auto to let the model decide)
+      type: object
+      required:
+      - file_id
+      title: LettaImage
+    ApprovalCreate:
+      properties:
+        type:
+          type: string
+          const: approval
+          title: Type
+          description: The message type to be created.
+          default: approval
+        otid:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Otid
+          description: The offline threading id (OTID). Set by the client to deduplicate requests. Used for idempotency in background streaming mode — each message in a request must have a unique OTID. Retries of the same request should reuse the same OTIDs.
+        group_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Group Id
+          description: The multi-agent group that the message was sent in
+        approvals:
+          anyOf:
+          - items:
+              oneOf:
+              - $ref: '#/components/schemas/ApprovalReturn'
+              - $ref: '#/components/schemas/letta__schemas__letta_message__ToolReturn'
+              discriminator:
+                propertyName: type
+                mapping:
+                  approval: '#/components/schemas/ApprovalReturn'
+                  tool: '#/components/schemas/letta__schemas__letta_message__ToolReturn'
+            type: array
+          - type: 'null'
+          title: Approvals
+          description: The list of approval responses
+        approve:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Approve
+          description: Whether the tool has been approved
+          deprecated: true
+        approval_request_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Approval Request Id
+          description: The message ID of the approval request
+          deprecated: true
+        reason:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Reason
+          description: An optional explanation for the provided approval status
+          deprecated: true
+      type: object
+      title: ApprovalCreate
+      description: Input to approve or deny a tool call request
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    AzureModelSettings:
+      properties:
+        max_output_tokens:
+          type: integer
+          title: Max Output Tokens
+          description: The maximum number of tokens the model can generate.
+          default: 4096
+        parallel_tool_calls:
+          type: boolean
+          title: Parallel Tool Calls
+          description: Whether to enable parallel tool calling.
+          default: true
+        provider_type:
+          type: string
+          const: azure
+          title: Provider Type
+          description: The type of the provider.
+          default: azure
+        temperature:
+          type: number
+          title: Temperature
+          description: The temperature of the model.
+          default: 0.7
+        response_format:
+          anyOf:
+          - oneOf:
+            - $ref: '#/components/schemas/TextResponseFormat'
+            - $ref: '#/components/schemas/JsonSchemaResponseFormat'
+            - $ref: '#/components/schemas/JsonObjectResponseFormat'
+            discriminator:
+              propertyName: type
+              mapping:
+                json_object: '#/components/schemas/JsonObjectResponseFormat'
+                json_schema: '#/components/schemas/JsonSchemaResponseFormat'
+                text: '#/components/schemas/TextResponseFormat'
+          - type: 'null'
+          title: Response Format
+          description: The response format for the model.
+      type: object
+      title: AzureModelSettings
+      description: Azure OpenAI model configuration (OpenAI-compatible).
+    TextResponseFormat:
+      properties:
+        type:
+          type: string
+          const: text
+          title: Type
+          description: The type of the response format.
+          default: text
+      type: object
+      title: TextResponseFormat
+      description: Response format for plain text responses.
+    GoogleVertexModelSettings:
+      properties:
+        max_output_tokens:
+          type: integer
+          title: Max Output Tokens
+          description: The maximum number of tokens the model can generate.
+          default: 65536
+        parallel_tool_calls:
+          type: boolean
+          title: Parallel Tool Calls
+          description: Whether to enable parallel tool calling.
+          default: true
+        provider_type:
+          type: string
+          const: google_vertex
+          title: Provider Type
+          description: The type of the provider.
+          default: google_vertex
+        temperature:
+          type: number
+          title: Temperature
+          description: The temperature of the model.
+          default: 0.7
+        thinking_config:
+          $ref: '#/components/schemas/GeminiThinkingConfig'
+          description: The thinking configuration for the model.
+          default:
+            include_thoughts: true
+            thinking_budget: 1024
+        response_schema:
+          anyOf:
+          - oneOf:
+            - $ref: '#/components/schemas/TextResponseFormat'
+            - $ref: '#/components/schemas/JsonSchemaResponseFormat'
+            - $ref: '#/components/schemas/JsonObjectResponseFormat'
+            discriminator:
+              propertyName: type
+              mapping:
+                json_object: '#/components/schemas/JsonObjectResponseFormat'
+                json_schema: '#/components/schemas/JsonSchemaResponseFormat'
+                text: '#/components/schemas/TextResponseFormat'
+          - type: 'null'
+          title: Response Schema
+          description: The response schema for the model.
+      type: object
+      title: GoogleVertexModelSettings
+    OpenRouterModelSettings:
+      properties:
+        max_output_tokens:
+          type: integer
+          title: Max Output Tokens
+          description: The maximum number of tokens the model can generate.
+          default: 4096
+        parallel_tool_calls:
+          type: boolean
+          title: Parallel Tool Calls
+          description: Whether to enable parallel tool calling.
+          default: true
+        provider_type:
+          type: string
+          const: openrouter
+          title: Provider Type
+          description: The type of the provider.
+          default: openrouter
+        temperature:
+          type: number
+          title: Temperature
+          description: The temperature of the model.
+          default: 0.7
+        response_format:
+          anyOf:
+          - oneOf:
+            - $ref: '#/components/schemas/TextResponseFormat'
+            - $ref: '#/components/schemas/JsonSchemaResponseFormat'
+            - $ref: '#/components/schemas/JsonObjectResponseFormat'
+            discriminator:
+              propertyName: type
+              mapping:
+                json_object: '#/components/schemas/JsonObjectResponseFormat'
+                json_schema: '#/components/schemas/JsonSchemaResponseFormat'
+                text: '#/components/schemas/TextResponseFormat'
+          - type: 'null'
+          title: Response Format
+          description: The response format for the model.
+      type: object
+      title: OpenRouterModelSettings
+      description: OpenRouter model configuration (OpenAI-compatible).
+    ToolCall:
+      properties:
+        name:
+          type: string
+          title: Name
+        arguments:
+          type: string
+          title: Arguments
+        tool_call_id:
+          type: string
+          title: Tool Call Id
+      type: object
+      required:
+      - name
+      - arguments
+      - tool_call_id
+      title: ToolCall
+    UrlImage:
+      properties:
+        type:
+          type: string
+          const: url
+          title: Type
+          description: The source type for the image.
+          default: url
+        url:
+          type: string
+          title: Url
+          description: The URL of the image.
+      type: object
+      required:
+      - url
+      title: UrlImage
+    LettaMessageContentUnion:
+      oneOf:
+      - $ref: '#/components/schemas/TextContent'
+      - $ref: '#/components/schemas/ImageContent'
+      - $ref: '#/components/schemas/ToolCallContent'
+      - $ref: '#/components/schemas/ToolReturnContent'
+      - $ref: '#/components/schemas/ReasoningContent'
+      - $ref: '#/components/schemas/RedactedReasoningContent'
+      - $ref: '#/components/schemas/OmittedReasoningContent'
+      discriminator:
+        propertyName: type
+        mapping:
+          text: '#/components/schemas/TextContent'
+          image: '#/components/schemas/ImageContent'
+          tool_call: '#/components/schemas/ToolCallContent'
+          tool_return: '#/components/schemas/ToolCallContent'
+          reasoning: '#/components/schemas/ReasoningContent'
+          redacted_reasoning: '#/components/schemas/RedactedReasoningContent'
+          omitted_reasoning: '#/components/schemas/OmittedReasoningContent'
+    LettaPing:
+      properties:
+        id:
+          type: string
+          title: Id
+        date:
+          type: string
+          format: date-time
+          title: Date
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        message_type:
+          type: string
+          const: ping
+          title: Message Type
+          description: The type of the message. Ping messages are a keep-alive to prevent SSE streams from timing out during long running requests.
+          default: ping
+        otid:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Otid
+          description: The offline threading id (OTID). Set by the client to deduplicate requests. Used for idempotency in background streaming mode — each message in a request must have a unique OTID. Retries of the same request should reuse the same OTIDs.
+        sender_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Sender Id
+        step_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Step Id
+        is_err:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Err
+        seq_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Seq Id
+        run_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Run Id
+      type: object
+      required:
+      - id
+      - date
+      title: LettaPing
+      description: "A ping message used as a keepalive to prevent SSE streams from timing out during long running requests.\n\nArgs:\n    id (str): The ID of the message\n    date (datetime): The date the message was created in ISO format"
+    ChatGPTOAuthModelSettings:
+      properties:
+        max_output_tokens:
+          type: integer
+          title: Max Output Tokens
+          description: The maximum number of tokens the model can generate.
+          default: 4096
+        parallel_tool_calls:
+          type: boolean
+          title: Parallel Tool Calls
+          description: Whether to enable parallel tool calling.
+          default: true
+        provider_type:
+          type: string
+          const: chatgpt_oauth
+          title: Provider Type
+          description: The type of the provider.
+          default: chatgpt_oauth
+        temperature:
+          type: number
+          title: Temperature
+          description: The temperature of the model.
+          default: 0.7
+        reasoning:
+          $ref: '#/components/schemas/ChatGPTOAuthReasoning'
+          description: The reasoning configuration for the model.
+          default:
+            reasoning_effort: medium
+      type: object
+      title: ChatGPTOAuthModelSettings
+      description: ChatGPT OAuth model configuration (uses ChatGPT backend API).
+    MessageCreate:
+      properties:
+        type:
+          anyOf:
+          - type: string
+            const: message
+          - type: 'null'
+          title: Type
+          description: The message type to be created.
+          default: message
+        otid:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Otid
+          description: The offline threading id (OTID). Set by the client to deduplicate requests. Used for idempotency in background streaming mode — each message in a request must have a unique OTID. Retries of the same request should reuse the same OTIDs.
+        group_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Group Id
+          description: The multi-agent group that the message was sent in
+        role:
+          type: string
+          enum:
+          - user
+          - system
+          - assistant
+          title: Role
+          description: The role of the participant.
+        content:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/LettaMessageContentUnion'
+            type: array
+          - type: string
+          title: Content
+          description: The content of the message.
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+          description: The name of the participant.
+        sender_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Sender Id
+          description: The id of the sender of the message, can be an identity id or agent id
+        batch_item_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Batch Item Id
+          description: The id of the LLMBatchItem that this message is associated with
+      type: object
+      required:
+      - role
+      - content
+      title: MessageCreate
+      description: Request to create a message
+    GeminiThinkingConfig:
+      properties:
+        include_thoughts:
+          type: boolean
+          title: Include Thoughts
+          description: Whether to include thoughts in the model's response.
+          default: true
+        thinking_budget:
+          type: integer
+          title: Thinking Budget
+          description: The thinking budget for the model.
+          default: 1024
+      type: object
+      title: GeminiThinkingConfig
+    ToolCallContent:
+      properties:
+        type:
+          type: string
+          const: tool_call
+          title: Type
+          description: Indicates this content represents a tool call event.
+          default: tool_call
+        id:
+          type: string
+          title: Id
+          description: A unique identifier for this specific tool call instance.
+        name:
+          type: string
+          title: Name
+          description: The name of the tool being called.
+        input:
+          additionalProperties: true
+          type: object
+          title: Input
+          description: The parameters being passed to the tool, structured as a dictionary of parameter names to values.
+        signature:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Signature
+          description: Stores a unique identifier for any reasoning associated with this tool call.
+      type: object
+      required:
+      - id
+      - name
+      - input
+      title: ToolCallContent
+    Conversation:
+      properties:
+        created_by_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Created By Id
+          description: The id of the user that made this object.
+        last_updated_by_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Last Updated By Id
+          description: The id of the user that made this object.
+        created_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created At
+          description: The timestamp when the object was created.
+        updated_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated At
+          description: The timestamp when the object was last updated.
+        id:
+          type: string
+          title: Id
+          description: The unique identifier of the conversation.
+        agent_id:
+          type: string
+          title: Agent Id
+          description: The ID of the agent this conversation belongs to.
+        summary:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Summary
+          description: A summary of the conversation.
+        in_context_message_ids:
+          items:
+            type: string
+          type: array
+          title: In Context Message Ids
+          description: The IDs of in-context messages for the conversation.
+        isolated_block_ids:
+          items:
+            type: string
+          type: array
+          title: Isolated Block Ids
+          description: IDs of blocks that are isolated (specific to this conversation, overriding agent defaults).
+        model:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Model
+          description: 'The model handle for this conversation (overrides agent''s model). Format: provider/model-name.'
+        model_settings:
+          anyOf:
+          - oneOf:
+            - $ref: '#/components/schemas/OpenAIModelSettings'
+            - $ref: '#/components/schemas/SGLangModelSettings'
+            - $ref: '#/components/schemas/AnthropicModelSettings'
+            - $ref: '#/components/schemas/GoogleAIModelSettings'
+            - $ref: '#/components/schemas/GoogleVertexModelSettings'
+            - $ref: '#/components/schemas/AzureModelSettings'
+            - $ref: '#/components/schemas/XAIModelSettings'
+            - $ref: '#/components/schemas/ZAIModelSettings'
+            - $ref: '#/components/schemas/GroqModelSettings'
+            - $ref: '#/components/schemas/DeepseekModelSettings'
+            - $ref: '#/components/schemas/TogetherModelSettings'
+            - $ref: '#/components/schemas/BedrockModelSettings'
+            - $ref: '#/components/schemas/BasetenModelSettings'
+            - $ref: '#/components/schemas/OpenRouterModelSettings'
+            - $ref: '#/components/schemas/ChatGPTOAuthModelSettings'
+            discriminator:
+              propertyName: provider_type
+              mapping:
+                anthropic: '#/components/schemas/AnthropicModelSettings'
+                azure: '#/components/schemas/AzureModelSettings'
+                baseten: '#/components/schemas/BasetenModelSettings'
+                bedrock: '#/components/schemas/BedrockModelSettings'
+                chatgpt_oauth: '#/components/schemas/ChatGPTOAuthModelSettings'
+                deepseek: '#/components/schemas/DeepseekModelSettings'
+                google_ai: '#/components/schemas/GoogleAIModelSettings'
+                google_vertex: '#/components/schemas/GoogleVertexModelSettings'
+                groq: '#/components/schemas/GroqModelSettings'
+                openai: '#/components/schemas/OpenAIModelSettings'
+                openrouter: '#/components/schemas/OpenRouterModelSettings'
+                sglang: '#/components/schemas/SGLangModelSettings'
+                together: '#/components/schemas/TogetherModelSettings'
+                xai: '#/components/schemas/XAIModelSettings'
+                zai: '#/components/schemas/ZAIModelSettings'
+          - type: 'null'
+          title: Model Settings
+          description: The model settings for this conversation (overrides agent's model settings).
+        last_message_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Last Message At
+          description: Timestamp of the most recent message request sent to this conversation.
+      additionalProperties: false
+      type: object
+      required:
+      - id
+      - agent_id
+      title: Conversation
+      description: Represents a conversation on an agent for concurrent messaging.
+    DeepseekModelSettings:
+      properties:
+        max_output_tokens:
+          type: integer
+          title: Max Output Tokens
+          description: The maximum number of tokens the model can generate.
+          default: 4096
+        parallel_tool_calls:
+          type: boolean
+          title: Parallel Tool Calls
+          description: Whether to enable parallel tool calling.
+          default: true
+        provider_type:
+          type: string
+          const: deepseek
+          title: Provider Type
+          description: The type of the provider.
+          default: deepseek
+        temperature:
+          type: number
+          title: Temperature
+          description: The temperature of the model.
+          default: 0.7
+        response_format:
+          anyOf:
+          - oneOf:
+            - $ref: '#/components/schemas/TextResponseFormat'
+            - $ref: '#/components/schemas/JsonSchemaResponseFormat'
+            - $ref: '#/components/schemas/JsonObjectResponseFormat'
+            discriminator:
+              propertyName: type
+              mapping:
+                json_object: '#/components/schemas/JsonObjectResponseFormat'
+                json_schema: '#/components/schemas/JsonSchemaResponseFormat'
+                text: '#/components/schemas/TextResponseFormat'
+          - type: 'null'
+          title: Response Format
+          description: The response format for the model.
+      type: object
+      title: DeepseekModelSettings
+      description: Deepseek model configuration (OpenAI-compatible).
+    letta__schemas__openai__chat_completion_response__TopLogprob:
+      properties:
+        token:
+          type: string
+          title: Token
+        bytes:
+          anyOf:
+          - items:
+              type: integer
+            type: array
+          - type: 'null'
+          title: Bytes
+        logprob:
+          type: number
+          title: Logprob
+      type: object
+      required:
+      - token
+      - logprob
+      title: TopLogprob
+    LettaStopReason:
+      properties:
+        message_type:
+          type: string
+          const: stop_reason
+          title: Message Type
+          description: The type of the message.
+          default: stop_reason
+        stop_reason:
+          $ref: '#/components/schemas/StopReasonType'
+          description: The reason why execution stopped.
+      type: object
+      required:
+      - stop_reason
+      title: LettaStopReason
+      description: The stop reason from Letta indicating why agent loop stopped execution.
+    AssistantMessage:
+      properties:
+        id:
+          type: string
+          title: Id
+        date:
+          type: string
+          format: date-time
+          title: Date
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        message_type:
+          type: string
+          const: assistant_message
+          title: Message Type
+          description: The type of the message.
+          default: assistant_message
+        otid:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Otid
+          description: The offline threading id (OTID). Set by the client to deduplicate requests. Used for idempotency in background streaming mode — each message in a request must have a unique OTID. Retries of the same request should reuse the same OTIDs.
+        sender_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Sender Id
+        step_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Step Id
+        is_err:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Err
+        seq_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Seq Id
+        run_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Run Id
+        content:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/LettaAssistantMessageContentUnion'
+            type: array
+          - type: string
+          title: Content
+          description: The message content sent by the agent (can be a string or an array of content parts)
+      type: object
+      required:
+      - id
+      - date
+      - content
+      title: AssistantMessage
+      description: "A message sent by the LLM in response to user input. Used in the LLM context.\n\nArgs:\n    id (str): The ID of the message\n    date (datetime): The date the message was created in ISO format\n    name (Optional[str]): The name of the sender of the message\n    content (Union[str, List[LettaAssistantMessageContentUnion]]): The message content sent by the agent (can be a string or an array of content parts)"
+    EventMessage:
+      properties:
+        id:
+          type: string
+          title: Id
+        date:
+          type: string
+          format: date-time
+          title: Date
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        message_type:
+          type: string
+          const: event_message
+          title: Message Type
+          default: event_message
+        otid:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Otid
+          description: The offline threading id (OTID). Set by the client to deduplicate requests. Used for idempotency in background streaming mode — each message in a request must have a unique OTID. Retries of the same request should reuse the same OTIDs.
+        sender_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Sender Id
+        step_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Step Id
+        is_err:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Err
+        seq_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Seq Id
+        run_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Run Id
+        event_type:
+          type: string
+          const: compaction
+          title: Event Type
+        event_data:
+          additionalProperties: true
+          type: object
+          title: Event Data
+      type: object
+      required:
+      - id
+      - date
+      - event_type
+      - event_data
+      title: EventMessage
+      description: A message for notifying the developer that an event that has occured (e.g. a compaction). Events are NOT part of the context window.
     UpdateConversation:
       properties:
         summary:
@@ -893,193 +3268,61 @@ components:
       type: object
       title: UpdateConversation
       description: Request model for updating a conversation.
-    ZAIThinking:
+    ApprovalReturn:
       properties:
         type:
           type: string
-          enum:
-          - enabled
-          - disabled
+          const: approval
           title: Type
-          description: Whether thinking is enabled or disabled.
-          default: enabled
-        clear_thinking:
+          description: The message type to be created.
+          default: approval
+        tool_call_id:
+          type: string
+          title: Tool Call Id
+          description: The ID of the tool call that corresponds to this approval
+        approve:
           type: boolean
-          title: Clear Thinking
-          description: If False, preserved thinking is used (recommended for agents).
-          default: false
-      type: object
-      title: ZAIThinking
-      description: Thinking configuration for ZAI GLM-4.5+ models.
-    TextContent:
-      properties:
-        type:
-          type: string
-          const: text
-          title: Type
-          description: The type of the message.
-          default: text
-        text:
-          type: string
-          title: Text
-          description: The text content of the message.
-        signature:
+          title: Approve
+          description: Whether the tool has been approved
+        reason:
           anyOf:
           - type: string
           - type: 'null'
-          title: Signature
-          description: Stores a unique identifier for any reasoning associated with this text content.
+          title: Reason
+          description: An optional explanation for the provided approval status
       type: object
       required:
-      - text
-      title: TextContent
-    ToolCallContent:
+      - tool_call_id
+      - approve
+      title: ApprovalReturn
+    ClientSkillSchema:
       properties:
-        type:
-          type: string
-          const: tool_call
-          title: Type
-          description: Indicates this content represents a tool call event.
-          default: tool_call
-        id:
-          type: string
-          title: Id
-          description: A unique identifier for this specific tool call instance.
         name:
           type: string
           title: Name
-          description: The name of the tool being called.
-        input:
-          additionalProperties: true
-          type: object
-          title: Input
-          description: The parameters being passed to the tool, structured as a dictionary of parameter names to values.
-        signature:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Signature
-          description: Stores a unique identifier for any reasoning associated with this tool call.
+          description: The name of the skill
+        description:
+          type: string
+          title: Description
+          description: Description of what the skill does
+        location:
+          type: string
+          title: Location
+          description: Path or location hint for the skill (e.g. skills/my-skill/SKILL.md)
       type: object
       required:
-      - id
       - name
-      - input
-      title: ToolCallContent
-    LettaToolReturnContentUnion:
-      oneOf:
-      - $ref: '#/components/schemas/TextContent'
-      - $ref: '#/components/schemas/ImageContent'
-      discriminator:
-        propertyName: type
-        mapping:
-          text: '#/components/schemas/TextContent'
-          image: '#/components/schemas/ImageContent'
-    GeminiThinkingConfig:
-      properties:
-        include_thoughts:
-          type: boolean
-          title: Include Thoughts
-          description: Whether to include thoughts in the model's response.
-          default: true
-        thinking_budget:
-          type: integer
-          title: Thinking Budget
-          description: The thinking budget for the model.
-          default: 1024
-      type: object
-      title: GeminiThinkingConfig
-    OpenAIReasoning:
-      properties:
-        reasoning_effort:
-          type: string
-          enum:
-          - none
-          - minimal
-          - low
-          - medium
-          - high
-          - xhigh
-          title: Reasoning Effort
-          description: The reasoning effort to use when generating text reasoning models
-          default: minimal
-      type: object
-      title: OpenAIReasoning
-    LettaImage:
-      properties:
-        type:
-          type: string
-          const: letta
-          title: Type
-          description: The source type for the image.
-          default: letta
-        file_id:
-          type: string
-          title: File Id
-          description: The unique identifier of the image file persisted in storage.
-        media_type:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Media Type
-          description: The media type for the image.
-        data:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Data
-          description: The base64 encoded image data.
-        detail:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Detail
-          description: What level of detail to use when processing and understanding the image (low, high, or auto to let the model decide)
-      type: object
-      required:
-      - file_id
-      title: LettaImage
-    XAIModelSettings:
-      properties:
-        max_output_tokens:
-          type: integer
-          title: Max Output Tokens
-          description: The maximum number of tokens the model can generate.
-          default: 4096
-        parallel_tool_calls:
-          type: boolean
-          title: Parallel Tool Calls
-          description: Whether to enable parallel tool calling.
-          default: true
-        provider_type:
-          type: string
-          const: xai
-          title: Provider Type
-          description: The type of the provider.
-          default: xai
-        temperature:
-          type: number
-          title: Temperature
-          description: The temperature of the model.
-          default: 0.7
-        response_format:
-          anyOf:
-          - oneOf:
-            - $ref: '#/components/schemas/TextResponseFormat'
-            - $ref: '#/components/schemas/JsonSchemaResponseFormat'
-            - $ref: '#/components/schemas/JsonObjectResponseFormat'
-            discriminator:
-              propertyName: type
-              mapping:
-                json_object: '#/components/schemas/JsonObjectResponseFormat'
-                json_schema: '#/components/schemas/JsonSchemaResponseFormat'
-                text: '#/components/schemas/TextResponseFormat'
-          - type: 'null'
-          title: Response Format
-          description: The response format for the model.
-      type: object
-      title: XAIModelSettings
-      description: xAI model configuration (OpenAI-compatible).
+      - description
+      - location
+      title: ClientSkillSchema
+      description: 'Schema for a client-side skill passed in the request.
+
+
+        Client-side skills represent environment-provided capabilities (e.g. project-scoped
+
+        skills) that are not stored in the agent''s MemFS but should appear in the system
+
+        prompt''s available skills section.'
     ConversationMessageRequest:
       properties:
         messages:
@@ -1236,157 +3479,89 @@ components:
       type: object
       title: ConversationMessageRequest
       description: Request for sending messages to a conversation. Streams by default.
-    LettaAssistantMessageContentUnion:
-      oneOf:
-      - $ref: '#/components/schemas/TextContent'
-      discriminator:
-        propertyName: type
-        mapping:
-          text: '#/components/schemas/TextContent'
-    LettaPing:
+    JsonObjectResponseFormat:
       properties:
-        id:
+        type:
           type: string
-          title: Id
-        date:
+          const: json_object
+          title: Type
+          description: The type of the response format.
+          default: json_object
+      type: object
+      title: JsonObjectResponseFormat
+      description: Response format for JSON object responses.
+    ImageContent:
+      properties:
+        type:
           type: string
-          format: date-time
-          title: Date
-        name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Name
-        message_type:
-          type: string
-          const: ping
-          title: Message Type
-          description: The type of the message. Ping messages are a keep-alive to prevent SSE streams from timing out during long running requests.
-          default: ping
-        otid:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Otid
-          description: The offline threading id (OTID). Set by the client to deduplicate requests. Used for idempotency in background streaming mode — each message in a request must have a unique OTID. Retries of the same request should reuse the same OTIDs.
-        sender_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Sender Id
-        step_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Step Id
-        is_err:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Is Err
-        seq_id:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Seq Id
-        run_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Run Id
+          const: image
+          title: Type
+          description: The type of the message.
+          default: image
+        source:
+          oneOf:
+          - $ref: '#/components/schemas/UrlImage'
+          - $ref: '#/components/schemas/Base64Image'
+          - $ref: '#/components/schemas/LettaImage'
+          title: Source
+          description: The source of the image.
+          discriminator:
+            propertyName: type
+            mapping:
+              base64: '#/components/schemas/Base64Image'
+              letta: '#/components/schemas/LettaImage'
+              url: '#/components/schemas/UrlImage'
       type: object
       required:
-      - id
-      - date
-      title: LettaPing
-      description: "A ping message used as a keepalive to prevent SSE streams from timing out during long running requests.\n\nArgs:\n    id (str): The ID of the message\n    date (datetime): The date the message was created in ISO format"
-    CompactionSettings-Input:
+      - source
+      title: ImageContent
+    ZAIModelSettings:
       properties:
-        model:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Model
-          description: 'Model handle to use for sliding_window/all summarization (format: provider/model-name). If None, uses lightweight provider-specific defaults.'
-        model_settings:
+        max_output_tokens:
+          type: integer
+          title: Max Output Tokens
+          description: The maximum number of tokens the model can generate.
+          default: 4096
+        parallel_tool_calls:
+          type: boolean
+          title: Parallel Tool Calls
+          description: Whether to enable parallel tool calling.
+          default: true
+        provider_type:
+          type: string
+          const: zai
+          title: Provider Type
+          description: The type of the provider.
+          default: zai
+        temperature:
+          type: number
+          title: Temperature
+          description: The temperature of the model.
+          default: 0.7
+        response_format:
           anyOf:
           - oneOf:
-            - $ref: '#/components/schemas/OpenAIModelSettings'
-            - $ref: '#/components/schemas/SGLangModelSettings'
-            - $ref: '#/components/schemas/AnthropicModelSettings'
-            - $ref: '#/components/schemas/GoogleAIModelSettings'
-            - $ref: '#/components/schemas/GoogleVertexModelSettings'
-            - $ref: '#/components/schemas/AzureModelSettings'
-            - $ref: '#/components/schemas/XAIModelSettings'
-            - $ref: '#/components/schemas/ZAIModelSettings'
-            - $ref: '#/components/schemas/GroqModelSettings'
-            - $ref: '#/components/schemas/DeepseekModelSettings'
-            - $ref: '#/components/schemas/TogetherModelSettings'
-            - $ref: '#/components/schemas/BedrockModelSettings'
-            - $ref: '#/components/schemas/BasetenModelSettings'
-            - $ref: '#/components/schemas/OpenRouterModelSettings'
-            - $ref: '#/components/schemas/ChatGPTOAuthModelSettings'
+            - $ref: '#/components/schemas/TextResponseFormat'
+            - $ref: '#/components/schemas/JsonSchemaResponseFormat'
+            - $ref: '#/components/schemas/JsonObjectResponseFormat'
             discriminator:
-              propertyName: provider_type
+              propertyName: type
               mapping:
-                anthropic: '#/components/schemas/AnthropicModelSettings'
-                azure: '#/components/schemas/AzureModelSettings'
-                baseten: '#/components/schemas/BasetenModelSettings'
-                bedrock: '#/components/schemas/BedrockModelSettings'
-                chatgpt_oauth: '#/components/schemas/ChatGPTOAuthModelSettings'
-                deepseek: '#/components/schemas/DeepseekModelSettings'
-                google_ai: '#/components/schemas/GoogleAIModelSettings'
-                google_vertex: '#/components/schemas/GoogleVertexModelSettings'
-                groq: '#/components/schemas/GroqModelSettings'
-                openai: '#/components/schemas/OpenAIModelSettings'
-                openrouter: '#/components/schemas/OpenRouterModelSettings'
-                sglang: '#/components/schemas/SGLangModelSettings'
-                together: '#/components/schemas/TogetherModelSettings'
-                xai: '#/components/schemas/XAIModelSettings'
-                zai: '#/components/schemas/ZAIModelSettings'
+                json_object: '#/components/schemas/JsonObjectResponseFormat'
+                json_schema: '#/components/schemas/JsonSchemaResponseFormat'
+                text: '#/components/schemas/TextResponseFormat'
           - type: 'null'
-          title: Model Settings
-          description: Optional model settings used to override defaults for the summarizer model.
-        prompt:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Prompt
-          description: The prompt to use for summarization. If None, uses mode-specific default.
-        prompt_acknowledgement:
-          type: boolean
-          title: Prompt Acknowledgement
-          description: Whether to include an acknowledgement post-prompt (helps prevent non-summary outputs).
-          default: false
-        clip_chars:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Clip Chars
-          description: The maximum length of the summary in characters. If none, no clipping is performed.
-          default: 50000
-        mode:
-          type: string
-          enum:
-          - all
-          - sliding_window
-          - self_compact_all
-          - self_compact_sliding_window
-          title: Mode
-          description: The type of summarization technique use.
-          default: sliding_window
-        sliding_window_percentage:
-          type: number
-          title: Sliding Window Percentage
-          description: The percentage of the context window to keep post-summarization (only used in sliding window modes).
+          title: Response Format
+          description: The response format for the model.
+        thinking:
+          $ref: '#/components/schemas/ZAIThinking'
+          description: The thinking configuration for GLM-4.5+ models.
+          default:
+            type: enabled
+            clear_thinking: false
       type: object
-      title: CompactionSettings
-      description: 'Configuration for conversation compaction / summarization.
-
-
-        Per-model settings (temperature,
-
-        max tokens, etc.) are derived from the default configuration for that handle.'
+      title: ZAIModelSettings
+      description: Z.ai (ZhipuAI) model configuration (OpenAI-compatible).
     ReasoningContent:
       properties:
         type:
@@ -1415,64 +3590,6 @@ components:
       - reasoning
       title: ReasoningContent
       description: Sent via the Anthropic Messages API
-    ToolCall:
-      properties:
-        name:
-          type: string
-          title: Name
-        arguments:
-          type: string
-          title: Arguments
-        tool_call_id:
-          type: string
-          title: Tool Call Id
-      type: object
-      required:
-      - name
-      - arguments
-      - tool_call_id
-      title: ToolCall
-    AzureModelSettings:
-      properties:
-        max_output_tokens:
-          type: integer
-          title: Max Output Tokens
-          description: The maximum number of tokens the model can generate.
-          default: 4096
-        parallel_tool_calls:
-          type: boolean
-          title: Parallel Tool Calls
-          description: Whether to enable parallel tool calling.
-          default: true
-        provider_type:
-          type: string
-          const: azure
-          title: Provider Type
-          description: The type of the provider.
-          default: azure
-        temperature:
-          type: number
-          title: Temperature
-          description: The temperature of the model.
-          default: 0.7
-        response_format:
-          anyOf:
-          - oneOf:
-            - $ref: '#/components/schemas/TextResponseFormat'
-            - $ref: '#/components/schemas/JsonSchemaResponseFormat'
-            - $ref: '#/components/schemas/JsonObjectResponseFormat'
-            discriminator:
-              propertyName: type
-              mapping:
-                json_object: '#/components/schemas/JsonObjectResponseFormat'
-                json_schema: '#/components/schemas/JsonSchemaResponseFormat'
-                text: '#/components/schemas/TextResponseFormat'
-          - type: 'null'
-          title: Response Format
-          description: The response format for the model.
-      type: object
-      title: AzureModelSettings
-      description: Azure OpenAI model configuration (OpenAI-compatible).
     UserMessage:
       properties:
         id:
@@ -1539,1242 +3656,6 @@ components:
       - content
       title: UserMessage
       description: "A message sent by the user. Never streamed back on a response, only used for cursor pagination.\n\nArgs:\n    id (str): The ID of the message\n    date (datetime): The date the message was created in ISO format\n    name (Optional[str]): The name of the sender of the message\n    content (Union[str, List[LettaUserMessageContentUnion]]): The message content sent by the user (can be a string or an array of multi-modal content parts)"
-    OpenAIModelSettings:
-      properties:
-        max_output_tokens:
-          type: integer
-          title: Max Output Tokens
-          description: The maximum number of tokens the model can generate.
-          default: 4096
-        parallel_tool_calls:
-          type: boolean
-          title: Parallel Tool Calls
-          description: Whether to enable parallel tool calling.
-          default: true
-        provider_type:
-          type: string
-          const: openai
-          title: Provider Type
-          description: The type of the provider.
-          default: openai
-        temperature:
-          type: number
-          title: Temperature
-          description: The temperature of the model.
-          default: 0.7
-        reasoning:
-          $ref: '#/components/schemas/OpenAIReasoning'
-          description: The reasoning configuration for the model.
-          default:
-            reasoning_effort: high
-        response_format:
-          anyOf:
-          - oneOf:
-            - $ref: '#/components/schemas/TextResponseFormat'
-            - $ref: '#/components/schemas/JsonSchemaResponseFormat'
-            - $ref: '#/components/schemas/JsonObjectResponseFormat'
-            discriminator:
-              propertyName: type
-              mapping:
-                json_object: '#/components/schemas/JsonObjectResponseFormat'
-                json_schema: '#/components/schemas/JsonSchemaResponseFormat'
-                text: '#/components/schemas/TextResponseFormat'
-          - type: 'null'
-          title: Response Format
-          description: The response format for the model.
-        strict:
-          type: boolean
-          title: Strict
-          description: Enable strict mode for tool calling. When true, tool outputs are guaranteed to match JSON schemas.
-          default: true
-      type: object
-      title: OpenAIModelSettings
-    GoogleAIModelSettings:
-      properties:
-        max_output_tokens:
-          type: integer
-          title: Max Output Tokens
-          description: The maximum number of tokens the model can generate.
-          default: 65536
-        parallel_tool_calls:
-          type: boolean
-          title: Parallel Tool Calls
-          description: Whether to enable parallel tool calling.
-          default: true
-        provider_type:
-          type: string
-          const: google_ai
-          title: Provider Type
-          description: The type of the provider.
-          default: google_ai
-        temperature:
-          type: number
-          title: Temperature
-          description: The temperature of the model.
-          default: 0.7
-        thinking_config:
-          $ref: '#/components/schemas/GeminiThinkingConfig'
-          description: The thinking configuration for the model.
-          default:
-            include_thoughts: true
-            thinking_budget: 1024
-        response_schema:
-          anyOf:
-          - oneOf:
-            - $ref: '#/components/schemas/TextResponseFormat'
-            - $ref: '#/components/schemas/JsonSchemaResponseFormat'
-            - $ref: '#/components/schemas/JsonObjectResponseFormat'
-            discriminator:
-              propertyName: type
-              mapping:
-                json_object: '#/components/schemas/JsonObjectResponseFormat'
-                json_schema: '#/components/schemas/JsonSchemaResponseFormat'
-                text: '#/components/schemas/TextResponseFormat'
-          - type: 'null'
-          title: Response Schema
-          description: The response schema for the model.
-      type: object
-      title: GoogleAIModelSettings
-    ChatGPTOAuthModelSettings:
-      properties:
-        max_output_tokens:
-          type: integer
-          title: Max Output Tokens
-          description: The maximum number of tokens the model can generate.
-          default: 4096
-        parallel_tool_calls:
-          type: boolean
-          title: Parallel Tool Calls
-          description: Whether to enable parallel tool calling.
-          default: true
-        provider_type:
-          type: string
-          const: chatgpt_oauth
-          title: Provider Type
-          description: The type of the provider.
-          default: chatgpt_oauth
-        temperature:
-          type: number
-          title: Temperature
-          description: The temperature of the model.
-          default: 0.7
-        reasoning:
-          $ref: '#/components/schemas/ChatGPTOAuthReasoning'
-          description: The reasoning configuration for the model.
-          default:
-            reasoning_effort: medium
-      type: object
-      title: ChatGPTOAuthModelSettings
-      description: ChatGPT OAuth model configuration (uses ChatGPT backend API).
-    EventMessage:
-      properties:
-        id:
-          type: string
-          title: Id
-        date:
-          type: string
-          format: date-time
-          title: Date
-        name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Name
-        message_type:
-          type: string
-          const: event_message
-          title: Message Type
-          default: event_message
-        otid:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Otid
-          description: The offline threading id (OTID). Set by the client to deduplicate requests. Used for idempotency in background streaming mode — each message in a request must have a unique OTID. Retries of the same request should reuse the same OTIDs.
-        sender_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Sender Id
-        step_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Step Id
-        is_err:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Is Err
-        seq_id:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Seq Id
-        run_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Run Id
-        event_type:
-          type: string
-          const: compaction
-          title: Event Type
-        event_data:
-          additionalProperties: true
-          type: object
-          title: Event Data
-      type: object
-      required:
-      - id
-      - date
-      - event_type
-      - event_data
-      title: EventMessage
-      description: A message for notifying the developer that an event that has occured (e.g. a compaction). Events are NOT part of the context window.
-    ToolReturnContent:
-      properties:
-        type:
-          type: string
-          const: tool_return
-          title: Type
-          description: Indicates this content represents a tool return event.
-          default: tool_return
-        tool_call_id:
-          type: string
-          title: Tool Call Id
-          description: References the ID of the ToolCallContent that initiated this tool call.
-        content:
-          type: string
-          title: Content
-          description: The content returned by the tool execution.
-        is_error:
-          type: boolean
-          title: Is Error
-          description: Indicates whether the tool execution resulted in an error.
-      type: object
-      required:
-      - tool_call_id
-      - content
-      - is_error
-      title: ToolReturnContent
-    ToolReturnCreate:
-      properties:
-        type:
-          type: string
-          const: tool_return
-          title: Type
-          description: The message type to be created.
-          default: tool_return
-        otid:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Otid
-          description: The offline threading id (OTID). Set by the client to deduplicate requests. Used for idempotency in background streaming mode — each message in a request must have a unique OTID. Retries of the same request should reuse the same OTIDs.
-        group_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Group Id
-          description: The multi-agent group that the message was sent in
-        tool_returns:
-          items:
-            $ref: '#/components/schemas/letta__schemas__letta_message__ToolReturn'
-          type: array
-          title: Tool Returns
-          description: List of tool returns from client-side execution
-      type: object
-      required:
-      - tool_returns
-      title: ToolReturnCreate
-      description: 'Submit tool return(s) from client-side tool execution.
-
-
-        This is the preferred way to send tool results back to the agent after
-
-        client-side tool execution. It is equivalent to sending an ApprovalCreate
-
-        with tool return approvals, but provides a cleaner API for the common case.'
-    LettaMessageContentUnion:
-      oneOf:
-      - $ref: '#/components/schemas/TextContent'
-      - $ref: '#/components/schemas/ImageContent'
-      - $ref: '#/components/schemas/ToolCallContent'
-      - $ref: '#/components/schemas/ToolReturnContent'
-      - $ref: '#/components/schemas/ReasoningContent'
-      - $ref: '#/components/schemas/RedactedReasoningContent'
-      - $ref: '#/components/schemas/OmittedReasoningContent'
-      discriminator:
-        propertyName: type
-        mapping:
-          text: '#/components/schemas/TextContent'
-          image: '#/components/schemas/ImageContent'
-          tool_call: '#/components/schemas/ToolCallContent'
-          tool_return: '#/components/schemas/ToolCallContent'
-          reasoning: '#/components/schemas/ReasoningContent'
-          redacted_reasoning: '#/components/schemas/RedactedReasoningContent'
-          omitted_reasoning: '#/components/schemas/OmittedReasoningContent'
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    GoogleVertexModelSettings:
-      properties:
-        max_output_tokens:
-          type: integer
-          title: Max Output Tokens
-          description: The maximum number of tokens the model can generate.
-          default: 65536
-        parallel_tool_calls:
-          type: boolean
-          title: Parallel Tool Calls
-          description: Whether to enable parallel tool calling.
-          default: true
-        provider_type:
-          type: string
-          const: google_vertex
-          title: Provider Type
-          description: The type of the provider.
-          default: google_vertex
-        temperature:
-          type: number
-          title: Temperature
-          description: The temperature of the model.
-          default: 0.7
-        thinking_config:
-          $ref: '#/components/schemas/GeminiThinkingConfig'
-          description: The thinking configuration for the model.
-          default:
-            include_thoughts: true
-            thinking_budget: 1024
-        response_schema:
-          anyOf:
-          - oneOf:
-            - $ref: '#/components/schemas/TextResponseFormat'
-            - $ref: '#/components/schemas/JsonSchemaResponseFormat'
-            - $ref: '#/components/schemas/JsonObjectResponseFormat'
-            discriminator:
-              propertyName: type
-              mapping:
-                json_object: '#/components/schemas/JsonObjectResponseFormat'
-                json_schema: '#/components/schemas/JsonSchemaResponseFormat'
-                text: '#/components/schemas/TextResponseFormat'
-          - type: 'null'
-          title: Response Schema
-          description: The response schema for the model.
-      type: object
-      title: GoogleVertexModelSettings
-    GroqModelSettings:
-      properties:
-        max_output_tokens:
-          type: integer
-          title: Max Output Tokens
-          description: The maximum number of tokens the model can generate.
-          default: 4096
-        parallel_tool_calls:
-          type: boolean
-          title: Parallel Tool Calls
-          description: Whether to enable parallel tool calling.
-          default: true
-        provider_type:
-          type: string
-          const: groq
-          title: Provider Type
-          description: The type of the provider.
-          default: groq
-        temperature:
-          type: number
-          title: Temperature
-          description: The temperature of the model.
-          default: 0.7
-        response_format:
-          anyOf:
-          - oneOf:
-            - $ref: '#/components/schemas/TextResponseFormat'
-            - $ref: '#/components/schemas/JsonSchemaResponseFormat'
-            - $ref: '#/components/schemas/JsonObjectResponseFormat'
-            discriminator:
-              propertyName: type
-              mapping:
-                json_object: '#/components/schemas/JsonObjectResponseFormat'
-                json_schema: '#/components/schemas/JsonSchemaResponseFormat'
-                text: '#/components/schemas/TextResponseFormat'
-          - type: 'null'
-          title: Response Format
-          description: The response format for the model.
-      type: object
-      title: GroqModelSettings
-      description: Groq model configuration (OpenAI-compatible).
-    LettaStopReason:
-      properties:
-        message_type:
-          type: string
-          const: stop_reason
-          title: Message Type
-          description: The type of the message.
-          default: stop_reason
-        stop_reason:
-          $ref: '#/components/schemas/StopReasonType'
-          description: The reason why execution stopped.
-      type: object
-      required:
-      - stop_reason
-      title: LettaStopReason
-      description: The stop reason from Letta indicating why agent loop stopped execution.
-    UrlImage:
-      properties:
-        type:
-          type: string
-          const: url
-          title: Type
-          description: The source type for the image.
-          default: url
-        url:
-          type: string
-          title: Url
-          description: The URL of the image.
-      type: object
-      required:
-      - url
-      title: UrlImage
-    LettaMessageUnion:
-      oneOf:
-      - $ref: '#/components/schemas/SystemMessage'
-      - $ref: '#/components/schemas/UserMessage'
-      - $ref: '#/components/schemas/ReasoningMessage'
-      - $ref: '#/components/schemas/HiddenReasoningMessage'
-      - $ref: '#/components/schemas/ToolCallMessage'
-      - $ref: '#/components/schemas/ToolReturnMessage'
-      - $ref: '#/components/schemas/AssistantMessage'
-      - $ref: '#/components/schemas/ApprovalRequestMessage'
-      - $ref: '#/components/schemas/ApprovalResponseMessage'
-      - $ref: '#/components/schemas/SummaryMessage'
-      - $ref: '#/components/schemas/EventMessage'
-      discriminator:
-        propertyName: message_type
-        mapping:
-          system_message: '#/components/schemas/SystemMessage'
-          user_message: '#/components/schemas/UserMessage'
-          reasoning_message: '#/components/schemas/ReasoningMessage'
-          hidden_reasoning_message: '#/components/schemas/HiddenReasoningMessage'
-          tool_call_message: '#/components/schemas/ToolCallMessage'
-          tool_return_message: '#/components/schemas/ToolReturnMessage'
-          assistant_message: '#/components/schemas/AssistantMessage'
-          approval_request_message: '#/components/schemas/ApprovalRequestMessage'
-          approval_response_message: '#/components/schemas/ApprovalResponseMessage'
-          summary_message: '#/components/schemas/SummaryMessage'
-          event_message: '#/components/schemas/EventMessage'
-    TurnTokenData:
-      properties:
-        role:
-          type: string
-          enum:
-          - assistant
-          - tool
-          title: Role
-          description: 'Role of this turn: ''assistant'' for LLM generations (trainable), ''tool'' for tool results (non-trainable).'
-        output_ids:
-          anyOf:
-          - items:
-              type: integer
-            type: array
-          - type: 'null'
-          title: Output Ids
-          description: Token IDs from SGLang native endpoint. Only present for assistant turns.
-        output_token_logprobs:
-          anyOf:
-          - items:
-              items: {}
-              type: array
-            type: array
-          - type: 'null'
-          title: Output Token Logprobs
-          description: 'Logprobs from SGLang: [[logprob, token_id, top_logprob_or_null], ...]. Only present for assistant turns.'
-        content:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Content
-          description: Text content. For tool turns, client tokenizes this with loss_mask=0.
-        tool_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Tool Name
-          description: Name of the tool called. Only present for tool turns.
-      type: object
-      required:
-      - role
-      title: TurnTokenData
-      description: 'Token data for a single LLM generation turn in a multi-turn agent interaction.
-
-
-        Used for RL training to track token IDs and logprobs across all LLM calls,
-
-        not just the final one. Tool results are included so the client can tokenize
-
-        them with loss_mask=0 (non-trainable).'
-    OpenRouterModelSettings:
-      properties:
-        max_output_tokens:
-          type: integer
-          title: Max Output Tokens
-          description: The maximum number of tokens the model can generate.
-          default: 4096
-        parallel_tool_calls:
-          type: boolean
-          title: Parallel Tool Calls
-          description: Whether to enable parallel tool calling.
-          default: true
-        provider_type:
-          type: string
-          const: openrouter
-          title: Provider Type
-          description: The type of the provider.
-          default: openrouter
-        temperature:
-          type: number
-          title: Temperature
-          description: The temperature of the model.
-          default: 0.7
-        response_format:
-          anyOf:
-          - oneOf:
-            - $ref: '#/components/schemas/TextResponseFormat'
-            - $ref: '#/components/schemas/JsonSchemaResponseFormat'
-            - $ref: '#/components/schemas/JsonObjectResponseFormat'
-            discriminator:
-              propertyName: type
-              mapping:
-                json_object: '#/components/schemas/JsonObjectResponseFormat'
-                json_schema: '#/components/schemas/JsonSchemaResponseFormat'
-                text: '#/components/schemas/TextResponseFormat'
-          - type: 'null'
-          title: Response Format
-          description: The response format for the model.
-      type: object
-      title: OpenRouterModelSettings
-      description: OpenRouter model configuration (OpenAI-compatible).
-    SummarizedReasoningContent:
-      properties:
-        type:
-          type: string
-          const: summarized_reasoning
-          title: Type
-          description: Indicates this is a summarized reasoning step.
-          default: summarized_reasoning
-        id:
-          type: string
-          title: Id
-          description: The unique identifier for this reasoning step.
-        summary:
-          items:
-            $ref: '#/components/schemas/SummarizedReasoningContentPart'
-          type: array
-          title: Summary
-          description: Summaries of the reasoning content.
-        encrypted_content:
-          type: string
-          title: Encrypted Content
-          description: The encrypted reasoning content.
-      type: object
-      required:
-      - id
-      - summary
-      title: SummarizedReasoningContent
-      description: The style of reasoning content returned by the OpenAI Responses API
-    ChatGPTOAuthReasoning:
-      properties:
-        reasoning_effort:
-          type: string
-          enum:
-          - none
-          - low
-          - medium
-          - high
-          - xhigh
-          title: Reasoning Effort
-          description: The reasoning effort level for GPT-5.x and o-series models.
-          default: medium
-      type: object
-      title: ChatGPTOAuthReasoning
-      description: Reasoning configuration for ChatGPT OAuth models (GPT-5.x, o-series).
-    TogetherModelSettings:
-      properties:
-        max_output_tokens:
-          type: integer
-          title: Max Output Tokens
-          description: The maximum number of tokens the model can generate.
-          default: 4096
-        parallel_tool_calls:
-          type: boolean
-          title: Parallel Tool Calls
-          description: Whether to enable parallel tool calling.
-          default: true
-        provider_type:
-          type: string
-          const: together
-          title: Provider Type
-          description: The type of the provider.
-          default: together
-        temperature:
-          type: number
-          title: Temperature
-          description: The temperature of the model.
-          default: 0.7
-        response_format:
-          anyOf:
-          - oneOf:
-            - $ref: '#/components/schemas/TextResponseFormat'
-            - $ref: '#/components/schemas/JsonSchemaResponseFormat'
-            - $ref: '#/components/schemas/JsonObjectResponseFormat'
-            discriminator:
-              propertyName: type
-              mapping:
-                json_object: '#/components/schemas/JsonObjectResponseFormat'
-                json_schema: '#/components/schemas/JsonSchemaResponseFormat'
-                text: '#/components/schemas/TextResponseFormat'
-          - type: 'null'
-          title: Response Format
-          description: The response format for the model.
-      type: object
-      title: TogetherModelSettings
-      description: Together AI model configuration (OpenAI-compatible).
-    letta__schemas__openai__chat_completion_response__TopLogprob:
-      properties:
-        token:
-          type: string
-          title: Token
-        bytes:
-          anyOf:
-          - items:
-              type: integer
-            type: array
-          - type: 'null'
-          title: Bytes
-        logprob:
-          type: number
-          title: Logprob
-      type: object
-      required:
-      - token
-      - logprob
-      title: TopLogprob
-    StopReasonType:
-      type: string
-      enum:
-      - end_turn
-      - error
-      - llm_api_error
-      - invalid_llm_response
-      - invalid_tool_call
-      - max_steps
-      - max_tokens_exceeded
-      - no_tool_call
-      - tool_rule
-      - cancelled
-      - insufficient_credits
-      - requires_approval
-      - context_window_overflow_in_system_prompt
-      title: StopReasonType
-    ApprovalReturn:
-      properties:
-        type:
-          type: string
-          const: approval
-          title: Type
-          description: The message type to be created.
-          default: approval
-        tool_call_id:
-          type: string
-          title: Tool Call Id
-          description: The ID of the tool call that corresponds to this approval
-        approve:
-          type: boolean
-          title: Approve
-          description: Whether the tool has been approved
-        reason:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Reason
-          description: An optional explanation for the provided approval status
-      type: object
-      required:
-      - tool_call_id
-      - approve
-      title: ApprovalReturn
-    letta__server__rest_api__routers__v1__conversations__CompactionRequest:
-      properties:
-        agent_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Agent Id
-          description: Agent ID for agent-direct mode with 'default' conversation. Use with conversation_id='default' in the URL path.
-        compaction_settings:
-          anyOf:
-          - $ref: '#/components/schemas/CompactionSettings-Input'
-          - type: 'null'
-          description: Optional compaction settings to use for this summarization request. If not provided, the agent's default settings will be used.
-      type: object
-      title: CompactionRequest
-    CompactionStats:
-      properties:
-        trigger:
-          type: string
-          title: Trigger
-          description: What triggered the compaction (e.g., 'context_window_exceeded', 'post_step_context_check')
-        context_tokens_before:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Context Tokens Before
-          description: Token count before compaction (from LLM usage stats, includes full context sent to LLM)
-        context_tokens_after:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Context Tokens After
-          description: Token count after compaction (message tokens only, does not include tool definitions)
-        context_window:
-          type: integer
-          title: Context Window
-          description: The model's context window size
-        messages_count_before:
-          type: integer
-          title: Messages Count Before
-          description: Number of messages before compaction
-        messages_count_after:
-          type: integer
-          title: Messages Count After
-          description: Number of messages after compaction
-      type: object
-      required:
-      - trigger
-      - context_window
-      - messages_count_before
-      - messages_count_after
-      title: CompactionStats
-      description: Statistics about a memory compaction operation.
-    TextResponseFormat:
-      properties:
-        type:
-          type: string
-          const: text
-          title: Type
-          description: The type of the response format.
-          default: text
-      type: object
-      title: TextResponseFormat
-      description: Response format for plain text responses.
-    AssistantMessage:
-      properties:
-        id:
-          type: string
-          title: Id
-        date:
-          type: string
-          format: date-time
-          title: Date
-        name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Name
-        message_type:
-          type: string
-          const: assistant_message
-          title: Message Type
-          description: The type of the message.
-          default: assistant_message
-        otid:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Otid
-          description: The offline threading id (OTID). Set by the client to deduplicate requests. Used for idempotency in background streaming mode — each message in a request must have a unique OTID. Retries of the same request should reuse the same OTIDs.
-        sender_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Sender Id
-        step_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Step Id
-        is_err:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Is Err
-        seq_id:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Seq Id
-        run_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Run Id
-        content:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/LettaAssistantMessageContentUnion'
-            type: array
-          - type: string
-          title: Content
-          description: The message content sent by the agent (can be a string or an array of content parts)
-      type: object
-      required:
-      - id
-      - date
-      - content
-      title: AssistantMessage
-      description: "A message sent by the LLM in response to user input. Used in the LLM context.\n\nArgs:\n    id (str): The ID of the message\n    date (datetime): The date the message was created in ISO format\n    name (Optional[str]): The name of the sender of the message\n    content (Union[str, List[LettaAssistantMessageContentUnion]]): The message content sent by the agent (can be a string or an array of content parts)"
-    LettaErrorMessage:
-      properties:
-        message_type:
-          type: string
-          const: error_message
-          title: Message Type
-          description: The type of the message.
-          default: error_message
-        run_id:
-          type: string
-          title: Run ID
-          description: The ID of the run.
-        error_type:
-          type: string
-          title: Error Type
-          description: The type of error.
-        message:
-          type: string
-          title: Message
-          description: The error message.
-        detail:
-          type: string
-          title: Detail
-          description: An optional error detail.
-        seq_id:
-          type: integer
-          title: Seq ID
-          description: The sequence ID for cursor-based pagination.
-      type: object
-      required:
-      - message_type
-      - run_id
-      - error_type
-      - message
-      title: LettaErrorMessage
-      description: Error messages are used to notify the client of an error that occurred during the agent's execution.
-    ToolCallDelta:
-      properties:
-        name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Name
-        arguments:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Arguments
-        tool_call_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Tool Call Id
-      type: object
-      title: ToolCallDelta
-    HiddenReasoningMessage:
-      properties:
-        id:
-          type: string
-          title: Id
-        date:
-          type: string
-          format: date-time
-          title: Date
-        name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Name
-        message_type:
-          type: string
-          const: hidden_reasoning_message
-          title: Message Type
-          description: The type of the message.
-          default: hidden_reasoning_message
-        otid:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Otid
-          description: The offline threading id (OTID). Set by the client to deduplicate requests. Used for idempotency in background streaming mode — each message in a request must have a unique OTID. Retries of the same request should reuse the same OTIDs.
-        sender_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Sender Id
-        step_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Step Id
-        is_err:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Is Err
-        seq_id:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Seq Id
-        run_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Run Id
-        state:
-          type: string
-          enum:
-          - redacted
-          - omitted
-          title: State
-        hidden_reasoning:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Hidden Reasoning
-      type: object
-      required:
-      - id
-      - date
-      - state
-      title: HiddenReasoningMessage
-      description: "Representation of an agent's internal reasoning where reasoning content\nhas been hidden from the response.\n\nArgs:\n    id (str): The ID of the message\n    date (datetime): The date the message was created in ISO format\n    name (Optional[str]): The name of the sender of the message\n    state (Literal[\"redacted\", \"omitted\"]): Whether the reasoning\n        content was redacted by the provider or simply omitted by the API\n    hidden_reasoning (Optional[str]): The internal reasoning of the agent"
-    ToolReturnMessage:
-      properties:
-        id:
-          type: string
-          title: Id
-        date:
-          type: string
-          format: date-time
-          title: Date
-        name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Name
-        message_type:
-          type: string
-          const: tool_return_message
-          title: Message Type
-          description: The type of the message.
-          default: tool_return_message
-        otid:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Otid
-          description: The offline threading id (OTID). Set by the client to deduplicate requests. Used for idempotency in background streaming mode — each message in a request must have a unique OTID. Retries of the same request should reuse the same OTIDs.
-        sender_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Sender Id
-        step_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Step Id
-        is_err:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Is Err
-        seq_id:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Seq Id
-        run_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Run Id
-        tool_return:
-          type: string
-          title: Tool Return
-          deprecated: true
-        status:
-          type: string
-          enum:
-          - success
-          - error
-          title: Status
-          deprecated: true
-        tool_call_id:
-          type: string
-          title: Tool Call Id
-          deprecated: true
-        stdout:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Stdout
-          deprecated: true
-        stderr:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Stderr
-          deprecated: true
-        tool_returns:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/letta__schemas__letta_message__ToolReturn'
-            type: array
-          - type: 'null'
-          title: Tool Returns
-      type: object
-      required:
-      - id
-      - date
-      - tool_return
-      - status
-      - tool_call_id
-      title: ToolReturnMessage
-      description: "A message representing the return value of a tool call (generated by Letta executing the requested tool).\n\nArgs:\n    id (str): The ID of the message\n    date (datetime): The date the message was created in ISO format\n    name (Optional[str]): The name of the sender of the message\n    tool_return (str): The return value of the tool (deprecated, use tool_returns)\n    status (Literal[\"success\", \"error\"]): The status of the tool call (deprecated, use tool_returns)\n    tool_call_id (str): A unique identifier for the tool call that generated this message (deprecated, use tool_returns)\n    stdout (Optional[List(str)]): Captured stdout (e.g. prints, logs) from the tool invocation (deprecated, use tool_returns)\n    stderr (Optional[List(str)]): Captured stderr from the tool invocation (deprecated, use tool_returns)\n    tool_returns (Optional[List[ToolReturn]]): List of tool returns for multi-tool support"
-    ApprovalResponseMessage:
-      properties:
-        id:
-          type: string
-          title: Id
-        date:
-          type: string
-          format: date-time
-          title: Date
-        name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Name
-        message_type:
-          type: string
-          const: approval_response_message
-          title: Message Type
-          description: The type of the message.
-          default: approval_response_message
-        otid:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Otid
-          description: The offline threading id (OTID). Set by the client to deduplicate requests. Used for idempotency in background streaming mode — each message in a request must have a unique OTID. Retries of the same request should reuse the same OTIDs.
-        sender_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Sender Id
-        step_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Step Id
-        is_err:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Is Err
-        seq_id:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Seq Id
-        run_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Run Id
-        approvals:
-          anyOf:
-          - items:
-              oneOf:
-              - $ref: '#/components/schemas/ApprovalReturn'
-              - $ref: '#/components/schemas/letta__schemas__letta_message__ToolReturn'
-              discriminator:
-                propertyName: type
-                mapping:
-                  approval: '#/components/schemas/ApprovalReturn'
-                  tool: '#/components/schemas/letta__schemas__letta_message__ToolReturn'
-            type: array
-          - type: 'null'
-          title: Approvals
-          description: The list of approval responses
-        approve:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Approve
-          description: Whether the tool has been approved
-          deprecated: true
-        approval_request_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Approval Request Id
-          description: The message ID of the approval request
-          deprecated: true
-        reason:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Reason
-          description: An optional explanation for the provided approval status
-          deprecated: true
-      type: object
-      required:
-      - id
-      - date
-      title: ApprovalResponseMessage
-      description: "A message representing a response form the user indicating whether a tool has been approved to run.\n\nArgs:\n    id (str): The ID of the message\n    date (datetime): The date the message was created in ISO format\n    name (Optional[str]): The name of the sender of the message\n    approve: (bool) Whether the tool has been approved\n    approval_request_id: The ID of the approval request\n    reason: (Optional[str]) An optional explanation for the provided approval status"
-    MessageType:
-      type: string
-      enum:
-      - system_message
-      - user_message
-      - assistant_message
-      - reasoning_message
-      - hidden_reasoning_message
-      - tool_call_message
-      - tool_return_message
-      - approval_request_message
-      - approval_response_message
-      - summary_message
-      - event_message
-      title: MessageType
-    CreateConversation:
-      properties:
-        summary:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Summary
-          description: A summary of the conversation.
-        isolated_block_labels:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Isolated Block Labels
-          description: List of block labels that should be isolated (conversation-specific) rather than shared across conversations. New blocks will be created as copies of the agent's blocks with these labels.
-        model:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Model
-          description: 'The model handle for this conversation (overrides agent''s model). Format: provider/model-name.'
-        model_settings:
-          anyOf:
-          - oneOf:
-            - $ref: '#/components/schemas/OpenAIModelSettings'
-            - $ref: '#/components/schemas/SGLangModelSettings'
-            - $ref: '#/components/schemas/AnthropicModelSettings'
-            - $ref: '#/components/schemas/GoogleAIModelSettings'
-            - $ref: '#/components/schemas/GoogleVertexModelSettings'
-            - $ref: '#/components/schemas/AzureModelSettings'
-            - $ref: '#/components/schemas/XAIModelSettings'
-            - $ref: '#/components/schemas/ZAIModelSettings'
-            - $ref: '#/components/schemas/GroqModelSettings'
-            - $ref: '#/components/schemas/DeepseekModelSettings'
-            - $ref: '#/components/schemas/TogetherModelSettings'
-            - $ref: '#/components/schemas/BedrockModelSettings'
-            - $ref: '#/components/schemas/BasetenModelSettings'
-            - $ref: '#/components/schemas/OpenRouterModelSettings'
-            - $ref: '#/components/schemas/ChatGPTOAuthModelSettings'
-            discriminator:
-              propertyName: provider_type
-              mapping:
-                anthropic: '#/components/schemas/AnthropicModelSettings'
-                azure: '#/components/schemas/AzureModelSettings'
-                baseten: '#/components/schemas/BasetenModelSettings'
-                bedrock: '#/components/schemas/BedrockModelSettings'
-                chatgpt_oauth: '#/components/schemas/ChatGPTOAuthModelSettings'
-                deepseek: '#/components/schemas/DeepseekModelSettings'
-                google_ai: '#/components/schemas/GoogleAIModelSettings'
-                google_vertex: '#/components/schemas/GoogleVertexModelSettings'
-                groq: '#/components/schemas/GroqModelSettings'
-                openai: '#/components/schemas/OpenAIModelSettings'
-                openrouter: '#/components/schemas/OpenRouterModelSettings'
-                sglang: '#/components/schemas/SGLangModelSettings'
-                together: '#/components/schemas/TogetherModelSettings'
-                xai: '#/components/schemas/XAIModelSettings'
-                zai: '#/components/schemas/ZAIModelSettings'
-          - type: 'null'
-          title: Model Settings
-          description: The model settings for this conversation (overrides agent's model settings).
-      type: object
-      title: CreateConversation
-      description: Request model for creating a new conversation.
-    BedrockModelSettings:
-      properties:
-        max_output_tokens:
-          type: integer
-          title: Max Output Tokens
-          description: The maximum number of tokens the model can generate.
-          default: 4096
-        parallel_tool_calls:
-          type: boolean
-          title: Parallel Tool Calls
-          description: Whether to enable parallel tool calling.
-          default: true
-        provider_type:
-          type: string
-          const: bedrock
-          title: Provider Type
-          description: The type of the provider.
-          default: bedrock
-        temperature:
-          type: number
-          title: Temperature
-          description: The temperature of the model.
-          default: 0.7
-        response_format:
-          anyOf:
-          - oneOf:
-            - $ref: '#/components/schemas/TextResponseFormat'
-            - $ref: '#/components/schemas/JsonSchemaResponseFormat'
-            - $ref: '#/components/schemas/JsonObjectResponseFormat'
-            discriminator:
-              propertyName: type
-              mapping:
-                json_object: '#/components/schemas/JsonObjectResponseFormat'
-                json_schema: '#/components/schemas/JsonSchemaResponseFormat'
-                text: '#/components/schemas/TextResponseFormat'
-          - type: 'null'
-          title: Response Format
-          description: The response format for the model.
-      type: object
-      title: BedrockModelSettings
-      description: AWS Bedrock model configuration.
     RetrieveStreamRequest:
       properties:
         agent_id:
@@ -2823,50 +3704,64 @@ components:
           default: 100
       type: object
       title: RetrieveStreamRequest
-    RedactedReasoningContent:
+    TogetherModelSettings:
       properties:
-        type:
+        max_output_tokens:
+          type: integer
+          title: Max Output Tokens
+          description: The maximum number of tokens the model can generate.
+          default: 4096
+        parallel_tool_calls:
+          type: boolean
+          title: Parallel Tool Calls
+          description: Whether to enable parallel tool calling.
+          default: true
+        provider_type:
           type: string
-          const: redacted_reasoning
-          title: Type
-          description: Indicates this is a redacted thinking step.
-          default: redacted_reasoning
-        data:
-          type: string
-          title: Data
-          description: The redacted or filtered intermediate reasoning content.
-      type: object
-      required:
-      - data
-      title: RedactedReasoningContent
-      description: Sent via the Anthropic Messages API
-    Base64Image:
-      properties:
-        type:
-          type: string
-          const: base64
-          title: Type
-          description: The source type for the image.
-          default: base64
-        media_type:
-          type: string
-          title: Media Type
-          description: The media type for the image.
-        data:
-          type: string
-          title: Data
-          description: The base64 encoded image data.
-        detail:
+          const: together
+          title: Provider Type
+          description: The type of the provider.
+          default: together
+        temperature:
+          type: number
+          title: Temperature
+          description: The temperature of the model.
+          default: 0.7
+        response_format:
           anyOf:
-          - type: string
+          - oneOf:
+            - $ref: '#/components/schemas/TextResponseFormat'
+            - $ref: '#/components/schemas/JsonSchemaResponseFormat'
+            - $ref: '#/components/schemas/JsonObjectResponseFormat'
+            discriminator:
+              propertyName: type
+              mapping:
+                json_object: '#/components/schemas/JsonObjectResponseFormat'
+                json_schema: '#/components/schemas/JsonSchemaResponseFormat'
+                text: '#/components/schemas/TextResponseFormat'
           - type: 'null'
-          title: Detail
-          description: What level of detail to use when processing and understanding the image (low, high, or auto to let the model decide)
+          title: Response Format
+          description: The response format for the model.
       type: object
-      required:
-      - media_type
-      - data
-      title: Base64Image
+      title: TogetherModelSettings
+      description: Together AI model configuration (OpenAI-compatible).
+    StopReasonType:
+      type: string
+      enum:
+      - end_turn
+      - error
+      - llm_api_error
+      - invalid_llm_response
+      - invalid_tool_call
+      - max_steps
+      - max_tokens_exceeded
+      - no_tool_call
+      - tool_rule
+      - cancelled
+      - insufficient_credits
+      - requires_approval
+      - context_window_overflow_in_system_prompt
+      title: StopReasonType
     CompactionResponse:
       properties:
         summary:
@@ -2884,496 +3779,93 @@ components:
       - num_messages_before
       - num_messages_after
       title: CompactionResponse
-    ClientToolSchema:
+    XAIModelSettings:
       properties:
-        name:
+        max_output_tokens:
+          type: integer
+          title: Max Output Tokens
+          description: The maximum number of tokens the model can generate.
+          default: 4096
+        parallel_tool_calls:
+          type: boolean
+          title: Parallel Tool Calls
+          description: Whether to enable parallel tool calling.
+          default: true
+        provider_type:
           type: string
-          title: Name
-          description: The name of the tool function
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Description
-          description: Description of what the tool does
-        parameters:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Parameters
-          description: JSON Schema for the function parameters
-      type: object
-      required:
-      - name
-      title: ClientToolSchema
-      description: 'Schema for a client-side tool passed in the request.
-
-
-        Client-side tools are executed by the client, not the server. When the agent
-
-        calls a client-side tool, execution pauses and returns control to the client
-
-        to execute the tool and provide the result.'
-    SummaryMessage:
-      properties:
-        id:
-          type: string
-          title: Id
-        date:
-          type: string
-          format: date-time
-          title: Date
-        name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Name
-        message_type:
-          type: string
-          const: summary_message
-          title: Message Type
-          default: summary_message
-        otid:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Otid
-          description: The offline threading id (OTID). Set by the client to deduplicate requests. Used for idempotency in background streaming mode — each message in a request must have a unique OTID. Retries of the same request should reuse the same OTIDs.
-        sender_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Sender Id
-        step_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Step Id
-        is_err:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Is Err
-        seq_id:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Seq Id
-        run_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Run Id
-        summary:
-          type: string
-          title: Summary
-        compaction_stats:
-          anyOf:
-          - $ref: '#/components/schemas/CompactionStats'
-          - type: 'null'
-      type: object
-      required:
-      - id
-      - date
-      - summary
-      title: SummaryMessage
-      description: A message representing a summary of the conversation. Sent to the LLM as a user or system message depending on the provider.
-    MessageCreate:
-      properties:
-        type:
-          anyOf:
-          - type: string
-            const: message
-          - type: 'null'
-          title: Type
-          description: The message type to be created.
-          default: message
-        otid:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Otid
-          description: The offline threading id (OTID). Set by the client to deduplicate requests. Used for idempotency in background streaming mode — each message in a request must have a unique OTID. Retries of the same request should reuse the same OTIDs.
-        group_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Group Id
-          description: The multi-agent group that the message was sent in
-        role:
-          type: string
-          enum:
-          - user
-          - system
-          - assistant
-          title: Role
-          description: The role of the participant.
-        content:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/LettaMessageContentUnion'
-            type: array
-          - type: string
-          title: Content
-          description: The content of the message.
-        name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Name
-          description: The name of the participant.
-        sender_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Sender Id
-          description: The id of the sender of the message, can be an identity id or agent id
-        batch_item_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Batch Item Id
-          description: The id of the LLMBatchItem that this message is associated with
-      type: object
-      required:
-      - role
-      - content
-      title: MessageCreate
-      description: Request to create a message
-    LettaResponse:
-      properties:
-        messages:
-          items:
-            $ref: '#/components/schemas/LettaMessageUnion'
-          type: array
-          title: Messages
-          description: The messages returned by the agent.
-        stop_reason:
-          $ref: '#/components/schemas/LettaStopReason'
-        usage:
-          $ref: '#/components/schemas/LettaUsageStatistics'
-          description: The usage statistics of the agent.
-        logprobs:
-          anyOf:
-          - $ref: '#/components/schemas/letta__schemas__openai__chat_completion_response__ChoiceLogprobs'
-          - type: 'null'
-          description: Log probabilities of the output tokens from the last LLM call. Only present if return_logprobs was enabled.
-        turns:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/TurnTokenData'
-            type: array
-          - type: 'null'
-          title: Turns
-          description: Token data for all LLM generations in multi-turn agent interaction. Includes token IDs and logprobs for each assistant turn, plus tool result content. Only present if return_token_ids was enabled. Used for RL training with loss masking.
-      type: object
-      required:
-      - messages
-      - stop_reason
-      - usage
-      title: LettaResponse
-      description: "Response object from an agent interaction, consisting of the new messages generated by the agent and usage statistics.\nThe type of the returned messages can be either `Message` or `LettaMessage`, depending on what was specified in the request.\n\nAttributes:\n    messages (List[Union[Message, LettaMessage]]): The messages returned by the agent.\n    usage (LettaUsageStatistics): The usage statistics"
-    JsonSchemaResponseFormat:
-      properties:
-        type:
-          type: string
-          const: json_schema
-          title: Type
-          description: The type of the response format.
-          default: json_schema
-        json_schema:
-          additionalProperties: true
-          type: object
-          title: Json Schema
-          description: The JSON schema of the response.
-      type: object
-      required:
-      - json_schema
-      title: JsonSchemaResponseFormat
-      description: Response format for JSON schema-based responses.
-    JsonObjectResponseFormat:
-      properties:
-        type:
-          type: string
-          const: json_object
-          title: Type
-          description: The type of the response format.
-          default: json_object
-      type: object
-      title: JsonObjectResponseFormat
-      description: Response format for JSON object responses.
-    SystemMessage:
-      properties:
-        id:
-          type: string
-          title: Id
-        date:
-          type: string
-          format: date-time
-          title: Date
-        name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Name
-        message_type:
-          type: string
-          const: system_message
-          title: Message Type
-          description: The type of the message.
-          default: system_message
-        otid:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Otid
-          description: The offline threading id (OTID). Set by the client to deduplicate requests. Used for idempotency in background streaming mode — each message in a request must have a unique OTID. Retries of the same request should reuse the same OTIDs.
-        sender_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Sender Id
-        step_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Step Id
-        is_err:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Is Err
-        seq_id:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Seq Id
-        run_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Run Id
-        content:
-          type: string
-          title: Content
-          description: The message content sent by the system
-      type: object
-      required:
-      - id
-      - date
-      - content
-      title: SystemMessage
-      description: "A message generated by the system. Never streamed back on a response, only used for cursor pagination.\n\nArgs:\n    id (str): The ID of the message\n    date (datetime): The date the message was created in ISO format\n    name (Optional[str]): The name of the sender of the message\n    content (str): The message content sent by the system"
-    Conversation:
-      properties:
-        created_by_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Created By Id
-          description: The id of the user that made this object.
-        last_updated_by_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Last Updated By Id
-          description: The id of the user that made this object.
-        created_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Created At
-          description: The timestamp when the object was created.
-        updated_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Updated At
-          description: The timestamp when the object was last updated.
-        id:
-          type: string
-          title: Id
-          description: The unique identifier of the conversation.
-        agent_id:
-          type: string
-          title: Agent Id
-          description: The ID of the agent this conversation belongs to.
-        summary:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Summary
-          description: A summary of the conversation.
-        in_context_message_ids:
-          items:
-            type: string
-          type: array
-          title: In Context Message Ids
-          description: The IDs of in-context messages for the conversation.
-        isolated_block_ids:
-          items:
-            type: string
-          type: array
-          title: Isolated Block Ids
-          description: IDs of blocks that are isolated (specific to this conversation, overriding agent defaults).
-        model:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Model
-          description: 'The model handle for this conversation (overrides agent''s model). Format: provider/model-name.'
-        model_settings:
+          const: xai
+          title: Provider Type
+          description: The type of the provider.
+          default: xai
+        temperature:
+          type: number
+          title: Temperature
+          description: The temperature of the model.
+          default: 0.7
+        response_format:
           anyOf:
           - oneOf:
-            - $ref: '#/components/schemas/OpenAIModelSettings'
-            - $ref: '#/components/schemas/SGLangModelSettings'
-            - $ref: '#/components/schemas/AnthropicModelSettings'
-            - $ref: '#/components/schemas/GoogleAIModelSettings'
-            - $ref: '#/components/schemas/GoogleVertexModelSettings'
-            - $ref: '#/components/schemas/AzureModelSettings'
-            - $ref: '#/components/schemas/XAIModelSettings'
-            - $ref: '#/components/schemas/ZAIModelSettings'
-            - $ref: '#/components/schemas/GroqModelSettings'
-            - $ref: '#/components/schemas/DeepseekModelSettings'
-            - $ref: '#/components/schemas/TogetherModelSettings'
-            - $ref: '#/components/schemas/BedrockModelSettings'
-            - $ref: '#/components/schemas/BasetenModelSettings'
-            - $ref: '#/components/schemas/OpenRouterModelSettings'
-            - $ref: '#/components/schemas/ChatGPTOAuthModelSettings'
+            - $ref: '#/components/schemas/TextResponseFormat'
+            - $ref: '#/components/schemas/JsonSchemaResponseFormat'
+            - $ref: '#/components/schemas/JsonObjectResponseFormat'
             discriminator:
-              propertyName: provider_type
+              propertyName: type
               mapping:
-                anthropic: '#/components/schemas/AnthropicModelSettings'
-                azure: '#/components/schemas/AzureModelSettings'
-                baseten: '#/components/schemas/BasetenModelSettings'
-                bedrock: '#/components/schemas/BedrockModelSettings'
-                chatgpt_oauth: '#/components/schemas/ChatGPTOAuthModelSettings'
-                deepseek: '#/components/schemas/DeepseekModelSettings'
-                google_ai: '#/components/schemas/GoogleAIModelSettings'
-                google_vertex: '#/components/schemas/GoogleVertexModelSettings'
-                groq: '#/components/schemas/GroqModelSettings'
-                openai: '#/components/schemas/OpenAIModelSettings'
-                openrouter: '#/components/schemas/OpenRouterModelSettings'
-                sglang: '#/components/schemas/SGLangModelSettings'
-                together: '#/components/schemas/TogetherModelSettings'
-                xai: '#/components/schemas/XAIModelSettings'
-                zai: '#/components/schemas/ZAIModelSettings'
+                json_object: '#/components/schemas/JsonObjectResponseFormat'
+                json_schema: '#/components/schemas/JsonSchemaResponseFormat'
+                text: '#/components/schemas/TextResponseFormat'
           - type: 'null'
-          title: Model Settings
-          description: The model settings for this conversation (overrides agent's model settings).
-        last_message_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Last Message At
-          description: Timestamp of the most recent message request sent to this conversation.
-      additionalProperties: false
+          title: Response Format
+          description: The response format for the model.
       type: object
-      required:
-      - id
-      - agent_id
-      title: Conversation
-      description: Represents a conversation on an agent for concurrent messaging.
-    ImageContent:
+      title: XAIModelSettings
+      description: xAI model configuration (OpenAI-compatible).
+    GoogleAIModelSettings:
       properties:
-        type:
+        max_output_tokens:
+          type: integer
+          title: Max Output Tokens
+          description: The maximum number of tokens the model can generate.
+          default: 65536
+        parallel_tool_calls:
+          type: boolean
+          title: Parallel Tool Calls
+          description: Whether to enable parallel tool calling.
+          default: true
+        provider_type:
           type: string
-          const: image
-          title: Type
-          description: The type of the message.
-          default: image
-        source:
-          oneOf:
-          - $ref: '#/components/schemas/UrlImage'
-          - $ref: '#/components/schemas/Base64Image'
-          - $ref: '#/components/schemas/LettaImage'
-          title: Source
-          description: The source of the image.
-          discriminator:
-            propertyName: type
-            mapping:
-              base64: '#/components/schemas/Base64Image'
-              letta: '#/components/schemas/LettaImage'
-              url: '#/components/schemas/UrlImage'
-      type: object
-      required:
-      - source
-      title: ImageContent
-    letta__schemas__letta_message__ToolReturn:
-      properties:
-        type:
-          type: string
-          const: tool
-          title: Type
-          description: The message type to be created.
-          default: tool
-        tool_return:
+          const: google_ai
+          title: Provider Type
+          description: The type of the provider.
+          default: google_ai
+        temperature:
+          type: number
+          title: Temperature
+          description: The temperature of the model.
+          default: 0.7
+        thinking_config:
+          $ref: '#/components/schemas/GeminiThinkingConfig'
+          description: The thinking configuration for the model.
+          default:
+            include_thoughts: true
+            thinking_budget: 1024
+        response_schema:
           anyOf:
-          - items:
-              $ref: '#/components/schemas/LettaToolReturnContentUnion'
-            type: array
-          - type: string
-          title: Tool Return
-          description: The tool return value - either a string or list of content parts (text/image)
-        status:
-          type: string
-          enum:
-          - success
-          - error
-          title: Status
-        tool_call_id:
-          type: string
-          title: Tool Call Id
-        stdout:
-          anyOf:
-          - items:
-              type: string
-            type: array
+          - oneOf:
+            - $ref: '#/components/schemas/TextResponseFormat'
+            - $ref: '#/components/schemas/JsonSchemaResponseFormat'
+            - $ref: '#/components/schemas/JsonObjectResponseFormat'
+            discriminator:
+              propertyName: type
+              mapping:
+                json_object: '#/components/schemas/JsonObjectResponseFormat'
+                json_schema: '#/components/schemas/JsonSchemaResponseFormat'
+                text: '#/components/schemas/TextResponseFormat'
           - type: 'null'
-          title: Stdout
-        stderr:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Stderr
+          title: Response Schema
+          description: The response schema for the model.
       type: object
-      required:
-      - tool_return
-      - status
-      - tool_call_id
-      title: ToolReturn
-    LettaUserMessageContentUnion:
-      oneOf:
-      - $ref: '#/components/schemas/TextContent'
-      - $ref: '#/components/schemas/ImageContent'
-      discriminator:
-        propertyName: type
-        mapping:
-          text: '#/components/schemas/TextContent'
-          image: '#/components/schemas/ImageContent'
-    OmittedReasoningContent:
-      properties:
-        type:
-          type: string
-          const: omitted_reasoning
-          title: Type
-          description: Indicates this is an omitted reasoning step.
-          default: omitted_reasoning
-        signature:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Signature
-          description: A unique identifier for this reasoning step.
-      type: object
-      title: OmittedReasoningContent
-      description: A placeholder for reasoning content we know is present, but isn't returned by the provider (e.g. OpenAI GPT-5 on ChatCompletions)
+      title: GoogleAIModelSettings
     SGLangModelSettings:
       properties:
         max_output_tokens:
@@ -3431,32 +3923,103 @@ components:
       type: object
       title: SGLangModelSettings
       description: SGLang model configuration (OpenAI-compatible runtime with SGLang-specific parsing).
-    letta__schemas__openai__chat_completion_response__ChatCompletionTokenLogprob:
+    JsonSchemaResponseFormat:
       properties:
-        token:
+        type:
           type: string
-          title: Token
-        bytes:
-          anyOf:
-          - items:
-              type: integer
-            type: array
-          - type: 'null'
-          title: Bytes
-        logprob:
-          type: number
-          title: Logprob
-        top_logprobs:
-          items:
-            $ref: '#/components/schemas/letta__schemas__openai__chat_completion_response__TopLogprob'
-          type: array
-          title: Top Logprobs
+          const: json_schema
+          title: Type
+          description: The type of the response format.
+          default: json_schema
+        json_schema:
+          additionalProperties: true
+          type: object
+          title: Json Schema
+          description: The JSON schema of the response.
       type: object
       required:
-      - token
-      - logprob
-      - top_logprobs
-      title: ChatCompletionTokenLogprob
+      - json_schema
+      title: JsonSchemaResponseFormat
+      description: Response format for JSON schema-based responses.
+    OmittedReasoningContent:
+      properties:
+        type:
+          type: string
+          const: omitted_reasoning
+          title: Type
+          description: Indicates this is an omitted reasoning step.
+          default: omitted_reasoning
+        signature:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Signature
+          description: A unique identifier for this reasoning step.
+      type: object
+      title: OmittedReasoningContent
+      description: A placeholder for reasoning content we know is present, but isn't returned by the provider (e.g. OpenAI GPT-5 on ChatCompletions)
+    letta__schemas__openai__chat_completion_response__ChoiceLogprobs:
+      properties:
+        content:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/letta__schemas__openai__chat_completion_response__ChatCompletionTokenLogprob'
+            type: array
+          - type: 'null'
+          title: Content
+        refusal:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/letta__schemas__openai__chat_completion_response__ChatCompletionTokenLogprob'
+            type: array
+          - type: 'null'
+          title: Refusal
+      type: object
+      title: ChoiceLogprobs
+    AnthropicThinking:
+      properties:
+        type:
+          type: string
+          enum:
+          - enabled
+          - disabled
+          title: Type
+          description: The type of thinking to use.
+          default: enabled
+        budget_tokens:
+          type: integer
+          title: Budget Tokens
+          description: The maximum number of tokens the model can use for extended thinking.
+          default: 1024
+      type: object
+      title: AnthropicThinking
+    LettaMessageUnion:
+      oneOf:
+      - $ref: '#/components/schemas/SystemMessage'
+      - $ref: '#/components/schemas/UserMessage'
+      - $ref: '#/components/schemas/ReasoningMessage'
+      - $ref: '#/components/schemas/HiddenReasoningMessage'
+      - $ref: '#/components/schemas/ToolCallMessage'
+      - $ref: '#/components/schemas/ToolReturnMessage'
+      - $ref: '#/components/schemas/AssistantMessage'
+      - $ref: '#/components/schemas/ApprovalRequestMessage'
+      - $ref: '#/components/schemas/ApprovalResponseMessage'
+      - $ref: '#/components/schemas/SummaryMessage'
+      - $ref: '#/components/schemas/EventMessage'
+      discriminator:
+        propertyName: message_type
+        mapping:
+          system_message: '#/components/schemas/SystemMessage'
+          user_message: '#/components/schemas/UserMessage'
+          reasoning_message: '#/components/schemas/ReasoningMessage'
+          hidden_reasoning_message: '#/components/schemas/HiddenReasoningMessage'
+          tool_call_message: '#/components/schemas/ToolCallMessage'
+          tool_return_message: '#/components/schemas/ToolReturnMessage'
+          assistant_message: '#/components/schemas/AssistantMessage'
+          approval_request_message: '#/components/schemas/ApprovalRequestMessage'
+          approval_response_message: '#/components/schemas/ApprovalResponseMessage'
+          summary_message: '#/components/schemas/SummaryMessage'
+          event_message: '#/components/schemas/EventMessage'
     LettaUsageStatistics:
       properties:
         message_type:
@@ -3519,569 +4082,6 @@ components:
       type: object
       title: LettaUsageStatistics
       description: "Usage statistics for the agent interaction.\n\nAttributes:\n    completion_tokens (int): The number of tokens generated by the agent.\n    prompt_tokens (int): The number of tokens in the prompt.\n    total_tokens (int): The total number of tokens processed by the agent.\n    step_count (int): The number of steps taken by the agent.\n    cached_input_tokens (Optional[int]): The number of input tokens served from cache. None if not reported.\n    cache_write_tokens (Optional[int]): The number of input tokens written to cache. None if not reported.\n    reasoning_tokens (Optional[int]): The number of reasoning/thinking tokens generated. None if not reported."
-    letta__schemas__openai__chat_completion_response__ChoiceLogprobs:
-      properties:
-        content:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/letta__schemas__openai__chat_completion_response__ChatCompletionTokenLogprob'
-            type: array
-          - type: 'null'
-          title: Content
-        refusal:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/letta__schemas__openai__chat_completion_response__ChatCompletionTokenLogprob'
-            type: array
-          - type: 'null'
-          title: Refusal
-      type: object
-      title: ChoiceLogprobs
-    ReasoningMessage:
-      properties:
-        id:
-          type: string
-          title: Id
-        date:
-          type: string
-          format: date-time
-          title: Date
-        name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Name
-        message_type:
-          type: string
-          const: reasoning_message
-          title: Message Type
-          description: The type of the message.
-          default: reasoning_message
-        otid:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Otid
-          description: The offline threading id (OTID). Set by the client to deduplicate requests. Used for idempotency in background streaming mode — each message in a request must have a unique OTID. Retries of the same request should reuse the same OTIDs.
-        sender_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Sender Id
-        step_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Step Id
-        is_err:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Is Err
-        seq_id:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Seq Id
-        run_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Run Id
-        source:
-          type: string
-          enum:
-          - reasoner_model
-          - non_reasoner_model
-          title: Source
-          default: non_reasoner_model
-        reasoning:
-          type: string
-          title: Reasoning
-        signature:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Signature
-      type: object
-      required:
-      - id
-      - date
-      - reasoning
-      title: ReasoningMessage
-      description: "Representation of an agent's internal reasoning.\n\nArgs:\n    id (str): The ID of the message\n    date (datetime): The date the message was created in ISO format\n    name (Optional[str]): The name of the sender of the message\n    source (Literal[\"reasoner_model\", \"non_reasoner_model\"]): Whether the reasoning\n        content was generated natively by a reasoner model or derived via prompting\n    reasoning (str): The internal reasoning of the agent\n    signature (Optional[str]): The model-generated signature of the reasoning step"
-    ZAIModelSettings:
-      properties:
-        max_output_tokens:
-          type: integer
-          title: Max Output Tokens
-          description: The maximum number of tokens the model can generate.
-          default: 4096
-        parallel_tool_calls:
-          type: boolean
-          title: Parallel Tool Calls
-          description: Whether to enable parallel tool calling.
-          default: true
-        provider_type:
-          type: string
-          const: zai
-          title: Provider Type
-          description: The type of the provider.
-          default: zai
-        temperature:
-          type: number
-          title: Temperature
-          description: The temperature of the model.
-          default: 0.7
-        response_format:
-          anyOf:
-          - oneOf:
-            - $ref: '#/components/schemas/TextResponseFormat'
-            - $ref: '#/components/schemas/JsonSchemaResponseFormat'
-            - $ref: '#/components/schemas/JsonObjectResponseFormat'
-            discriminator:
-              propertyName: type
-              mapping:
-                json_object: '#/components/schemas/JsonObjectResponseFormat'
-                json_schema: '#/components/schemas/JsonSchemaResponseFormat'
-                text: '#/components/schemas/TextResponseFormat'
-          - type: 'null'
-          title: Response Format
-          description: The response format for the model.
-        thinking:
-          $ref: '#/components/schemas/ZAIThinking'
-          description: The thinking configuration for GLM-4.5+ models.
-          default:
-            type: enabled
-            clear_thinking: false
-      type: object
-      title: ZAIModelSettings
-      description: Z.ai (ZhipuAI) model configuration (OpenAI-compatible).
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    ApprovalRequestMessage:
-      properties:
-        id:
-          type: string
-          title: Id
-        date:
-          type: string
-          format: date-time
-          title: Date
-        name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Name
-        message_type:
-          type: string
-          const: approval_request_message
-          title: Message Type
-          description: The type of the message.
-          default: approval_request_message
-        otid:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Otid
-          description: The offline threading id (OTID). Set by the client to deduplicate requests. Used for idempotency in background streaming mode — each message in a request must have a unique OTID. Retries of the same request should reuse the same OTIDs.
-        sender_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Sender Id
-        step_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Step Id
-        is_err:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Is Err
-        seq_id:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Seq Id
-        run_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Run Id
-        tool_call:
-          anyOf:
-          - $ref: '#/components/schemas/ToolCall'
-          - $ref: '#/components/schemas/ToolCallDelta'
-          title: Tool Call
-          description: The tool call that has been requested by the llm to run
-          deprecated: true
-        tool_calls:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/ToolCall'
-            type: array
-          - $ref: '#/components/schemas/ToolCallDelta'
-          - type: 'null'
-          title: Tool Calls
-          description: The tool calls that have been requested by the llm to run, which are pending approval
-      type: object
-      required:
-      - id
-      - date
-      - tool_call
-      title: ApprovalRequestMessage
-      description: "A message representing a request for approval to call a tool (generated by the LLM to trigger tool execution).\n\nArgs:\n    id (str): The ID of the message\n    date (datetime): The date the message was created in ISO format\n    name (Optional[str]): The name of the sender of the message\n    tool_call (ToolCall): The tool call"
-    AnthropicModelSettings:
-      properties:
-        max_output_tokens:
-          type: integer
-          title: Max Output Tokens
-          description: The maximum number of tokens the model can generate.
-          default: 4096
-        parallel_tool_calls:
-          type: boolean
-          title: Parallel Tool Calls
-          description: Whether to enable parallel tool calling.
-          default: true
-        provider_type:
-          type: string
-          const: anthropic
-          title: Provider Type
-          description: The type of the provider.
-          default: anthropic
-        temperature:
-          type: number
-          title: Temperature
-          description: The temperature of the model.
-          default: 1
-        thinking:
-          $ref: '#/components/schemas/AnthropicThinking'
-          description: The thinking configuration for the model.
-          default:
-            type: enabled
-            budget_tokens: 1024
-        response_format:
-          anyOf:
-          - oneOf:
-            - $ref: '#/components/schemas/TextResponseFormat'
-            - $ref: '#/components/schemas/JsonSchemaResponseFormat'
-            - $ref: '#/components/schemas/JsonObjectResponseFormat'
-            discriminator:
-              propertyName: type
-              mapping:
-                json_object: '#/components/schemas/JsonObjectResponseFormat'
-                json_schema: '#/components/schemas/JsonSchemaResponseFormat'
-                text: '#/components/schemas/TextResponseFormat'
-          - type: 'null'
-          title: Response Format
-          description: The response format for the model.
-        verbosity:
-          anyOf:
-          - type: string
-            enum:
-            - low
-            - medium
-            - high
-          - type: 'null'
-          title: Verbosity
-          description: Soft control for how verbose model output should be, used for GPT-5 models.
-        effort:
-          anyOf:
-          - type: string
-            enum:
-            - low
-            - medium
-            - high
-            - max
-          - type: 'null'
-          title: Effort
-          description: Effort level for supported Anthropic models (controls token spending). 'max' is only available on Opus 4.6. Not setting this gives similar performance to 'high'.
-        strict:
-          type: boolean
-          title: Strict
-          description: Enable strict mode for tool calling. When true, tool outputs are guaranteed to match JSON schemas.
-          default: false
-      type: object
-      title: AnthropicModelSettings
-    BasetenModelSettings:
-      properties:
-        max_output_tokens:
-          type: integer
-          title: Max Output Tokens
-          description: The maximum number of tokens the model can generate.
-          default: 4096
-        parallel_tool_calls:
-          type: boolean
-          title: Parallel Tool Calls
-          description: Whether to enable parallel tool calling.
-          default: true
-        provider_type:
-          type: string
-          const: baseten
-          title: Provider Type
-          description: The type of the provider.
-          default: baseten
-        temperature:
-          type: number
-          title: Temperature
-          description: The temperature of the model.
-          default: 0.7
-      type: object
-      title: BasetenModelSettings
-      description: Baseten model configuration (OpenAI-compatible).
-    ClientSkillSchema:
-      properties:
-        name:
-          type: string
-          title: Name
-          description: The name of the skill
-        description:
-          type: string
-          title: Description
-          description: Description of what the skill does
-        location:
-          type: string
-          title: Location
-          description: Path or location hint for the skill (e.g. skills/my-skill/SKILL.md)
-      type: object
-      required:
-      - name
-      - description
-      - location
-      title: ClientSkillSchema
-      description: 'Schema for a client-side skill passed in the request.
-
-
-        Client-side skills represent environment-provided capabilities (e.g. project-scoped
-
-        skills) that are not stored in the agent''s MemFS but should appear in the system
-
-        prompt''s available skills section.'
-    AnthropicThinking:
-      properties:
-        type:
-          type: string
-          enum:
-          - enabled
-          - disabled
-          title: Type
-          description: The type of thinking to use.
-          default: enabled
-        budget_tokens:
-          type: integer
-          title: Budget Tokens
-          description: The maximum number of tokens the model can use for extended thinking.
-          default: 1024
-      type: object
-      title: AnthropicThinking
-    DeepseekModelSettings:
-      properties:
-        max_output_tokens:
-          type: integer
-          title: Max Output Tokens
-          description: The maximum number of tokens the model can generate.
-          default: 4096
-        parallel_tool_calls:
-          type: boolean
-          title: Parallel Tool Calls
-          description: Whether to enable parallel tool calling.
-          default: true
-        provider_type:
-          type: string
-          const: deepseek
-          title: Provider Type
-          description: The type of the provider.
-          default: deepseek
-        temperature:
-          type: number
-          title: Temperature
-          description: The temperature of the model.
-          default: 0.7
-        response_format:
-          anyOf:
-          - oneOf:
-            - $ref: '#/components/schemas/TextResponseFormat'
-            - $ref: '#/components/schemas/JsonSchemaResponseFormat'
-            - $ref: '#/components/schemas/JsonObjectResponseFormat'
-            discriminator:
-              propertyName: type
-              mapping:
-                json_object: '#/components/schemas/JsonObjectResponseFormat'
-                json_schema: '#/components/schemas/JsonSchemaResponseFormat'
-                text: '#/components/schemas/TextResponseFormat'
-          - type: 'null'
-          title: Response Format
-          description: The response format for the model.
-      type: object
-      title: DeepseekModelSettings
-      description: Deepseek model configuration (OpenAI-compatible).
-    ApprovalCreate:
-      properties:
-        type:
-          type: string
-          const: approval
-          title: Type
-          description: The message type to be created.
-          default: approval
-        otid:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Otid
-          description: The offline threading id (OTID). Set by the client to deduplicate requests. Used for idempotency in background streaming mode — each message in a request must have a unique OTID. Retries of the same request should reuse the same OTIDs.
-        group_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Group Id
-          description: The multi-agent group that the message was sent in
-        approvals:
-          anyOf:
-          - items:
-              oneOf:
-              - $ref: '#/components/schemas/ApprovalReturn'
-              - $ref: '#/components/schemas/letta__schemas__letta_message__ToolReturn'
-              discriminator:
-                propertyName: type
-                mapping:
-                  approval: '#/components/schemas/ApprovalReturn'
-                  tool: '#/components/schemas/letta__schemas__letta_message__ToolReturn'
-            type: array
-          - type: 'null'
-          title: Approvals
-          description: The list of approval responses
-        approve:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Approve
-          description: Whether the tool has been approved
-          deprecated: true
-        approval_request_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Approval Request Id
-          description: The message ID of the approval request
-          deprecated: true
-        reason:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Reason
-          description: An optional explanation for the provided approval status
-          deprecated: true
-      type: object
-      title: ApprovalCreate
-      description: Input to approve or deny a tool call request
-    ToolCallMessage:
-      properties:
-        id:
-          type: string
-          title: Id
-        date:
-          type: string
-          format: date-time
-          title: Date
-        name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Name
-        message_type:
-          type: string
-          const: tool_call_message
-          title: Message Type
-          description: The type of the message.
-          default: tool_call_message
-        otid:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Otid
-          description: The offline threading id (OTID). Set by the client to deduplicate requests. Used for idempotency in background streaming mode — each message in a request must have a unique OTID. Retries of the same request should reuse the same OTIDs.
-        sender_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Sender Id
-        step_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Step Id
-        is_err:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Is Err
-        seq_id:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Seq Id
-        run_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Run Id
-        tool_call:
-          anyOf:
-          - $ref: '#/components/schemas/ToolCall'
-          - $ref: '#/components/schemas/ToolCallDelta'
-          title: Tool Call
-          deprecated: true
-        tool_calls:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/ToolCall'
-            type: array
-          - $ref: '#/components/schemas/ToolCallDelta'
-          - type: 'null'
-          title: Tool Calls
-      type: object
-      required:
-      - id
-      - date
-      - tool_call
-      title: ToolCallMessage
-      description: "A message representing a request to call a tool (generated by the LLM to trigger tool execution).\n\nArgs:\n    id (str): The ID of the message\n    date (datetime): The date the message was created in ISO format\n    name (Optional[str]): The name of the sender of the message\n    tool_call (Union[ToolCall, ToolCallDelta]): The tool call"
-    SummarizedReasoningContentPart:
-      properties:
-        index:
-          type: integer
-          title: Index
-          description: The index of the summary part.
-        text:
-          type: string
-          title: Text
-          description: The text of the summary part.
-      type: object
-      required:
-      - index
-      - text
-      title: SummarizedReasoningContentPart
   securitySchemes:
     bearerAuth:
       type: http

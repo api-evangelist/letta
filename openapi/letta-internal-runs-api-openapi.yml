@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Letta Admin Internal Runs API
+  title: Letta Internal Runs API
   version: 1.0.0
   description: REST API for Letta, the stateful agents platform. Manage agents, memory blocks, archival passages, sources, custom tools, MCP servers, multi-agent groups, runs, and streaming responses. Available as Letta Cloud (managed) at https://api.letta.com/v1 and as the self-hosted open-source server (Apache-2.0) typically run at http://localhost:8283.
   contact:
@@ -310,14 +310,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    ComparisonOperator:
-      type: string
-      enum:
-      - eq
-      - gte
-      - lte
-      title: ComparisonOperator
-      description: Comparison operators for filtering numeric values
     ValidationError:
       properties:
         loc:
@@ -339,48 +331,6 @@ components:
       - msg
       - type
       title: ValidationError
-    LettaRequestConfig:
-      properties:
-        use_assistant_message:
-          type: boolean
-          title: Use Assistant Message
-          description: Whether the server should parse specific tool call arguments (default `send_message`) as `AssistantMessage` objects.
-          default: true
-        assistant_message_tool_name:
-          type: string
-          title: Assistant Message Tool Name
-          description: The name of the designated message tool.
-          default: send_message
-        assistant_message_tool_kwarg:
-          type: string
-          title: Assistant Message Tool Kwarg
-          description: The name of the message argument in the designated message tool.
-          default: message
-        include_return_message_types:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/MessageType'
-            type: array
-          - type: 'null'
-          title: Include Return Message Types
-          description: Only return specified message types in the response. If `None` (default) returns all messages.
-      type: object
-      title: LettaRequestConfig
-    MessageType:
-      type: string
-      enum:
-      - system_message
-      - user_message
-      - assistant_message
-      - reasoning_message
-      - hidden_reasoning_message
-      - tool_call_message
-      - tool_return_message
-      - approval_request_message
-      - approval_response_message
-      - summary_message
-      - event_message
-      title: MessageType
     RunStatus:
       type: string
       enum:
@@ -515,6 +465,41 @@ components:
       - requires_approval
       - context_window_overflow_in_system_prompt
       title: StopReasonType
+    LettaRequestConfig:
+      properties:
+        use_assistant_message:
+          type: boolean
+          title: Use Assistant Message
+          description: Whether the server should parse specific tool call arguments (default `send_message`) as `AssistantMessage` objects.
+          default: true
+        assistant_message_tool_name:
+          type: string
+          title: Assistant Message Tool Name
+          description: The name of the designated message tool.
+          default: send_message
+        assistant_message_tool_kwarg:
+          type: string
+          title: Assistant Message Tool Kwarg
+          description: The name of the message argument in the designated message tool.
+          default: message
+        include_return_message_types:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/MessageType'
+            type: array
+          - type: 'null'
+          title: Include Return Message Types
+          description: Only return specified message types in the response. If `None` (default) returns all messages.
+      type: object
+      title: LettaRequestConfig
+    ComparisonOperator:
+      type: string
+      enum:
+      - eq
+      - gte
+      - lte
+      title: ComparisonOperator
+      description: Comparison operators for filtering numeric values
     HTTPValidationError:
       properties:
         detail:
@@ -524,6 +509,21 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
+    MessageType:
+      type: string
+      enum:
+      - system_message
+      - user_message
+      - assistant_message
+      - reasoning_message
+      - hidden_reasoning_message
+      - tool_call_message
+      - tool_return_message
+      - approval_request_message
+      - approval_response_message
+      - summary_message
+      - event_message
+      title: MessageType
   securitySchemes:
     bearerAuth:
       type: http
