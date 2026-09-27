@@ -66,233 +66,104 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    ChatCompletionDeveloperMessageParam:
-      properties:
-        content:
-          anyOf:
-          - type: string
-          - items:
-              $ref: '#/components/schemas/ChatCompletionContentPartTextParam'
-            type: array
-          title: Content
-        role:
-          type: string
-          const: developer
-          title: Role
-        name:
-          type: string
-          title: Name
-      type: object
-      required:
-      - content
-      - role
-      title: ChatCompletionDeveloperMessageParam
-      description: 'Developer-provided instructions that the model should follow, regardless of
-
-        messages sent by the user. With o1 models and newer, `developer` messages
-
-        replace the previous `system` messages.'
-    PromptTokensDetails:
-      properties:
-        audio_tokens:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Audio Tokens
-        cached_tokens:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Cached Tokens
-      additionalProperties: true
-      type: object
-      title: PromptTokensDetails
-      description: Breakdown of tokens used in the prompt.
-    ChatCompletionToolMessageParam:
-      properties:
-        content:
-          anyOf:
-          - type: string
-          - items:
-              $ref: '#/components/schemas/ChatCompletionContentPartTextParam'
-            type: array
-          title: Content
-        role:
-          type: string
-          const: tool
-          title: Role
-        tool_call_id:
-          type: string
-          title: Tool Call Id
-      type: object
-      required:
-      - content
-      - role
-      - tool_call_id
-      title: ChatCompletionToolMessageParam
-    ChatCompletionUserMessageParam:
-      properties:
-        content:
-          anyOf:
-          - type: string
-          - items:
-              anyOf:
-              - $ref: '#/components/schemas/ChatCompletionContentPartTextParam'
-              - $ref: '#/components/schemas/ChatCompletionContentPartImageParam'
-              - $ref: '#/components/schemas/ChatCompletionContentPartInputAudioParam'
-              - $ref: '#/components/schemas/File'
-            type: array
-          title: Content
-        role:
-          type: string
-          const: user
-          title: Role
-        name:
-          type: string
-          title: Name
-      type: object
-      required:
-      - content
-      - role
-      title: ChatCompletionUserMessageParam
-      description: 'Messages sent by an end user, containing prompts or additional context
-
-        information.'
-    AnnotationURLCitation:
-      properties:
-        end_index:
-          type: integer
-          title: End Index
-        start_index:
-          type: integer
-          title: Start Index
-        title:
-          type: string
-          title: Title
-        url:
-          type: string
-          title: Url
-      additionalProperties: true
-      type: object
-      required:
-      - end_index
-      - start_index
-      - title
-      - url
-      title: AnnotationURLCitation
-      description: A URL citation when using web search.
-    openai__types__chat__chat_completion_message_function_tool_call_param__Function:
-      properties:
-        arguments:
-          type: string
-          title: Arguments
-        name:
-          type: string
-          title: Name
-      type: object
-      required:
-      - arguments
-      - name
-      title: Function
-      description: The function that the model called.
-    openai__types__chat__chat_completion__ChoiceLogprobs:
-      properties:
-        content:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/openai__types__chat__chat_completion_token_logprob__ChatCompletionTokenLogprob'
-            type: array
-          - type: 'null'
-          title: Content
-        refusal:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/openai__types__chat__chat_completion_token_logprob__ChatCompletionTokenLogprob'
-            type: array
-          - type: 'null'
-          title: Refusal
-      additionalProperties: true
-      type: object
-      title: ChoiceLogprobs
-      description: Log probability information for the choice.
-    ChatCompletionContentPartRefusalParam:
-      properties:
-        refusal:
-          type: string
-          title: Refusal
-        type:
-          type: string
-          const: refusal
-          title: Type
-      type: object
-      required:
-      - refusal
-      - type
-      title: ChatCompletionContentPartRefusalParam
-    FileFile:
-      properties:
-        file_data:
-          type: string
-          title: File Data
-        file_id:
-          type: string
-          title: File Id
-        filename:
-          type: string
-          title: Filename
-      type: object
-      title: FileFile
-    ChatCompletionMessageFunctionToolCall-Output:
+    ChatCompletion:
       properties:
         id:
           type: string
           title: Id
-        function:
-          $ref: '#/components/schemas/Function-Output'
-        type:
+        choices:
+          items:
+            $ref: '#/components/schemas/Choice'
+          type: array
+          title: Choices
+        created:
+          type: integer
+          title: Created
+        model:
+          type: string
+          title: Model
+        object:
+          type: string
+          const: chat.completion
+          title: Object
+        service_tier:
+          anyOf:
+          - type: string
+            enum:
+            - auto
+            - default
+            - flex
+            - scale
+            - priority
+          - type: 'null'
+          title: Service Tier
+        system_fingerprint:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: System Fingerprint
+        usage:
+          anyOf:
+          - $ref: '#/components/schemas/CompletionUsage'
+          - type: 'null'
+      additionalProperties: true
+      type: object
+      required:
+      - id
+      - choices
+      - created
+      - model
+      - object
+      title: ChatCompletion
+      description: Represents a chat completion response returned by model, based on the provided input.
+    ChatCompletionFunctionMessageParam:
+      properties:
+        content:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Content
+        name:
+          type: string
+          title: Name
+        role:
           type: string
           const: function
-          title: Type
-      additionalProperties: true
+          title: Role
       type: object
       required:
-      - id
-      - function
-      - type
-      title: ChatCompletionMessageFunctionToolCall
-      description: A call to a function tool created by the model.
-    File:
+      - content
+      - name
+      - role
+      title: ChatCompletionFunctionMessageParam
+    ChatCompletionContentPartImageParam:
       properties:
-        file:
-          $ref: '#/components/schemas/FileFile'
+        image_url:
+          $ref: '#/components/schemas/ImageURL'
         type:
           type: string
-          const: file
+          const: image_url
           title: Type
       type: object
       required:
-      - file
+      - image_url
       - type
-      title: File
-      description: Learn about [file inputs](https://platform.openai.com/docs/guides/text) for text generation.
-    ChatCompletionMessageCustomToolCallParam:
+      title: ChatCompletionContentPartImageParam
+      description: Learn about [image inputs](https://platform.openai.com/docs/guides/vision).
+    ChatCompletionContentPartInputAudioParam:
       properties:
-        id:
-          type: string
-          title: Id
-        custom:
-          $ref: '#/components/schemas/Custom-Input'
+        input_audio:
+          $ref: '#/components/schemas/InputAudio'
         type:
           type: string
-          const: custom
+          const: input_audio
           title: Type
       type: object
       required:
-      - id
-      - custom
+      - input_audio
       - type
-      title: ChatCompletionMessageCustomToolCallParam
-      description: A call to a custom tool created by the model.
+      title: ChatCompletionContentPartInputAudioParam
+      description: Learn about [audio inputs](https://platform.openai.com/docs/guides/audio).
     FunctionCall-Output:
       properties:
         arguments:
@@ -302,48 +173,6 @@ components:
           type: string
           title: Name
       additionalProperties: true
-      type: object
-      required:
-      - arguments
-      - name
-      title: FunctionCall
-      description: 'Deprecated and replaced by `tool_calls`.
-
-
-        The name and arguments of a function that should be called, as generated by the model.'
-    ChatCompletionAudio:
-      properties:
-        id:
-          type: string
-          title: Id
-        data:
-          type: string
-          title: Data
-        expires_at:
-          type: integer
-          title: Expires At
-        transcript:
-          type: string
-          title: Transcript
-      additionalProperties: true
-      type: object
-      required:
-      - id
-      - data
-      - expires_at
-      - transcript
-      title: ChatCompletionAudio
-      description: 'If the audio output modality is requested, this object contains data
-
-        about the audio response from the model. [Learn more](https://platform.openai.com/docs/guides/audio).'
-    FunctionCall-Input:
-      properties:
-        arguments:
-          type: string
-          title: Arguments
-        name:
-          type: string
-          title: Name
       type: object
       required:
       - arguments
@@ -365,117 +194,23 @@ components:
       description: 'Data about a previous audio response from the model.
 
         [Learn more](https://platform.openai.com/docs/guides/audio).'
-    ChatCompletionSystemMessageParam:
+    FunctionCall-Input:
       properties:
-        content:
-          anyOf:
-          - type: string
-          - items:
-              $ref: '#/components/schemas/ChatCompletionContentPartTextParam'
-            type: array
-          title: Content
-        role:
+        arguments:
           type: string
-          const: system
-          title: Role
+          title: Arguments
         name:
           type: string
           title: Name
       type: object
       required:
-      - content
-      - role
-      title: ChatCompletionSystemMessageParam
-      description: 'Developer-provided instructions that the model should follow, regardless of
-
-        messages sent by the user. With o1 models and newer, use `developer` messages
-
-        for this purpose instead.'
-    Custom-Output:
-      properties:
-        input:
-          type: string
-          title: Input
-        name:
-          type: string
-          title: Name
-      additionalProperties: true
-      type: object
-      required:
-      - input
+      - arguments
       - name
-      title: Custom
-      description: The custom tool that the model called.
-    ChatCompletionMessageCustomToolCall:
-      properties:
-        id:
-          type: string
-          title: Id
-        custom:
-          $ref: '#/components/schemas/Custom-Output'
-        type:
-          type: string
-          const: custom
-          title: Type
-      additionalProperties: true
-      type: object
-      required:
-      - id
-      - custom
-      - type
-      title: ChatCompletionMessageCustomToolCall
-      description: A call to a custom tool created by the model.
-    ImageURL:
-      properties:
-        url:
-          type: string
-          title: Url
-        detail:
-          type: string
-          enum:
-          - auto
-          - low
-          - high
-          title: Detail
-      type: object
-      required:
-      - url
-      title: ImageURL
-    openai__types__chat__chat_completion_token_logprob__TopLogprob:
-      properties:
-        token:
-          type: string
-          title: Token
-        bytes:
-          anyOf:
-          - items:
-              type: integer
-            type: array
-          - type: 'null'
-          title: Bytes
-        logprob:
-          type: number
-          title: Logprob
-      additionalProperties: true
-      type: object
-      required:
-      - token
-      - logprob
-      title: TopLogprob
-    Custom-Input:
-      properties:
-        input:
-          type: string
-          title: Input
-        name:
-          type: string
-          title: Name
-      type: object
-      required:
-      - input
-      - name
-      title: Custom
-      description: The custom tool that the model called.
+      title: FunctionCall
+      description: 'Deprecated and replaced by `tool_calls`.
+
+
+        The name and arguments of a function that should be called, as generated by the model.'
     CompletionTokensDetails:
       properties:
         accepted_prediction_tokens:
@@ -502,33 +237,200 @@ components:
       type: object
       title: CompletionTokensDetails
       description: Breakdown of tokens used in a completion.
-    CompletionUsage:
+    openai__types__chat__chat_completion_message_function_tool_call_param__Function:
       properties:
-        completion_tokens:
-          type: integer
-          title: Completion Tokens
-        prompt_tokens:
-          type: integer
-          title: Prompt Tokens
-        total_tokens:
-          type: integer
-          title: Total Tokens
-        completion_tokens_details:
+        arguments:
+          type: string
+          title: Arguments
+        name:
+          type: string
+          title: Name
+      type: object
+      required:
+      - arguments
+      - name
+      title: Function
+      description: The function that the model called.
+    PromptTokensDetails:
+      properties:
+        audio_tokens:
           anyOf:
-          - $ref: '#/components/schemas/CompletionTokensDetails'
+          - type: integer
           - type: 'null'
-        prompt_tokens_details:
+          title: Audio Tokens
+        cached_tokens:
           anyOf:
-          - $ref: '#/components/schemas/PromptTokensDetails'
+          - type: integer
           - type: 'null'
+          title: Cached Tokens
+      additionalProperties: true
+      type: object
+      title: PromptTokensDetails
+      description: Breakdown of tokens used in the prompt.
+    openai__types__chat__chat_completion__ChoiceLogprobs:
+      properties:
+        content:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/openai__types__chat__chat_completion_token_logprob__ChatCompletionTokenLogprob'
+            type: array
+          - type: 'null'
+          title: Content
+        refusal:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/openai__types__chat__chat_completion_token_logprob__ChatCompletionTokenLogprob'
+            type: array
+          - type: 'null'
+          title: Refusal
+      additionalProperties: true
+      type: object
+      title: ChoiceLogprobs
+      description: Log probability information for the choice.
+    openai__types__chat__chat_completion_token_logprob__TopLogprob:
+      properties:
+        token:
+          type: string
+          title: Token
+        bytes:
+          anyOf:
+          - items:
+              type: integer
+            type: array
+          - type: 'null'
+          title: Bytes
+        logprob:
+          type: number
+          title: Logprob
       additionalProperties: true
       type: object
       required:
-      - completion_tokens
-      - prompt_tokens
-      - total_tokens
-      title: CompletionUsage
-      description: Usage statistics for the completion request.
+      - token
+      - logprob
+      title: TopLogprob
+    InputAudio:
+      properties:
+        data:
+          type: string
+          title: Data
+        format:
+          type: string
+          enum:
+          - wav
+          - mp3
+          title: Format
+      type: object
+      required:
+      - data
+      - format
+      title: InputAudio
+    File:
+      properties:
+        file:
+          $ref: '#/components/schemas/FileFile'
+        type:
+          type: string
+          const: file
+          title: Type
+      type: object
+      required:
+      - file
+      - type
+      title: File
+      description: Learn about [file inputs](https://platform.openai.com/docs/guides/text) for text generation.
+    ChatCompletionMessage:
+      properties:
+        content:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Content
+        refusal:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Refusal
+        role:
+          type: string
+          const: assistant
+          title: Role
+        annotations:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Annotation'
+            type: array
+          - type: 'null'
+          title: Annotations
+        audio:
+          anyOf:
+          - $ref: '#/components/schemas/ChatCompletionAudio'
+          - type: 'null'
+        function_call:
+          anyOf:
+          - $ref: '#/components/schemas/FunctionCall-Output'
+          - type: 'null'
+        tool_calls:
+          anyOf:
+          - items:
+              anyOf:
+              - $ref: '#/components/schemas/ChatCompletionMessageFunctionToolCall-Output'
+              - $ref: '#/components/schemas/ChatCompletionMessageCustomToolCall'
+            type: array
+          - type: 'null'
+          title: Tool Calls
+      additionalProperties: true
+      type: object
+      required:
+      - role
+      title: ChatCompletionMessage
+      description: A chat completion message generated by the model.
+    ChatCompletionSystemMessageParam:
+      properties:
+        content:
+          anyOf:
+          - type: string
+          - items:
+              $ref: '#/components/schemas/ChatCompletionContentPartTextParam'
+            type: array
+          title: Content
+        role:
+          type: string
+          const: system
+          title: Role
+        name:
+          type: string
+          title: Name
+      type: object
+      required:
+      - content
+      - role
+      title: ChatCompletionSystemMessageParam
+      description: 'Developer-provided instructions that the model should follow, regardless of
+
+        messages sent by the user. With o1 models and newer, use `developer` messages
+
+        for this purpose instead.'
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
     Function-Output:
       properties:
         arguments:
@@ -544,117 +446,32 @@ components:
       - name
       title: Function
       description: The function that the model called.
-    ChatCompletionMessageFunctionToolCallParam:
+    ChatCompletionDeveloperMessageParam:
       properties:
-        id:
-          type: string
-          title: Id
-        function:
-          $ref: '#/components/schemas/openai__types__chat__chat_completion_message_function_tool_call_param__Function'
-        type:
-          type: string
-          const: function
-          title: Type
-      type: object
-      required:
-      - id
-      - function
-      - type
-      title: ChatCompletionMessageFunctionToolCallParam
-      description: A call to a function tool created by the model.
-    ChatCompletionContentPartImageParam:
-      properties:
-        image_url:
-          $ref: '#/components/schemas/ImageURL'
-        type:
-          type: string
-          const: image_url
-          title: Type
-      type: object
-      required:
-      - image_url
-      - type
-      title: ChatCompletionContentPartImageParam
-      description: Learn about [image inputs](https://platform.openai.com/docs/guides/vision).
-    ChatCompletionContentPartTextParam:
-      properties:
-        text:
-          type: string
-          title: Text
-        type:
-          type: string
-          const: text
-          title: Type
-      type: object
-      required:
-      - text
-      - type
-      title: ChatCompletionContentPartTextParam
-      description: Learn about [text inputs](https://platform.openai.com/docs/guides/text-generation).
-    ChatCompletionAssistantMessageParam:
-      properties:
-        role:
-          type: string
-          const: assistant
-          title: Role
-        audio:
-          anyOf:
-          - $ref: '#/components/schemas/Audio'
-          - type: 'null'
         content:
           anyOf:
           - type: string
           - items:
-              anyOf:
-              - $ref: '#/components/schemas/ChatCompletionContentPartTextParam'
-              - $ref: '#/components/schemas/ChatCompletionContentPartRefusalParam'
+              $ref: '#/components/schemas/ChatCompletionContentPartTextParam'
             type: array
-          - type: 'null'
           title: Content
-        function_call:
-          anyOf:
-          - $ref: '#/components/schemas/FunctionCall-Input'
-          - type: 'null'
-        name:
-          type: string
-          title: Name
-        refusal:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Refusal
-        tool_calls:
-          items:
-            anyOf:
-            - $ref: '#/components/schemas/ChatCompletionMessageFunctionToolCallParam'
-            - $ref: '#/components/schemas/ChatCompletionMessageCustomToolCallParam'
-          type: array
-          title: Tool Calls
-      type: object
-      required:
-      - role
-      title: ChatCompletionAssistantMessageParam
-      description: Messages sent by the model in response to user messages.
-    ChatCompletionFunctionMessageParam:
-      properties:
-        content:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Content
-        name:
-          type: string
-          title: Name
         role:
           type: string
-          const: function
+          const: developer
           title: Role
+        name:
+          type: string
+          title: Name
       type: object
       required:
       - content
-      - name
       - role
-      title: ChatCompletionFunctionMessageParam
+      title: ChatCompletionDeveloperMessageParam
+      description: 'Developer-provided instructions that the model should follow, regardless of
+
+        messages sent by the user. With o1 models and newer, `developer` messages
+
+        replace the previous `system` messages.'
     openai__types__chat__chat_completion_token_logprob__ChatCompletionTokenLogprob:
       properties:
         token:
@@ -682,27 +499,6 @@ components:
       - logprob
       - top_logprobs
       title: ChatCompletionTokenLogprob
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
     ChatCompletionRequest:
       properties:
         model:
@@ -822,6 +618,345 @@ components:
       - index
       - message
       title: Choice
+    CompletionUsage:
+      properties:
+        completion_tokens:
+          type: integer
+          title: Completion Tokens
+        prompt_tokens:
+          type: integer
+          title: Prompt Tokens
+        total_tokens:
+          type: integer
+          title: Total Tokens
+        completion_tokens_details:
+          anyOf:
+          - $ref: '#/components/schemas/CompletionTokensDetails'
+          - type: 'null'
+        prompt_tokens_details:
+          anyOf:
+          - $ref: '#/components/schemas/PromptTokensDetails'
+          - type: 'null'
+      additionalProperties: true
+      type: object
+      required:
+      - completion_tokens
+      - prompt_tokens
+      - total_tokens
+      title: CompletionUsage
+      description: Usage statistics for the completion request.
+    ChatCompletionMessageFunctionToolCall-Output:
+      properties:
+        id:
+          type: string
+          title: Id
+        function:
+          $ref: '#/components/schemas/Function-Output'
+        type:
+          type: string
+          const: function
+          title: Type
+      additionalProperties: true
+      type: object
+      required:
+      - id
+      - function
+      - type
+      title: ChatCompletionMessageFunctionToolCall
+      description: A call to a function tool created by the model.
+    ChatCompletionMessageCustomToolCall:
+      properties:
+        id:
+          type: string
+          title: Id
+        custom:
+          $ref: '#/components/schemas/Custom-Output'
+        type:
+          type: string
+          const: custom
+          title: Type
+      additionalProperties: true
+      type: object
+      required:
+      - id
+      - custom
+      - type
+      title: ChatCompletionMessageCustomToolCall
+      description: A call to a custom tool created by the model.
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    Custom-Output:
+      properties:
+        input:
+          type: string
+          title: Input
+        name:
+          type: string
+          title: Name
+      additionalProperties: true
+      type: object
+      required:
+      - input
+      - name
+      title: Custom
+      description: The custom tool that the model called.
+    Custom-Input:
+      properties:
+        input:
+          type: string
+          title: Input
+        name:
+          type: string
+          title: Name
+      type: object
+      required:
+      - input
+      - name
+      title: Custom
+      description: The custom tool that the model called.
+    ChatCompletionAssistantMessageParam:
+      properties:
+        role:
+          type: string
+          const: assistant
+          title: Role
+        audio:
+          anyOf:
+          - $ref: '#/components/schemas/Audio'
+          - type: 'null'
+        content:
+          anyOf:
+          - type: string
+          - items:
+              anyOf:
+              - $ref: '#/components/schemas/ChatCompletionContentPartTextParam'
+              - $ref: '#/components/schemas/ChatCompletionContentPartRefusalParam'
+            type: array
+          - type: 'null'
+          title: Content
+        function_call:
+          anyOf:
+          - $ref: '#/components/schemas/FunctionCall-Input'
+          - type: 'null'
+        name:
+          type: string
+          title: Name
+        refusal:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Refusal
+        tool_calls:
+          items:
+            anyOf:
+            - $ref: '#/components/schemas/ChatCompletionMessageFunctionToolCallParam'
+            - $ref: '#/components/schemas/ChatCompletionMessageCustomToolCallParam'
+          type: array
+          title: Tool Calls
+      type: object
+      required:
+      - role
+      title: ChatCompletionAssistantMessageParam
+      description: Messages sent by the model in response to user messages.
+    FileFile:
+      properties:
+        file_data:
+          type: string
+          title: File Data
+        file_id:
+          type: string
+          title: File Id
+        filename:
+          type: string
+          title: Filename
+      type: object
+      title: FileFile
+    ChatCompletionMessageCustomToolCallParam:
+      properties:
+        id:
+          type: string
+          title: Id
+        custom:
+          $ref: '#/components/schemas/Custom-Input'
+        type:
+          type: string
+          const: custom
+          title: Type
+      type: object
+      required:
+      - id
+      - custom
+      - type
+      title: ChatCompletionMessageCustomToolCallParam
+      description: A call to a custom tool created by the model.
+    ChatCompletionUserMessageParam:
+      properties:
+        content:
+          anyOf:
+          - type: string
+          - items:
+              anyOf:
+              - $ref: '#/components/schemas/ChatCompletionContentPartTextParam'
+              - $ref: '#/components/schemas/ChatCompletionContentPartImageParam'
+              - $ref: '#/components/schemas/ChatCompletionContentPartInputAudioParam'
+              - $ref: '#/components/schemas/File'
+            type: array
+          title: Content
+        role:
+          type: string
+          const: user
+          title: Role
+        name:
+          type: string
+          title: Name
+      type: object
+      required:
+      - content
+      - role
+      title: ChatCompletionUserMessageParam
+      description: 'Messages sent by an end user, containing prompts or additional context
+
+        information.'
+    AnnotationURLCitation:
+      properties:
+        end_index:
+          type: integer
+          title: End Index
+        start_index:
+          type: integer
+          title: Start Index
+        title:
+          type: string
+          title: Title
+        url:
+          type: string
+          title: Url
+      additionalProperties: true
+      type: object
+      required:
+      - end_index
+      - start_index
+      - title
+      - url
+      title: AnnotationURLCitation
+      description: A URL citation when using web search.
+    ChatCompletionAudio:
+      properties:
+        id:
+          type: string
+          title: Id
+        data:
+          type: string
+          title: Data
+        expires_at:
+          type: integer
+          title: Expires At
+        transcript:
+          type: string
+          title: Transcript
+      additionalProperties: true
+      type: object
+      required:
+      - id
+      - data
+      - expires_at
+      - transcript
+      title: ChatCompletionAudio
+      description: 'If the audio output modality is requested, this object contains data
+
+        about the audio response from the model. [Learn more](https://platform.openai.com/docs/guides/audio).'
+    ChatCompletionContentPartTextParam:
+      properties:
+        text:
+          type: string
+          title: Text
+        type:
+          type: string
+          const: text
+          title: Type
+      type: object
+      required:
+      - text
+      - type
+      title: ChatCompletionContentPartTextParam
+      description: Learn about [text inputs](https://platform.openai.com/docs/guides/text-generation).
+    ChatCompletionToolMessageParam:
+      properties:
+        content:
+          anyOf:
+          - type: string
+          - items:
+              $ref: '#/components/schemas/ChatCompletionContentPartTextParam'
+            type: array
+          title: Content
+        role:
+          type: string
+          const: tool
+          title: Role
+        tool_call_id:
+          type: string
+          title: Tool Call Id
+      type: object
+      required:
+      - content
+      - role
+      - tool_call_id
+      title: ChatCompletionToolMessageParam
+    ChatCompletionMessageFunctionToolCallParam:
+      properties:
+        id:
+          type: string
+          title: Id
+        function:
+          $ref: '#/components/schemas/openai__types__chat__chat_completion_message_function_tool_call_param__Function'
+        type:
+          type: string
+          const: function
+          title: Type
+      type: object
+      required:
+      - id
+      - function
+      - type
+      title: ChatCompletionMessageFunctionToolCallParam
+      description: A call to a function tool created by the model.
+    ImageURL:
+      properties:
+        url:
+          type: string
+          title: Url
+        detail:
+          type: string
+          enum:
+          - auto
+          - low
+          - high
+          title: Detail
+      type: object
+      required:
+      - url
+      title: ImageURL
+    ChatCompletionContentPartRefusalParam:
+      properties:
+        refusal:
+          type: string
+          title: Refusal
+        type:
+          type: string
+          const: refusal
+          title: Type
+      type: object
+      required:
+      - refusal
+      - type
+      title: ChatCompletionContentPartRefusalParam
     Annotation:
       properties:
         type:
@@ -837,141 +972,6 @@ components:
       - url_citation
       title: Annotation
       description: A URL citation when using web search.
-    ChatCompletion:
-      properties:
-        id:
-          type: string
-          title: Id
-        choices:
-          items:
-            $ref: '#/components/schemas/Choice'
-          type: array
-          title: Choices
-        created:
-          type: integer
-          title: Created
-        model:
-          type: string
-          title: Model
-        object:
-          type: string
-          const: chat.completion
-          title: Object
-        service_tier:
-          anyOf:
-          - type: string
-            enum:
-            - auto
-            - default
-            - flex
-            - scale
-            - priority
-          - type: 'null'
-          title: Service Tier
-        system_fingerprint:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: System Fingerprint
-        usage:
-          anyOf:
-          - $ref: '#/components/schemas/CompletionUsage'
-          - type: 'null'
-      additionalProperties: true
-      type: object
-      required:
-      - id
-      - choices
-      - created
-      - model
-      - object
-      title: ChatCompletion
-      description: Represents a chat completion response returned by model, based on the provided input.
-    ChatCompletionContentPartInputAudioParam:
-      properties:
-        input_audio:
-          $ref: '#/components/schemas/InputAudio'
-        type:
-          type: string
-          const: input_audio
-          title: Type
-      type: object
-      required:
-      - input_audio
-      - type
-      title: ChatCompletionContentPartInputAudioParam
-      description: Learn about [audio inputs](https://platform.openai.com/docs/guides/audio).
-    InputAudio:
-      properties:
-        data:
-          type: string
-          title: Data
-        format:
-          type: string
-          enum:
-          - wav
-          - mp3
-          title: Format
-      type: object
-      required:
-      - data
-      - format
-      title: InputAudio
-    ChatCompletionMessage:
-      properties:
-        content:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Content
-        refusal:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Refusal
-        role:
-          type: string
-          const: assistant
-          title: Role
-        annotations:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/Annotation'
-            type: array
-          - type: 'null'
-          title: Annotations
-        audio:
-          anyOf:
-          - $ref: '#/components/schemas/ChatCompletionAudio'
-          - type: 'null'
-        function_call:
-          anyOf:
-          - $ref: '#/components/schemas/FunctionCall-Output'
-          - type: 'null'
-        tool_calls:
-          anyOf:
-          - items:
-              anyOf:
-              - $ref: '#/components/schemas/ChatCompletionMessageFunctionToolCall-Output'
-              - $ref: '#/components/schemas/ChatCompletionMessageCustomToolCall'
-            type: array
-          - type: 'null'
-          title: Tool Calls
-      additionalProperties: true
-      type: object
-      required:
-      - role
-      title: ChatCompletionMessage
-      description: A chat completion message generated by the model.
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
   securitySchemes:
     bearerAuth:
       type: http

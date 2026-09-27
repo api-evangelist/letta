@@ -349,15 +349,37 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    ProviderCreate:
+    ProviderType:
+      type: string
+      enum:
+      - anthropic
+      - azure
+      - baseten
+      - bedrock
+      - cerebras
+      - chatgpt_oauth
+      - deepseek
+      - fireworks
+      - google_ai
+      - google_vertex
+      - groq
+      - hugging-face
+      - letta
+      - lmstudio_openai
+      - minimax
+      - mistral
+      - ollama
+      - openai
+      - together
+      - vllm
+      - sglang
+      - openrouter
+      - xai
+      - zai
+      - zai_coding
+      title: ProviderType
+    ProviderUpdate:
       properties:
-        name:
-          type: string
-          title: Name
-          description: The name of the provider.
-        provider_type:
-          $ref: '#/components/schemas/ProviderType'
-          description: The type of the provider.
         api_key:
           type: string
           title: Api Key
@@ -389,60 +411,8 @@ components:
       additionalProperties: false
       type: object
       required:
-      - name
-      - provider_type
       - api_key
-      title: ProviderCreate
-    ProviderType:
-      type: string
-      enum:
-      - anthropic
-      - azure
-      - baseten
-      - bedrock
-      - cerebras
-      - chatgpt_oauth
-      - deepseek
-      - fireworks
-      - google_ai
-      - google_vertex
-      - groq
-      - hugging-face
-      - letta
-      - lmstudio_openai
-      - minimax
-      - mistral
-      - ollama
-      - openai
-      - together
-      - vllm
-      - sglang
-      - openrouter
-      - xai
-      - zai
-      - zai_coding
-      title: ProviderType
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
+      title: ProviderUpdate
     Provider:
       properties:
         id:
@@ -530,14 +500,36 @@ components:
       - provider_type
       - provider_category
       title: Provider
-    ProviderCategory:
-      type: string
-      enum:
-      - base
-      - byok
-      title: ProviderCategory
-    ProviderUpdate:
+    ValidationError:
       properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    ProviderCreate:
+      properties:
+        name:
+          type: string
+          title: Name
+          description: The name of the provider.
+        provider_type:
+          $ref: '#/components/schemas/ProviderType'
+          description: The type of the provider.
         api_key:
           type: string
           title: Api Key
@@ -569,8 +561,10 @@ components:
       additionalProperties: false
       type: object
       required:
+      - name
+      - provider_type
       - api_key
-      title: ProviderUpdate
+      title: ProviderCreate
     ProviderCheck:
       properties:
         provider_type:
@@ -609,6 +603,12 @@ components:
       - provider_type
       - api_key
       title: ProviderCheck
+    ProviderCategory:
+      type: string
+      enum:
+      - base
+      - byok
+      title: ProviderCategory
     HTTPValidationError:
       properties:
         detail:

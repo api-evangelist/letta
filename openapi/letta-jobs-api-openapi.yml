@@ -319,6 +319,44 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    StopReasonType:
+      type: string
+      enum:
+      - end_turn
+      - error
+      - llm_api_error
+      - invalid_llm_response
+      - invalid_tool_call
+      - max_steps
+      - max_tokens_exceeded
+      - no_tool_call
+      - tool_rule
+      - cancelled
+      - insufficient_credits
+      - requires_approval
+      - context_window_overflow_in_system_prompt
+      title: StopReasonType
     Job:
       properties:
         created_by_id:
@@ -432,6 +470,13 @@ components:
       type: object
       title: Job
       description: Representation of offline jobs, used for tracking status of data loading tasks (involving parsing and embedding files).
+    JobType:
+      type: string
+      enum:
+      - job
+      - run
+      - batch
+      title: JobType
     JobStatus:
       type: string
       enum:
@@ -444,51 +489,6 @@ components:
       - expired
       title: JobStatus
       description: Status of the job.
-    JobType:
-      type: string
-      enum:
-      - job
-      - run
-      - batch
-      title: JobType
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    StopReasonType:
-      type: string
-      enum:
-      - end_turn
-      - error
-      - llm_api_error
-      - invalid_llm_response
-      - invalid_tool_call
-      - max_steps
-      - max_tokens_exceeded
-      - no_tool_call
-      - tool_rule
-      - cancelled
-      - insufficient_credits
-      - requires_approval
-      - context_window_overflow_in_system_prompt
-      title: StopReasonType
     HTTPValidationError:
       properties:
         detail:
