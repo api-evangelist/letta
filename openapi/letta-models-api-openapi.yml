@@ -122,24 +122,64 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    JsonSchemaResponseFormat:
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    ProviderCategory:
+      type: string
+      enum:
+      - base
+      - byok
+      title: ProviderCategory
+    TextResponseFormat:
       properties:
         type:
           type: string
-          const: json_schema
+          const: text
           title: Type
           description: The type of the response format.
-          default: json_schema
-        json_schema:
-          additionalProperties: true
-          type: object
-          title: Json Schema
-          description: The JSON schema of the response.
+          default: text
       type: object
-      required:
-      - json_schema
-      title: JsonSchemaResponseFormat
-      description: Response format for JSON schema-based responses.
+      title: TextResponseFormat
+      description: Response format for plain text responses.
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    JsonObjectResponseFormat:
+      properties:
+        type:
+          type: string
+          const: json_object
+          title: Type
+          description: The type of the response format.
+          default: json_object
+      type: object
+      title: JsonObjectResponseFormat
+      description: Response format for JSON object responses.
     ProviderType:
       type: string
       enum:
@@ -421,44 +461,24 @@ components:
       - context_window
       - max_context_window
       title: Model
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    ProviderCategory:
-      type: string
-      enum:
-      - base
-      - byok
-      title: ProviderCategory
-    JsonObjectResponseFormat:
+    JsonSchemaResponseFormat:
       properties:
         type:
           type: string
-          const: json_object
+          const: json_schema
           title: Type
           description: The type of the response format.
-          default: json_object
+          default: json_schema
+        json_schema:
+          additionalProperties: true
+          type: object
+          title: Json Schema
+          description: The JSON schema of the response.
       type: object
-      title: JsonObjectResponseFormat
-      description: Response format for JSON object responses.
+      required:
+      - json_schema
+      title: JsonSchemaResponseFormat
+      description: Response format for JSON schema-based responses.
     EmbeddingModel:
       properties:
         handle:
@@ -574,26 +594,6 @@ components:
       - embedding_model
       - embedding_dim
       title: EmbeddingModel
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    TextResponseFormat:
-      properties:
-        type:
-          type: string
-          const: text
-          title: Type
-          description: The type of the response format.
-          default: text
-      type: object
-      title: TextResponseFormat
-      description: Response format for plain text responses.
   securitySchemes:
     bearerAuth:
       type: http

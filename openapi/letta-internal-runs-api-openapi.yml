@@ -310,31 +310,27 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    RunStatus:
-      type: string
-      enum:
-      - created
-      - running
-      - completed
-      - failed
-      - cancelled
-      title: RunStatus
-      description: Status of the run.
-    MessageType:
-      type: string
-      enum:
-      - system_message
-      - user_message
-      - assistant_message
-      - reasoning_message
-      - hidden_reasoning_message
-      - tool_call_message
-      - tool_return_message
-      - approval_request_message
-      - approval_response_message
-      - summary_message
-      - event_message
-      title: MessageType
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
     Run:
       properties:
         id:
@@ -442,27 +438,39 @@ components:
       - agent_id
       title: Run
       description: Representation of a run - a conversation or processing session for an agent. Runs track when agents process messages and maintain the relationship between agents, steps, and messages.
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
+    MessageType:
+      type: string
+      enum:
+      - system_message
+      - user_message
+      - assistant_message
+      - reasoning_message
+      - hidden_reasoning_message
+      - tool_call_message
+      - tool_return_message
+      - approval_request_message
+      - approval_response_message
+      - summary_message
+      - event_message
+      title: MessageType
+    RunStatus:
+      type: string
+      enum:
+      - created
+      - running
+      - completed
+      - failed
+      - cancelled
+      title: RunStatus
+      description: Status of the run.
+    ComparisonOperator:
+      type: string
+      enum:
+      - eq
+      - gte
+      - lte
+      title: ComparisonOperator
+      description: Comparison operators for filtering numeric values
     StopReasonType:
       type: string
       enum:
@@ -507,14 +515,6 @@ components:
           description: Only return specified message types in the response. If `None` (default) returns all messages.
       type: object
       title: LettaRequestConfig
-    ComparisonOperator:
-      type: string
-      enum:
-      - eq
-      - gte
-      - lte
-      title: ComparisonOperator
-      description: Comparison operators for filtering numeric values
     HTTPValidationError:
       properties:
         detail:

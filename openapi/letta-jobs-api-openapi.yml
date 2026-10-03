@@ -340,6 +340,13 @@ components:
       - msg
       - type
       title: ValidationError
+    JobType:
+      type: string
+      enum:
+      - job
+      - run
+      - batch
+      title: JobType
     StopReasonType:
       type: string
       enum:
@@ -357,6 +364,27 @@ components:
       - requires_approval
       - context_window_overflow_in_system_prompt
       title: StopReasonType
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    JobStatus:
+      type: string
+      enum:
+      - created
+      - running
+      - completed
+      - failed
+      - pending
+      - cancelled
+      - expired
+      title: JobStatus
+      description: Status of the job.
     Job:
       properties:
         created_by_id:
@@ -470,34 +498,6 @@ components:
       type: object
       title: Job
       description: Representation of offline jobs, used for tracking status of data loading tasks (involving parsing and embedding files).
-    JobType:
-      type: string
-      enum:
-      - job
-      - run
-      - batch
-      title: JobType
-    JobStatus:
-      type: string
-      enum:
-      - created
-      - running
-      - completed
-      - failed
-      - pending
-      - cancelled
-      - expired
-      title: JobStatus
-      description: Status of the job.
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
   securitySchemes:
     bearerAuth:
       type: http
