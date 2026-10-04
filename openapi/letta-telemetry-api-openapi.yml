@@ -61,50 +61,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    BillingContext:
-      properties:
-        plan_type:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Plan Type
-          description: Subscription tier
-        cost_source:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Cost Source
-          description: 'Cost source: ''quota'' or ''credits'''
-        customer_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Customer Id
-          description: Customer ID for billing records
-      type: object
-      title: BillingContext
-      description: Billing context for LLM request cost tracking.
     ProviderTrace:
       properties:
         created_by_id:
@@ -218,6 +174,50 @@ components:
       - response_json
       title: ProviderTrace
       description: "Letta's internal representation of a provider trace.\n\nAttributes:\n    id (str): The unique identifier of the provider trace.\n    request_json (Dict[str, Any]): JSON content of the provider request.\n    response_json (Dict[str, Any]): JSON content of the provider response.\n    step_id (str): ID of the step that this trace is associated with.\n    agent_id (str): ID of the agent that generated this trace.\n    agent_tags (list[str]): Tags associated with the agent for filtering.\n    call_type (str): Type of call (agent_step, summarization, etc.).\n    run_id (str): ID of the run this trace is associated with.\n    source (str): Source service that generated this trace (memgpt-server, lettuce-py).\n    organization_id (str): The unique identifier of the organization.\n    user_id (str): The unique identifier of the user who initiated the request.\n    compaction_settings (Dict[str, Any]): Compaction/summarization settings (only for summarization calls).\n    llm_config (Dict[str, Any]): LLM configuration used for this call (only for non-summarization calls).\n    created_at (datetime): The timestamp when the object was created."
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    BillingContext:
+      properties:
+        plan_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Plan Type
+          description: Subscription tier
+        cost_source:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Cost Source
+          description: 'Cost source: ''quota'' or ''credits'''
+        customer_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Customer Id
+          description: Customer ID for billing records
+      type: object
+      title: BillingContext
+      description: Billing context for LLM request cost tracking.
     HTTPValidationError:
       properties:
         detail:

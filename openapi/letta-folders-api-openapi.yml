@@ -774,27 +774,51 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    ValidationError:
+    FileProcessingStatus:
+      type: string
+      enum:
+      - pending
+      - parsing
+      - embedding
+      - completed
+      - error
+      title: FileProcessingStatus
+    SourceUpdate:
       properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+          description: The name of the source.
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+          description: The description of the source.
+        instructions:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Instructions
+          description: Instructions for how to use the source.
+        metadata:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Metadata
+          description: Metadata associated with the source.
+        embedding_config:
+          anyOf:
+          - $ref: '#/components/schemas/EmbeddingConfig'
+          - type: 'null'
+          description: The embedding configuration used by the source.
+      additionalProperties: false
       type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
+      title: SourceUpdate
+      description: Schema for updating an existing Source.
     Passage:
       properties:
         created_by_id:
@@ -901,154 +925,6 @@ components:
       - embedding_config
       title: Passage
       description: Representation of a passage, which is stored in archival memory.
-    SourceUpdate:
-      properties:
-        name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Name
-          description: The name of the source.
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Description
-          description: The description of the source.
-        instructions:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Instructions
-          description: Instructions for how to use the source.
-        metadata:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Metadata
-          description: Metadata associated with the source.
-        embedding_config:
-          anyOf:
-          - $ref: '#/components/schemas/EmbeddingConfig'
-          - type: 'null'
-          description: The embedding configuration used by the source.
-      additionalProperties: false
-      type: object
-      title: SourceUpdate
-      description: Schema for updating an existing Source.
-    Folder:
-      properties:
-        name:
-          type: string
-          title: Name
-          description: The name of the folder.
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Description
-          description: The description of the folder.
-        instructions:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Instructions
-          description: Instructions for how to use the folder.
-        metadata:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Metadata
-          description: Metadata associated with the folder.
-        id:
-          type: string
-          pattern: ^source-[a-fA-F0-9]{8}
-          title: Id
-          description: The human-friendly ID of the Source
-          examples:
-          - source-123e4567-e89b-12d3-a456-426614174000
-        embedding_config:
-          $ref: '#/components/schemas/EmbeddingConfig'
-          description: The embedding configuration used by the folder.
-        created_by_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Created By Id
-          description: The id of the user that made this Tool.
-        last_updated_by_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Last Updated By Id
-          description: The id of the user that made this Tool.
-        created_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Created At
-          description: The timestamp when the folder was created.
-        updated_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Updated At
-          description: The timestamp when the folder was last updated.
-      additionalProperties: false
-      type: object
-      required:
-      - name
-      - embedding_config
-      title: Folder
-      description: Representation of a folder, which is a collection of files and passages.
-    SourceStats:
-      properties:
-        source_id:
-          type: string
-          title: Source Id
-          description: 'Deprecated: Use `folder_id` field instead. Unique identifier of the source'
-          deprecated: true
-        source_name:
-          type: string
-          title: Source Name
-          description: 'Deprecated: Use `folder_name` field instead. Name of the source'
-          deprecated: true
-        file_count:
-          type: integer
-          title: File Count
-          description: Number of files in the source
-          default: 0
-        total_size:
-          type: integer
-          title: Total Size
-          description: Total size of all files in bytes
-          default: 0
-        files:
-          items:
-            $ref: '#/components/schemas/FileStats'
-          type: array
-          title: Files
-          description: List of file statistics
-      additionalProperties: false
-      type: object
-      required:
-      - source_id
-      - source_name
-      title: SourceStats
-      description: Aggregated metadata for a source
-    DuplicateFileHandling:
-      type: string
-      enum:
-      - skip
-      - error
-      - suffix
-      - replace
-      title: DuplicateFileHandling
-      description: How to handle duplicate filenames when uploading files
     EmbeddingConfig:
       properties:
         embedding_endpoint_type:
@@ -1132,56 +1008,72 @@ components:
       - embedding_dim
       title: EmbeddingConfig
       description: Configuration for embedding model connection and processing parameters.
-    OrganizationSourcesStats:
+    HTTPValidationError:
       properties:
-        total_sources:
-          type: integer
-          title: Total Sources
-          description: Total number of sources
-          default: 0
-        total_files:
-          type: integer
-          title: Total Files
-          description: Total number of files across all sources
-          default: 0
-        total_size:
-          type: integer
-          title: Total Size
-          description: Total size of all files in bytes
-          default: 0
-        sources:
+        detail:
           items:
-            $ref: '#/components/schemas/SourceStats'
+            $ref: '#/components/schemas/ValidationError'
           type: array
-          title: Sources
-          description: List of source metadata
-      additionalProperties: false
+          title: Detail
       type: object
-      title: OrganizationSourcesStats
-      description: Complete metadata response for organization sources
-    FileStats:
+      title: HTTPValidationError
+    DuplicateFileHandling:
+      type: string
+      enum:
+      - skip
+      - error
+      - suffix
+      - replace
+      title: DuplicateFileHandling
+      description: How to handle duplicate filenames when uploading files
+    SourceCreate:
       properties:
-        file_id:
+        name:
           type: string
-          title: File Id
-          description: Unique identifier of the file
-        file_name:
-          type: string
-          title: File Name
-          description: Name of the file
-        file_size:
+          title: Name
+          description: The name of the source.
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+          description: The description of the source.
+        instructions:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Instructions
+          description: Instructions for how to use the source.
+        metadata:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Metadata
+          description: Metadata associated with the source.
+        embedding:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Embedding
+          description: The handle for the embedding config used by the source.
+        embedding_chunk_size:
           anyOf:
           - type: integer
           - type: 'null'
-          title: File Size
-          description: Size of the file in bytes
+          title: Embedding Chunk Size
+          description: The chunk size of the embedding.
+        embedding_config:
+          anyOf:
+          - $ref: '#/components/schemas/EmbeddingConfig'
+          - type: 'null'
+          description: (Legacy) The embedding configuration used by the source.
       additionalProperties: false
       type: object
       required:
-      - file_id
-      - file_name
-      title: FileStats
-      description: File statistics for metadata endpoint
+      - name
+      title: SourceCreate
+      description: Schema for creating a new Source.
     Body_upload_file_to_folder:
       properties:
         file:
@@ -1192,24 +1084,6 @@ components:
       required:
       - file
       title: Body_upload_file_to_folder
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    FileProcessingStatus:
-      type: string
-      enum:
-      - pending
-      - parsing
-      - embedding
-      - completed
-      - error
-      title: FileProcessingStatus
     FileMetadata:
       properties:
         source_id:
@@ -1314,54 +1188,180 @@ components:
       - source_id
       title: FileMetadata
       description: Representation of a single FileMetadata
-    SourceCreate:
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    Folder:
       properties:
         name:
           type: string
           title: Name
-          description: The name of the source.
+          description: The name of the folder.
         description:
           anyOf:
           - type: string
           - type: 'null'
           title: Description
-          description: The description of the source.
+          description: The description of the folder.
         instructions:
           anyOf:
           - type: string
           - type: 'null'
           title: Instructions
-          description: Instructions for how to use the source.
+          description: Instructions for how to use the folder.
         metadata:
           anyOf:
           - additionalProperties: true
             type: object
           - type: 'null'
           title: Metadata
-          description: Metadata associated with the source.
-        embedding:
+          description: Metadata associated with the folder.
+        id:
+          type: string
+          pattern: ^source-[a-fA-F0-9]{8}
+          title: Id
+          description: The human-friendly ID of the Source
+          examples:
+          - source-123e4567-e89b-12d3-a456-426614174000
+        embedding_config:
+          $ref: '#/components/schemas/EmbeddingConfig'
+          description: The embedding configuration used by the folder.
+        created_by_id:
           anyOf:
           - type: string
           - type: 'null'
-          title: Embedding
-          description: The handle for the embedding config used by the source.
-        embedding_chunk_size:
+          title: Created By Id
+          description: The id of the user that made this Tool.
+        last_updated_by_id:
           anyOf:
-          - type: integer
+          - type: string
           - type: 'null'
-          title: Embedding Chunk Size
-          description: The chunk size of the embedding.
-        embedding_config:
+          title: Last Updated By Id
+          description: The id of the user that made this Tool.
+        created_at:
           anyOf:
-          - $ref: '#/components/schemas/EmbeddingConfig'
+          - type: string
+            format: date-time
           - type: 'null'
-          description: (Legacy) The embedding configuration used by the source.
+          title: Created At
+          description: The timestamp when the folder was created.
+        updated_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated At
+          description: The timestamp when the folder was last updated.
       additionalProperties: false
       type: object
       required:
       - name
-      title: SourceCreate
-      description: Schema for creating a new Source.
+      - embedding_config
+      title: Folder
+      description: Representation of a folder, which is a collection of files and passages.
+    SourceStats:
+      properties:
+        source_id:
+          type: string
+          title: Source Id
+          description: 'Deprecated: Use `folder_id` field instead. Unique identifier of the source'
+          deprecated: true
+        source_name:
+          type: string
+          title: Source Name
+          description: 'Deprecated: Use `folder_name` field instead. Name of the source'
+          deprecated: true
+        file_count:
+          type: integer
+          title: File Count
+          description: Number of files in the source
+          default: 0
+        total_size:
+          type: integer
+          title: Total Size
+          description: Total size of all files in bytes
+          default: 0
+        files:
+          items:
+            $ref: '#/components/schemas/FileStats'
+          type: array
+          title: Files
+          description: List of file statistics
+      additionalProperties: false
+      type: object
+      required:
+      - source_id
+      - source_name
+      title: SourceStats
+      description: Aggregated metadata for a source
+    FileStats:
+      properties:
+        file_id:
+          type: string
+          title: File Id
+          description: Unique identifier of the file
+        file_name:
+          type: string
+          title: File Name
+          description: Name of the file
+        file_size:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: File Size
+          description: Size of the file in bytes
+      additionalProperties: false
+      type: object
+      required:
+      - file_id
+      - file_name
+      title: FileStats
+      description: File statistics for metadata endpoint
+    OrganizationSourcesStats:
+      properties:
+        total_sources:
+          type: integer
+          title: Total Sources
+          description: Total number of sources
+          default: 0
+        total_files:
+          type: integer
+          title: Total Files
+          description: Total number of files across all sources
+          default: 0
+        total_size:
+          type: integer
+          title: Total Size
+          description: Total size of all files in bytes
+          default: 0
+        sources:
+          items:
+            $ref: '#/components/schemas/SourceStats'
+          type: array
+          title: Sources
+          description: List of source metadata
+      additionalProperties: false
+      type: object
+      title: OrganizationSourcesStats
+      description: Complete metadata response for organization sources
   securitySchemes:
     bearerAuth:
       type: http

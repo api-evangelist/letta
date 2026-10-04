@@ -111,33 +111,24 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    ValidationError:
+    JsonSchemaResponseFormat:
       properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
         type:
           type: string
-          title: Error Type
+          const: json_schema
+          title: Type
+          description: The type of the response format.
+          default: json_schema
+        json_schema:
+          additionalProperties: true
+          type: object
+          title: Json Schema
+          description: The JSON schema of the response.
       type: object
       required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    ProviderCategory:
-      type: string
-      enum:
-      - base
-      - byok
-      title: ProviderCategory
+      - json_schema
+      title: JsonSchemaResponseFormat
+      description: Response format for JSON schema-based responses.
     TextResponseFormat:
       properties:
         type:
@@ -149,26 +140,6 @@ components:
       type: object
       title: TextResponseFormat
       description: Response format for plain text responses.
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    JsonObjectResponseFormat:
-      properties:
-        type:
-          type: string
-          const: json_object
-          title: Type
-          description: The type of the response format.
-          default: json_object
-      type: object
-      title: JsonObjectResponseFormat
-      description: Response format for JSON object responses.
     ProviderType:
       type: string
       enum:
@@ -198,6 +169,15 @@ components:
       - zai
       - zai_coding
       title: ProviderType
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     Model:
       properties:
         handle:
@@ -450,24 +430,44 @@ components:
       - context_window
       - max_context_window
       title: Model
-    JsonSchemaResponseFormat:
+    JsonObjectResponseFormat:
       properties:
         type:
           type: string
-          const: json_schema
+          const: json_object
           title: Type
           description: The type of the response format.
-          default: json_schema
-        json_schema:
-          additionalProperties: true
-          type: object
-          title: Json Schema
-          description: The JSON schema of the response.
+          default: json_object
+      type: object
+      title: JsonObjectResponseFormat
+      description: Response format for JSON object responses.
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
       type: object
       required:
-      - json_schema
-      title: JsonSchemaResponseFormat
-      description: Response format for JSON schema-based responses.
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    ProviderCategory:
+      type: string
+      enum:
+      - base
+      - byok
+      title: ProviderCategory
     EmbeddingModel:
       properties:
         handle:

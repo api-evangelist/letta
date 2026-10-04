@@ -310,27 +310,33 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    ValidationError:
+    LettaRequestConfig:
       properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
+        use_assistant_message:
+          type: boolean
+          title: Use Assistant Message
+          description: Whether the server should parse specific tool call arguments (default `send_message`) as `AssistantMessage` objects.
+          default: true
+        assistant_message_tool_name:
           type: string
-          title: Message
-        type:
+          title: Assistant Message Tool Name
+          description: The name of the designated message tool.
+          default: send_message
+        assistant_message_tool_kwarg:
           type: string
-          title: Error Type
+          title: Assistant Message Tool Kwarg
+          description: The name of the message argument in the designated message tool.
+          default: message
+        include_return_message_types:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/MessageType'
+            type: array
+          - type: 'null'
+          title: Include Return Message Types
+          description: Only return specified message types in the response. If `None` (default) returns all messages.
       type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
+      title: LettaRequestConfig
     Run:
       properties:
         id:
@@ -438,6 +444,15 @@ components:
       - agent_id
       title: Run
       description: Representation of a run - a conversation or processing session for an agent. Runs track when agents process messages and maintain the relationship between agents, steps, and messages.
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     MessageType:
       type: string
       enum:
@@ -453,6 +468,35 @@ components:
       - summary_message
       - event_message
       title: MessageType
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    ComparisonOperator:
+      type: string
+      enum:
+      - eq
+      - gte
+      - lte
+      title: ComparisonOperator
+      description: Comparison operators for filtering numeric values
     RunStatus:
       type: string
       enum:
@@ -463,14 +507,6 @@ components:
       - cancelled
       title: RunStatus
       description: Status of the run.
-    ComparisonOperator:
-      type: string
-      enum:
-      - eq
-      - gte
-      - lte
-      title: ComparisonOperator
-      description: Comparison operators for filtering numeric values
     StopReasonType:
       type: string
       enum:
@@ -488,42 +524,6 @@ components:
       - requires_approval
       - context_window_overflow_in_system_prompt
       title: StopReasonType
-    LettaRequestConfig:
-      properties:
-        use_assistant_message:
-          type: boolean
-          title: Use Assistant Message
-          description: Whether the server should parse specific tool call arguments (default `send_message`) as `AssistantMessage` objects.
-          default: true
-        assistant_message_tool_name:
-          type: string
-          title: Assistant Message Tool Name
-          description: The name of the designated message tool.
-          default: send_message
-        assistant_message_tool_kwarg:
-          type: string
-          title: Assistant Message Tool Kwarg
-          description: The name of the message argument in the designated message tool.
-          default: message
-        include_return_message_types:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/MessageType'
-            type: array
-          - type: 'null'
-          title: Include Return Message Types
-          description: Only return specified message types in the response. If `None` (default) returns all messages.
-      type: object
-      title: LettaRequestConfig
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
   securitySchemes:
     bearerAuth:
       type: http

@@ -176,107 +176,6 @@ components:
       - embedding_config
       title: Passage
       description: Representation of a passage, which is stored in archival memory.
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    PassageSearchRequest:
-      properties:
-        query:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Query
-          description: Text query for semantic search
-        agent_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Agent Id
-          description: Filter passages by agent ID
-        archive_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Archive Id
-          description: Filter passages by archive ID
-        tags:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Tags
-          description: Optional list of tags to filter search results
-        tag_match_mode:
-          type: string
-          enum:
-          - any
-          - all
-          title: Tag Match Mode
-          description: How to match tags - 'any' to match passages with any of the tags, 'all' to match only passages with all tags
-          default: any
-        limit:
-          type: integer
-          maximum: 100
-          minimum: 1
-          title: Limit
-          description: Maximum number of results to return
-          default: 50
-        start_date:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Start Date
-          description: Filter results to passages created after this datetime
-        end_date:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: End Date
-          description: Filter results to passages created before this datetime
-      type: object
-      title: PassageSearchRequest
-      description: Request model for searching passages across archives.
-    PassageSearchResult:
-      properties:
-        passage:
-          $ref: '#/components/schemas/Passage'
-          description: The passage object
-        score:
-          type: number
-          title: Score
-          description: Relevance score
-        metadata:
-          additionalProperties: true
-          type: object
-          title: Metadata
-          description: Additional metadata about the search result
-      type: object
-      required:
-      - passage
-      - score
-      title: PassageSearchResult
-      description: Result from a passage search operation with scoring details.
     HTTPValidationError:
       properties:
         detail:
@@ -369,6 +268,107 @@ components:
       - embedding_dim
       title: EmbeddingConfig
       description: Configuration for embedding model connection and processing parameters.
+    PassageSearchRequest:
+      properties:
+        query:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Query
+          description: Text query for semantic search
+        agent_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Agent Id
+          description: Filter passages by agent ID
+        archive_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Archive Id
+          description: Filter passages by archive ID
+        tags:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Tags
+          description: Optional list of tags to filter search results
+        tag_match_mode:
+          type: string
+          enum:
+          - any
+          - all
+          title: Tag Match Mode
+          description: How to match tags - 'any' to match passages with any of the tags, 'all' to match only passages with all tags
+          default: any
+        limit:
+          type: integer
+          maximum: 100
+          minimum: 1
+          title: Limit
+          description: Maximum number of results to return
+          default: 50
+        start_date:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Start Date
+          description: Filter results to passages created after this datetime
+        end_date:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: End Date
+          description: Filter results to passages created before this datetime
+      type: object
+      title: PassageSearchRequest
+      description: Request model for searching passages across archives.
+    PassageSearchResult:
+      properties:
+        passage:
+          $ref: '#/components/schemas/Passage'
+          description: The passage object
+        score:
+          type: number
+          title: Score
+          description: Relevance score
+        metadata:
+          additionalProperties: true
+          type: object
+          title: Metadata
+          description: Additional metadata about the search result
+      type: object
+      required:
+      - passage
+      - score
+      title: PassageSearchResult
+      description: Result from a passage search operation with scoring details.
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
   securitySchemes:
     bearerAuth:
       type: http
