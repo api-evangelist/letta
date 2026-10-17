@@ -122,6 +122,42 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ProviderCategory:
+      type: string
+      enum:
+      - base
+      - byok
+      title: ProviderCategory
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
     JsonSchemaResponseFormat:
       properties:
         type:
@@ -140,55 +176,17 @@ components:
       - json_schema
       title: JsonSchemaResponseFormat
       description: Response format for JSON schema-based responses.
-    TextResponseFormat:
+    JsonObjectResponseFormat:
       properties:
         type:
           type: string
-          const: text
+          const: json_object
           title: Type
           description: The type of the response format.
-          default: text
+          default: json_object
       type: object
-      title: TextResponseFormat
-      description: Response format for plain text responses.
-    ProviderType:
-      type: string
-      enum:
-      - anthropic
-      - azure
-      - baseten
-      - bedrock
-      - cerebras
-      - chatgpt_oauth
-      - deepseek
-      - fireworks
-      - google_ai
-      - google_vertex
-      - groq
-      - hugging-face
-      - letta
-      - lmstudio_openai
-      - minimax
-      - mistral
-      - ollama
-      - openai
-      - together
-      - vllm
-      - sglang
-      - openrouter
-      - xai
-      - zai
-      - zai_coding
-      title: ProviderType
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
+      title: JsonObjectResponseFormat
+      description: Response format for JSON object responses.
     Model:
       properties:
         handle:
@@ -441,44 +439,6 @@ components:
       - context_window
       - max_context_window
       title: Model
-    JsonObjectResponseFormat:
-      properties:
-        type:
-          type: string
-          const: json_object
-          title: Type
-          description: The type of the response format.
-          default: json_object
-      type: object
-      title: JsonObjectResponseFormat
-      description: Response format for JSON object responses.
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    ProviderCategory:
-      type: string
-      enum:
-      - base
-      - byok
-      title: ProviderCategory
     EmbeddingModel:
       properties:
         handle:
@@ -594,6 +554,46 @@ components:
       - embedding_model
       - embedding_dim
       title: EmbeddingModel
+    ProviderType:
+      type: string
+      enum:
+      - anthropic
+      - azure
+      - baseten
+      - bedrock
+      - cerebras
+      - chatgpt_oauth
+      - deepseek
+      - fireworks
+      - google_ai
+      - google_vertex
+      - groq
+      - hugging-face
+      - letta
+      - lmstudio_openai
+      - minimax
+      - mistral
+      - ollama
+      - openai
+      - together
+      - vllm
+      - sglang
+      - openrouter
+      - xai
+      - zai
+      - zai_coding
+      title: ProviderType
+    TextResponseFormat:
+      properties:
+        type:
+          type: string
+          const: text
+          title: Type
+          description: The type of the response format.
+          default: text
+      type: object
+      title: TextResponseFormat
+      description: Response format for plain text responses.
   securitySchemes:
     bearerAuth:
       type: http

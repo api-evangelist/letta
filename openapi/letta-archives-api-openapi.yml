@@ -487,254 +487,160 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    AgentEnvironmentVariable:
+    GeminiThinkingConfig:
       properties:
-        created_by_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Created By Id
-          description: The id of the user that made this object.
-        last_updated_by_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Last Updated By Id
-          description: The id of the user that made this object.
-        created_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Created At
-          description: The timestamp when the object was created.
-        updated_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Updated At
-          description: The timestamp when the object was last updated.
-        id:
-          type: string
-          pattern: ^agent-env-[a-fA-F0-9]{8}
-          title: Id
-          description: The human-friendly ID of the Agent-env
-          examples:
-          - agent-env-123e4567-e89b-12d3-a456-426614174000
-        key:
-          type: string
-          title: Key
-          description: The name of the environment variable.
-        value:
-          type: string
-          title: Value
-          description: The value of the environment variable.
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Description
-          description: An optional description of the environment variable.
-        value_enc:
-          anyOf:
-          - type: string
-            description: Encrypted secret value (stored as encrypted string)
-            nullable: true
-          - type: 'null'
-          title: Value Enc
-          description: Encrypted value as Secret object
-        agent_id:
-          type: string
-          title: Agent Id
-          description: The ID of the agent this environment variable belongs to.
-      additionalProperties: false
-      type: object
-      required:
-      - key
-      - value
-      - agent_id
-      title: AgentEnvironmentVariable
-    Passage:
-      properties:
-        created_by_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Created By Id
-          description: The id of the user that made this object.
-        last_updated_by_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Last Updated By Id
-          description: The id of the user that made this object.
-        created_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Created At
-          description: The creation date of the passage.
-        updated_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Updated At
-          description: The timestamp when the object was last updated.
-        is_deleted:
+        include_thoughts:
           type: boolean
-          title: Is Deleted
-          description: Whether this passage is deleted or not.
-          default: false
-        archive_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Archive Id
-          description: The unique identifier of the archive containing this passage.
-        source_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Source Id
-          description: 'Deprecated: Use `folder_id` field instead. The data source of the passage.'
-          deprecated: true
-        file_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: File Id
-          description: The unique identifier of the file associated with the passage.
-        file_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: File Name
-          description: The name of the file (only for source passages).
-        metadata:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Metadata
-          description: The metadata of the passage.
-          default: {}
-        tags:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Tags
-          description: Tags associated with this passage.
-        id:
-          type: string
-          pattern: ^passage-[a-fA-F0-9]{8}
-          title: Id
-          description: The human-friendly ID of the Passage
-          examples:
-          - passage-123e4567-e89b-12d3-a456-426614174000
-        text:
-          type: string
-          title: Text
-          description: The text of the passage.
-        embedding:
-          anyOf:
-          - items:
-              type: number
-            type: array
-          - type: 'null'
-          title: Embedding
-          description: The embedding of the passage.
-        embedding_config:
-          anyOf:
-          - $ref: '#/components/schemas/EmbeddingConfig'
-          - type: 'null'
-          description: The embedding configuration used by the passage.
-      additionalProperties: false
+          title: Include Thoughts
+          description: Whether to include thoughts in the model's response.
+          default: true
+        thinking_budget:
+          type: integer
+          title: Thinking Budget
+          description: The thinking budget for the model.
+          default: 1024
       type: object
-      required:
-      - text
-      - embedding
-      - embedding_config
-      title: Passage
-      description: Representation of a passage, which is stored in archival memory.
-    TextResponseFormat:
+      title: GeminiThinkingConfig
+    ManagerType:
+      type: string
+      enum:
+      - round_robin
+      - supervisor
+      - dynamic
+      - sleeptime
+      - voice_sleeptime
+      - swarm
+      title: ManagerType
+    AnthropicThinking:
       properties:
         type:
           type: string
-          const: text
-          title: Type
-          description: The type of the response format.
-          default: text
-      type: object
-      title: TextResponseFormat
-      description: Response format for plain text responses.
-    OpenAIReasoning:
-      properties:
-        reasoning_effort:
-          type: string
           enum:
-          - none
-          - minimal
-          - low
-          - medium
-          - high
-          - xhigh
-          title: Reasoning Effort
-          description: The reasoning effort to use when generating text reasoning models
-          default: minimal
-      type: object
-      title: OpenAIReasoning
-    ZAIModelSettings:
-      properties:
-        max_output_tokens:
+          - enabled
+          - disabled
+          title: Type
+          description: The type of thinking to use.
+          default: enabled
+        budget_tokens:
           type: integer
-          title: Max Output Tokens
-          description: The maximum number of tokens the model can generate.
-          default: 4096
-        parallel_tool_calls:
-          type: boolean
-          title: Parallel Tool Calls
-          description: Whether to enable parallel tool calling.
-          default: true
-        provider_type:
-          type: string
-          const: zai
-          title: Provider Type
-          description: The type of the provider.
-          default: zai
-        temperature:
-          type: number
-          title: Temperature
-          description: The temperature of the model.
-          default: 0.7
-        response_format:
-          anyOf:
-          - oneOf:
-            - $ref: '#/components/schemas/TextResponseFormat'
-            - $ref: '#/components/schemas/JsonSchemaResponseFormat'
-            - $ref: '#/components/schemas/JsonObjectResponseFormat'
-            discriminator:
-              propertyName: type
-              mapping:
-                json_object: '#/components/schemas/JsonObjectResponseFormat'
-                json_schema: '#/components/schemas/JsonSchemaResponseFormat'
-                text: '#/components/schemas/TextResponseFormat'
-          - type: 'null'
-          title: Response Format
-          description: The response format for the model.
-        thinking:
-          $ref: '#/components/schemas/ZAIThinking'
-          description: The thinking configuration for GLM-4.5+ models.
-          default:
-            type: enabled
-            clear_thinking: false
+          title: Budget Tokens
+          description: The maximum number of tokens the model can use for extended thinking.
+          default: 1024
       type: object
-      title: ZAIModelSettings
-      description: Z.ai (ZhipuAI) model configuration (OpenAI-compatible).
+      title: AnthropicThinking
+    Group:
+      properties:
+        id:
+          type: string
+          title: Id
+          description: The id of the group. Assigned by the database.
+        manager_type:
+          $ref: '#/components/schemas/ManagerType'
+          description: ''
+        agent_ids:
+          items:
+            type: string
+          type: array
+          title: Agent Ids
+          description: ''
+        description:
+          type: string
+          title: Description
+          description: ''
+        project_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Project Id
+          description: The associated project id.
+        template_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Template Id
+          description: The id of the template.
+        base_template_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Base Template Id
+          description: The base template id.
+        deployment_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Deployment Id
+          description: The id of the deployment.
+        shared_block_ids:
+          items:
+            type: string
+          type: array
+          title: Shared Block Ids
+          description: ''
+          default: []
+          deprecated: true
+        manager_agent_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Manager Agent Id
+          description: ''
+        termination_token:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Termination Token
+          description: ''
+        max_turns:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Max Turns
+          description: ''
+        sleeptime_agent_frequency:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Sleeptime Agent Frequency
+          description: ''
+        turns_counter:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Turns Counter
+          description: ''
+        last_processed_message_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Last Processed Message Id
+          description: ''
+        max_message_buffer_length:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Max Message Buffer Length
+          description: The desired maximum length of messages in the context window of the convo agent. This is a best effort, and may be off slightly due to user/assistant interleaving.
+        min_message_buffer_length:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Min Message Buffer Length
+          description: The desired minimum length of messages in the context window of the convo agent. This is a best effort, and may be off-by-one due to user/assistant interleaving.
+        hidden:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Hidden
+          description: If set to True, the group will be hidden.
+      additionalProperties: false
+      type: object
+      required:
+      - id
+      - manager_type
+      - agent_ids
+      - description
+      title: Group
     TogetherModelSettings:
       properties:
         max_output_tokens:
@@ -776,78 +682,182 @@ components:
       type: object
       title: TogetherModelSettings
       description: Together AI model configuration (OpenAI-compatible).
-    Source:
+    DeepseekModelSettings:
       properties:
+        max_output_tokens:
+          type: integer
+          title: Max Output Tokens
+          description: The maximum number of tokens the model can generate.
+          default: 4096
+        parallel_tool_calls:
+          type: boolean
+          title: Parallel Tool Calls
+          description: Whether to enable parallel tool calling.
+          default: true
+        provider_type:
+          type: string
+          const: deepseek
+          title: Provider Type
+          description: The type of the provider.
+          default: deepseek
+        temperature:
+          type: number
+          title: Temperature
+          description: The temperature of the model.
+          default: 0.7
+        response_format:
+          anyOf:
+          - oneOf:
+            - $ref: '#/components/schemas/TextResponseFormat'
+            - $ref: '#/components/schemas/JsonSchemaResponseFormat'
+            - $ref: '#/components/schemas/JsonObjectResponseFormat'
+            discriminator:
+              propertyName: type
+              mapping:
+                json_object: '#/components/schemas/JsonObjectResponseFormat'
+                json_schema: '#/components/schemas/JsonSchemaResponseFormat'
+                text: '#/components/schemas/TextResponseFormat'
+          - type: 'null'
+          title: Response Format
+          description: The response format for the model.
+      type: object
+      title: DeepseekModelSettings
+      description: Deepseek model configuration (OpenAI-compatible).
+    ProviderCategory:
+      type: string
+      enum:
+      - base
+      - byok
+      title: ProviderCategory
+    ParentToolRule:
+      properties:
+        tool_name:
+          type: string
+          title: Tool Name
+          description: The name of the tool. Must exist in the database for the user's organization.
+        type:
+          type: string
+          const: parent_last_tool
+          title: Type
+          default: parent_last_tool
+        prompt_template:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Prompt Template
+          description: Optional template string (ignored).
+        children:
+          items:
+            type: string
+          type: array
+          title: Children
+          description: The children tools that can be invoked.
+      additionalProperties: false
+      type: object
+      required:
+      - tool_name
+      - children
+      title: ParentToolRule
+      description: A ToolRule that only allows a child tool to be called if the parent has been called.
+    Identity:
+      properties:
+        id:
+          type: string
+          pattern: ^identity-[a-fA-F0-9]{8}
+          title: Id
+          description: The human-friendly ID of the Identity
+          examples:
+          - identity-123e4567-e89b-12d3-a456-426614174000
+        identifier_key:
+          type: string
+          title: Identifier Key
+          description: External, user-generated identifier key of the identity.
         name:
           type: string
           title: Name
-          description: The name of the source.
-        description:
+          description: The name of the identity.
+        identity_type:
+          $ref: '#/components/schemas/IdentityType'
+          description: The type of the identity.
+        project_id:
           anyOf:
           - type: string
           - type: 'null'
-          title: Description
-          description: The description of the source.
-        instructions:
+          title: Project Id
+          description: The project id of the identity, if applicable.
+        agent_ids:
+          items:
+            type: string
+          type: array
+          title: Agent Ids
+          description: The IDs of the agents associated with the identity.
+          deprecated: true
+        block_ids:
+          items:
+            type: string
+          type: array
+          title: Block Ids
+          description: The IDs of the blocks associated with the identity.
+          deprecated: true
+        properties:
+          items:
+            $ref: '#/components/schemas/IdentityProperty'
+          type: array
+          title: Properties
+          description: List of properties associated with the identity
+      additionalProperties: false
+      type: object
+      required:
+      - identifier_key
+      - name
+      - identity_type
+      - agent_ids
+      - block_ids
+      title: Identity
+    InitToolRule:
+      properties:
+        tool_name:
+          type: string
+          title: Tool Name
+          description: The name of the tool. Must exist in the database for the user's organization.
+        type:
+          type: string
+          const: run_first
+          title: Type
+          default: run_first
+        prompt_template:
           anyOf:
           - type: string
           - type: 'null'
-          title: Instructions
-          description: Instructions for how to use the source.
-        metadata:
+          title: Prompt Template
+          description: Optional template string (ignored). Rendering uses fast built-in formatting for performance.
+        args:
           anyOf:
           - additionalProperties: true
             type: object
           - type: 'null'
-          title: Metadata
-          description: Metadata associated with the source.
-        id:
-          type: string
-          pattern: ^source-[a-fA-F0-9]{8}
-          title: Id
-          description: The human-friendly ID of the Source
-          examples:
-          - source-123e4567-e89b-12d3-a456-426614174000
-        embedding_config:
-          $ref: '#/components/schemas/EmbeddingConfig'
-          description: The embedding configuration used by the source.
-        vector_db_provider:
-          $ref: '#/components/schemas/VectorDBProvider'
-          description: The vector database provider used for this source's passages
-          default: native
-        created_by_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Created By Id
-          description: The id of the user that made this Tool.
-        last_updated_by_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Last Updated By Id
-          description: The id of the user that made this Tool.
-        created_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Created At
-          description: The timestamp when the source was created.
-        updated_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Updated At
-          description: The timestamp when the source was last updated.
+          title: Args
+          description: Optional prefilled arguments for this tool. When present, these values will override any LLM-provided arguments with the same keys during invocation. Keys must match the tool's parameter names and values must satisfy the tool's JSON schema. Supports partial prefill; non-overlapping parameters are left to the model.
       additionalProperties: false
       type: object
       required:
-      - name
-      - embedding_config
-      title: Source
-      description: '(Deprecated: Use Folder) Representation of a source, which is a collection of files and passages.'
+      - tool_name
+      title: InitToolRule
+      description: Represents the initial tool rule configuration.
+    AgentType:
+      type: string
+      enum:
+      - memgpt_agent
+      - memgpt_v2_agent
+      - letta_v1_agent
+      - react_agent
+      - workflow_agent
+      - split_thread_agent
+      - sleeptime_agent
+      - voice_convo_agent
+      - voice_sleeptime_agent
+      title: AgentType
+      description: Enum to represent the type of agent.
     GoogleAIModelSettings:
       properties:
         max_output_tokens:
@@ -894,289 +904,6 @@ components:
           description: The response schema for the model.
       type: object
       title: GoogleAIModelSettings
-    AnthropicThinking:
-      properties:
-        type:
-          type: string
-          enum:
-          - enabled
-          - disabled
-          title: Type
-          description: The type of thinking to use.
-          default: enabled
-        budget_tokens:
-          type: integer
-          title: Budget Tokens
-          description: The maximum number of tokens the model can use for extended thinking.
-          default: 1024
-      type: object
-      title: AnthropicThinking
-    OpenRouterModelSettings:
-      properties:
-        max_output_tokens:
-          type: integer
-          title: Max Output Tokens
-          description: The maximum number of tokens the model can generate.
-          default: 4096
-        parallel_tool_calls:
-          type: boolean
-          title: Parallel Tool Calls
-          description: Whether to enable parallel tool calling.
-          default: true
-        provider_type:
-          type: string
-          const: openrouter
-          title: Provider Type
-          description: The type of the provider.
-          default: openrouter
-        temperature:
-          type: number
-          title: Temperature
-          description: The temperature of the model.
-          default: 0.7
-        response_format:
-          anyOf:
-          - oneOf:
-            - $ref: '#/components/schemas/TextResponseFormat'
-            - $ref: '#/components/schemas/JsonSchemaResponseFormat'
-            - $ref: '#/components/schemas/JsonObjectResponseFormat'
-            discriminator:
-              propertyName: type
-              mapping:
-                json_object: '#/components/schemas/JsonObjectResponseFormat'
-                json_schema: '#/components/schemas/JsonSchemaResponseFormat'
-                text: '#/components/schemas/TextResponseFormat'
-          - type: 'null'
-          title: Response Format
-          description: The response format for the model.
-      type: object
-      title: OpenRouterModelSettings
-      description: OpenRouter model configuration (OpenAI-compatible).
-    BedrockModelSettings:
-      properties:
-        max_output_tokens:
-          type: integer
-          title: Max Output Tokens
-          description: The maximum number of tokens the model can generate.
-          default: 4096
-        parallel_tool_calls:
-          type: boolean
-          title: Parallel Tool Calls
-          description: Whether to enable parallel tool calling.
-          default: true
-        provider_type:
-          type: string
-          const: bedrock
-          title: Provider Type
-          description: The type of the provider.
-          default: bedrock
-        temperature:
-          type: number
-          title: Temperature
-          description: The temperature of the model.
-          default: 0.7
-        response_format:
-          anyOf:
-          - oneOf:
-            - $ref: '#/components/schemas/TextResponseFormat'
-            - $ref: '#/components/schemas/JsonSchemaResponseFormat'
-            - $ref: '#/components/schemas/JsonObjectResponseFormat'
-            discriminator:
-              propertyName: type
-              mapping:
-                json_object: '#/components/schemas/JsonObjectResponseFormat'
-                json_schema: '#/components/schemas/JsonSchemaResponseFormat'
-                text: '#/components/schemas/TextResponseFormat'
-          - type: 'null'
-          title: Response Format
-          description: The response format for the model.
-      type: object
-      title: BedrockModelSettings
-      description: AWS Bedrock model configuration.
-    SGLangModelSettings:
-      properties:
-        max_output_tokens:
-          type: integer
-          title: Max Output Tokens
-          description: The maximum number of tokens the model can generate.
-          default: 4096
-        parallel_tool_calls:
-          type: boolean
-          title: Parallel Tool Calls
-          description: Whether to enable parallel tool calling.
-          default: true
-        provider_type:
-          type: string
-          const: sglang
-          title: Provider Type
-          description: The type of the provider.
-          default: sglang
-        temperature:
-          type: number
-          title: Temperature
-          description: The temperature of the model.
-          default: 0.7
-        reasoning:
-          $ref: '#/components/schemas/OpenAIReasoning'
-          description: The reasoning configuration for the model.
-          default:
-            reasoning_effort: high
-        response_format:
-          anyOf:
-          - oneOf:
-            - $ref: '#/components/schemas/TextResponseFormat'
-            - $ref: '#/components/schemas/JsonSchemaResponseFormat'
-            - $ref: '#/components/schemas/JsonObjectResponseFormat'
-            discriminator:
-              propertyName: type
-              mapping:
-                json_object: '#/components/schemas/JsonObjectResponseFormat'
-                json_schema: '#/components/schemas/JsonSchemaResponseFormat'
-                text: '#/components/schemas/TextResponseFormat'
-          - type: 'null'
-          title: Response Format
-          description: The response format for the model.
-        strict:
-          type: boolean
-          title: Strict
-          description: Enable strict mode for tool calling. When true, tool outputs are guaranteed to match JSON schemas.
-          default: true
-        tool_call_parser:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Tool Call Parser
-          description: SGLang tool call parser name (for example 'glm47', 'qwen25', or 'hermes').
-      type: object
-      title: SGLangModelSettings
-      description: SGLang model configuration (OpenAI-compatible runtime with SGLang-specific parsing).
-    Memory:
-      properties:
-        agent_type:
-          anyOf:
-          - $ref: '#/components/schemas/AgentType'
-          - type: string
-          - type: 'null'
-          title: Agent Type
-          description: Agent type controlling prompt rendering.
-        git_enabled:
-          type: boolean
-          title: Git Enabled
-          description: Whether this agent uses git-backed memory with structured labels.
-          default: false
-        blocks:
-          items:
-            $ref: '#/components/schemas/Block'
-          type: array
-          title: Blocks
-          description: Memory blocks contained in the agent's in-context memory
-        file_blocks:
-          items:
-            $ref: '#/components/schemas/FileBlock'
-          type: array
-          title: File Blocks
-          description: Special blocks representing the agent's in-context memory of an attached file
-        prompt_template:
-          type: string
-          title: Prompt Template
-          description: Deprecated. Ignored for performance.
-          default: ''
-      type: object
-      required:
-      - blocks
-      title: Memory
-      description: Represents the in-context memory (i.e. Core memory) of the agent. This includes both the `Block` objects (labelled by sections), as well as tools to edit the blocks.
-    PassageCreateRequest:
-      properties:
-        text:
-          type: string
-          title: Text
-          description: The text content of the passage
-        metadata:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Metadata
-          description: Optional metadata for the passage
-        tags:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Tags
-          description: Optional tags for categorizing the passage
-        created_at:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Created At
-          description: Optional creation datetime for the passage (ISO 8601 format)
-      type: object
-      required:
-      - text
-      title: PassageCreateRequest
-      description: Request model for creating a passage in an archive.
-    JsonSchemaResponseFormat:
-      properties:
-        type:
-          type: string
-          const: json_schema
-          title: Type
-          description: The type of the response format.
-          default: json_schema
-        json_schema:
-          additionalProperties: true
-          type: object
-          title: Json Schema
-          description: The JSON schema of the response.
-      type: object
-      required:
-      - json_schema
-      title: JsonSchemaResponseFormat
-      description: Response format for JSON schema-based responses.
-    GroqModelSettings:
-      properties:
-        max_output_tokens:
-          type: integer
-          title: Max Output Tokens
-          description: The maximum number of tokens the model can generate.
-          default: 4096
-        parallel_tool_calls:
-          type: boolean
-          title: Parallel Tool Calls
-          description: Whether to enable parallel tool calling.
-          default: true
-        provider_type:
-          type: string
-          const: groq
-          title: Provider Type
-          description: The type of the provider.
-          default: groq
-        temperature:
-          type: number
-          title: Temperature
-          description: The temperature of the model.
-          default: 0.7
-        response_format:
-          anyOf:
-          - oneOf:
-            - $ref: '#/components/schemas/TextResponseFormat'
-            - $ref: '#/components/schemas/JsonSchemaResponseFormat'
-            - $ref: '#/components/schemas/JsonObjectResponseFormat'
-            discriminator:
-              propertyName: type
-              mapping:
-                json_object: '#/components/schemas/JsonObjectResponseFormat'
-                json_schema: '#/components/schemas/JsonSchemaResponseFormat'
-                text: '#/components/schemas/TextResponseFormat'
-          - type: 'null'
-          title: Response Format
-          description: The response format for the model.
-      type: object
-      title: GroqModelSettings
-      description: Groq model configuration (OpenAI-compatible).
     ToolCall:
       properties:
         name:
@@ -1194,210 +921,23 @@ components:
       - arguments
       - tool_call_id
       title: ToolCall
-    Tool:
+    NpmRequirement:
       properties:
-        id:
-          type: string
-          pattern: ^tool-[a-fA-F0-9]{8}
-          title: Id
-          description: The human-friendly ID of the Tool
-          examples:
-          - tool-123e4567-e89b-12d3-a456-426614174000
-        tool_type:
-          $ref: '#/components/schemas/ToolType'
-          description: The type of the tool.
-          default: custom
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Description
-          description: The description of the tool.
-        source_type:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Source Type
-          description: The type of the source code.
         name:
-          anyOf:
-          - type: string
-          - type: 'null'
+          type: string
+          minLength: 1
           title: Name
-          description: The name of the function.
-        tags:
-          items:
-            type: string
-          type: array
-          title: Tags
-          description: Metadata tags.
-          default: []
-        source_code:
+          description: Name of the npm package.
+        version:
           anyOf:
           - type: string
           - type: 'null'
-          title: Source Code
-          description: The source code of the function.
-        json_schema:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Json Schema
-          description: The JSON schema of the function.
-        args_json_schema:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Args Json Schema
-          description: The args JSON schema of the function.
-        return_char_limit:
-          type: integer
-          maximum: 1000000
-          minimum: 1
-          title: Return Char Limit
-          description: The maximum number of characters in the response.
-          default: 50000
-        pip_requirements:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/PipRequirement'
-            type: array
-          - type: 'null'
-          title: Pip Requirements
-          description: Optional list of pip packages required by this tool.
-        npm_requirements:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/NpmRequirement'
-            type: array
-          - type: 'null'
-          title: Npm Requirements
-          description: Optional list of npm packages required by this tool.
-        default_requires_approval:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Default Requires Approval
-          description: Default value for whether or not executing this tool requires approval.
-        enable_parallel_execution:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Enable Parallel Execution
-          description: If set to True, then this tool will potentially be executed concurrently with other tools. Default False.
-          default: false
-        created_by_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Created By Id
-          description: The id of the user that made this Tool.
-        last_updated_by_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Last Updated By Id
-          description: The id of the user that made this Tool.
-        metadata_:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Metadata
-          description: A dictionary of additional metadata for the tool.
-        project_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Project Id
-          description: The project id of the tool.
-      additionalProperties: false
-      type: object
-      title: Tool
-      description: Representation of a tool, which is a function that can be called by the agent.
-    ContinueToolRule:
-      properties:
-        tool_name:
-          type: string
-          title: Tool Name
-          description: The name of the tool. Must exist in the database for the user's organization.
-        type:
-          type: string
-          const: continue_loop
-          title: Type
-          default: continue_loop
-        prompt_template:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Prompt Template
-          description: Optional template string (ignored).
-      additionalProperties: false
+          title: Version
+          description: Optional version of the package, following semantic versioning.
       type: object
       required:
-      - tool_name
-      title: ContinueToolRule
-      description: Represents a tool rule configuration where if this tool gets called, it must continue the agent loop.
-    RequiresApprovalToolRule:
-      properties:
-        tool_name:
-          type: string
-          title: Tool Name
-          description: The name of the tool. Must exist in the database for the user's organization.
-        type:
-          type: string
-          const: requires_approval
-          title: Type
-          default: requires_approval
-        prompt_template:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Prompt Template
-          description: Optional template string (ignored). Rendering uses fast built-in formatting for performance.
-      additionalProperties: false
-      type: object
-      required:
-      - tool_name
-      title: RequiresApprovalToolRule
-      description: Represents a tool rule configuration which requires approval before the tool can be invoked.
-    IdentityProperty:
-      properties:
-        key:
-          type: string
-          title: Key
-          description: The key of the property
-        value:
-          anyOf:
-          - type: string
-          - type: integer
-          - type: number
-          - type: boolean
-          - additionalProperties: true
-            type: object
-          title: Value
-          description: The value of the property
-        type:
-          $ref: '#/components/schemas/IdentityPropertyType'
-          description: The type of the property
-      additionalProperties: false
-      type: object
-      required:
-      - key
-      - value
-      - type
-      title: IdentityProperty
-      description: A property of an identity
-    VectorDBProvider:
-      type: string
-      enum:
-      - native
-      - tpuf
-      - pinecone
-      title: VectorDBProvider
-      description: Supported vector database providers for archival memory
+      - name
+      title: NpmRequirement
     ConditionalToolRule:
       properties:
         tool_name:
@@ -1439,15 +979,90 @@ components:
       - child_output_mapping
       title: ConditionalToolRule
       description: A ToolRule that conditionally maps to different child tools based on the output.
-    IdentityType:
-      type: string
-      enum:
-      - org
-      - user
-      - other
-      title: IdentityType
-      description: Enum to represent the type of the identity.
-    BasetenModelSettings:
+    EmbeddingConfig:
+      properties:
+        embedding_endpoint_type:
+          type: string
+          enum:
+          - openai
+          - anthropic
+          - bedrock
+          - google_ai
+          - google_vertex
+          - azure
+          - groq
+          - ollama
+          - webui
+          - webui-legacy
+          - lmstudio
+          - lmstudio-legacy
+          - llamacpp
+          - koboldcpp
+          - vllm
+          - hugging-face
+          - mistral
+          - together
+          - pinecone
+          title: Embedding Endpoint Type
+          description: The endpoint type for the model.
+        embedding_endpoint:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Embedding Endpoint
+          description: The endpoint for the model (`None` if local).
+        embedding_model:
+          type: string
+          title: Embedding Model
+          description: The model for the embedding.
+        embedding_dim:
+          type: integer
+          title: Embedding Dim
+          description: The dimension of the embedding.
+        embedding_chunk_size:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Embedding Chunk Size
+          description: The chunk size of the embedding.
+          default: 300
+        handle:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Handle
+          description: The handle for this config, in the format provider/model-name.
+        batch_size:
+          type: integer
+          title: Batch Size
+          description: The maximum batch size for processing embeddings.
+          default: 32
+        azure_endpoint:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Azure Endpoint
+          description: The Azure endpoint for the model.
+        azure_version:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Azure Version
+          description: The Azure version for the model.
+        azure_deployment:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Azure Deployment
+          description: The Azure deployment for the model.
+      type: object
+      required:
+      - embedding_endpoint_type
+      - embedding_model
+      - embedding_dim
+      title: EmbeddingConfig
+      description: Configuration for embedding model connection and processing parameters.
+    OpenRouterModelSettings:
       properties:
         max_output_tokens:
           type: integer
@@ -1461,116 +1076,282 @@ components:
           default: true
         provider_type:
           type: string
-          const: baseten
+          const: openrouter
           title: Provider Type
           description: The type of the provider.
-          default: baseten
+          default: openrouter
         temperature:
           type: number
           title: Temperature
           description: The temperature of the model.
           default: 0.7
+        response_format:
+          anyOf:
+          - oneOf:
+            - $ref: '#/components/schemas/TextResponseFormat'
+            - $ref: '#/components/schemas/JsonSchemaResponseFormat'
+            - $ref: '#/components/schemas/JsonObjectResponseFormat'
+            discriminator:
+              propertyName: type
+              mapping:
+                json_object: '#/components/schemas/JsonObjectResponseFormat'
+                json_schema: '#/components/schemas/JsonSchemaResponseFormat'
+                text: '#/components/schemas/TextResponseFormat'
+          - type: 'null'
+          title: Response Format
+          description: The response format for the model.
       type: object
-      title: BasetenModelSettings
-      description: Baseten model configuration (OpenAI-compatible).
-    ChatGPTOAuthReasoning:
-      properties:
-        reasoning_effort:
-          type: string
-          enum:
-          - none
-          - low
-          - medium
-          - high
-          - xhigh
-          title: Reasoning Effort
-          description: The reasoning effort level for GPT-5.x and o-series models.
-          default: medium
-      type: object
-      title: ChatGPTOAuthReasoning
-      description: Reasoning configuration for ChatGPT OAuth models (GPT-5.x, o-series).
-    ToolCallDelta:
+      title: OpenRouterModelSettings
+      description: OpenRouter model configuration (OpenAI-compatible).
+    ArchiveUpdateRequest:
       properties:
         name:
           anyOf:
           - type: string
           - type: 'null'
           title: Name
-        arguments:
+        description:
           anyOf:
           - type: string
           - type: 'null'
-          title: Arguments
-        tool_call_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Tool Call Id
+          title: Description
       type: object
-      title: ToolCallDelta
-    AgentType:
-      type: string
-      enum:
-      - memgpt_agent
-      - memgpt_v2_agent
-      - letta_v1_agent
-      - react_agent
-      - workflow_agent
-      - split_thread_agent
-      - sleeptime_agent
-      - voice_convo_agent
-      - voice_sleeptime_agent
-      title: AgentType
-      description: Enum to represent the type of agent.
-    ToolType:
-      type: string
-      enum:
-      - custom
-      - letta_core
-      - letta_memory_core
-      - letta_multi_agent_core
-      - letta_sleeptime_core
-      - letta_voice_sleeptime_core
-      - letta_builtin
-      - letta_files_core
-      - external_langchain
-      - external_composio
-      - external_mcp
-      title: ToolType
-    ProviderCategory:
-      type: string
-      enum:
-      - base
-      - byok
-      title: ProviderCategory
-    ManagerType:
-      type: string
-      enum:
-      - round_robin
-      - supervisor
-      - dynamic
-      - sleeptime
-      - voice_sleeptime
-      - swarm
-      title: ManagerType
-    PipRequirement:
+      title: ArchiveUpdateRequest
+      description: 'Request model for updating an archive (partial).
+
+
+        Supports updating only name and description.'
+    Archive:
       properties:
+        created_by_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Created By Id
+          description: The id of the user that made this object.
+        last_updated_by_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Last Updated By Id
+          description: The id of the user that made this object.
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+          description: The creation date of the archive
+        updated_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated At
+          description: The timestamp when the object was last updated.
         name:
           type: string
-          minLength: 1
           title: Name
-          description: Name of the pip package.
-        version:
+          description: The name of the archive
+        description:
           anyOf:
           - type: string
           - type: 'null'
-          title: Version
-          description: Optional version of the package, following semantic versioning.
+          title: Description
+          description: A description of the archive
+        vector_db_provider:
+          $ref: '#/components/schemas/VectorDBProvider'
+          description: The vector database provider used for this archive's passages
+          default: native
+        embedding_config:
+          anyOf:
+          - $ref: '#/components/schemas/EmbeddingConfig'
+          - type: 'null'
+          description: Embedding configuration for passages in this archive
+        metadata:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Metadata
+          description: Additional metadata
+        id:
+          type: string
+          pattern: ^archive-[a-fA-F0-9]{8}
+          title: Id
+          description: The human-friendly ID of the Archive
+          examples:
+          - archive-123e4567-e89b-12d3-a456-426614174000
+      additionalProperties: false
       type: object
       required:
+      - created_at
       - name
-      title: PipRequirement
-    FileBlock:
+      - organization_id
+      title: Archive
+      description: Representation of an archive - a collection of archival passages that can be shared between agents.
+    IdentityType:
+      type: string
+      enum:
+      - org
+      - user
+      - other
+      title: IdentityType
+      description: Enum to represent the type of the identity.
+    AnthropicModelSettings:
+      properties:
+        max_output_tokens:
+          type: integer
+          title: Max Output Tokens
+          description: The maximum number of tokens the model can generate.
+          default: 4096
+        parallel_tool_calls:
+          type: boolean
+          title: Parallel Tool Calls
+          description: Whether to enable parallel tool calling.
+          default: true
+        provider_type:
+          type: string
+          const: anthropic
+          title: Provider Type
+          description: The type of the provider.
+          default: anthropic
+        temperature:
+          type: number
+          title: Temperature
+          description: The temperature of the model.
+          default: 1
+        thinking:
+          $ref: '#/components/schemas/AnthropicThinking'
+          description: The thinking configuration for the model.
+          default:
+            type: enabled
+            budget_tokens: 1024
+        response_format:
+          anyOf:
+          - oneOf:
+            - $ref: '#/components/schemas/TextResponseFormat'
+            - $ref: '#/components/schemas/JsonSchemaResponseFormat'
+            - $ref: '#/components/schemas/JsonObjectResponseFormat'
+            discriminator:
+              propertyName: type
+              mapping:
+                json_object: '#/components/schemas/JsonObjectResponseFormat'
+                json_schema: '#/components/schemas/JsonSchemaResponseFormat'
+                text: '#/components/schemas/TextResponseFormat'
+          - type: 'null'
+          title: Response Format
+          description: The response format for the model.
+        verbosity:
+          anyOf:
+          - type: string
+            enum:
+            - low
+            - medium
+            - high
+          - type: 'null'
+          title: Verbosity
+          description: Soft control for how verbose model output should be, used for GPT-5 models.
+        effort:
+          anyOf:
+          - type: string
+            enum:
+            - low
+            - medium
+            - high
+            - max
+          - type: 'null'
+          title: Effort
+          description: Effort level for supported Anthropic models (controls token spending). 'max' is only available on Opus 4.6. Not setting this gives similar performance to 'high'.
+        strict:
+          type: boolean
+          title: Strict
+          description: Enable strict mode for tool calling. When true, tool outputs are guaranteed to match JSON schemas.
+          default: false
+      type: object
+      title: AnthropicModelSettings
+    GroqModelSettings:
+      properties:
+        max_output_tokens:
+          type: integer
+          title: Max Output Tokens
+          description: The maximum number of tokens the model can generate.
+          default: 4096
+        parallel_tool_calls:
+          type: boolean
+          title: Parallel Tool Calls
+          description: Whether to enable parallel tool calling.
+          default: true
+        provider_type:
+          type: string
+          const: groq
+          title: Provider Type
+          description: The type of the provider.
+          default: groq
+        temperature:
+          type: number
+          title: Temperature
+          description: The temperature of the model.
+          default: 0.7
+        response_format:
+          anyOf:
+          - oneOf:
+            - $ref: '#/components/schemas/TextResponseFormat'
+            - $ref: '#/components/schemas/JsonSchemaResponseFormat'
+            - $ref: '#/components/schemas/JsonObjectResponseFormat'
+            discriminator:
+              propertyName: type
+              mapping:
+                json_object: '#/components/schemas/JsonObjectResponseFormat'
+                json_schema: '#/components/schemas/JsonSchemaResponseFormat'
+                text: '#/components/schemas/TextResponseFormat'
+          - type: 'null'
+          title: Response Format
+          description: The response format for the model.
+      type: object
+      title: GroqModelSettings
+      description: Groq model configuration (OpenAI-compatible).
+    PassageBatchCreateRequest:
+      properties:
+        passages:
+          items:
+            $ref: '#/components/schemas/PassageCreateRequest'
+          type: array
+          title: Passages
+          description: Passages to create in the archive
+      type: object
+      required:
+      - passages
+      title: PassageBatchCreateRequest
+      description: Request model for creating multiple passages in an archive.
+    JsonSchemaResponseFormat:
+      properties:
+        type:
+          type: string
+          const: json_schema
+          title: Type
+          description: The type of the response format.
+          default: json_schema
+        json_schema:
+          additionalProperties: true
+          type: object
+          title: Json Schema
+          description: The JSON schema of the response.
+      type: object
+      required:
+      - json_schema
+      title: JsonSchemaResponseFormat
+      description: Response format for JSON schema-based responses.
+    JsonObjectResponseFormat:
+      properties:
+        type:
+          type: string
+          const: json_object
+          title: Type
+          description: The type of the response format.
+          default: json_object
+      type: object
+      title: JsonObjectResponseFormat
+      description: Response format for JSON object responses.
+    Block:
       properties:
         value:
           type: string
@@ -1688,77 +1469,58 @@ components:
           title: Tags
           description: The tags associated with the block.
           default: []
-        file_id:
-          type: string
-          title: File Id
-          description: Unique identifier of the file.
-        source_id:
-          type: string
-          title: Source Id
-          description: 'Deprecated: Use `folder_id` field instead. Unique identifier of the source.'
-          deprecated: true
-        is_open:
-          type: boolean
-          title: Is Open
-          description: True if the agent currently has the file open.
-        last_accessed_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Last Accessed At
-          description: UTC timestamp of the agent’s most recent access to this file. Any operations from the open, close, or search tools will update this field.
       type: object
       required:
       - value
-      - file_id
-      - source_id
-      - is_open
-      title: FileBlock
-    ArchiveCreateRequest:
+      title: Block
+      description: A Block represents a reserved section of the LLM's context window.
+    RequiredBeforeExitToolRule:
       properties:
-        name:
+        tool_name:
           type: string
-          title: Name
-        embedding_config:
-          anyOf:
-          - $ref: '#/components/schemas/EmbeddingConfig'
-          - type: 'null'
-          description: 'Deprecated: Use `embedding` field instead. Embedding configuration for the archive'
-          deprecated: true
-        embedding:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Embedding
-          description: Embedding model handle for the archive
-        description:
+          title: Tool Name
+          description: The name of the tool. Must exist in the database for the user's organization.
+        type:
+          type: string
+          const: required_before_exit
+          title: Type
+          default: required_before_exit
+        prompt_template:
           anyOf:
           - type: string
           - type: 'null'
-          title: Description
+          title: Prompt Template
+          description: Optional template string (ignored).
+      additionalProperties: false
       type: object
       required:
-      - name
-      title: ArchiveCreateRequest
-      description: 'Request model for creating an archive.
-
-
-        Intentionally excludes vector_db_provider. These are derived internally (vector DB provider from env).'
-    PassageBatchCreateRequest:
+      - tool_name
+      title: RequiredBeforeExitToolRule
+      description: Represents a tool rule configuration where this tool must be called before the agent loop can exit.
+    RequiresApprovalToolRule:
       properties:
-        passages:
-          items:
-            $ref: '#/components/schemas/PassageCreateRequest'
-          type: array
-          title: Passages
-          description: Passages to create in the archive
+        tool_name:
+          type: string
+          title: Tool Name
+          description: The name of the tool. Must exist in the database for the user's organization.
+        type:
+          type: string
+          const: requires_approval
+          title: Type
+          default: requires_approval
+        prompt_template:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Prompt Template
+          description: Optional template string (ignored). Rendering uses fast built-in formatting for performance.
+      additionalProperties: false
       type: object
       required:
-      - passages
-      title: PassageBatchCreateRequest
-      description: Request model for creating multiple passages in an archive.
-    XAIModelSettings:
+      - tool_name
+      title: RequiresApprovalToolRule
+      description: Represents a tool rule configuration which requires approval before the tool can be invoked.
+    OpenAIModelSettings:
       properties:
         max_output_tokens:
           type: integer
@@ -1772,15 +1534,20 @@ components:
           default: true
         provider_type:
           type: string
-          const: xai
+          const: openai
           title: Provider Type
           description: The type of the provider.
-          default: xai
+          default: openai
         temperature:
           type: number
           title: Temperature
           description: The temperature of the model.
           default: 0.7
+        reasoning:
+          $ref: '#/components/schemas/OpenAIReasoning'
+          description: The reasoning configuration for the model.
+          default:
+            reasoning_effort: high
         response_format:
           anyOf:
           - oneOf:
@@ -1796,82 +1563,13 @@ components:
           - type: 'null'
           title: Response Format
           description: The response format for the model.
+        strict:
+          type: boolean
+          title: Strict
+          description: Enable strict mode for tool calling. When true, tool outputs are guaranteed to match JSON schemas.
+          default: true
       type: object
-      title: XAIModelSettings
-      description: xAI model configuration (OpenAI-compatible).
-    ArchiveUpdateRequest:
-      properties:
-        name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Name
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Description
-      type: object
-      title: ArchiveUpdateRequest
-      description: 'Request model for updating an archive (partial).
-
-
-        Supports updating only name and description.'
-    Identity:
-      properties:
-        id:
-          type: string
-          pattern: ^identity-[a-fA-F0-9]{8}
-          title: Id
-          description: The human-friendly ID of the Identity
-          examples:
-          - identity-123e4567-e89b-12d3-a456-426614174000
-        identifier_key:
-          type: string
-          title: Identifier Key
-          description: External, user-generated identifier key of the identity.
-        name:
-          type: string
-          title: Name
-          description: The name of the identity.
-        identity_type:
-          $ref: '#/components/schemas/IdentityType'
-          description: The type of the identity.
-        project_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Project Id
-          description: The project id of the identity, if applicable.
-        agent_ids:
-          items:
-            type: string
-          type: array
-          title: Agent Ids
-          description: The IDs of the agents associated with the identity.
-          deprecated: true
-        block_ids:
-          items:
-            type: string
-          type: array
-          title: Block Ids
-          description: The IDs of the blocks associated with the identity.
-          deprecated: true
-        properties:
-          items:
-            $ref: '#/components/schemas/IdentityProperty'
-          type: array
-          title: Properties
-          description: List of properties associated with the identity
-      additionalProperties: false
-      type: object
-      required:
-      - identifier_key
-      - name
-      - identity_type
-      - agent_ids
-      - block_ids
-      title: Identity
+      title: OpenAIModelSettings
     ChatGPTOAuthModelSettings:
       properties:
         max_output_tokens:
@@ -1903,6 +1601,138 @@ components:
       type: object
       title: ChatGPTOAuthModelSettings
       description: ChatGPT OAuth model configuration (uses ChatGPT backend API).
+    PassageCreateRequest:
+      properties:
+        text:
+          type: string
+          title: Text
+          description: The text content of the passage
+        metadata:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Metadata
+          description: Optional metadata for the passage
+        tags:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Tags
+          description: Optional tags for categorizing the passage
+        created_at:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Created At
+          description: Optional creation datetime for the passage (ISO 8601 format)
+      type: object
+      required:
+      - text
+      title: PassageCreateRequest
+      description: Request model for creating a passage in an archive.
+    MaxCountPerStepToolRule:
+      properties:
+        tool_name:
+          type: string
+          title: Tool Name
+          description: The name of the tool. Must exist in the database for the user's organization.
+        type:
+          type: string
+          const: max_count_per_step
+          title: Type
+          default: max_count_per_step
+        prompt_template:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Prompt Template
+          description: Optional template string (ignored).
+        max_count_limit:
+          type: integer
+          title: Max Count Limit
+          description: The max limit for the total number of times this tool can be invoked in a single step.
+      additionalProperties: false
+      type: object
+      required:
+      - tool_name
+      - max_count_limit
+      title: MaxCountPerStepToolRule
+      description: Represents a tool rule configuration which constrains the total number of times this tool can be invoked in a single step.
+    Source:
+      properties:
+        name:
+          type: string
+          title: Name
+          description: The name of the source.
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+          description: The description of the source.
+        instructions:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Instructions
+          description: Instructions for how to use the source.
+        metadata:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Metadata
+          description: Metadata associated with the source.
+        id:
+          type: string
+          pattern: ^source-[a-fA-F0-9]{8}
+          title: Id
+          description: The human-friendly ID of the Source
+          examples:
+          - source-123e4567-e89b-12d3-a456-426614174000
+        embedding_config:
+          $ref: '#/components/schemas/EmbeddingConfig'
+          description: The embedding configuration used by the source.
+        vector_db_provider:
+          $ref: '#/components/schemas/VectorDBProvider'
+          description: The vector database provider used for this source's passages
+          default: native
+        created_by_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Created By Id
+          description: The id of the user that made this Tool.
+        last_updated_by_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Last Updated By Id
+          description: The id of the user that made this Tool.
+        created_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created At
+          description: The timestamp when the source was created.
+        updated_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated At
+          description: The timestamp when the source was last updated.
+      additionalProperties: false
+      type: object
+      required:
+      - name
+      - embedding_config
+      title: Source
+      description: '(Deprecated: Use Folder) Representation of a source, which is a collection of files and passages.'
     CompactionSettings-Output:
       properties:
         model:
@@ -1990,581 +1820,6 @@ components:
         Per-model settings (temperature,
 
         max tokens, etc.) are derived from the default configuration for that handle.'
-    OpenAIModelSettings:
-      properties:
-        max_output_tokens:
-          type: integer
-          title: Max Output Tokens
-          description: The maximum number of tokens the model can generate.
-          default: 4096
-        parallel_tool_calls:
-          type: boolean
-          title: Parallel Tool Calls
-          description: Whether to enable parallel tool calling.
-          default: true
-        provider_type:
-          type: string
-          const: openai
-          title: Provider Type
-          description: The type of the provider.
-          default: openai
-        temperature:
-          type: number
-          title: Temperature
-          description: The temperature of the model.
-          default: 0.7
-        reasoning:
-          $ref: '#/components/schemas/OpenAIReasoning'
-          description: The reasoning configuration for the model.
-          default:
-            reasoning_effort: high
-        response_format:
-          anyOf:
-          - oneOf:
-            - $ref: '#/components/schemas/TextResponseFormat'
-            - $ref: '#/components/schemas/JsonSchemaResponseFormat'
-            - $ref: '#/components/schemas/JsonObjectResponseFormat'
-            discriminator:
-              propertyName: type
-              mapping:
-                json_object: '#/components/schemas/JsonObjectResponseFormat'
-                json_schema: '#/components/schemas/JsonSchemaResponseFormat'
-                text: '#/components/schemas/TextResponseFormat'
-          - type: 'null'
-          title: Response Format
-          description: The response format for the model.
-        strict:
-          type: boolean
-          title: Strict
-          description: Enable strict mode for tool calling. When true, tool outputs are guaranteed to match JSON schemas.
-          default: true
-      type: object
-      title: OpenAIModelSettings
-    InitToolRule:
-      properties:
-        tool_name:
-          type: string
-          title: Tool Name
-          description: The name of the tool. Must exist in the database for the user's organization.
-        type:
-          type: string
-          const: run_first
-          title: Type
-          default: run_first
-        prompt_template:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Prompt Template
-          description: Optional template string (ignored). Rendering uses fast built-in formatting for performance.
-        args:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Args
-          description: Optional prefilled arguments for this tool. When present, these values will override any LLM-provided arguments with the same keys during invocation. Keys must match the tool's parameter names and values must satisfy the tool's JSON schema. Supports partial prefill; non-overlapping parameters are left to the model.
-      additionalProperties: false
-      type: object
-      required:
-      - tool_name
-      title: InitToolRule
-      description: Represents the initial tool rule configuration.
-    ChildToolRule:
-      properties:
-        tool_name:
-          type: string
-          title: Tool Name
-          description: The name of the tool. Must exist in the database for the user's organization.
-        type:
-          type: string
-          const: constrain_child_tools
-          title: Type
-          default: constrain_child_tools
-        prompt_template:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Prompt Template
-          description: Optional template string (ignored).
-        children:
-          items:
-            type: string
-          type: array
-          title: Children
-          description: The children tools that can be invoked.
-        child_arg_nodes:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/ToolCallNode'
-            type: array
-          - type: 'null'
-          title: Child Arg Nodes
-          description: Optional list of typed child argument overrides. Each node must reference a child in 'children'.
-      additionalProperties: false
-      type: object
-      required:
-      - tool_name
-      - children
-      title: ChildToolRule
-      description: A ToolRule represents a tool that can be invoked by the agent.
-    NpmRequirement:
-      properties:
-        name:
-          type: string
-          minLength: 1
-          title: Name
-          description: Name of the npm package.
-        version:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Version
-          description: Optional version of the package, following semantic versioning.
-      type: object
-      required:
-      - name
-      title: NpmRequirement
-    EmbeddingConfig:
-      properties:
-        embedding_endpoint_type:
-          type: string
-          enum:
-          - openai
-          - anthropic
-          - bedrock
-          - google_ai
-          - google_vertex
-          - azure
-          - groq
-          - ollama
-          - webui
-          - webui-legacy
-          - lmstudio
-          - lmstudio-legacy
-          - llamacpp
-          - koboldcpp
-          - vllm
-          - hugging-face
-          - mistral
-          - together
-          - pinecone
-          title: Embedding Endpoint Type
-          description: The endpoint type for the model.
-        embedding_endpoint:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Embedding Endpoint
-          description: The endpoint for the model (`None` if local).
-        embedding_model:
-          type: string
-          title: Embedding Model
-          description: The model for the embedding.
-        embedding_dim:
-          type: integer
-          title: Embedding Dim
-          description: The dimension of the embedding.
-        embedding_chunk_size:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Embedding Chunk Size
-          description: The chunk size of the embedding.
-          default: 300
-        handle:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Handle
-          description: The handle for this config, in the format provider/model-name.
-        batch_size:
-          type: integer
-          title: Batch Size
-          description: The maximum batch size for processing embeddings.
-          default: 32
-        azure_endpoint:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Azure Endpoint
-          description: The Azure endpoint for the model.
-        azure_version:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Azure Version
-          description: The Azure version for the model.
-        azure_deployment:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Azure Deployment
-          description: The Azure deployment for the model.
-      type: object
-      required:
-      - embedding_endpoint_type
-      - embedding_model
-      - embedding_dim
-      title: EmbeddingConfig
-      description: Configuration for embedding model connection and processing parameters.
-    Group:
-      properties:
-        id:
-          type: string
-          title: Id
-          description: The id of the group. Assigned by the database.
-        manager_type:
-          $ref: '#/components/schemas/ManagerType'
-          description: ''
-        agent_ids:
-          items:
-            type: string
-          type: array
-          title: Agent Ids
-          description: ''
-        description:
-          type: string
-          title: Description
-          description: ''
-        project_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Project Id
-          description: The associated project id.
-        template_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Template Id
-          description: The id of the template.
-        base_template_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Base Template Id
-          description: The base template id.
-        deployment_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Deployment Id
-          description: The id of the deployment.
-        shared_block_ids:
-          items:
-            type: string
-          type: array
-          title: Shared Block Ids
-          description: ''
-          default: []
-          deprecated: true
-        manager_agent_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Manager Agent Id
-          description: ''
-        termination_token:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Termination Token
-          description: ''
-        max_turns:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Max Turns
-          description: ''
-        sleeptime_agent_frequency:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Sleeptime Agent Frequency
-          description: ''
-        turns_counter:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Turns Counter
-          description: ''
-        last_processed_message_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Last Processed Message Id
-          description: ''
-        max_message_buffer_length:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Max Message Buffer Length
-          description: The desired maximum length of messages in the context window of the convo agent. This is a best effort, and may be off slightly due to user/assistant interleaving.
-        min_message_buffer_length:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Min Message Buffer Length
-          description: The desired minimum length of messages in the context window of the convo agent. This is a best effort, and may be off-by-one due to user/assistant interleaving.
-        hidden:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Hidden
-          description: If set to True, the group will be hidden.
-      additionalProperties: false
-      type: object
-      required:
-      - id
-      - manager_type
-      - agent_ids
-      - description
-      title: Group
-    GoogleVertexModelSettings:
-      properties:
-        max_output_tokens:
-          type: integer
-          title: Max Output Tokens
-          description: The maximum number of tokens the model can generate.
-          default: 65536
-        parallel_tool_calls:
-          type: boolean
-          title: Parallel Tool Calls
-          description: Whether to enable parallel tool calling.
-          default: true
-        provider_type:
-          type: string
-          const: google_vertex
-          title: Provider Type
-          description: The type of the provider.
-          default: google_vertex
-        temperature:
-          type: number
-          title: Temperature
-          description: The temperature of the model.
-          default: 0.7
-        thinking_config:
-          $ref: '#/components/schemas/GeminiThinkingConfig'
-          description: The thinking configuration for the model.
-          default:
-            include_thoughts: true
-            thinking_budget: 1024
-        response_schema:
-          anyOf:
-          - oneOf:
-            - $ref: '#/components/schemas/TextResponseFormat'
-            - $ref: '#/components/schemas/JsonSchemaResponseFormat'
-            - $ref: '#/components/schemas/JsonObjectResponseFormat'
-            discriminator:
-              propertyName: type
-              mapping:
-                json_object: '#/components/schemas/JsonObjectResponseFormat'
-                json_schema: '#/components/schemas/JsonSchemaResponseFormat'
-                text: '#/components/schemas/TextResponseFormat'
-          - type: 'null'
-          title: Response Schema
-          description: The response schema for the model.
-      type: object
-      title: GoogleVertexModelSettings
-    Archive:
-      properties:
-        created_by_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Created By Id
-          description: The id of the user that made this object.
-        last_updated_by_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Last Updated By Id
-          description: The id of the user that made this object.
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-          description: The creation date of the archive
-        updated_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Updated At
-          description: The timestamp when the object was last updated.
-        name:
-          type: string
-          title: Name
-          description: The name of the archive
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Description
-          description: A description of the archive
-        vector_db_provider:
-          $ref: '#/components/schemas/VectorDBProvider'
-          description: The vector database provider used for this archive's passages
-          default: native
-        embedding_config:
-          anyOf:
-          - $ref: '#/components/schemas/EmbeddingConfig'
-          - type: 'null'
-          description: Embedding configuration for passages in this archive
-        metadata:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Metadata
-          description: Additional metadata
-        id:
-          type: string
-          pattern: ^archive-[a-fA-F0-9]{8}
-          title: Id
-          description: The human-friendly ID of the Archive
-          examples:
-          - archive-123e4567-e89b-12d3-a456-426614174000
-      additionalProperties: false
-      type: object
-      required:
-      - created_at
-      - name
-      - organization_id
-      title: Archive
-      description: Representation of an archive - a collection of archival passages that can be shared between agents.
-    AzureModelSettings:
-      properties:
-        max_output_tokens:
-          type: integer
-          title: Max Output Tokens
-          description: The maximum number of tokens the model can generate.
-          default: 4096
-        parallel_tool_calls:
-          type: boolean
-          title: Parallel Tool Calls
-          description: Whether to enable parallel tool calling.
-          default: true
-        provider_type:
-          type: string
-          const: azure
-          title: Provider Type
-          description: The type of the provider.
-          default: azure
-        temperature:
-          type: number
-          title: Temperature
-          description: The temperature of the model.
-          default: 0.7
-        response_format:
-          anyOf:
-          - oneOf:
-            - $ref: '#/components/schemas/TextResponseFormat'
-            - $ref: '#/components/schemas/JsonSchemaResponseFormat'
-            - $ref: '#/components/schemas/JsonObjectResponseFormat'
-            discriminator:
-              propertyName: type
-              mapping:
-                json_object: '#/components/schemas/JsonObjectResponseFormat'
-                json_schema: '#/components/schemas/JsonSchemaResponseFormat'
-                text: '#/components/schemas/TextResponseFormat'
-          - type: 'null'
-          title: Response Format
-          description: The response format for the model.
-      type: object
-      title: AzureModelSettings
-      description: Azure OpenAI model configuration (OpenAI-compatible).
-    MaxCountPerStepToolRule:
-      properties:
-        tool_name:
-          type: string
-          title: Tool Name
-          description: The name of the tool. Must exist in the database for the user's organization.
-        type:
-          type: string
-          const: max_count_per_step
-          title: Type
-          default: max_count_per_step
-        prompt_template:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Prompt Template
-          description: Optional template string (ignored).
-        max_count_limit:
-          type: integer
-          title: Max Count Limit
-          description: The max limit for the total number of times this tool can be invoked in a single step.
-      additionalProperties: false
-      type: object
-      required:
-      - tool_name
-      - max_count_limit
-      title: MaxCountPerStepToolRule
-      description: Represents a tool rule configuration which constrains the total number of times this tool can be invoked in a single step.
-    DeepseekModelSettings:
-      properties:
-        max_output_tokens:
-          type: integer
-          title: Max Output Tokens
-          description: The maximum number of tokens the model can generate.
-          default: 4096
-        parallel_tool_calls:
-          type: boolean
-          title: Parallel Tool Calls
-          description: Whether to enable parallel tool calling.
-          default: true
-        provider_type:
-          type: string
-          const: deepseek
-          title: Provider Type
-          description: The type of the provider.
-          default: deepseek
-        temperature:
-          type: number
-          title: Temperature
-          description: The temperature of the model.
-          default: 0.7
-        response_format:
-          anyOf:
-          - oneOf:
-            - $ref: '#/components/schemas/TextResponseFormat'
-            - $ref: '#/components/schemas/JsonSchemaResponseFormat'
-            - $ref: '#/components/schemas/JsonObjectResponseFormat'
-            discriminator:
-              propertyName: type
-              mapping:
-                json_object: '#/components/schemas/JsonObjectResponseFormat'
-                json_schema: '#/components/schemas/JsonSchemaResponseFormat'
-                text: '#/components/schemas/TextResponseFormat'
-          - type: 'null'
-          title: Response Format
-          description: The response format for the model.
-      type: object
-      title: DeepseekModelSettings
-      description: Deepseek model configuration (OpenAI-compatible).
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
     LLMConfig:
       properties:
         model:
@@ -2783,92 +2038,172 @@ components:
       - context_window
       title: LLMConfig
       description: "Configuration for Language Model (LLM) connection and generation parameters.\n\n.. deprecated::\n    LLMConfig is deprecated and should not be used as an input or return type in API calls.\n    Use the schemas in letta.schemas.model (ModelSettings, OpenAIModelSettings, etc.) instead.\n    For conversion, use the _to_model() method or Model._from_llm_config() method."
-    GeminiThinkingConfig:
+    ToolCallDelta:
       properties:
-        include_thoughts:
-          type: boolean
-          title: Include Thoughts
-          description: Whether to include thoughts in the model's response.
-          default: true
-        thinking_budget:
-          type: integer
-          title: Thinking Budget
-          description: The thinking budget for the model.
-          default: 1024
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        arguments:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Arguments
+        tool_call_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Tool Call Id
       type: object
-      title: GeminiThinkingConfig
-    ZAIThinking:
+      title: ToolCallDelta
+    Memory:
       properties:
-        type:
-          type: string
-          enum:
-          - enabled
-          - disabled
-          title: Type
-          description: Whether thinking is enabled or disabled.
-          default: enabled
-        clear_thinking:
+        agent_type:
+          anyOf:
+          - $ref: '#/components/schemas/AgentType'
+          - type: string
+          - type: 'null'
+          title: Agent Type
+          description: Agent type controlling prompt rendering.
+        git_enabled:
           type: boolean
-          title: Clear Thinking
-          description: If False, preserved thinking is used (recommended for agents).
+          title: Git Enabled
+          description: Whether this agent uses git-backed memory with structured labels.
           default: false
-      type: object
-      title: ZAIThinking
-      description: Thinking configuration for ZAI GLM-4.5+ models.
-    RequiredBeforeExitToolRule:
-      properties:
-        tool_name:
-          type: string
-          title: Tool Name
-          description: The name of the tool. Must exist in the database for the user's organization.
-        type:
-          type: string
-          const: required_before_exit
-          title: Type
-          default: required_before_exit
-        prompt_template:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Prompt Template
-          description: Optional template string (ignored).
-      additionalProperties: false
-      type: object
-      required:
-      - tool_name
-      title: RequiredBeforeExitToolRule
-      description: Represents a tool rule configuration where this tool must be called before the agent loop can exit.
-    ParentToolRule:
-      properties:
-        tool_name:
-          type: string
-          title: Tool Name
-          description: The name of the tool. Must exist in the database for the user's organization.
-        type:
-          type: string
-          const: parent_last_tool
-          title: Type
-          default: parent_last_tool
-        prompt_template:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Prompt Template
-          description: Optional template string (ignored).
-        children:
+        blocks:
           items:
-            type: string
+            $ref: '#/components/schemas/Block'
           type: array
-          title: Children
-          description: The children tools that can be invoked.
+          title: Blocks
+          description: Memory blocks contained in the agent's in-context memory
+        file_blocks:
+          items:
+            $ref: '#/components/schemas/FileBlock'
+          type: array
+          title: File Blocks
+          description: Special blocks representing the agent's in-context memory of an attached file
+        prompt_template:
+          type: string
+          title: Prompt Template
+          description: Deprecated. Ignored for performance.
+          default: ''
+      type: object
+      required:
+      - blocks
+      title: Memory
+      description: Represents the in-context memory (i.e. Core memory) of the agent. This includes both the `Block` objects (labelled by sections), as well as tools to edit the blocks.
+    IdentityProperty:
+      properties:
+        key:
+          type: string
+          title: Key
+          description: The key of the property
+        value:
+          anyOf:
+          - type: string
+          - type: integer
+          - type: number
+          - type: boolean
+          - additionalProperties: true
+            type: object
+          title: Value
+          description: The value of the property
+        type:
+          $ref: '#/components/schemas/IdentityPropertyType'
+          description: The type of the property
       additionalProperties: false
       type: object
       required:
-      - tool_name
-      - children
-      title: ParentToolRule
-      description: A ToolRule that only allows a child tool to be called if the parent has been called.
-    Block:
+      - key
+      - value
+      - type
+      title: IdentityProperty
+      description: A property of an identity
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ApprovalRequestMessage:
+      properties:
+        id:
+          type: string
+          title: Id
+        date:
+          type: string
+          format: date-time
+          title: Date
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        message_type:
+          type: string
+          const: approval_request_message
+          title: Message Type
+          description: The type of the message.
+          default: approval_request_message
+        otid:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Otid
+          description: The offline threading id (OTID). Set by the client to deduplicate requests. Used for idempotency in background streaming mode — each message in a request must have a unique OTID. Retries of the same request should reuse the same OTIDs.
+        sender_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Sender Id
+        step_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Step Id
+        is_err:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Err
+        seq_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Seq Id
+        run_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Run Id
+        tool_call:
+          anyOf:
+          - $ref: '#/components/schemas/ToolCall'
+          - $ref: '#/components/schemas/ToolCallDelta'
+          title: Tool Call
+          description: The tool call that has been requested by the llm to run
+          deprecated: true
+        tool_calls:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/ToolCall'
+            type: array
+          - $ref: '#/components/schemas/ToolCallDelta'
+          - type: 'null'
+          title: Tool Calls
+          description: The tool calls that have been requested by the llm to run, which are pending approval
+      type: object
+      required:
+      - id
+      - date
+      - tool_call
+      title: ApprovalRequestMessage
+      description: "A message representing a request for approval to call a tool (generated by the LLM to trigger tool execution).\n\nArgs:\n    id (str): The ID of the message\n    date (datetime): The date the message was created in ISO format\n    name (Optional[str]): The name of the sender of the message\n    tool_call (ToolCall): The tool call"
+    FileBlock:
       properties:
         value:
           type: string
@@ -2986,28 +2321,346 @@ components:
           title: Tags
           description: The tags associated with the block.
           default: []
+        file_id:
+          type: string
+          title: File Id
+          description: Unique identifier of the file.
+        source_id:
+          type: string
+          title: Source Id
+          description: 'Deprecated: Use `folder_id` field instead. Unique identifier of the source.'
+          deprecated: true
+        is_open:
+          type: boolean
+          title: Is Open
+          description: True if the agent currently has the file open.
+        last_accessed_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Last Accessed At
+          description: UTC timestamp of the agent’s most recent access to this file. Any operations from the open, close, or search tools will update this field.
       type: object
       required:
       - value
-      title: Block
-      description: A Block represents a reserved section of the LLM's context window.
-    StopReasonType:
+      - file_id
+      - source_id
+      - is_open
+      title: FileBlock
+    PipRequirement:
+      properties:
+        name:
+          type: string
+          minLength: 1
+          title: Name
+          description: Name of the pip package.
+        version:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Version
+          description: Optional version of the package, following semantic versioning.
+      type: object
+      required:
+      - name
+      title: PipRequirement
+    ToolCallNode:
+      properties:
+        name:
+          type: string
+          title: Name
+          description: The name of the child tool to invoke next.
+        args:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Args
+          description: Optional prefilled arguments for this child tool. Keys must match the tool's parameter names and values must satisfy the tool's JSON schema. Supports partial prefill; non-overlapping parameters are left to the model.
+      type: object
+      required:
+      - name
+      title: ToolCallNode
+      description: 'Typed child override for prefilled arguments.
+
+
+        When used in a ChildToolRule, if this child is selected next, its `args` will be
+
+        applied as prefilled arguments (overriding overlapping LLM-provided values).'
+    ToolType:
       type: string
       enum:
-      - end_turn
-      - error
-      - llm_api_error
-      - invalid_llm_response
-      - invalid_tool_call
-      - max_steps
-      - max_tokens_exceeded
-      - no_tool_call
-      - tool_rule
-      - cancelled
-      - insufficient_credits
-      - requires_approval
-      - context_window_overflow_in_system_prompt
-      title: StopReasonType
+      - custom
+      - letta_core
+      - letta_memory_core
+      - letta_multi_agent_core
+      - letta_sleeptime_core
+      - letta_voice_sleeptime_core
+      - letta_builtin
+      - letta_files_core
+      - external_langchain
+      - external_composio
+      - external_mcp
+      title: ToolType
+    Passage:
+      properties:
+        created_by_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Created By Id
+          description: The id of the user that made this object.
+        last_updated_by_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Last Updated By Id
+          description: The id of the user that made this object.
+        created_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created At
+          description: The creation date of the passage.
+        updated_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated At
+          description: The timestamp when the object was last updated.
+        is_deleted:
+          type: boolean
+          title: Is Deleted
+          description: Whether this passage is deleted or not.
+          default: false
+        archive_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Archive Id
+          description: The unique identifier of the archive containing this passage.
+        source_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Source Id
+          description: 'Deprecated: Use `folder_id` field instead. The data source of the passage.'
+          deprecated: true
+        file_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: File Id
+          description: The unique identifier of the file associated with the passage.
+        file_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: File Name
+          description: The name of the file (only for source passages).
+        metadata:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Metadata
+          description: The metadata of the passage.
+          default: {}
+        tags:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Tags
+          description: Tags associated with this passage.
+        id:
+          type: string
+          pattern: ^passage-[a-fA-F0-9]{8}
+          title: Id
+          description: The human-friendly ID of the Passage
+          examples:
+          - passage-123e4567-e89b-12d3-a456-426614174000
+        text:
+          type: string
+          title: Text
+          description: The text of the passage.
+        embedding:
+          anyOf:
+          - items:
+              type: number
+            type: array
+          - type: 'null'
+          title: Embedding
+          description: The embedding of the passage.
+        embedding_config:
+          anyOf:
+          - $ref: '#/components/schemas/EmbeddingConfig'
+          - type: 'null'
+          description: The embedding configuration used by the passage.
+      additionalProperties: false
+      type: object
+      required:
+      - text
+      - embedding
+      - embedding_config
+      title: Passage
+      description: Representation of a passage, which is stored in archival memory.
+    SGLangModelSettings:
+      properties:
+        max_output_tokens:
+          type: integer
+          title: Max Output Tokens
+          description: The maximum number of tokens the model can generate.
+          default: 4096
+        parallel_tool_calls:
+          type: boolean
+          title: Parallel Tool Calls
+          description: Whether to enable parallel tool calling.
+          default: true
+        provider_type:
+          type: string
+          const: sglang
+          title: Provider Type
+          description: The type of the provider.
+          default: sglang
+        temperature:
+          type: number
+          title: Temperature
+          description: The temperature of the model.
+          default: 0.7
+        reasoning:
+          $ref: '#/components/schemas/OpenAIReasoning'
+          description: The reasoning configuration for the model.
+          default:
+            reasoning_effort: high
+        response_format:
+          anyOf:
+          - oneOf:
+            - $ref: '#/components/schemas/TextResponseFormat'
+            - $ref: '#/components/schemas/JsonSchemaResponseFormat'
+            - $ref: '#/components/schemas/JsonObjectResponseFormat'
+            discriminator:
+              propertyName: type
+              mapping:
+                json_object: '#/components/schemas/JsonObjectResponseFormat'
+                json_schema: '#/components/schemas/JsonSchemaResponseFormat'
+                text: '#/components/schemas/TextResponseFormat'
+          - type: 'null'
+          title: Response Format
+          description: The response format for the model.
+        strict:
+          type: boolean
+          title: Strict
+          description: Enable strict mode for tool calling. When true, tool outputs are guaranteed to match JSON schemas.
+          default: true
+        tool_call_parser:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Tool Call Parser
+          description: SGLang tool call parser name (for example 'glm47', 'qwen25', or 'hermes').
+      type: object
+      title: SGLangModelSettings
+      description: SGLang model configuration (OpenAI-compatible runtime with SGLang-specific parsing).
+    TerminalToolRule:
+      properties:
+        tool_name:
+          type: string
+          title: Tool Name
+          description: The name of the tool. Must exist in the database for the user's organization.
+        type:
+          type: string
+          const: exit_loop
+          title: Type
+          default: exit_loop
+        prompt_template:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Prompt Template
+          description: Optional template string (ignored).
+      additionalProperties: false
+      type: object
+      required:
+      - tool_name
+      title: TerminalToolRule
+      description: Represents a terminal tool rule configuration where if this tool gets called, it must end the agent loop.
+    ChildToolRule:
+      properties:
+        tool_name:
+          type: string
+          title: Tool Name
+          description: The name of the tool. Must exist in the database for the user's organization.
+        type:
+          type: string
+          const: constrain_child_tools
+          title: Type
+          default: constrain_child_tools
+        prompt_template:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Prompt Template
+          description: Optional template string (ignored).
+        children:
+          items:
+            type: string
+          type: array
+          title: Children
+          description: The children tools that can be invoked.
+        child_arg_nodes:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/ToolCallNode'
+            type: array
+          - type: 'null'
+          title: Child Arg Nodes
+          description: Optional list of typed child argument overrides. Each node must reference a child in 'children'.
+      additionalProperties: false
+      type: object
+      required:
+      - tool_name
+      - children
+      title: ChildToolRule
+      description: A ToolRule represents a tool that can be invoked by the agent.
+    BasetenModelSettings:
+      properties:
+        max_output_tokens:
+          type: integer
+          title: Max Output Tokens
+          description: The maximum number of tokens the model can generate.
+          default: 4096
+        parallel_tool_calls:
+          type: boolean
+          title: Parallel Tool Calls
+          description: Whether to enable parallel tool calling.
+          default: true
+        provider_type:
+          type: string
+          const: baseten
+          title: Provider Type
+          description: The type of the provider.
+          default: baseten
+        temperature:
+          type: number
+          title: Temperature
+          description: The temperature of the model.
+          default: 0.7
+      type: object
+      title: BasetenModelSettings
+      description: Baseten model configuration (OpenAI-compatible).
+    VectorDBProvider:
+      type: string
+      enum:
+      - native
+      - tpuf
+      - pinecone
+      title: VectorDBProvider
+      description: Supported vector database providers for archival memory
     AgentState:
       properties:
         created_by_id:
@@ -3353,133 +3006,7 @@ components:
       - tags
       title: AgentState
       description: Representation of an agent's state. This is the state of the agent at a given time, and is persisted in the DB backend. The state has all the information needed to recreate a persisted agent.
-    ApprovalRequestMessage:
-      properties:
-        id:
-          type: string
-          title: Id
-        date:
-          type: string
-          format: date-time
-          title: Date
-        name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Name
-        message_type:
-          type: string
-          const: approval_request_message
-          title: Message Type
-          description: The type of the message.
-          default: approval_request_message
-        otid:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Otid
-          description: The offline threading id (OTID). Set by the client to deduplicate requests. Used for idempotency in background streaming mode — each message in a request must have a unique OTID. Retries of the same request should reuse the same OTIDs.
-        sender_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Sender Id
-        step_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Step Id
-        is_err:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Is Err
-        seq_id:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Seq Id
-        run_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Run Id
-        tool_call:
-          anyOf:
-          - $ref: '#/components/schemas/ToolCall'
-          - $ref: '#/components/schemas/ToolCallDelta'
-          title: Tool Call
-          description: The tool call that has been requested by the llm to run
-          deprecated: true
-        tool_calls:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/ToolCall'
-            type: array
-          - $ref: '#/components/schemas/ToolCallDelta'
-          - type: 'null'
-          title: Tool Calls
-          description: The tool calls that have been requested by the llm to run, which are pending approval
-      type: object
-      required:
-      - id
-      - date
-      - tool_call
-      title: ApprovalRequestMessage
-      description: "A message representing a request for approval to call a tool (generated by the LLM to trigger tool execution).\n\nArgs:\n    id (str): The ID of the message\n    date (datetime): The date the message was created in ISO format\n    name (Optional[str]): The name of the sender of the message\n    tool_call (ToolCall): The tool call"
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    JsonObjectResponseFormat:
-      properties:
-        type:
-          type: string
-          const: json_object
-          title: Type
-          description: The type of the response format.
-          default: json_object
-      type: object
-      title: JsonObjectResponseFormat
-      description: Response format for JSON object responses.
-    IdentityPropertyType:
-      type: string
-      enum:
-      - string
-      - number
-      - boolean
-      - json
-      title: IdentityPropertyType
-      description: Enum to represent the type of the identity property.
-    ToolCallNode:
-      properties:
-        name:
-          type: string
-          title: Name
-          description: The name of the child tool to invoke next.
-        args:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Args
-          description: Optional prefilled arguments for this child tool. Keys must match the tool's parameter names and values must satisfy the tool's JSON schema. Supports partial prefill; non-overlapping parameters are left to the model.
-      type: object
-      required:
-      - name
-      title: ToolCallNode
-      description: 'Typed child override for prefilled arguments.
-
-
-        When used in a ChildToolRule, if this child is selected next, its `args` will be
-
-        applied as prefilled arguments (overriding overlapping LLM-provided values).'
-    AnthropicModelSettings:
+    AzureModelSettings:
       properties:
         max_output_tokens:
           type: integer
@@ -3493,21 +3020,15 @@ components:
           default: true
         provider_type:
           type: string
-          const: anthropic
+          const: azure
           title: Provider Type
           description: The type of the provider.
-          default: anthropic
+          default: azure
         temperature:
           type: number
           title: Temperature
           description: The temperature of the model.
-          default: 1
-        thinking:
-          $ref: '#/components/schemas/AnthropicThinking'
-          description: The thinking configuration for the model.
-          default:
-            type: enabled
-            budget_tokens: 1024
+          default: 0.7
         response_format:
           anyOf:
           - oneOf:
@@ -3523,35 +3044,379 @@ components:
           - type: 'null'
           title: Response Format
           description: The response format for the model.
-        verbosity:
-          anyOf:
-          - type: string
-            enum:
-            - low
-            - medium
-            - high
-          - type: 'null'
-          title: Verbosity
-          description: Soft control for how verbose model output should be, used for GPT-5 models.
-        effort:
-          anyOf:
-          - type: string
-            enum:
-            - low
-            - medium
-            - high
-            - max
-          - type: 'null'
-          title: Effort
-          description: Effort level for supported Anthropic models (controls token spending). 'max' is only available on Opus 4.6. Not setting this gives similar performance to 'high'.
-        strict:
+      type: object
+      title: AzureModelSettings
+      description: Azure OpenAI model configuration (OpenAI-compatible).
+    XAIModelSettings:
+      properties:
+        max_output_tokens:
+          type: integer
+          title: Max Output Tokens
+          description: The maximum number of tokens the model can generate.
+          default: 4096
+        parallel_tool_calls:
           type: boolean
-          title: Strict
-          description: Enable strict mode for tool calling. When true, tool outputs are guaranteed to match JSON schemas.
+          title: Parallel Tool Calls
+          description: Whether to enable parallel tool calling.
+          default: true
+        provider_type:
+          type: string
+          const: xai
+          title: Provider Type
+          description: The type of the provider.
+          default: xai
+        temperature:
+          type: number
+          title: Temperature
+          description: The temperature of the model.
+          default: 0.7
+        response_format:
+          anyOf:
+          - oneOf:
+            - $ref: '#/components/schemas/TextResponseFormat'
+            - $ref: '#/components/schemas/JsonSchemaResponseFormat'
+            - $ref: '#/components/schemas/JsonObjectResponseFormat'
+            discriminator:
+              propertyName: type
+              mapping:
+                json_object: '#/components/schemas/JsonObjectResponseFormat'
+                json_schema: '#/components/schemas/JsonSchemaResponseFormat'
+                text: '#/components/schemas/TextResponseFormat'
+          - type: 'null'
+          title: Response Format
+          description: The response format for the model.
+      type: object
+      title: XAIModelSettings
+      description: xAI model configuration (OpenAI-compatible).
+    OpenAIReasoning:
+      properties:
+        reasoning_effort:
+          type: string
+          enum:
+          - none
+          - minimal
+          - low
+          - medium
+          - high
+          - xhigh
+          title: Reasoning Effort
+          description: The reasoning effort to use when generating text reasoning models
+          default: minimal
+      type: object
+      title: OpenAIReasoning
+    ZAIThinking:
+      properties:
+        type:
+          type: string
+          enum:
+          - enabled
+          - disabled
+          title: Type
+          description: Whether thinking is enabled or disabled.
+          default: enabled
+        clear_thinking:
+          type: boolean
+          title: Clear Thinking
+          description: If False, preserved thinking is used (recommended for agents).
           default: false
       type: object
-      title: AnthropicModelSettings
-    TerminalToolRule:
+      title: ZAIThinking
+      description: Thinking configuration for ZAI GLM-4.5+ models.
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    AgentEnvironmentVariable:
+      properties:
+        created_by_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Created By Id
+          description: The id of the user that made this object.
+        last_updated_by_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Last Updated By Id
+          description: The id of the user that made this object.
+        created_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created At
+          description: The timestamp when the object was created.
+        updated_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated At
+          description: The timestamp when the object was last updated.
+        id:
+          type: string
+          pattern: ^agent-env-[a-fA-F0-9]{8}
+          title: Id
+          description: The human-friendly ID of the Agent-env
+          examples:
+          - agent-env-123e4567-e89b-12d3-a456-426614174000
+        key:
+          type: string
+          title: Key
+          description: The name of the environment variable.
+        value:
+          type: string
+          title: Value
+          description: The value of the environment variable.
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+          description: An optional description of the environment variable.
+        value_enc:
+          anyOf:
+          - type: string
+            description: Encrypted secret value (stored as encrypted string)
+            nullable: true
+          - type: 'null'
+          title: Value Enc
+          description: Encrypted value as Secret object
+        agent_id:
+          type: string
+          title: Agent Id
+          description: The ID of the agent this environment variable belongs to.
+      additionalProperties: false
+      type: object
+      required:
+      - key
+      - value
+      - agent_id
+      title: AgentEnvironmentVariable
+    GoogleVertexModelSettings:
+      properties:
+        max_output_tokens:
+          type: integer
+          title: Max Output Tokens
+          description: The maximum number of tokens the model can generate.
+          default: 65536
+        parallel_tool_calls:
+          type: boolean
+          title: Parallel Tool Calls
+          description: Whether to enable parallel tool calling.
+          default: true
+        provider_type:
+          type: string
+          const: google_vertex
+          title: Provider Type
+          description: The type of the provider.
+          default: google_vertex
+        temperature:
+          type: number
+          title: Temperature
+          description: The temperature of the model.
+          default: 0.7
+        thinking_config:
+          $ref: '#/components/schemas/GeminiThinkingConfig'
+          description: The thinking configuration for the model.
+          default:
+            include_thoughts: true
+            thinking_budget: 1024
+        response_schema:
+          anyOf:
+          - oneOf:
+            - $ref: '#/components/schemas/TextResponseFormat'
+            - $ref: '#/components/schemas/JsonSchemaResponseFormat'
+            - $ref: '#/components/schemas/JsonObjectResponseFormat'
+            discriminator:
+              propertyName: type
+              mapping:
+                json_object: '#/components/schemas/JsonObjectResponseFormat'
+                json_schema: '#/components/schemas/JsonSchemaResponseFormat'
+                text: '#/components/schemas/TextResponseFormat'
+          - type: 'null'
+          title: Response Schema
+          description: The response schema for the model.
+      type: object
+      title: GoogleVertexModelSettings
+    ChatGPTOAuthReasoning:
+      properties:
+        reasoning_effort:
+          type: string
+          enum:
+          - none
+          - low
+          - medium
+          - high
+          - xhigh
+          title: Reasoning Effort
+          description: The reasoning effort level for GPT-5.x and o-series models.
+          default: medium
+      type: object
+      title: ChatGPTOAuthReasoning
+      description: Reasoning configuration for ChatGPT OAuth models (GPT-5.x, o-series).
+    IdentityPropertyType:
+      type: string
+      enum:
+      - string
+      - number
+      - boolean
+      - json
+      title: IdentityPropertyType
+      description: Enum to represent the type of the identity property.
+    Tool:
+      properties:
+        id:
+          type: string
+          pattern: ^tool-[a-fA-F0-9]{8}
+          title: Id
+          description: The human-friendly ID of the Tool
+          examples:
+          - tool-123e4567-e89b-12d3-a456-426614174000
+        tool_type:
+          $ref: '#/components/schemas/ToolType'
+          description: The type of the tool.
+          default: custom
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+          description: The description of the tool.
+        source_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Source Type
+          description: The type of the source code.
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+          description: The name of the function.
+        tags:
+          items:
+            type: string
+          type: array
+          title: Tags
+          description: Metadata tags.
+          default: []
+        source_code:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Source Code
+          description: The source code of the function.
+        json_schema:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Json Schema
+          description: The JSON schema of the function.
+        args_json_schema:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Args Json Schema
+          description: The args JSON schema of the function.
+        return_char_limit:
+          type: integer
+          maximum: 1000000
+          minimum: 1
+          title: Return Char Limit
+          description: The maximum number of characters in the response.
+          default: 50000
+        pip_requirements:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/PipRequirement'
+            type: array
+          - type: 'null'
+          title: Pip Requirements
+          description: Optional list of pip packages required by this tool.
+        npm_requirements:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/NpmRequirement'
+            type: array
+          - type: 'null'
+          title: Npm Requirements
+          description: Optional list of npm packages required by this tool.
+        default_requires_approval:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Default Requires Approval
+          description: Default value for whether or not executing this tool requires approval.
+        enable_parallel_execution:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Enable Parallel Execution
+          description: If set to True, then this tool will potentially be executed concurrently with other tools. Default False.
+          default: false
+        created_by_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Created By Id
+          description: The id of the user that made this Tool.
+        last_updated_by_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Last Updated By Id
+          description: The id of the user that made this Tool.
+        metadata_:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Metadata
+          description: A dictionary of additional metadata for the tool.
+        project_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Project Id
+          description: The project id of the tool.
+      additionalProperties: false
+      type: object
+      title: Tool
+      description: Representation of a tool, which is a function that can be called by the agent.
+    TextResponseFormat:
+      properties:
+        type:
+          type: string
+          const: text
+          title: Type
+          description: The type of the response format.
+          default: text
+      type: object
+      title: TextResponseFormat
+      description: Response format for plain text responses.
+    ContinueToolRule:
       properties:
         tool_name:
           type: string
@@ -3559,9 +3424,9 @@ components:
           description: The name of the tool. Must exist in the database for the user's organization.
         type:
           type: string
-          const: exit_loop
+          const: continue_loop
           title: Type
-          default: exit_loop
+          default: continue_loop
         prompt_template:
           anyOf:
           - type: string
@@ -3572,8 +3437,143 @@ components:
       type: object
       required:
       - tool_name
-      title: TerminalToolRule
-      description: Represents a terminal tool rule configuration where if this tool gets called, it must end the agent loop.
+      title: ContinueToolRule
+      description: Represents a tool rule configuration where if this tool gets called, it must continue the agent loop.
+    ArchiveCreateRequest:
+      properties:
+        name:
+          type: string
+          title: Name
+        embedding_config:
+          anyOf:
+          - $ref: '#/components/schemas/EmbeddingConfig'
+          - type: 'null'
+          description: 'Deprecated: Use `embedding` field instead. Embedding configuration for the archive'
+          deprecated: true
+        embedding:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Embedding
+          description: Embedding model handle for the archive
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+      type: object
+      required:
+      - name
+      title: ArchiveCreateRequest
+      description: 'Request model for creating an archive.
+
+
+        Intentionally excludes vector_db_provider. These are derived internally (vector DB provider from env).'
+    BedrockModelSettings:
+      properties:
+        max_output_tokens:
+          type: integer
+          title: Max Output Tokens
+          description: The maximum number of tokens the model can generate.
+          default: 4096
+        parallel_tool_calls:
+          type: boolean
+          title: Parallel Tool Calls
+          description: Whether to enable parallel tool calling.
+          default: true
+        provider_type:
+          type: string
+          const: bedrock
+          title: Provider Type
+          description: The type of the provider.
+          default: bedrock
+        temperature:
+          type: number
+          title: Temperature
+          description: The temperature of the model.
+          default: 0.7
+        response_format:
+          anyOf:
+          - oneOf:
+            - $ref: '#/components/schemas/TextResponseFormat'
+            - $ref: '#/components/schemas/JsonSchemaResponseFormat'
+            - $ref: '#/components/schemas/JsonObjectResponseFormat'
+            discriminator:
+              propertyName: type
+              mapping:
+                json_object: '#/components/schemas/JsonObjectResponseFormat'
+                json_schema: '#/components/schemas/JsonSchemaResponseFormat'
+                text: '#/components/schemas/TextResponseFormat'
+          - type: 'null'
+          title: Response Format
+          description: The response format for the model.
+      type: object
+      title: BedrockModelSettings
+      description: AWS Bedrock model configuration.
+    ZAIModelSettings:
+      properties:
+        max_output_tokens:
+          type: integer
+          title: Max Output Tokens
+          description: The maximum number of tokens the model can generate.
+          default: 4096
+        parallel_tool_calls:
+          type: boolean
+          title: Parallel Tool Calls
+          description: Whether to enable parallel tool calling.
+          default: true
+        provider_type:
+          type: string
+          const: zai
+          title: Provider Type
+          description: The type of the provider.
+          default: zai
+        temperature:
+          type: number
+          title: Temperature
+          description: The temperature of the model.
+          default: 0.7
+        response_format:
+          anyOf:
+          - oneOf:
+            - $ref: '#/components/schemas/TextResponseFormat'
+            - $ref: '#/components/schemas/JsonSchemaResponseFormat'
+            - $ref: '#/components/schemas/JsonObjectResponseFormat'
+            discriminator:
+              propertyName: type
+              mapping:
+                json_object: '#/components/schemas/JsonObjectResponseFormat'
+                json_schema: '#/components/schemas/JsonSchemaResponseFormat'
+                text: '#/components/schemas/TextResponseFormat'
+          - type: 'null'
+          title: Response Format
+          description: The response format for the model.
+        thinking:
+          $ref: '#/components/schemas/ZAIThinking'
+          description: The thinking configuration for GLM-4.5+ models.
+          default:
+            type: enabled
+            clear_thinking: false
+      type: object
+      title: ZAIModelSettings
+      description: Z.ai (ZhipuAI) model configuration (OpenAI-compatible).
+    StopReasonType:
+      type: string
+      enum:
+      - end_turn
+      - error
+      - llm_api_error
+      - invalid_llm_response
+      - invalid_tool_call
+      - max_steps
+      - max_tokens_exceeded
+      - no_tool_call
+      - tool_rule
+      - cancelled
+      - insufficient_credits
+      - requires_approval
+      - context_window_overflow_in_system_prompt
+      title: StopReasonType
   securitySchemes:
     bearerAuth:
       type: http

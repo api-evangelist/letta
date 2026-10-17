@@ -319,6 +319,13 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    JobType:
+      type: string
+      enum:
+      - job
+      - run
+      - batch
+      title: JobType
     HTTPValidationError:
       properties:
         detail:
@@ -328,13 +335,39 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
-    JobType:
+    JobStatus:
       type: string
       enum:
-      - job
-      - run
-      - batch
-      title: JobType
+      - created
+      - running
+      - completed
+      - failed
+      - pending
+      - cancelled
+      - expired
+      title: JobStatus
+      description: Status of the job.
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
     Job:
       properties:
         created_by_id:
@@ -448,39 +481,6 @@ components:
       type: object
       title: Job
       description: Representation of offline jobs, used for tracking status of data loading tasks (involving parsing and embedding files).
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    JobStatus:
-      type: string
-      enum:
-      - created
-      - running
-      - completed
-      - failed
-      - pending
-      - cancelled
-      - expired
-      title: JobStatus
-      description: Status of the job.
     StopReasonType:
       type: string
       enum:

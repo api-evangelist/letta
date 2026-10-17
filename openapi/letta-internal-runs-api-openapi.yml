@@ -453,21 +453,6 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
-    MessageType:
-      type: string
-      enum:
-      - system_message
-      - user_message
-      - assistant_message
-      - reasoning_message
-      - hidden_reasoning_message
-      - tool_call_message
-      - tool_return_message
-      - approval_request_message
-      - approval_response_message
-      - summary_message
-      - event_message
-      title: MessageType
     ValidationError:
       properties:
         loc:
@@ -489,6 +474,38 @@ components:
       - msg
       - type
       title: ValidationError
+    MessageType:
+      type: string
+      enum:
+      - system_message
+      - user_message
+      - assistant_message
+      - reasoning_message
+      - hidden_reasoning_message
+      - tool_call_message
+      - tool_return_message
+      - approval_request_message
+      - approval_response_message
+      - summary_message
+      - event_message
+      title: MessageType
+    StopReasonType:
+      type: string
+      enum:
+      - end_turn
+      - error
+      - llm_api_error
+      - invalid_llm_response
+      - invalid_tool_call
+      - max_steps
+      - max_tokens_exceeded
+      - no_tool_call
+      - tool_rule
+      - cancelled
+      - insufficient_credits
+      - requires_approval
+      - context_window_overflow_in_system_prompt
+      title: StopReasonType
     ComparisonOperator:
       type: string
       enum:
@@ -507,23 +524,6 @@ components:
       - cancelled
       title: RunStatus
       description: Status of the run.
-    StopReasonType:
-      type: string
-      enum:
-      - end_turn
-      - error
-      - llm_api_error
-      - invalid_llm_response
-      - invalid_tool_call
-      - max_steps
-      - max_tokens_exceeded
-      - no_tool_call
-      - tool_rule
-      - cancelled
-      - insufficient_credits
-      - requires_approval
-      - context_window_overflow_in_system_prompt
-      title: StopReasonType
   securitySchemes:
     bearerAuth:
       type: http
