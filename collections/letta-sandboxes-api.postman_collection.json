@@ -1,270 +1,526 @@
 {
+  "info": {
+    "_postman_id": "954ec8e1-6dc3-4807-90b5-adb1b6295e1c",
+    "name": "Letta Sandboxes API",
+    "description": "REST API for Letta, the stateful agents platform. Manage agents, memory blocks, archival passages, sources, custom tools, MCP servers, multi-agent groups, runs, and streaming responses. Available as Letta Cloud (managed) at https://api.letta.com/v1 and as the self-hosted open-source server (Apache-2.0) typically run at http://localhost:8283.\n\nContact Support:\n Name: Letta\n Email: support@letta.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T21:04:17.000Z",
+    "updatedAt": "2026-10-21T21:04:17.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-954ec8e1-6dc3-4807-90b5-adb1b6295e1c"
+  },
   "item": [
     {
-      "id": "3f7c707f-0264-4eff-a9d2-7626fb664d00",
-      "name": "Sandboxes",
-      "description": {
-        "content": "Manage code-execution sandboxes used by sandbox tools.",
-        "type": "text/plain"
-      },
+      "name": "v1",
       "item": [
         {
-          "id": "12752de2-b26d-43cb-8145-1642c7262894",
-          "name": "Create Sandbox",
-          "request": {
-            "name": "Create Sandbox",
-            "description": {
-              "content": "Create a new Modal Sandbox that runs letta remote automatically",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v1",
-                "sandboxes"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"agentId\": \"<string>\",\n  \"connectionName\": \"<string>\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
+          "name": "sandboxes",
+          "item": [
             {
-              "id": "2dc3308e-a8d7-422b-bff8-ca7203763c52",
-              "name": "200",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "sandboxes"
+              "name": "{sandboxId}",
+              "item": [
+                {
+                  "name": "terminate",
+                  "item": [
+                    {
+                      "name": "Terminate Sandbox",
+                      "id": "68d871dd-2482-4c16-8f94-3ec90905f70a",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/sandboxes/:sandboxId/terminate",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "sandboxes",
+                            ":sandboxId",
+                            "terminate"
+                          ],
+                          "variable": [
+                            {
+                              "id": "66e56c9b-f7f6-4d3a-bf07-221027954091",
+                              "key": "sandboxId",
+                              "value": "<string>",
+                              "description": "(Required) "
+                            }
+                          ]
+                        },
+                        "description": "Terminate a Modal Sandbox"
+                      },
+                      "response": [
+                        {
+                          "id": "1c486a17-1b4d-4998-8d39-2ac16711ffd2",
+                          "name": "200",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/sandboxes/:sandboxId/terminate",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "sandboxes",
+                                ":sandboxId",
+                                "terminate"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "sandboxId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"success\": \"<boolean>\",\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T21:04:18.000Z",
+                          "updatedAt": "2026-10-21T21:04:18.000Z",
+                          "uid": "35240-1c486a17-1b4d-4998-8d39-2ac16711ffd2"
+                        },
+                        {
+                          "id": "de880aba-b11a-4e12-bc99-041a1464f7d0",
+                          "name": "404",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/sandboxes/:sandboxId/terminate",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "sandboxes",
+                                ":sandboxId",
+                                "terminate"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "sandboxId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errorCode\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T21:04:18.000Z",
+                          "updatedAt": "2026-10-21T21:04:18.000Z",
+                          "uid": "35240-de880aba-b11a-4e12-bc99-041a1464f7d0"
+                        },
+                        {
+                          "id": "4c8f0c2f-e591-46fc-9197-5112a76b84d7",
+                          "name": "500",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/sandboxes/:sandboxId/terminate",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "sandboxes",
+                                ":sandboxId",
+                                "terminate"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "sandboxId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errorCode\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T21:04:18.000Z",
+                          "updatedAt": "2026-10-21T21:04:18.000Z",
+                          "uid": "35240-4c8f0c2f-e591-46fc-9197-5112a76b84d7"
+                        }
+                      ],
+                      "createdAt": "2026-10-21T21:04:18.000Z",
+                      "updatedAt": "2026-10-21T21:04:18.000Z",
+                      "uid": "35240-68d871dd-2482-4c16-8f94-3ec90905f70a"
+                    }
                   ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+                  "id": "1882134c-515e-40fe-b2d8-bf9bfe018648",
+                  "createdAt": "2026-10-21T21:04:17.000Z",
+                  "updatedAt": "2026-10-21T21:04:17.000Z",
+                  "uid": "35240-1882134c-515e-40fe-b2d8-bf9bfe018648"
+                }
+              ],
+              "id": "4849c5a1-a298-4dac-ba84-19ec077bbb00",
+              "createdAt": "2026-10-21T21:04:17.000Z",
+              "updatedAt": "2026-10-21T21:04:17.000Z",
+              "uid": "35240-4849c5a1-a298-4dac-ba84-19ec077bbb00"
+            },
+            {
+              "name": "Create Sandbox",
+              "id": "9e655490-55b8-41fe-b70e-6c5faa869592",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
+                    "key": "Content-Type",
+                    "value": "application/json"
                   },
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
                   "raw": "{\n  \"agentId\": \"<string>\",\n  \"connectionName\": \"<string>\"\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"sandboxId\": \"string\",\n  \"deviceId\": \"string\",\n  \"connectionName\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "997bb698-00ac-48e7-b26c-e4a9a129c5ba",
-              "name": "400",
-              "originalRequest": {
+                },
                 "url": {
-                  "path": [
-                    "v1",
-                    "sandboxes"
-                  ],
+                  "raw": "{{baseUrl}}/v1/sandboxes",
                   "host": [
                     "{{baseUrl}}"
                   ],
-                  "query": [],
-                  "variable": []
+                  "path": [
+                    "v1",
+                    "sandboxes"
+                  ]
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
+                "description": "Create a new Modal Sandbox that runs letta remote automatically"
+              },
+              "response": [
+                {
+                  "id": "955263c4-0f5b-46ad-9cf1-18b9bdf0eff3",
+                  "name": "200",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"agentId\": \"<string>\",\n  \"connectionName\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
                     },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/sandboxes",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "sandboxes"
+                      ]
+                    }
                   },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"sandboxId\": \"<string>\",\n  \"deviceId\": \"<string>\",\n  \"connectionName\": \"<string>\"\n}",
+                  "createdAt": "2026-10-21T21:04:18.000Z",
+                  "updatedAt": "2026-10-21T21:04:18.000Z",
+                  "uid": "35240-955263c4-0f5b-46ad-9cf1-18b9bdf0eff3"
+                },
+                {
+                  "id": "c605096d-e523-4fd5-a016-4af59780c4a1",
+                  "name": "400",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"agentId\": \"<string>\",\n  \"connectionName\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/sandboxes",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "sandboxes"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-10-21T21:04:18.000Z",
+                  "updatedAt": "2026-10-21T21:04:18.000Z",
+                  "uid": "35240-c605096d-e523-4fd5-a016-4af59780c4a1"
+                },
+                {
+                  "id": "414fa115-e452-44d7-a359-48f5dbbbe35e",
+                  "name": "500",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"agentId\": \"<string>\",\n  \"connectionName\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/sandboxes",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "sandboxes"
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-10-21T21:04:18.000Z",
+                  "updatedAt": "2026-10-21T21:04:18.000Z",
+                  "uid": "35240-414fa115-e452-44d7-a359-48f5dbbbe35e"
+                }
+              ],
+              "createdAt": "2026-10-21T21:04:18.000Z",
+              "updatedAt": "2026-10-21T21:04:18.000Z",
+              "uid": "35240-9e655490-55b8-41fe-b70e-6c5faa869592"
+            },
+            {
+              "name": "List Sandboxes",
+              "id": "0e46eb38-1344-4e8f-9221-6d25d9491f35",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"agentId\": \"<string>\",\n  \"connectionName\": \"<string>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"errorCode\": \"string\",\n  \"message\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "7d3583bb-8543-46a1-a4fb-a31bc38c545f",
-              "name": "500",
-              "originalRequest": {
                 "url": {
-                  "path": [
-                    "v1",
-                    "sandboxes"
-                  ],
+                  "raw": "{{baseUrl}}/v1/sandboxes?agentId=<string>&limit=<string>",
                   "host": [
                     "{{baseUrl}}"
                   ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"agentId\": \"<string>\",\n  \"connectionName\": \"<string>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"errorCode\": \"string\",\n  \"message\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "236d21cf-21f2-4b2c-aa9a-201f2a049641",
-          "name": "List Sandboxes",
-          "request": {
-            "name": "List Sandboxes",
-            "description": {
-              "content": "List all sandboxes for the organization",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v1",
-                "sandboxes"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "agentId",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "key": "limit",
-                  "value": "<string>"
-                }
-              ],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "ef547877-1b69-4669-bf5b-bcaa4cdc13e8",
-              "name": "200",
-              "originalRequest": {
-                "url": {
                   "path": [
                     "v1",
                     "sandboxes"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
                   ],
                   "query": [
                     {
@@ -275,299 +531,80 @@
                       "key": "limit",
                       "value": "<string>"
                     }
-                  ],
-                  "variable": []
+                  ]
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
+                "description": "List all sandboxes for the organization"
               },
-              "status": "OK",
-              "code": 200,
-              "header": [
+              "response": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "id": "13f6ced2-9f7c-4f82-81ed-ce70a3b20d33",
+                  "name": "200",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/sandboxes?agentId=<string>&limit=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "sandboxes"
+                      ],
+                      "query": [
+                        {
+                          "key": "agentId",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "limit",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"sandboxes\": [\n    {\n      \"id\": \"<string>\",\n      \"sandboxId\": \"<string>\",\n      \"agentId\": \"<string>\",\n      \"connectionName\": \"<string>\",\n      \"deviceId\": \"<string>\",\n      \"organizationId\": \"<string>\",\n      \"connectionId\": \"<string>\",\n      \"podId\": \"<string>\",\n      \"connectedAt\": \"<number>\",\n      \"lastHeartbeat\": \"<number>\",\n      \"lastSeenAt\": \"<number>\",\n      \"firstSeenAt\": \"<number>\",\n      \"currentMode\": \"default\",\n      \"metadata\": {\n        \"os\": \"<string>\",\n        \"lettaCodeVersion\": \"<string>\",\n        \"nodeVersion\": \"<string>\",\n        \"workingDirectory\": \"<string>\",\n        \"gitBranch\": \"<string>\",\n        \"dolor_98\": \"ipsum laboris\"\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"sandboxId\": \"<string>\",\n      \"agentId\": \"<string>\",\n      \"connectionName\": \"<string>\",\n      \"deviceId\": \"<string>\",\n      \"organizationId\": \"<string>\",\n      \"connectionId\": \"<string>\",\n      \"podId\": \"<string>\",\n      \"connectedAt\": \"<number>\",\n      \"lastHeartbeat\": \"<number>\",\n      \"lastSeenAt\": \"<number>\",\n      \"firstSeenAt\": \"<number>\",\n      \"currentMode\": \"default\",\n      \"metadata\": {\n        \"os\": \"<string>\",\n        \"lettaCodeVersion\": \"<string>\",\n        \"nodeVersion\": \"<string>\",\n        \"workingDirectory\": \"<string>\",\n        \"gitBranch\": \"<string>\"\n      }\n    }\n  ]\n}",
+                  "createdAt": "2026-10-21T21:04:18.000Z",
+                  "updatedAt": "2026-10-21T21:04:18.000Z",
+                  "uid": "35240-13f6ced2-9f7c-4f82-81ed-ce70a3b20d33"
                 }
               ],
-              "body": "{\n  \"sandboxes\": [\n    {\n      \"id\": \"string\",\n      \"sandboxId\": \"string\",\n      \"agentId\": \"string\",\n      \"connectionName\": \"string\",\n      \"deviceId\": \"string\",\n      \"organizationId\": \"string\",\n      \"connectionId\": \"string\",\n      \"podId\": \"string\",\n      \"connectedAt\": 2541.8480765043705,\n      \"lastHeartbeat\": 3231.127354596479,\n      \"lastSeenAt\": 2625.13404693797,\n      \"firstSeenAt\": 8047.182775605939,\n      \"currentMode\": \"acceptEdits\",\n      \"metadata\": {\n        \"os\": \"string\",\n        \"lettaCodeVersion\": \"string\",\n        \"nodeVersion\": \"string\",\n        \"workingDirectory\": \"string\",\n        \"gitBranch\": \"string\"\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"sandboxId\": \"string\",\n      \"agentId\": \"string\",\n      \"connectionName\": \"string\",\n      \"deviceId\": \"string\",\n      \"organizationId\": \"string\",\n      \"connectionId\": \"string\",\n      \"podId\": \"string\",\n      \"connectedAt\": 2970.678518772951,\n      \"lastHeartbeat\": 4996.773624766622,\n      \"lastSeenAt\": 7040.832990790368,\n      \"firstSeenAt\": 3600.786005848876,\n      \"currentMode\": \"plan\",\n      \"metadata\": {\n        \"os\": \"string\",\n        \"lettaCodeVersion\": \"string\",\n        \"nodeVersion\": \"string\",\n        \"workingDirectory\": \"string\",\n        \"gitBranch\": \"string\"\n      }\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "createdAt": "2026-10-21T21:04:18.000Z",
+              "updatedAt": "2026-10-21T21:04:18.000Z",
+              "uid": "35240-0e46eb38-1344-4e8f-9221-6d25d9491f35"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "fbc963e2-0c0c-4d46-8ceb-17a63d021641",
-          "name": "Terminate Sandbox",
-          "request": {
-            "name": "Terminate Sandbox",
-            "description": {
-              "content": "Terminate a Modal Sandbox",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v1",
-                "sandboxes",
-                ":sandboxId",
-                "terminate"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "sandboxId",
-                  "description": "(Required) "
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
-            {
-              "id": "4754c7de-281d-4c7a-b62b-f88647ad028a",
-              "name": "200",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "sandboxes",
-                    ":sandboxId",
-                    "terminate"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "sandboxId",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"success\": true,\n  \"message\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "0af89b73-653a-4492-9023-eb3f94b103c3",
-              "name": "404",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "sandboxes",
-                    ":sandboxId",
-                    "terminate"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "sandboxId",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"errorCode\": \"string\",\n  \"message\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "a13f3827-f120-40b0-86ca-64ba434999ae",
-              "name": "500",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "sandboxes",
-                    ":sandboxId",
-                    "terminate"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "sandboxId",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"errorCode\": \"string\",\n  \"message\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "602e6a96-c93b-40d2-ac24-110d8d148234",
+          "createdAt": "2026-10-21T21:04:17.000Z",
+          "updatedAt": "2026-10-21T21:04:17.000Z",
+          "uid": "35240-602e6a96-c93b-40d2-ac24-110d8d148234"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "https://api.letta.com",
-      "key": "baseUrl"
+      "id": "ac9934a2-0d64-4911-a022-a2228b1200fe",
+      "createdAt": "2026-10-21T21:04:17.000Z",
+      "updatedAt": "2026-10-21T21:04:17.000Z",
+      "uid": "35240-ac9934a2-0d64-4911-a022-a2228b1200fe"
     }
   ],
   "auth": {
@@ -575,17 +612,15 @@
     "bearer": [
       {
         "key": "token",
-        "value": "{{bearerToken}}"
+        "value": "{{bearerToken}}",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "4b4f0d1c-0722-43a6-be37-976e765fd573",
-    "name": "Letta Admin Sandboxes API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "REST API for Letta, the stateful agents platform. Manage agents, memory blocks, archival passages, sources, custom tools, MCP servers, multi-agent groups, runs, and streaming responses. Available as Letta Cloud (managed) at https://api.letta.com/v1 and as the self-hosted open-source server (Apache-2.0) typically run at http://localhost:8283.\n\nContact Support:\n Name: Letta\n Email: support@letta.com",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.letta.com"
     }
-  }
+  ]
 }

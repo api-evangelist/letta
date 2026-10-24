@@ -1,382 +1,946 @@
 {
+  "info": {
+    "_postman_id": "bf01bbbb-dc5b-4086-9ab7-3c54610d214d",
+    "name": "Letta Environments API",
+    "description": "REST API for Letta, the stateful agents platform. Manage agents, memory blocks, archival passages, sources, custom tools, MCP servers, multi-agent groups, runs, and streaming responses. Available as Letta Cloud (managed) at https://api.letta.com/v1 and as the self-hosted open-source server (Apache-2.0) typically run at http://localhost:8283.\n\nContact Support:\n Name: Letta\n Email: support@letta.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T21:02:31.000Z",
+    "updatedAt": "2026-10-21T21:02:32.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-bf01bbbb-dc5b-4086-9ab7-3c54610d214d"
+  },
   "item": [
     {
-      "id": "57c1ba91-bddf-49a9-8d9a-bf9c649d766d",
-      "name": "Environments",
-      "description": {
-        "content": "Environment variables and configuration scoped to agents/tools.",
-        "type": "text/plain"
-      },
+      "name": "v1",
       "item": [
         {
-          "id": "fa19298f-ca8a-4972-bd28-ceab6f45378a",
-          "name": "Register Environment",
-          "request": {
-            "name": "Register Environment",
-            "description": {
-              "content": "Register a new listener connection and get connectionId for WebSocket",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v1",
-                "environments",
-                "register"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"deviceId\": \"<string>\",\n  \"connectionName\": \"<string>\",\n  \"metadata\": {\n    \"os\": \"<string>\",\n    \"lettaCodeVersion\": \"<string>\",\n    \"nodeVersion\": \"<string>\",\n    \"workingDirectory\": \"<string>\",\n    \"gitBranch\": \"<string>\"\n  }\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
+          "name": "environments",
+          "item": [
             {
-              "id": "55de26cc-9375-4417-bcab-77519d5c291e",
-              "name": "200",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "environments",
-                    "register"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
+              "name": "register",
+              "item": [
+                {
+                  "name": "Register Environment",
+                  "id": "479070e2-08b6-4139-be43-220767b4a725",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
                   },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"deviceId\": \"<string>\",\n  \"connectionName\": \"<string>\",\n  \"metadata\": {\n    \"os\": \"<string>\",\n    \"lettaCodeVersion\": \"<string>\",\n    \"nodeVersion\": \"<string>\",\n    \"workingDirectory\": \"<string>\",\n    \"gitBranch\": \"<string>\"\n  }\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"connectionId\": \"string\",\n  \"wsUrl\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "00899607-dcb0-4bb8-9801-9c6bc9920ec3",
-              "name": "400",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "environments",
-                    "register"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"deviceId\": \"<string>\",\n  \"connectionName\": \"<string>\",\n  \"metadata\": {\n    \"os\": \"<string>\",\n    \"lettaCodeVersion\": \"<string>\",\n    \"nodeVersion\": \"<string>\",\n    \"workingDirectory\": \"<string>\",\n    \"gitBranch\": \"<string>\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
                     },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/environments/register",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "environments",
+                        "register"
+                      ]
+                    },
+                    "description": "Register a new listener connection and get connectionId for WebSocket"
                   },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"deviceId\": \"<string>\",\n  \"connectionName\": \"<string>\",\n  \"metadata\": {\n    \"os\": \"<string>\",\n    \"lettaCodeVersion\": \"<string>\",\n    \"nodeVersion\": \"<string>\",\n    \"workingDirectory\": \"<string>\",\n    \"gitBranch\": \"<string>\"\n  }\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"errorCode\": \"string\",\n  \"message\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "869d7fa5-abe5-41c0-8904-58ea6b45f541",
-          "name": "Get Environment Connection",
-          "request": {
-            "name": "Get Environment Connection",
-            "description": {
-              "content": "Get a specific environment connection by deviceId",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v1",
-                "environments",
-                ":deviceId"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "deviceId",
-                  "description": "(Required) "
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "44adaf1d-9858-4eb5-971d-e7f6b7ae39ff",
-              "name": "200",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "environments",
-                    ":deviceId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
+                  "response": [
                     {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "deviceId",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
+                      "id": "06617db0-93de-4b99-b31e-c231971474be",
+                      "name": "200",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"deviceId\": \"<string>\",\n  \"connectionName\": \"<string>\",\n  \"metadata\": {\n    \"os\": \"<string>\",\n    \"lettaCodeVersion\": \"<string>\",\n    \"nodeVersion\": \"<string>\",\n    \"workingDirectory\": \"<string>\",\n    \"gitBranch\": \"<string>\"\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/environments/register",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "environments",
+                            "register"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"connectionId\": \"<string>\",\n  \"wsUrl\": \"<string>\"\n}",
+                      "createdAt": "2026-10-21T21:02:32.000Z",
+                      "updatedAt": "2026-10-21T21:02:32.000Z",
+                      "uid": "35240-06617db0-93de-4b99-b31e-c231971474be"
                     },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
+                    {
+                      "id": "0bcba1e8-b6ab-4e2a-ad4e-8e5966c0c8bb",
+                      "name": "400",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"deviceId\": \"<string>\",\n  \"connectionName\": \"<string>\",\n  \"metadata\": {\n    \"os\": \"<string>\",\n    \"lettaCodeVersion\": \"<string>\",\n    \"nodeVersion\": \"<string>\",\n    \"workingDirectory\": \"<string>\",\n    \"gitBranch\": \"<string>\"\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/environments/register",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "environments",
+                            "register"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errorCode\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-10-21T21:02:32.000Z",
+                      "updatedAt": "2026-10-21T21:02:32.000Z",
+                      "uid": "35240-0bcba1e8-b6ab-4e2a-ad4e-8e5966c0c8bb"
+                    }
+                  ],
+                  "createdAt": "2026-10-21T21:02:32.000Z",
+                  "updatedAt": "2026-10-21T21:02:32.000Z",
+                  "uid": "35240-479070e2-08b6-4139-be43-220767b4a725"
+                }
+              ],
+              "id": "78f837a2-74f4-49bf-880f-7f544a55093e",
+              "createdAt": "2026-10-21T21:02:32.000Z",
+              "updatedAt": "2026-10-21T21:02:32.000Z",
+              "uid": "35240-78f837a2-74f4-49bf-880f-7f544a55093e"
+            },
+            {
+              "name": "{deviceId}",
+              "item": [
+                {
+                  "name": "Get Environment Connection",
+                  "id": "5ab5aee4-0674-41cd-b8d0-9bfd51198a92",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
                   },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/environments/:deviceId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "environments",
+                        ":deviceId"
+                      ],
+                      "variable": [
+                        {
+                          "id": "e91a0b8d-deb4-4aee-84a8-fbb1e12c1b84",
+                          "key": "deviceId",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    },
+                    "description": "Get a specific environment connection by deviceId"
+                  },
+                  "response": [
+                    {
+                      "id": "74149e2f-9f15-466e-865f-baccc222968b",
+                      "name": "200",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/environments/:deviceId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "environments",
+                            ":deviceId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "deviceId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"connectionId\": \"<string>\",\n  \"deviceId\": \"<string>\",\n  \"connectionName\": \"<string>\",\n  \"organizationId\": \"<string>\",\n  \"podId\": \"<string>\",\n  \"connectedAt\": \"<number>\",\n  \"lastHeartbeat\": \"<number>\",\n  \"lastSeenAt\": \"<number>\",\n  \"firstSeenAt\": \"<number>\",\n  \"userId\": \"<string>\",\n  \"apiKeyOwner\": \"<string>\",\n  \"currentMode\": \"bypassPermissions\",\n  \"metadata\": {\n    \"os\": \"<string>\",\n    \"lettaCodeVersion\": \"<string>\",\n    \"nodeVersion\": \"<string>\",\n    \"workingDirectory\": \"<string>\",\n    \"gitBranch\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-10-21T21:02:32.000Z",
+                      "updatedAt": "2026-10-21T21:02:32.000Z",
+                      "uid": "35240-74149e2f-9f15-466e-865f-baccc222968b"
+                    },
+                    {
+                      "id": "f809b5e4-e44c-4920-b06e-71c6318e7829",
+                      "name": "404",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/environments/:deviceId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "environments",
+                            ":deviceId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "deviceId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errorCode\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-10-21T21:02:32.000Z",
+                      "updatedAt": "2026-10-21T21:02:32.000Z",
+                      "uid": "35240-f809b5e4-e44c-4920-b06e-71c6318e7829"
+                    }
+                  ],
+                  "createdAt": "2026-10-21T21:02:32.000Z",
+                  "updatedAt": "2026-10-21T21:02:32.000Z",
+                  "uid": "35240-5ab5aee4-0674-41cd-b8d0-9bfd51198a92"
+                }
+              ],
+              "id": "a95cb176-1780-44b5-a5fc-989047197520",
+              "createdAt": "2026-10-21T21:02:32.000Z",
+              "updatedAt": "2026-10-21T21:02:32.000Z",
+              "uid": "35240-a95cb176-1780-44b5-a5fc-989047197520"
+            },
+            {
+              "name": "{connectionId}",
+              "item": [
+                {
+                  "name": "messages",
+                  "item": [
+                    {
+                      "name": "Send Message to Environment",
+                      "id": "88575d2a-12e9-4a59-ba73-130e791024d6",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"<string>\",\n      \"client_message_id\": \"<string>\",\n      \"otid\": \"<string>\"\n    },\n    {\n      \"role\": \"user\",\n      \"content\": \"<string>\",\n      \"client_message_id\": \"<string>\",\n      \"otid\": \"<string>\"\n    }\n  ],\n  \"agentId\": \"<string>\",\n  \"conversationId\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/environments/:connectionId/messages",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "environments",
+                            ":connectionId",
+                            "messages"
+                          ],
+                          "variable": [
+                            {
+                              "id": "a79e0b7b-c663-4b23-bc28-fe7892831915",
+                              "key": "connectionId",
+                              "value": "<string>",
+                              "description": "(Required) "
+                            }
+                          ]
+                        },
+                        "description": "Send a message to a specific environment connection"
+                      },
+                      "response": [
+                        {
+                          "id": "ed1ee227-e472-42cc-aa72-2cca65f9d425",
+                          "name": "200",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"<string>\",\n      \"client_message_id\": \"<string>\",\n      \"otid\": \"<string>\"\n    },\n    {\n      \"role\": \"user\",\n      \"content\": \"<string>\",\n      \"client_message_id\": \"<string>\",\n      \"otid\": \"<string>\"\n    }\n  ],\n  \"agentId\": \"<string>\",\n  \"conversationId\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/environments/:connectionId/messages",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "environments",
+                                ":connectionId",
+                                "messages"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "connectionId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"success\": \"<boolean>\",\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T21:02:32.000Z",
+                          "updatedAt": "2026-10-21T21:02:32.000Z",
+                          "uid": "35240-ed1ee227-e472-42cc-aa72-2cca65f9d425"
+                        },
+                        {
+                          "id": "41d022f7-d08a-4f9e-af01-d7b8344c774f",
+                          "name": "400",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"<string>\",\n      \"client_message_id\": \"<string>\",\n      \"otid\": \"<string>\"\n    },\n    {\n      \"role\": \"user\",\n      \"content\": \"<string>\",\n      \"client_message_id\": \"<string>\",\n      \"otid\": \"<string>\"\n    }\n  ],\n  \"agentId\": \"<string>\",\n  \"conversationId\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/environments/:connectionId/messages",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "environments",
+                                ":connectionId",
+                                "messages"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "connectionId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errorCode\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T21:02:32.000Z",
+                          "updatedAt": "2026-10-21T21:02:32.000Z",
+                          "uid": "35240-41d022f7-d08a-4f9e-af01-d7b8344c774f"
+                        },
+                        {
+                          "id": "2658c023-a935-40cc-8c39-5428abce6884",
+                          "name": "404",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"<string>\",\n      \"client_message_id\": \"<string>\",\n      \"otid\": \"<string>\"\n    },\n    {\n      \"role\": \"user\",\n      \"content\": \"<string>\",\n      \"client_message_id\": \"<string>\",\n      \"otid\": \"<string>\"\n    }\n  ],\n  \"agentId\": \"<string>\",\n  \"conversationId\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/environments/:connectionId/messages",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "environments",
+                                ":connectionId",
+                                "messages"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "connectionId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errorCode\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T21:02:32.000Z",
+                          "updatedAt": "2026-10-21T21:02:32.000Z",
+                          "uid": "35240-2658c023-a935-40cc-8c39-5428abce6884"
+                        },
+                        {
+                          "id": "fe4079a4-47a6-4b51-a25f-613f40cb8125",
+                          "name": "503",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"<string>\",\n      \"client_message_id\": \"<string>\",\n      \"otid\": \"<string>\"\n    },\n    {\n      \"role\": \"user\",\n      \"content\": \"<string>\",\n      \"client_message_id\": \"<string>\",\n      \"otid\": \"<string>\"\n    }\n  ],\n  \"agentId\": \"<string>\",\n  \"conversationId\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/environments/:connectionId/messages",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "environments",
+                                ":connectionId",
+                                "messages"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "connectionId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Service Unavailable",
+                          "code": 503,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errorCode\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T21:02:32.000Z",
+                          "updatedAt": "2026-10-21T21:02:32.000Z",
+                          "uid": "35240-fe4079a4-47a6-4b51-a25f-613f40cb8125"
+                        }
+                      ],
+                      "createdAt": "2026-10-21T21:02:32.000Z",
+                      "updatedAt": "2026-10-21T21:02:32.000Z",
+                      "uid": "35240-88575d2a-12e9-4a59-ba73-130e791024d6"
+                    }
+                  ],
+                  "id": "ca6bbdba-0a47-4eba-bd8f-96e5a286d2b5",
+                  "createdAt": "2026-10-21T21:02:32.000Z",
+                  "updatedAt": "2026-10-21T21:02:32.000Z",
+                  "uid": "35240-ca6bbdba-0a47-4eba-bd8f-96e5a286d2b5"
+                }
+              ],
+              "id": "f3965584-23f1-486b-88fd-25a894a2132e",
+              "createdAt": "2026-10-21T21:02:32.000Z",
+              "updatedAt": "2026-10-21T21:02:32.000Z",
+              "uid": "35240-f3965584-23f1-486b-88fd-25a894a2132e"
+            },
+            {
+              "name": "{id}",
+              "item": [
+                {
+                  "name": "Delete Environment",
+                  "id": "1411e847-3617-4643-a935-153c358c8021",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/environments/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "environments",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "id": "54c2a538-f22d-4b45-9db2-0049bd268672",
+                          "key": "id",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    },
+                    "description": "Removes environment from list of environments"
+                  },
+                  "response": [
+                    {
+                      "id": "d6e249e1-90d7-482b-b94b-a41b6a9edb79",
+                      "name": "200",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/environments/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "environments",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"success\": \"<boolean>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-10-21T21:02:32.000Z",
+                      "updatedAt": "2026-10-21T21:02:32.000Z",
+                      "uid": "35240-d6e249e1-90d7-482b-b94b-a41b6a9edb79"
+                    },
+                    {
+                      "id": "9edb7284-f6c6-4f4e-b391-55ed97b65e59",
+                      "name": "403",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/environments/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "environments",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errorCode\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-10-21T21:02:32.000Z",
+                      "updatedAt": "2026-10-21T21:02:32.000Z",
+                      "uid": "35240-9edb7284-f6c6-4f4e-b391-55ed97b65e59"
+                    },
+                    {
+                      "id": "5b230982-b506-4dff-8be3-a039e4731541",
+                      "name": "404",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/environments/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "environments",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errorCode\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-10-21T21:02:32.000Z",
+                      "updatedAt": "2026-10-21T21:02:32.000Z",
+                      "uid": "35240-5b230982-b506-4dff-8be3-a039e4731541"
+                    }
+                  ],
+                  "createdAt": "2026-10-21T21:02:32.000Z",
+                  "updatedAt": "2026-10-21T21:02:32.000Z",
+                  "uid": "35240-1411e847-3617-4643-a935-153c358c8021"
+                }
+              ],
+              "id": "dd767bde-d0e4-46de-bc0b-1f5bf89bd0d0",
+              "createdAt": "2026-10-21T21:02:32.000Z",
+              "updatedAt": "2026-10-21T21:02:32.000Z",
+              "uid": "35240-dd767bde-d0e4-46de-bc0b-1f5bf89bd0d0"
+            },
+            {
+              "name": "List Environment Connections",
+              "id": "73e75b16-2f5b-4e80-aa40-1d435e1a6088",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"id\": \"string\",\n  \"connectionId\": \"string\",\n  \"deviceId\": \"string\",\n  \"connectionName\": \"string\",\n  \"organizationId\": \"string\",\n  \"podId\": \"string\",\n  \"connectedAt\": 3025.7188394293266,\n  \"lastHeartbeat\": 2511.6474131475607,\n  \"lastSeenAt\": 5628.955945582663,\n  \"firstSeenAt\": 2666.988820882581,\n  \"userId\": \"string\",\n  \"apiKeyOwner\": \"string\",\n  \"currentMode\": \"bypassPermissions\",\n  \"metadata\": {\n    \"os\": \"string\",\n    \"lettaCodeVersion\": \"string\",\n    \"nodeVersion\": \"string\",\n    \"workingDirectory\": \"string\",\n    \"gitBranch\": \"string\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "c1d6aec8-a1ac-4dd9-99d6-79f071ba56b6",
-              "name": "404",
-              "originalRequest": {
                 "url": {
-                  "path": [
-                    "v1",
-                    "environments",
-                    ":deviceId"
-                  ],
+                  "raw": "{{baseUrl}}/v1/environments?limit=<string>&after=<string>&userId=<string>&onlineOnly=<string>",
                   "host": [
                     "{{baseUrl}}"
                   ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "deviceId",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"errorCode\": \"string\",\n  \"message\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "342b3c0a-cea5-42c1-9950-1ba3ac7521fb",
-          "name": "List Environment Connections",
-          "request": {
-            "name": "List Environment Connections",
-            "description": {
-              "content": "List all active environment connections for the organization",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v1",
-                "environments"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "limit",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "key": "after",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "key": "userId",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "key": "onlineOnly",
-                  "value": "<string>"
-                }
-              ],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "0ceb152d-e194-449b-b31b-a729b709548f",
-              "name": "200",
-              "originalRequest": {
-                "url": {
                   "path": [
                     "v1",
                     "environments"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
                   ],
                   "query": [
                     {
@@ -395,602 +959,88 @@
                       "key": "onlineOnly",
                       "value": "<string>"
                     }
-                  ],
-                  "variable": []
+                  ]
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
+                "description": "List all active environment connections for the organization"
               },
-              "status": "OK",
-              "code": 200,
-              "header": [
+              "response": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "id": "32b6841c-50c0-4e31-8cd3-9d9a3862ed3c",
+                  "name": "200",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/environments?limit=<string>&after=<string>&userId=<string>&onlineOnly=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "environments"
+                      ],
+                      "query": [
+                        {
+                          "key": "limit",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "after",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "userId",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "onlineOnly",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"connections\": [\n    {\n      \"id\": \"<string>\",\n      \"connectionId\": \"<string>\",\n      \"deviceId\": \"<string>\",\n      \"connectionName\": \"<string>\",\n      \"organizationId\": \"<string>\",\n      \"podId\": \"<string>\",\n      \"connectedAt\": \"<number>\",\n      \"lastHeartbeat\": \"<number>\",\n      \"lastSeenAt\": \"<number>\",\n      \"firstSeenAt\": \"<number>\",\n      \"userId\": \"<string>\",\n      \"apiKeyOwner\": \"<string>\",\n      \"currentMode\": \"plan\",\n      \"metadata\": {\n        \"os\": \"<string>\",\n        \"lettaCodeVersion\": \"<string>\",\n        \"nodeVersion\": \"<string>\",\n        \"workingDirectory\": \"<string>\",\n        \"gitBranch\": \"<string>\",\n        \"incididunt_9a\": 38055938.85894397,\n        \"iruref37\": false\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"connectionId\": \"<string>\",\n      \"deviceId\": \"<string>\",\n      \"connectionName\": \"<string>\",\n      \"organizationId\": \"<string>\",\n      \"podId\": \"<string>\",\n      \"connectedAt\": \"<number>\",\n      \"lastHeartbeat\": \"<number>\",\n      \"lastSeenAt\": \"<number>\",\n      \"firstSeenAt\": \"<number>\",\n      \"userId\": \"<string>\",\n      \"apiKeyOwner\": \"<string>\",\n      \"currentMode\": \"acceptEdits\",\n      \"metadata\": {\n        \"os\": \"<string>\",\n        \"lettaCodeVersion\": \"<string>\",\n        \"nodeVersion\": \"<string>\",\n        \"workingDirectory\": \"<string>\",\n        \"gitBranch\": \"<string>\"\n      }\n    }\n  ],\n  \"hasNextPage\": \"<boolean>\"\n}",
+                  "createdAt": "2026-10-21T21:02:32.000Z",
+                  "updatedAt": "2026-10-21T21:02:32.000Z",
+                  "uid": "35240-32b6841c-50c0-4e31-8cd3-9d9a3862ed3c"
                 }
               ],
-              "body": "{\n  \"connections\": [\n    {\n      \"id\": \"string\",\n      \"connectionId\": \"string\",\n      \"deviceId\": \"string\",\n      \"connectionName\": \"string\",\n      \"organizationId\": \"string\",\n      \"podId\": \"string\",\n      \"connectedAt\": 4165.759839838624,\n      \"lastHeartbeat\": 2692.7508865511086,\n      \"lastSeenAt\": 8726.584092196561,\n      \"firstSeenAt\": 9035.075831791146,\n      \"userId\": \"string\",\n      \"apiKeyOwner\": \"string\",\n      \"currentMode\": \"default\",\n      \"metadata\": {\n        \"os\": \"string\",\n        \"lettaCodeVersion\": \"string\",\n        \"nodeVersion\": \"string\",\n        \"workingDirectory\": \"string\",\n        \"gitBranch\": \"string\",\n        \"key_0\": \"string\",\n        \"key_1\": 2.665959481118474\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"connectionId\": \"string\",\n      \"deviceId\": \"string\",\n      \"connectionName\": \"string\",\n      \"organizationId\": \"string\",\n      \"podId\": \"string\",\n      \"connectedAt\": 3685.461799571982,\n      \"lastHeartbeat\": 4113.256136140443,\n      \"lastSeenAt\": 1149.5479811725518,\n      \"firstSeenAt\": 112.89707820188455,\n      \"userId\": \"string\",\n      \"apiKeyOwner\": \"string\",\n      \"currentMode\": \"acceptEdits\",\n      \"metadata\": {\n        \"os\": \"string\",\n        \"lettaCodeVersion\": \"string\",\n        \"nodeVersion\": \"string\",\n        \"workingDirectory\": \"string\",\n        \"gitBranch\": \"string\"\n      }\n    }\n  ],\n  \"hasNextPage\": true\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "createdAt": "2026-10-21T21:02:32.000Z",
+              "updatedAt": "2026-10-21T21:02:32.000Z",
+              "uid": "35240-73e75b16-2f5b-4e80-aa40-1d435e1a6088"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "e6abc986-07fb-4590-919d-8dd77c246fa5",
-          "name": "Send Message to Environment",
-          "request": {
-            "name": "Send Message to Environment",
-            "description": {
-              "content": "Send a message to a specific environment connection",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v1",
-                "environments",
-                ":connectionId",
-                "messages"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "connectionId",
-                  "description": "(Required) "
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"messages\": [\n    {\n      \"role\": \"<string>\",\n      \"content\": \"<string>\",\n      \"client_message_id\": \"<string>\",\n      \"otid\": \"<string>\"\n    },\n    {\n      \"role\": \"<string>\",\n      \"content\": \"<string>\",\n      \"client_message_id\": \"<string>\",\n      \"otid\": \"<string>\"\n    }\n  ],\n  \"agentId\": \"<string>\",\n  \"conversationId\": \"<string>\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
-            {
-              "id": "9f664297-b7f1-4e58-a367-b6e55805c1a6",
-              "name": "200",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "environments",
-                    ":connectionId",
-                    "messages"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "connectionId",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"messages\": [\n    {\n      \"role\": \"<string>\",\n      \"content\": \"<string>\",\n      \"client_message_id\": \"<string>\",\n      \"otid\": \"<string>\"\n    },\n    {\n      \"role\": \"<string>\",\n      \"content\": \"<string>\",\n      \"client_message_id\": \"<string>\",\n      \"otid\": \"<string>\"\n    }\n  ],\n  \"agentId\": \"<string>\",\n  \"conversationId\": \"<string>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"success\": true,\n  \"message\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "57e6d769-e03a-4b6d-a69b-69da15de2c29",
-              "name": "400",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "environments",
-                    ":connectionId",
-                    "messages"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "connectionId",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"messages\": [\n    {\n      \"role\": \"<string>\",\n      \"content\": \"<string>\",\n      \"client_message_id\": \"<string>\",\n      \"otid\": \"<string>\"\n    },\n    {\n      \"role\": \"<string>\",\n      \"content\": \"<string>\",\n      \"client_message_id\": \"<string>\",\n      \"otid\": \"<string>\"\n    }\n  ],\n  \"agentId\": \"<string>\",\n  \"conversationId\": \"<string>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"errorCode\": \"string\",\n  \"message\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "bcfe35e4-d495-4e25-954d-5cab09f09669",
-              "name": "404",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "environments",
-                    ":connectionId",
-                    "messages"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "connectionId",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"messages\": [\n    {\n      \"role\": \"<string>\",\n      \"content\": \"<string>\",\n      \"client_message_id\": \"<string>\",\n      \"otid\": \"<string>\"\n    },\n    {\n      \"role\": \"<string>\",\n      \"content\": \"<string>\",\n      \"client_message_id\": \"<string>\",\n      \"otid\": \"<string>\"\n    }\n  ],\n  \"agentId\": \"<string>\",\n  \"conversationId\": \"<string>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"errorCode\": \"string\",\n  \"message\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "89949925-5f11-484c-89e3-887a3ad0d66e",
-              "name": "503",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "environments",
-                    ":connectionId",
-                    "messages"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "connectionId",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"messages\": [\n    {\n      \"role\": \"<string>\",\n      \"content\": \"<string>\",\n      \"client_message_id\": \"<string>\",\n      \"otid\": \"<string>\"\n    },\n    {\n      \"role\": \"<string>\",\n      \"content\": \"<string>\",\n      \"client_message_id\": \"<string>\",\n      \"otid\": \"<string>\"\n    }\n  ],\n  \"agentId\": \"<string>\",\n  \"conversationId\": \"<string>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Service Unavailable",
-              "code": 503,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"errorCode\": \"string\",\n  \"message\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "2dcbb015-6035-4a91-b21b-afc22473543e",
-          "name": "Delete Environment",
-          "request": {
-            "name": "Delete Environment",
-            "description": {
-              "content": "Removes environment from list of environments",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v1",
-                "environments",
-                ":id"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "id",
-                  "description": "(Required) "
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "DELETE",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
-            {
-              "id": "5c284099-02ef-4cbc-9700-24d2cb3388c1",
-              "name": "200",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "environments",
-                    ":id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "id",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"success\": true,\n  \"message\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "697f0477-b45c-4c0e-806b-a7191866425a",
-              "name": "403",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "environments",
-                    ":id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "id",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Forbidden",
-              "code": 403,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"errorCode\": \"string\",\n  \"message\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "3e3166b3-07aa-4c25-8797-884b320f4fe8",
-              "name": "404",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "environments",
-                    ":id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "id",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"errorCode\": \"string\",\n  \"message\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "23946b6d-ae50-401e-b7dd-7e71700c5a24",
+          "createdAt": "2026-10-21T21:02:32.000Z",
+          "updatedAt": "2026-10-21T21:02:32.000Z",
+          "uid": "35240-23946b6d-ae50-401e-b7dd-7e71700c5a24"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "https://api.letta.com",
-      "key": "baseUrl"
+      "id": "e11b2c43-fd1c-4477-b7cc-5e2dd516e59e",
+      "createdAt": "2026-10-21T21:02:32.000Z",
+      "updatedAt": "2026-10-21T21:02:32.000Z",
+      "uid": "35240-e11b2c43-fd1c-4477-b7cc-5e2dd516e59e"
     }
   ],
   "auth": {
@@ -998,17 +1048,15 @@
     "bearer": [
       {
         "key": "token",
-        "value": "{{bearerToken}}"
+        "value": "{{bearerToken}}",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "ba26fdbd-e804-4ef9-955b-5b55f1712fee",
-    "name": "Letta Admin Environments API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "REST API for Letta, the stateful agents platform. Manage agents, memory blocks, archival passages, sources, custom tools, MCP servers, multi-agent groups, runs, and streaming responses. Available as Letta Cloud (managed) at https://api.letta.com/v1 and as the self-hosted open-source server (Apache-2.0) typically run at http://localhost:8283.\n\nContact Support:\n Name: Letta\n Email: support@letta.com",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.letta.com"
     }
-  }
+  ]
 }

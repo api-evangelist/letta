@@ -1,70 +1,170 @@
 {
+  "info": {
+    "_postman_id": "80fd93d3-33b3-4a19-8b9c-c4feb49f2c52",
+    "name": "Letta Projects API",
+    "description": "REST API for Letta, the stateful agents platform. Manage agents, memory blocks, archival passages, sources, custom tools, MCP servers, multi-agent groups, runs, and streaming responses. Available as Letta Cloud (managed) at https://api.letta.com/v1 and as the self-hosted open-source server (Apache-2.0) typically run at http://localhost:8283.\n\nContact Support:\n Name: Letta\n Email: support@letta.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T21:04:07.000Z",
+    "updatedAt": "2026-10-21T21:04:07.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-80fd93d3-33b3-4a19-8b9c-c4feb49f2c52"
+  },
   "item": [
     {
-      "id": "4f8260a8-f814-4b09-a8a8-c70da6fb0386",
-      "name": "Projects",
-      "description": {
-        "content": "Project-level scoping for agents and resources.",
-        "type": "text/plain"
-      },
+      "name": "v1",
       "item": [
         {
-          "id": "e15837b3-296f-4f86-aef8-fe6d6c1af8c1",
-          "name": "List Projects (Cloud-only)",
-          "request": {
-            "name": "List Projects (Cloud-only)",
-            "description": {
-              "content": "List all projects",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v1",
-                "projects"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
+          "name": "projects",
+          "item": [
+            {
+              "name": "{projectId}",
+              "item": [
                 {
-                  "disabled": false,
-                  "key": "name",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "key": "offset",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "key": "limit",
-                  "value": "<string>"
+                  "name": "Delete Project (Cloud-only)",
+                  "id": "6910d77e-57d7-4024-a3ac-58a8fb400bd0",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"nullable\": true\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/projects/:projectId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "projects",
+                        ":projectId"
+                      ],
+                      "variable": [
+                        {
+                          "id": "84c9067f-fd4c-4872-bd6b-a1d66d987fba",
+                          "key": "projectId",
+                          "value": "<uuid>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    },
+                    "description": "Delete a project by ID"
+                  },
+                  "response": [
+                    {
+                      "id": "4363ec41-a020-440f-b2f4-dffdf7dd554e",
+                      "name": "200",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"nullable\": true\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/projects/:projectId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "projects",
+                            ":projectId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "projectId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"success\": \"<boolean>\"\n}",
+                      "createdAt": "2026-10-21T21:04:07.000Z",
+                      "updatedAt": "2026-10-21T21:04:07.000Z",
+                      "uid": "35240-4363ec41-a020-440f-b2f4-dffdf7dd554e"
+                    }
+                  ],
+                  "createdAt": "2026-10-21T21:04:07.000Z",
+                  "updatedAt": "2026-10-21T21:04:07.000Z",
+                  "uid": "35240-6910d77e-57d7-4024-a3ac-58a8fb400bd0"
                 }
               ],
-              "variable": []
+              "id": "93279cf0-fa4a-4d69-acd2-85519e2619ad",
+              "createdAt": "2026-10-21T21:04:07.000Z",
+              "updatedAt": "2026-10-21T21:04:07.000Z",
+              "uid": "35240-93279cf0-fa4a-4d69-acd2-85519e2619ad"
             },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
             {
-              "id": "af3d1415-f987-47ee-a582-e968b789ad64",
-              "name": "200",
-              "originalRequest": {
+              "name": "List Projects (Cloud-only)",
+              "id": "e4d476ec-9215-44bb-befb-4cec04fd6aa1",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
                 "url": {
+                  "raw": "{{baseUrl}}/v1/projects?name=<string>&offset=<string>&limit=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "v1",
                     "projects"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
                   ],
                   "query": [
                     {
@@ -79,274 +179,187 @@
                       "key": "limit",
                       "value": "<string>"
                     }
-                  ],
-                  "variable": []
+                  ]
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
+                "description": "List all projects"
               },
-              "status": "OK",
-              "code": 200,
-              "header": [
+              "response": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "id": "59ed9c19-ebea-4fc4-a6a2-67633b71712e",
+                  "name": "200",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/projects?name=<string>&offset=<string>&limit=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "projects"
+                      ],
+                      "query": [
+                        {
+                          "key": "name",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "offset",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "limit",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"projects\": [\n    {\n      \"name\": \"<string>\",\n      \"slug\": \"<string>\",\n      \"id\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"slug\": \"<string>\",\n      \"id\": \"<string>\"\n    }\n  ],\n  \"hasNextPage\": \"<boolean>\"\n}",
+                  "createdAt": "2026-10-21T21:04:07.000Z",
+                  "updatedAt": "2026-10-21T21:04:07.000Z",
+                  "uid": "35240-59ed9c19-ebea-4fc4-a6a2-67633b71712e"
                 }
               ],
-              "body": "{\n  \"projects\": [\n    {\n      \"name\": \"string\",\n      \"slug\": \"string\",\n      \"id\": \"string\"\n    },\n    {\n      \"name\": \"string\",\n      \"slug\": \"string\",\n      \"id\": \"string\"\n    }\n  ],\n  \"hasNextPage\": false\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "c9bb0465-47ac-4c92-86e3-24e39dc95295",
-          "name": "Create Project (Cloud-only)",
-          "request": {
-            "name": "Create Project (Cloud-only)",
-            "description": {
-              "content": "Create a new project",
-              "type": "text/plain"
+              "createdAt": "2026-10-21T21:04:07.000Z",
+              "updatedAt": "2026-10-21T21:04:07.000Z",
+              "uid": "35240-e4d476ec-9215-44bb-befb-4cec04fd6aa1"
             },
-            "url": {
-              "path": [
-                "v1",
-                "projects"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"name\": \"<string>\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
             {
-              "id": "714cfb57-ae7b-4d92-88f5-49ccc9a24219",
-              "name": "201",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "projects"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+              "name": "Create Project (Cloud-only)",
+              "id": "c2370d04-ea3d-4f57-94a8-8fcf40c98020",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
+                    "key": "Content-Type",
+                    "value": "application/json"
                   },
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
                   "raw": "{\n  \"name\": \"<string>\"\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
-                }
-              },
-              "status": "Created",
-              "code": 201,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"name\": \"string\",\n  \"slug\": \"string\",\n  \"id\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "a7b5810c-94d6-445b-89bc-75313daa577d",
-          "name": "Delete Project (Cloud-only)",
-          "request": {
-            "name": "Delete Project (Cloud-only)",
-            "description": {
-              "content": "Delete a project by ID",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v1",
-                "projects",
-                ":projectId"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<uuid>",
-                  "key": "projectId",
-                  "description": "(Required) "
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "DELETE",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
-            {
-              "id": "4ae38de0-2356-44a1-a9c7-a57c1b1af37f",
-              "name": "200",
-              "originalRequest": {
+                },
                 "url": {
-                  "path": [
-                    "v1",
-                    "projects",
-                    ":projectId"
-                  ],
+                  "raw": "{{baseUrl}}/v1/projects",
                   "host": [
                     "{{baseUrl}}"
                   ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "projectId",
-                      "description": "(Required) "
-                    }
+                  "path": [
+                    "v1",
+                    "projects"
                   ]
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
+                "description": "Create a new project"
               },
-              "status": "OK",
-              "code": 200,
-              "header": [
+              "response": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "id": "bc284695-de7d-4ae1-a8b4-8e9e9c3d2c3d",
+                  "name": "201",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/projects",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "projects"
+                      ]
+                    }
+                  },
+                  "status": "Created",
+                  "code": 201,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"name\": \"<string>\",\n  \"slug\": \"<string>\",\n  \"id\": \"<string>\"\n}",
+                  "createdAt": "2026-10-21T21:04:07.000Z",
+                  "updatedAt": "2026-10-21T21:04:07.000Z",
+                  "uid": "35240-bc284695-de7d-4ae1-a8b4-8e9e9c3d2c3d"
                 }
               ],
-              "body": "{\n  \"success\": false\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "createdAt": "2026-10-21T21:04:07.000Z",
+              "updatedAt": "2026-10-21T21:04:07.000Z",
+              "uid": "35240-c2370d04-ea3d-4f57-94a8-8fcf40c98020"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "b312417e-2838-40b4-b8d4-bfac4b7a5644",
+          "createdAt": "2026-10-21T21:04:07.000Z",
+          "updatedAt": "2026-10-21T21:04:07.000Z",
+          "uid": "35240-b312417e-2838-40b4-b8d4-bfac4b7a5644"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "https://api.letta.com",
-      "key": "baseUrl"
+      "id": "0f944cb8-4ada-4ce4-81f5-f380ddbb0fc2",
+      "createdAt": "2026-10-21T21:04:07.000Z",
+      "updatedAt": "2026-10-21T21:04:07.000Z",
+      "uid": "35240-0f944cb8-4ada-4ce4-81f5-f380ddbb0fc2"
     }
   ],
   "auth": {
@@ -354,17 +367,15 @@
     "bearer": [
       {
         "key": "token",
-        "value": "{{bearerToken}}"
+        "value": "{{bearerToken}}",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "9ed8110b-483d-46dd-bdae-0315b541678c",
-    "name": "Letta Admin Projects API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "REST API for Letta, the stateful agents platform. Manage agents, memory blocks, archival passages, sources, custom tools, MCP servers, multi-agent groups, runs, and streaming responses. Available as Letta Cloud (managed) at https://api.letta.com/v1 and as the self-hosted open-source server (Apache-2.0) typically run at http://localhost:8283.\n\nContact Support:\n Name: Letta\n Email: support@letta.com",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.letta.com"
     }
-  }
+  ]
 }

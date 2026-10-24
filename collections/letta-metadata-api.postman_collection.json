@@ -1,517 +1,561 @@
 {
+  "info": {
+    "_postman_id": "9ab75b75-c25a-4f0c-8b09-2fef855bd1f0",
+    "name": "Letta Metadata API",
+    "description": "REST API for Letta, the stateful agents platform. Manage agents, memory blocks, archival passages, sources, custom tools, MCP servers, multi-agent groups, runs, and streaming responses. Available as Letta Cloud (managed) at https://api.letta.com/v1 and as the self-hosted open-source server (Apache-2.0) typically run at http://localhost:8283.\n\nContact Support:\n Name: Letta\n Email: support@letta.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T21:03:53.000Z",
+    "updatedAt": "2026-10-21T21:03:53.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-9ab75b75-c25a-4f0c-8b09-2fef855bd1f0"
+  },
   "item": [
     {
-      "id": "892de12d-beb0-449f-bd65-b668f039f183",
-      "name": "Metadata",
-      "description": {
-        "content": "Service/runtime metadata.",
-        "type": "text/plain"
-      },
+      "name": "v1",
       "item": [
         {
-          "id": "667827bc-9cb8-49e6-9ae5-f8df44f0a5fd",
-          "name": "Retrieve Current Organization Balance",
-          "request": {
-            "name": "Retrieve Current Organization Balance",
-            "description": {
-              "content": "Retrieve the current usage balances for the organization.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v1",
-                "metadata",
-                "balance"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
+          "name": "metadata",
+          "item": [
             {
-              "id": "8fcc1b19-10d0-471f-9ad6-94383468196f",
-              "name": "200",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "metadata",
-                    "balance"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
+              "name": "balance",
+              "item": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"total_balance\": 6417.482948944705,\n  \"monthly_credit_balance\": 2944.8320873529287,\n  \"purchased_credit_balance\": 1254.4379274828132,\n  \"billing_tier\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "325eb1f4-c576-4a1b-8482-4c9b3a7aaa54",
-          "name": "Send User Feedback",
-          "request": {
-            "name": "Send User Feedback",
-            "description": {
-              "content": "Send feedback from users to improve our services.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v1",
-                "metadata",
-                "feedback"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"message\": \"<string>\",\n  \"feature\": \"letta-code\",\n  \"agent_id\": \"<string>\",\n  \"session_id\": \"<string>\",\n  \"version\": \"<string>\",\n  \"platform\": \"<string>\",\n  \"settings\": \"<string>\",\n  \"local_time\": \"<string>\",\n  \"device_type\": \"<string>\",\n  \"cwd\": \"<string>\",\n  \"total_api_ms\": \"<number>\",\n  \"total_wall_ms\": \"<number>\",\n  \"step_count\": \"<number>\",\n  \"prompt_tokens\": \"<number>\",\n  \"completion_tokens\": \"<number>\",\n  \"total_tokens\": \"<number>\",\n  \"cached_input_tokens\": \"<number>\",\n  \"cache_write_tokens\": \"<number>\",\n  \"reasoning_tokens\": \"<number>\",\n  \"context_tokens\": \"<number>\",\n  \"agent_name\": \"<string>\",\n  \"agent_description\": \"<string>\",\n  \"model\": \"<string>\",\n  \"billing_tier\": \"<string>\",\n  \"recent_chunks\": [\n    {\n      \"key_0\": {},\n      \"key_1\": {}\n    },\n    {\n      \"key_0\": {},\n      \"key_1\": {}\n    }\n  ],\n  \"debug_log_tail\": \"<string>\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
-            {
-              "id": "58fd7048-d79a-450a-a5d0-16a75c5cc72a",
-              "name": "200",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "metadata",
-                    "feedback"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
+                  "name": "Retrieve Current Organization Balance",
+                  "id": "d1c3a8b8-0a33-4aef-a44b-e80af306aa8e",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
                   },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"message\": \"<string>\",\n  \"feature\": \"letta-code\",\n  \"agent_id\": \"<string>\",\n  \"session_id\": \"<string>\",\n  \"version\": \"<string>\",\n  \"platform\": \"<string>\",\n  \"settings\": \"<string>\",\n  \"local_time\": \"<string>\",\n  \"device_type\": \"<string>\",\n  \"cwd\": \"<string>\",\n  \"total_api_ms\": \"<number>\",\n  \"total_wall_ms\": \"<number>\",\n  \"step_count\": \"<number>\",\n  \"prompt_tokens\": \"<number>\",\n  \"completion_tokens\": \"<number>\",\n  \"total_tokens\": \"<number>\",\n  \"cached_input_tokens\": \"<number>\",\n  \"cache_write_tokens\": \"<number>\",\n  \"reasoning_tokens\": \"<number>\",\n  \"context_tokens\": \"<number>\",\n  \"agent_name\": \"<string>\",\n  \"agent_description\": \"<string>\",\n  \"model\": \"<string>\",\n  \"billing_tier\": \"<string>\",\n  \"recent_chunks\": [\n    {\n      \"key_0\": {},\n      \"key_1\": {}\n    },\n    {\n      \"key_0\": {},\n      \"key_1\": {},\n      \"key_2\": {}\n    }\n  ],\n  \"debug_log_tail\": \"<string>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/metadata/balance",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "metadata",
+                        "balance"
+                      ]
+                    },
+                    "description": "Retrieve the current usage balances for the organization."
+                  },
+                  "response": [
+                    {
+                      "id": "2e75d0f2-2b20-4f6a-ab05-025b73f4c8b3",
+                      "name": "200",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/metadata/balance",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "metadata",
+                            "balance"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"total_balance\": \"<number>\",\n  \"monthly_credit_balance\": \"<number>\",\n  \"purchased_credit_balance\": \"<number>\",\n  \"billing_tier\": \"<string>\"\n}",
+                      "createdAt": "2026-10-21T21:03:53.000Z",
+                      "updatedAt": "2026-10-21T21:03:53.000Z",
+                      "uid": "35240-2e75d0f2-2b20-4f6a-ab05-025b73f4c8b3"
                     }
-                  }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  ],
+                  "createdAt": "2026-10-21T21:03:53.000Z",
+                  "updatedAt": "2026-10-21T21:03:53.000Z",
+                  "uid": "35240-d1c3a8b8-0a33-4aef-a44b-e80af306aa8e"
                 }
               ],
-              "body": "{\n  \"success\": true\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "1b16b484-7684-4850-8956-02963199be03",
-          "name": "Send Telemetry Event",
-          "request": {
-            "name": "Send Telemetry Event",
-            "description": {
-              "content": "Send telemetry events for usage tracking and analysis.",
-              "type": "text/plain"
+              "id": "f0af34d0-3f41-48da-93b0-4c98bcfb768f",
+              "createdAt": "2026-10-21T21:03:53.000Z",
+              "updatedAt": "2026-10-21T21:03:53.000Z",
+              "uid": "35240-f0af34d0-3f41-48da-93b0-4c98bcfb768f"
             },
-            "url": {
-              "path": [
-                "v1",
-                "metadata",
-                "telemetry"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"service\": \"<string>\",\n  \"events\": [\n    {\n      \"type\": \"<string>\",\n      \"timestamp\": \"<string>\",\n      \"data\": {\n        \"session_id\": \"<string>\",\n        \"startup_command\": \"<string>\",\n        \"agent_id\": \"<string>\",\n        \"surface\": \"<string>\",\n        \"version\": \"<string>\",\n        \"platform\": \"<string>\",\n        \"node_version\": \"<string>\"\n      }\n    }\n  ],\n  \"server_version\": \"<string>\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
             {
-              "id": "6674e0b9-643a-4df8-b082-e3516450403f",
-              "name": "200",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "metadata",
-                    "telemetry"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
+              "name": "feedback",
+              "item": [
+                {
+                  "name": "Send User Feedback",
+                  "id": "c952deb3-41a7-4c9a-8c89-405de79878d2",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
                   },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"service\": \"<string>\",\n  \"events\": [\n    {\n      \"type\": \"<string>\",\n      \"timestamp\": \"<string>\",\n      \"data\": {\n        \"session_id\": \"<string>\",\n        \"startup_command\": \"<string>\",\n        \"agent_id\": \"<string>\",\n        \"surface\": \"<string>\",\n        \"version\": \"<string>\",\n        \"platform\": \"<string>\",\n        \"node_version\": \"<string>\"\n      }\n    }\n  ],\n  \"server_version\": \"<string>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"message\": \"<string>\",\n  \"feature\": \"letta-code\",\n  \"agent_id\": \"<string>\",\n  \"session_id\": \"<string>\",\n  \"version\": \"<string>\",\n  \"platform\": \"<string>\",\n  \"settings\": \"<string>\",\n  \"local_time\": \"<string>\",\n  \"device_type\": \"<string>\",\n  \"cwd\": \"<string>\",\n  \"total_api_ms\": \"<number>\",\n  \"total_wall_ms\": \"<number>\",\n  \"step_count\": \"<number>\",\n  \"prompt_tokens\": \"<number>\",\n  \"completion_tokens\": \"<number>\",\n  \"total_tokens\": \"<number>\",\n  \"cached_input_tokens\": \"<number>\",\n  \"cache_write_tokens\": \"<number>\",\n  \"reasoning_tokens\": \"<number>\",\n  \"context_tokens\": \"<number>\",\n  \"agent_name\": \"<string>\",\n  \"agent_description\": \"<string>\",\n  \"model\": \"<string>\",\n  \"billing_tier\": \"<string>\",\n  \"recent_chunks\": [\n    {\n      \"id_6e2\": {}\n    },\n    {\n      \"ut_e__\": {}\n    }\n  ],\n  \"debug_log_tail\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/metadata/feedback",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "metadata",
+                        "feedback"
+                      ]
+                    },
+                    "description": "Send feedback from users to improve our services."
+                  },
+                  "response": [
+                    {
+                      "id": "c16a8bdb-c385-462a-ae2f-3510793711c1",
+                      "name": "200",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"message\": \"<string>\",\n  \"feature\": \"letta-code\",\n  \"agent_id\": \"<string>\",\n  \"session_id\": \"<string>\",\n  \"version\": \"<string>\",\n  \"platform\": \"<string>\",\n  \"settings\": \"<string>\",\n  \"local_time\": \"<string>\",\n  \"device_type\": \"<string>\",\n  \"cwd\": \"<string>\",\n  \"total_api_ms\": \"<number>\",\n  \"total_wall_ms\": \"<number>\",\n  \"step_count\": \"<number>\",\n  \"prompt_tokens\": \"<number>\",\n  \"completion_tokens\": \"<number>\",\n  \"total_tokens\": \"<number>\",\n  \"cached_input_tokens\": \"<number>\",\n  \"cache_write_tokens\": \"<number>\",\n  \"reasoning_tokens\": \"<number>\",\n  \"context_tokens\": \"<number>\",\n  \"agent_name\": \"<string>\",\n  \"agent_description\": \"<string>\",\n  \"model\": \"<string>\",\n  \"billing_tier\": \"<string>\",\n  \"recent_chunks\": [\n    {\n      \"id_6e2\": {}\n    },\n    {\n      \"ut_e__\": {}\n    }\n  ],\n  \"debug_log_tail\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/metadata/feedback",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "metadata",
+                            "feedback"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"success\": \"<boolean>\"\n}",
+                      "createdAt": "2026-10-21T21:03:53.000Z",
+                      "updatedAt": "2026-10-21T21:03:53.000Z",
+                      "uid": "35240-c16a8bdb-c385-462a-ae2f-3510793711c1"
                     }
-                  }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  ],
+                  "createdAt": "2026-10-21T21:03:53.000Z",
+                  "updatedAt": "2026-10-21T21:03:53.000Z",
+                  "uid": "35240-c952deb3-41a7-4c9a-8c89-405de79878d2"
                 }
               ],
-              "body": "{\n  \"success\": true\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "e669e3d2-177c-4b3b-872b-a0e9dae205f7",
-          "name": "Gets Your Letta Cloud Status",
-          "request": {
-            "name": "Gets Your Letta Cloud Status",
-            "description": {},
-            "url": {
-              "path": [
-                "v1",
-                "metadata",
-                "status"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "c42e1260-05b5-4daf-8e6c-6edddf4ae91a",
-              "name": "200",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "metadata",
-                    "status"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"current_project_id\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "f6246892-9b7b-4997-bb30-02e036a86540",
-          "name": "Get Current User Information",
-          "request": {
-            "name": "Get Current User Information",
-            "description": {
-              "content": "Retrieve information about the current authenticated user including email, name, organization, and current project.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v1",
-                "metadata",
-                "user"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "bfadd4dd-d502-4f39-b31b-b18a13059984",
-              "name": "200",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "metadata",
-                    "user"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"id\": \"string\",\n  \"email\": \"string\",\n  \"name\": \"string\",\n  \"organization_name\": \"string\",\n  \"organization_id\": \"string\",\n  \"current_project_name\": \"string\",\n  \"current_project_id\": \"string\",\n  \"billing_tier\": \"string\",\n  \"remaining_credits\": 7822.665809874062\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "id": "63d51c24-0c41-4bb7-8ebf-4d991b33e8f5",
+              "createdAt": "2026-10-21T21:03:53.000Z",
+              "updatedAt": "2026-10-21T21:03:53.000Z",
+              "uid": "35240-63d51c24-0c41-4bb7-8ebf-4d991b33e8f5"
             },
             {
-              "id": "b10a72a0-3b0f-42fa-a14b-976e9d890558",
-              "name": "404",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "metadata",
-                    "user"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
+              "name": "telemetry",
+              "item": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "name": "Send Telemetry Event",
+                  "id": "93fbb802-3070-4b9d-89dc-c20747496d3b",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"service\": \"letta-code\",\n  \"events\": [\n    {\n      \"type\": \"session_start\",\n      \"timestamp\": \"<string>\",\n      \"data\": {\n        \"session_id\": \"<string>\",\n        \"startup_command\": \"<string>\",\n        \"agent_id\": \"<string>\",\n        \"surface\": \"<string>\",\n        \"version\": \"<string>\",\n        \"platform\": \"<string>\",\n        \"node_version\": \"<string>\"\n      }\n    }\n  ],\n  \"server_version\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/metadata/telemetry",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "metadata",
+                        "telemetry"
+                      ]
+                    },
+                    "description": "Send telemetry events for usage tracking and analysis."
+                  },
+                  "response": [
+                    {
+                      "id": "787319b1-5b98-4189-b040-d7ba4e4b16d8",
+                      "name": "200",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"service\": \"letta-code\",\n  \"events\": [\n    {\n      \"type\": \"session_start\",\n      \"timestamp\": \"<string>\",\n      \"data\": {\n        \"session_id\": \"<string>\",\n        \"startup_command\": \"<string>\",\n        \"agent_id\": \"<string>\",\n        \"surface\": \"<string>\",\n        \"version\": \"<string>\",\n        \"platform\": \"<string>\",\n        \"node_version\": \"<string>\"\n      }\n    }\n  ],\n  \"server_version\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/metadata/telemetry",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "metadata",
+                            "telemetry"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"success\": \"<boolean>\"\n}",
+                      "createdAt": "2026-10-21T21:03:53.000Z",
+                      "updatedAt": "2026-10-21T21:03:53.000Z",
+                      "uid": "35240-787319b1-5b98-4189-b040-d7ba4e4b16d8"
+                    }
+                  ],
+                  "createdAt": "2026-10-21T21:03:53.000Z",
+                  "updatedAt": "2026-10-21T21:03:53.000Z",
+                  "uid": "35240-93fbb802-3070-4b9d-89dc-c20747496d3b"
                 }
               ],
-              "body": "{\n  \"message\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "id": "c02fb4e0-6742-43c9-9313-8da6c95cb5be",
+              "createdAt": "2026-10-21T21:03:53.000Z",
+              "updatedAt": "2026-10-21T21:03:53.000Z",
+              "uid": "35240-c02fb4e0-6742-43c9-9313-8da6c95cb5be"
+            },
+            {
+              "name": "status",
+              "item": [
+                {
+                  "name": "Gets Your Letta Cloud Status",
+                  "id": "647eface-32a0-4b6e-9873-6ac5da91ef3b",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/metadata/status",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "metadata",
+                        "status"
+                      ]
+                    }
+                  },
+                  "response": [
+                    {
+                      "id": "b5b28b20-164f-408e-b707-a216424af44f",
+                      "name": "200",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/metadata/status",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "metadata",
+                            "status"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"current_project_id\": \"<string>\"\n}",
+                      "createdAt": "2026-10-21T21:03:53.000Z",
+                      "updatedAt": "2026-10-21T21:03:53.000Z",
+                      "uid": "35240-b5b28b20-164f-408e-b707-a216424af44f"
+                    }
+                  ],
+                  "createdAt": "2026-10-21T21:03:53.000Z",
+                  "updatedAt": "2026-10-21T21:03:53.000Z",
+                  "uid": "35240-647eface-32a0-4b6e-9873-6ac5da91ef3b"
+                }
+              ],
+              "id": "4b94f908-bcca-47f3-b1a4-2cc506f0a9c9",
+              "createdAt": "2026-10-21T21:03:53.000Z",
+              "updatedAt": "2026-10-21T21:03:53.000Z",
+              "uid": "35240-4b94f908-bcca-47f3-b1a4-2cc506f0a9c9"
+            },
+            {
+              "name": "user",
+              "item": [
+                {
+                  "name": "Get Current User Information",
+                  "id": "87b2b816-1f43-4374-b8ac-b48ae1516f47",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/metadata/user",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "metadata",
+                        "user"
+                      ]
+                    },
+                    "description": "Retrieve information about the current authenticated user including email, name, organization, and current project."
+                  },
+                  "response": [
+                    {
+                      "id": "77dee802-fd41-41b6-aa49-9acd4db6067d",
+                      "name": "200",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/metadata/user",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "metadata",
+                            "user"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"email\": \"<string>\",\n  \"name\": \"<string>\",\n  \"organization_name\": \"<string>\",\n  \"organization_id\": \"<string>\",\n  \"current_project_name\": \"<string>\",\n  \"current_project_id\": \"<string>\",\n  \"billing_tier\": \"<string>\",\n  \"remaining_credits\": \"<number>\"\n}",
+                      "createdAt": "2026-10-21T21:03:53.000Z",
+                      "updatedAt": "2026-10-21T21:03:53.000Z",
+                      "uid": "35240-77dee802-fd41-41b6-aa49-9acd4db6067d"
+                    },
+                    {
+                      "id": "39b933c5-2ffc-4740-affb-82cd9b698822",
+                      "name": "404",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/metadata/user",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "metadata",
+                            "user"
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-10-21T21:03:53.000Z",
+                      "updatedAt": "2026-10-21T21:03:53.000Z",
+                      "uid": "35240-39b933c5-2ffc-4740-affb-82cd9b698822"
+                    }
+                  ],
+                  "createdAt": "2026-10-21T21:03:53.000Z",
+                  "updatedAt": "2026-10-21T21:03:53.000Z",
+                  "uid": "35240-87b2b816-1f43-4374-b8ac-b48ae1516f47"
+                }
+              ],
+              "id": "f903e968-3d16-4f85-8165-40762cfb736b",
+              "createdAt": "2026-10-21T21:03:53.000Z",
+              "updatedAt": "2026-10-21T21:03:53.000Z",
+              "uid": "35240-f903e968-3d16-4f85-8165-40762cfb736b"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "195e148f-d05a-45f5-aba3-4065123eedd0",
+          "createdAt": "2026-10-21T21:03:53.000Z",
+          "updatedAt": "2026-10-21T21:03:53.000Z",
+          "uid": "35240-195e148f-d05a-45f5-aba3-4065123eedd0"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "https://api.letta.com",
-      "key": "baseUrl"
+      "id": "c40c9561-93c6-42f6-922f-51097d15ad4b",
+      "createdAt": "2026-10-21T21:03:53.000Z",
+      "updatedAt": "2026-10-21T21:03:53.000Z",
+      "uid": "35240-c40c9561-93c6-42f6-922f-51097d15ad4b"
     }
   ],
   "auth": {
@@ -519,17 +563,15 @@
     "bearer": [
       {
         "key": "token",
-        "value": "{{bearerToken}}"
+        "value": "{{bearerToken}}",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "fb83aacb-891b-426f-a20d-42568cc31b08",
-    "name": "Letta Admin Metadata API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "REST API for Letta, the stateful agents platform. Manage agents, memory blocks, archival passages, sources, custom tools, MCP servers, multi-agent groups, runs, and streaming responses. Available as Letta Cloud (managed) at https://api.letta.com/v1 and as the self-hosted open-source server (Apache-2.0) typically run at http://localhost:8283.\n\nContact Support:\n Name: Letta\n Email: support@letta.com",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.letta.com"
     }
-  }
+  ]
 }

@@ -1,251 +1,264 @@
 {
+  "info": {
+    "_postman_id": "59b3248b-4b92-40a9-b239-2a3575946dcf",
+    "name": "Letta Admin API",
+    "description": "REST API for Letta, the stateful agents platform. Manage agents, memory blocks, archival passages, sources, custom tools, MCP servers, multi-agent groups, runs, and streaming responses. Available as Letta Cloud (managed) at https://api.letta.com/v1 and as the self-hosted open-source server (Apache-2.0) typically run at http://localhost:8283.\n\nContact Support:\n Name: Letta\n Email: support@letta.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T21:01:33.000Z",
+    "updatedAt": "2026-10-21T21:01:34.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-59b3248b-4b92-40a9-b239-2a3575946dcf"
+  },
   "item": [
     {
-      "id": "0f43e9bc-db44-40b7-a966-2732af57d59e",
-      "name": "Admin",
-      "description": {
-        "content": "Administrative operations (org / billing / policy).",
-        "type": "text/plain"
-      },
+      "name": "v1",
       "item": [
         {
-          "id": "07e5129c-eb37-499c-9ffb-d0fe9228f5b2",
-          "name": "List Tags",
-          "request": {
-            "name": "List Tags",
-            "description": {
-              "content": "Get the list of all tags (from agents and blocks) that have been created.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v1",
-                "tags",
-                ""
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "before",
-                  "value": "<string>",
-                  "description": "Tag cursor for pagination. Returns tags that come before this tag in the specified sort order"
-                },
-                {
-                  "disabled": false,
-                  "key": "after",
-                  "value": "<string>",
-                  "description": "Tag cursor for pagination. Returns tags that come after this tag in the specified sort order"
-                },
-                {
-                  "disabled": false,
-                  "key": "limit",
-                  "value": "<integer>",
-                  "description": "Maximum number of tags to return"
-                },
-                {
-                  "disabled": false,
-                  "key": "order",
-                  "value": "asc",
-                  "description": "Sort order for tags. 'asc' for alphabetical order, 'desc' for reverse alphabetical order"
-                },
-                {
-                  "disabled": false,
-                  "key": "order_by",
-                  "value": "name",
-                  "description": "Field to sort by"
-                },
-                {
-                  "disabled": false,
-                  "key": "query_text",
-                  "value": "<string>",
-                  "description": "Filter tags by text search. Deprecated, please use name field instead"
-                },
-                {
-                  "disabled": false,
-                  "key": "name",
-                  "value": "<string>",
-                  "description": "Filter tags by name"
-                }
-              ],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
+          "name": "tags",
+          "item": [
             {
-              "id": "de0ec5af-f9b3-4364-b153-a2a12e4e4f9b",
-              "name": "Successful Response",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "tags",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "before",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "after",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "limit",
-                      "value": "<integer>"
-                    },
-                    {
-                      "key": "order",
-                      "value": "asc"
-                    },
-                    {
-                      "key": "order_by",
-                      "value": "name"
-                    },
-                    {
-                      "key": "query_text",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "name",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": []
-                },
+              "name": "List Tags",
+              "id": "47f4983f-d4c6-427d-9001-0e0d8c6217cf",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
                 "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "[\n  \"string\",\n  \"string\"\n]",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "1bddd633-e230-4c4b-b892-01512c67fe46",
-              "name": "Validation Error",
-              "originalRequest": {
                 "url": {
+                  "raw": "{{baseUrl}}/v1/tags/?before=<string>&after=<string>&limit=<integer>&order=asc&order_by=name&query_text=<string>&name=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "v1",
                     "tags",
                     ""
                   ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
                   "query": [
                     {
+                      "description": "Tag cursor for pagination. Returns tags that come before this tag in the specified sort order",
                       "key": "before",
                       "value": "<string>"
                     },
                     {
+                      "description": "Tag cursor for pagination. Returns tags that come after this tag in the specified sort order",
                       "key": "after",
                       "value": "<string>"
                     },
                     {
+                      "description": "Maximum number of tags to return",
                       "key": "limit",
                       "value": "<integer>"
                     },
                     {
+                      "description": "Sort order for tags. 'asc' for alphabetical order, 'desc' for reverse alphabetical order",
                       "key": "order",
                       "value": "asc"
                     },
                     {
+                      "description": "Field to sort by",
                       "key": "order_by",
                       "value": "name"
                     },
                     {
+                      "description": "Filter tags by text search. Deprecated, please use name field instead",
                       "key": "query_text",
                       "value": "<string>"
                     },
                     {
+                      "description": "Filter tags by name",
                       "key": "name",
                       "value": "<string>"
                     }
-                  ],
-                  "variable": []
+                  ]
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
+                "description": "Get the list of all tags (from agents and blocks) that have been created."
               },
-              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
-              "code": 422,
-              "header": [
+              "response": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "id": "130c3214-c6f9-42f9-b097-cb8ac0f98dc6",
+                  "name": "Successful Response",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/tags/?before=<string>&after=<string>&limit=<integer>&order=asc&order_by=name&query_text=<string>&name=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "tags",
+                        ""
+                      ],
+                      "query": [
+                        {
+                          "description": "Tag cursor for pagination. Returns tags that come before this tag in the specified sort order",
+                          "key": "before",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Tag cursor for pagination. Returns tags that come after this tag in the specified sort order",
+                          "key": "after",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Maximum number of tags to return",
+                          "key": "limit",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Sort order for tags. 'asc' for alphabetical order, 'desc' for reverse alphabetical order",
+                          "key": "order",
+                          "value": "asc"
+                        },
+                        {
+                          "description": "Field to sort by",
+                          "key": "order_by",
+                          "value": "name"
+                        },
+                        {
+                          "description": "Filter tags by text search. Deprecated, please use name field instead",
+                          "key": "query_text",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Filter tags by name",
+                          "key": "name",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "[\n  \"<string>\",\n  \"<string>\"\n]",
+                  "createdAt": "2026-10-21T21:01:34.000Z",
+                  "updatedAt": "2026-10-21T21:01:34.000Z",
+                  "uid": "35240-130c3214-c6f9-42f9-b097-cb8ac0f98dc6"
+                },
+                {
+                  "id": "dd2da6cf-61c6-450f-9a16-49e816ba5a93",
+                  "name": "Validation Error",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/tags/?before=<string>&after=<string>&limit=<integer>&order=asc&order_by=name&query_text=<string>&name=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "tags",
+                        ""
+                      ],
+                      "query": [
+                        {
+                          "description": "Tag cursor for pagination. Returns tags that come before this tag in the specified sort order",
+                          "key": "before",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Tag cursor for pagination. Returns tags that come after this tag in the specified sort order",
+                          "key": "after",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Maximum number of tags to return",
+                          "key": "limit",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Sort order for tags. 'asc' for alphabetical order, 'desc' for reverse alphabetical order",
+                          "key": "order",
+                          "value": "asc"
+                        },
+                        {
+                          "description": "Field to sort by",
+                          "key": "order_by",
+                          "value": "name"
+                        },
+                        {
+                          "description": "Filter tags by text search. Deprecated, please use name field instead",
+                          "key": "query_text",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Filter tags by name",
+                          "key": "name",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                  "code": 422,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"msg\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"loc\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"msg\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-10-21T21:01:34.000Z",
+                  "updatedAt": "2026-10-21T21:01:34.000Z",
+                  "uid": "35240-dd2da6cf-61c6-450f-9a16-49e816ba5a93"
                 }
               ],
-              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "createdAt": "2026-10-21T21:01:34.000Z",
+              "updatedAt": "2026-10-21T21:01:34.000Z",
+              "uid": "35240-47f4983f-d4c6-427d-9001-0e0d8c6217cf"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "eae15fcd-fedf-4403-9ed1-7a245182b8e7",
+          "createdAt": "2026-10-21T21:01:34.000Z",
+          "updatedAt": "2026-10-21T21:01:34.000Z",
+          "uid": "35240-eae15fcd-fedf-4403-9ed1-7a245182b8e7"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "https://api.letta.com",
-      "key": "baseUrl"
+      "id": "81c59387-1edb-4aa6-8096-4cb7ed96065b",
+      "createdAt": "2026-10-21T21:01:34.000Z",
+      "updatedAt": "2026-10-21T21:01:34.000Z",
+      "uid": "35240-81c59387-1edb-4aa6-8096-4cb7ed96065b"
     }
   ],
   "auth": {
@@ -253,17 +266,15 @@
     "bearer": [
       {
         "key": "token",
-        "value": "{{bearerToken}}"
+        "value": "{{bearerToken}}",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "0f000dd3-9dfe-4d40-9b51-05965863dce6",
-    "name": "Letta Admin API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "REST API for Letta, the stateful agents platform. Manage agents, memory blocks, archival passages, sources, custom tools, MCP servers, multi-agent groups, runs, and streaming responses. Available as Letta Cloud (managed) at https://api.letta.com/v1 and as the self-hosted open-source server (Apache-2.0) typically run at http://localhost:8283.\n\nContact Support:\n Name: Letta\n Email: support@letta.com",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.letta.com"
     }
-  }
+  ]
 }

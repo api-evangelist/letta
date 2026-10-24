@@ -1,531 +1,534 @@
 {
+  "info": {
+    "_postman_id": "fe2d4dbc-c004-4420-9b64-764551d17ccd",
+    "name": "Letta Internal Runs API",
+    "description": "REST API for Letta, the stateful agents platform. Manage agents, memory blocks, archival passages, sources, custom tools, MCP servers, multi-agent groups, runs, and streaming responses. Available as Letta Cloud (managed) at https://api.letta.com/v1 and as the self-hosted open-source server (Apache-2.0) typically run at http://localhost:8283.\n\nContact Support:\n Name: Letta\n Email: support@letta.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T21:03:24.000Z",
+    "updatedAt": "2026-10-21T21:03:24.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-fe2d4dbc-c004-4420-9b64-764551d17ccd"
+  },
   "item": [
     {
-      "id": "af92a73e-e5a5-4c52-8351-6b2e7e4d6f73",
-      "name": "Internal Runs",
-      "description": {
-        "content": "Internal Runs operations.",
-        "type": "text/plain"
-      },
+      "name": "v1",
       "item": [
         {
-          "id": "4671d45f-e3f2-4a67-ba3a-5283c4596009",
-          "name": "List Runs",
-          "request": {
-            "name": "List Runs",
-            "description": {
-              "content": "List all runs.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v1",
-                "_internal_runs",
-                ""
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "run_id",
-                  "value": "<string>",
-                  "description": "Filter by a specific run ID."
-                },
-                {
-                  "disabled": false,
-                  "key": "agent_id",
-                  "value": "<string>",
-                  "description": "The unique identifier of the agent associated with the run."
-                },
-                {
-                  "disabled": false,
-                  "key": "agent_ids",
-                  "value": "<string>",
-                  "description": "The unique identifiers of the agents associated with the run. Deprecated in favor of agent_id field."
-                },
-                {
-                  "disabled": false,
-                  "key": "agent_ids",
-                  "value": "<string>",
-                  "description": "The unique identifiers of the agents associated with the run. Deprecated in favor of agent_id field."
-                },
-                {
-                  "disabled": false,
-                  "key": "statuses",
-                  "value": "<string>",
-                  "description": "Filter runs by status. Can specify multiple statuses."
-                },
-                {
-                  "disabled": false,
-                  "key": "statuses",
-                  "value": "<string>",
-                  "description": "Filter runs by status. Can specify multiple statuses."
-                },
-                {
-                  "disabled": false,
-                  "key": "background",
-                  "value": "<boolean>",
-                  "description": "If True, filters for runs that were created in background mode."
-                },
-                {
-                  "disabled": false,
-                  "key": "stop_reason",
-                  "value": "<string>",
-                  "description": "Filter runs by stop reason."
-                },
-                {
-                  "disabled": false,
-                  "key": "template_family",
-                  "value": "<string>",
-                  "description": "Filter runs by template family (base_template_id)."
-                },
-                {
-                  "disabled": false,
-                  "key": "step_count",
-                  "value": "<integer>",
-                  "description": "Filter runs by step count. Must be provided with step_count_operator."
-                },
-                {
-                  "disabled": false,
-                  "key": "step_count_operator",
-                  "value": "eq",
-                  "description": "Operator for step_count filter: 'eq' for equals, 'gte' for greater than or equal, 'lte' for less than or equal."
-                },
-                {
-                  "disabled": false,
-                  "key": "tools_used",
-                  "value": "<string>",
-                  "description": "Filter runs that used any of the specified tools."
-                },
-                {
-                  "disabled": false,
-                  "key": "tools_used",
-                  "value": "<string>",
-                  "description": "Filter runs that used any of the specified tools."
-                },
-                {
-                  "disabled": false,
-                  "key": "before",
-                  "value": "<string>",
-                  "description": "Run ID cursor for pagination. Returns runs that come before this run ID in the specified sort order"
-                },
-                {
-                  "disabled": false,
-                  "key": "after",
-                  "value": "<string>",
-                  "description": "Run ID cursor for pagination. Returns runs that come after this run ID in the specified sort order"
-                },
-                {
-                  "disabled": false,
-                  "key": "limit",
-                  "value": "<integer>",
-                  "description": "Maximum number of runs to return"
-                },
-                {
-                  "disabled": false,
-                  "key": "order",
-                  "value": "desc",
-                  "description": "Sort order for runs by creation time. 'asc' for oldest first, 'desc' for newest first"
-                },
-                {
-                  "disabled": false,
-                  "key": "order_by",
-                  "value": "created_at",
-                  "description": "Field to sort by"
-                },
-                {
-                  "disabled": false,
-                  "key": "active",
-                  "value": "false",
-                  "description": "Filter for active runs."
-                },
-                {
-                  "disabled": false,
-                  "key": "ascending",
-                  "value": "false",
-                  "description": "Whether to sort agents oldest to newest (True) or newest to oldest (False, default). Deprecated in favor of order field."
-                },
-                {
-                  "disabled": false,
-                  "key": "project_id",
-                  "value": "<string>",
-                  "description": "Filter runs by project ID."
-                },
-                {
-                  "disabled": false,
-                  "key": "conversation_id",
-                  "value": "<string>",
-                  "description": "Filter runs by conversation ID."
-                },
-                {
-                  "disabled": false,
-                  "key": "duration_percentile",
-                  "value": "<integer>",
-                  "description": "Filter runs by duration percentile (1-100). Returns runs slower than this percentile."
-                },
-                {
-                  "disabled": false,
-                  "key": "duration_value",
-                  "value": "<integer>",
-                  "description": "Duration value in nanoseconds for filtering. Must be used with duration_operator."
-                },
-                {
-                  "disabled": false,
-                  "key": "duration_operator",
-                  "value": "<string>",
-                  "description": "Comparison operator for duration filter: 'gt' (greater than), 'lt' (less than), 'eq' (equals)."
-                },
-                {
-                  "disabled": false,
-                  "key": "start_date",
-                  "value": "<dateTime>",
-                  "description": "Filter runs created on or after this date (ISO 8601 format)."
-                },
-                {
-                  "disabled": false,
-                  "key": "end_date",
-                  "value": "<dateTime>",
-                  "description": "Filter runs created on or before this date (ISO 8601 format)."
-                }
-              ],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
+          "name": "_internal_runs",
+          "item": [
             {
-              "id": "53c4fff4-8b7e-49bd-aa7b-2f84a4f784e5",
-              "name": "Successful Response",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "_internal_runs",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "run_id",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "agent_id",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "agent_ids",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "agent_ids",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "statuses",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "statuses",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "background",
-                      "value": "<boolean>"
-                    },
-                    {
-                      "key": "stop_reason",
-                      "value": "insufficient_credits"
-                    },
-                    {
-                      "key": "template_family",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "step_count",
-                      "value": "<integer>"
-                    },
-                    {
-                      "key": "step_count_operator",
-                      "value": "eq"
-                    },
-                    {
-                      "key": "tools_used",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "tools_used",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "before",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "after",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "limit",
-                      "value": "<integer>"
-                    },
-                    {
-                      "key": "order",
-                      "value": "desc"
-                    },
-                    {
-                      "key": "order_by",
-                      "value": "created_at"
-                    },
-                    {
-                      "key": "active",
-                      "value": "false"
-                    },
-                    {
-                      "key": "ascending",
-                      "value": "false"
-                    },
-                    {
-                      "key": "project_id",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "conversation_id",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "duration_percentile",
-                      "value": "<integer>"
-                    },
-                    {
-                      "key": "duration_value",
-                      "value": "<integer>"
-                    },
-                    {
-                      "key": "duration_operator",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "start_date",
-                      "value": "<dateTime>"
-                    },
-                    {
-                      "key": "end_date",
-                      "value": "<dateTime>"
-                    }
-                  ],
-                  "variable": []
-                },
+              "name": "List Runs",
+              "id": "012d75ed-84dd-4400-924d-113f5885849a",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
                 "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "[\n  {\n    \"agent_id\": \"string\",\n    \"id\": \"run-123e4567-e89b-12d3-a456-426614174000\",\n    \"status\": \"created\",\n    \"created_at\": \"1998-04-16T16:46:06.145Z\",\n    \"completed_at\": \"1978-09-12T10:25:51.692Z\",\n    \"conversation_id\": \"string\",\n    \"base_template_id\": \"string\",\n    \"background\": true,\n    \"metadata\": {\n      \"key_0\": false\n    },\n    \"request_config\": {\n      \"use_assistant_message\": true,\n      \"assistant_message_tool_name\": \"send_message\",\n      \"assistant_message_tool_kwarg\": \"message\",\n      \"include_return_message_types\": [\n        \"hidden_reasoning_message\",\n        \"tool_return_message\"\n      ]\n    },\n    \"stop_reason\": \"cancelled\",\n    \"callback_url\": \"string\",\n    \"callback_sent_at\": \"1999-04-02T23:14:16.662Z\",\n    \"callback_status_code\": 345,\n    \"callback_error\": \"string\",\n    \"ttft_ns\": 6795,\n    \"total_duration_ns\": 5361\n  },\n  {\n    \"agent_id\": \"string\",\n    \"id\": \"run-123e4567-e89b-12d3-a456-426614174000\",\n    \"status\": \"created\",\n    \"created_at\": \"1997-10-30T07:02:52.979Z\",\n    \"completed_at\": \"1989-10-18T04:13:23.801Z\",\n    \"conversation_id\": \"string\",\n    \"base_template_id\": \"string\",\n    \"background\": false,\n    \"metadata\": {\n      \"key_0\": 5425,\n      \"key_1\": true\n    },\n    \"request_config\": {\n      \"use_assistant_message\": true,\n      \"assistant_message_tool_name\": \"send_message\",\n      \"assistant_message_tool_kwarg\": \"message\",\n      \"include_return_message_types\": [\n        \"hidden_reasoning_message\",\n        \"user_message\"\n      ]\n    },\n    \"stop_reason\": \"llm_api_error\",\n    \"callback_url\": \"string\",\n    \"callback_sent_at\": \"2021-04-14T13:15:45.962Z\",\n    \"callback_status_code\": 4266,\n    \"callback_error\": \"string\",\n    \"ttft_ns\": 6374,\n    \"total_duration_ns\": 4885\n  }\n]",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "36387d66-8a2a-4edc-99d4-42baceb2dfb3",
-              "name": "Validation Error",
-              "originalRequest": {
                 "url": {
+                  "raw": "{{baseUrl}}/v1/_internal_runs/?run_id=<string>&agent_id=<string>&agent_ids=<string>&agent_ids=<string>&statuses=<string>&statuses=<string>&background=<boolean>&stop_reason=end_turn&template_family=<string>&step_count=<integer>&step_count_operator=gte&tools_used=<string>&tools_used=<string>&before=<string>&after=<string>&limit=<integer>&order=desc&order_by=created_at&active=false&ascending=false&project_id=<string>&conversation_id=<string>&duration_percentile=<integer>&duration_value=<integer>&duration_operator=gt&start_date=<dateTime>&end_date=<dateTime>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "v1",
                     "_internal_runs",
                     ""
                   ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
                   "query": [
                     {
+                      "description": "Filter by a specific run ID.",
                       "key": "run_id",
                       "value": "<string>"
                     },
                     {
+                      "description": "The unique identifier of the agent associated with the run.",
                       "key": "agent_id",
                       "value": "<string>"
                     },
                     {
+                      "description": "The unique identifiers of the agents associated with the run. Deprecated in favor of agent_id field.",
                       "key": "agent_ids",
                       "value": "<string>"
                     },
                     {
+                      "description": "The unique identifiers of the agents associated with the run. Deprecated in favor of agent_id field.",
                       "key": "agent_ids",
                       "value": "<string>"
                     },
                     {
+                      "description": "Filter runs by status. Can specify multiple statuses.",
                       "key": "statuses",
                       "value": "<string>"
                     },
                     {
+                      "description": "Filter runs by status. Can specify multiple statuses.",
                       "key": "statuses",
                       "value": "<string>"
                     },
                     {
+                      "description": "If True, filters for runs that were created in background mode.",
                       "key": "background",
                       "value": "<boolean>"
                     },
                     {
+                      "description": "Filter runs by stop reason.",
                       "key": "stop_reason",
-                      "value": "insufficient_credits"
+                      "value": "end_turn"
                     },
                     {
+                      "description": "Filter runs by template family (base_template_id).",
                       "key": "template_family",
                       "value": "<string>"
                     },
                     {
+                      "description": "Filter runs by step count. Must be provided with step_count_operator.",
                       "key": "step_count",
                       "value": "<integer>"
                     },
                     {
+                      "description": "Operator for step_count filter: 'eq' for equals, 'gte' for greater than or equal, 'lte' for less than or equal.",
                       "key": "step_count_operator",
-                      "value": "eq"
+                      "value": "gte"
                     },
                     {
+                      "description": "Filter runs that used any of the specified tools.",
                       "key": "tools_used",
                       "value": "<string>"
                     },
                     {
+                      "description": "Filter runs that used any of the specified tools.",
                       "key": "tools_used",
                       "value": "<string>"
                     },
                     {
+                      "description": "Run ID cursor for pagination. Returns runs that come before this run ID in the specified sort order",
                       "key": "before",
                       "value": "<string>"
                     },
                     {
+                      "description": "Run ID cursor for pagination. Returns runs that come after this run ID in the specified sort order",
                       "key": "after",
                       "value": "<string>"
                     },
                     {
+                      "description": "Maximum number of runs to return",
                       "key": "limit",
                       "value": "<integer>"
                     },
                     {
+                      "description": "Sort order for runs by creation time. 'asc' for oldest first, 'desc' for newest first",
                       "key": "order",
                       "value": "desc"
                     },
                     {
+                      "description": "Field to sort by",
                       "key": "order_by",
                       "value": "created_at"
                     },
                     {
+                      "description": "Filter for active runs.",
                       "key": "active",
                       "value": "false"
                     },
                     {
+                      "description": "Whether to sort agents oldest to newest (True) or newest to oldest (False, default). Deprecated in favor of order field.",
                       "key": "ascending",
                       "value": "false"
                     },
                     {
+                      "description": "Filter runs by project ID.",
                       "key": "project_id",
                       "value": "<string>"
                     },
                     {
+                      "description": "Filter runs by conversation ID.",
                       "key": "conversation_id",
                       "value": "<string>"
                     },
                     {
+                      "description": "Filter runs by duration percentile (1-100). Returns runs slower than this percentile.",
                       "key": "duration_percentile",
                       "value": "<integer>"
                     },
                     {
+                      "description": "Duration value in nanoseconds for filtering. Must be used with duration_operator.",
                       "key": "duration_value",
                       "value": "<integer>"
                     },
                     {
+                      "description": "Comparison operator for duration filter: 'gt' (greater than), 'lt' (less than), 'eq' (equals).",
                       "key": "duration_operator",
-                      "value": "<string>"
+                      "value": "gt"
                     },
                     {
+                      "description": "Filter runs created on or after this date (ISO 8601 format).",
                       "key": "start_date",
                       "value": "<dateTime>"
                     },
                     {
+                      "description": "Filter runs created on or before this date (ISO 8601 format).",
                       "key": "end_date",
                       "value": "<dateTime>"
                     }
-                  ],
-                  "variable": []
+                  ]
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
+                "description": "List all runs."
               },
-              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
-              "code": 422,
-              "header": [
+              "response": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "id": "edb8e13e-e3ee-451a-a300-80ef38037c10",
+                  "name": "Successful Response",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/_internal_runs/?run_id=<string>&agent_id=<string>&agent_ids=<string>&statuses=<string>&background=<boolean>&stop_reason=end_turn&template_family=<string>&step_count=<integer>&step_count_operator=gte&tools_used=<string>&before=<string>&after=<string>&limit=<integer>&order=desc&order_by=created_at&active=false&ascending=false&project_id=<string>&conversation_id=<string>&duration_percentile=<integer>&duration_value=<integer>&duration_operator=gt&start_date=<dateTime>&end_date=<dateTime>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "_internal_runs",
+                        ""
+                      ],
+                      "query": [
+                        {
+                          "description": "Filter by a specific run ID.",
+                          "key": "run_id",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "The unique identifier of the agent associated with the run.",
+                          "key": "agent_id",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "The unique identifiers of the agents associated with the run. Deprecated in favor of agent_id field.",
+                          "key": "agent_ids",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Filter runs by status. Can specify multiple statuses.",
+                          "key": "statuses",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "If True, filters for runs that were created in background mode.",
+                          "key": "background",
+                          "value": "<boolean>"
+                        },
+                        {
+                          "description": "Filter runs by stop reason.",
+                          "key": "stop_reason",
+                          "value": "end_turn"
+                        },
+                        {
+                          "description": "Filter runs by template family (base_template_id).",
+                          "key": "template_family",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Filter runs by step count. Must be provided with step_count_operator.",
+                          "key": "step_count",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Operator for step_count filter: 'eq' for equals, 'gte' for greater than or equal, 'lte' for less than or equal.",
+                          "key": "step_count_operator",
+                          "value": "gte"
+                        },
+                        {
+                          "description": "Filter runs that used any of the specified tools.",
+                          "key": "tools_used",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Run ID cursor for pagination. Returns runs that come before this run ID in the specified sort order",
+                          "key": "before",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Run ID cursor for pagination. Returns runs that come after this run ID in the specified sort order",
+                          "key": "after",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Maximum number of runs to return",
+                          "key": "limit",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Sort order for runs by creation time. 'asc' for oldest first, 'desc' for newest first",
+                          "key": "order",
+                          "value": "desc"
+                        },
+                        {
+                          "description": "Field to sort by",
+                          "key": "order_by",
+                          "value": "created_at"
+                        },
+                        {
+                          "description": "Filter for active runs.",
+                          "key": "active",
+                          "value": "false"
+                        },
+                        {
+                          "description": "Whether to sort agents oldest to newest (True) or newest to oldest (False, default). Deprecated in favor of order field.",
+                          "key": "ascending",
+                          "value": "false"
+                        },
+                        {
+                          "description": "Filter runs by project ID.",
+                          "key": "project_id",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Filter runs by conversation ID.",
+                          "key": "conversation_id",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Filter runs by duration percentile (1-100). Returns runs slower than this percentile.",
+                          "key": "duration_percentile",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Duration value in nanoseconds for filtering. Must be used with duration_operator.",
+                          "key": "duration_value",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Comparison operator for duration filter: 'gt' (greater than), 'lt' (less than), 'eq' (equals).",
+                          "key": "duration_operator",
+                          "value": "gt"
+                        },
+                        {
+                          "description": "Filter runs created on or after this date (ISO 8601 format).",
+                          "key": "start_date",
+                          "value": "<dateTime>"
+                        },
+                        {
+                          "description": "Filter runs created on or before this date (ISO 8601 format).",
+                          "key": "end_date",
+                          "value": "<dateTime>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "[\n  {\n    \"agent_id\": \"<string>\",\n    \"id\": \"run-0c4ee02A\",\n    \"status\": \"created\",\n    \"created_at\": \"<dateTime>\",\n    \"completed_at\": \"<dateTime>\",\n    \"conversation_id\": \"<string>\",\n    \"base_template_id\": \"<string>\",\n    \"background\": \"<boolean>\",\n    \"metadata\": {\n      \"sit125\": \"pariatur reprehenderit\"\n    },\n    \"request_config\": {\n      \"use_assistant_message\": true,\n      \"assistant_message_tool_name\": \"send_message\",\n      \"assistant_message_tool_kwarg\": \"message\",\n      \"include_return_message_types\": [\n        \"assistant_message\",\n        \"hidden_reasoning_message\"\n      ]\n    },\n    \"stop_reason\": \"no_tool_call\",\n    \"callback_url\": \"<string>\",\n    \"callback_sent_at\": \"<dateTime>\",\n    \"callback_status_code\": \"<integer>\",\n    \"callback_error\": \"<string>\",\n    \"ttft_ns\": \"<integer>\",\n    \"total_duration_ns\": \"<integer>\"\n  },\n  {\n    \"agent_id\": \"<string>\",\n    \"id\": \"run-85BA4a48\",\n    \"status\": \"completed\",\n    \"created_at\": \"<dateTime>\",\n    \"completed_at\": \"<dateTime>\",\n    \"conversation_id\": \"<string>\",\n    \"base_template_id\": \"<string>\",\n    \"background\": \"<boolean>\",\n    \"metadata\": {\n      \"velit_fe3\": false,\n      \"occaecatf11\": \"fugiat sed quis sint dolore\"\n    },\n    \"request_config\": {\n      \"use_assistant_message\": true,\n      \"assistant_message_tool_name\": \"send_message\",\n      \"assistant_message_tool_kwarg\": \"message\",\n      \"include_return_message_types\": [\n        \"tool_call_message\",\n        \"tool_call_message\"\n      ]\n    },\n    \"stop_reason\": \"end_turn\",\n    \"callback_url\": \"<string>\",\n    \"callback_sent_at\": \"<dateTime>\",\n    \"callback_status_code\": \"<integer>\",\n    \"callback_error\": \"<string>\",\n    \"ttft_ns\": \"<integer>\",\n    \"total_duration_ns\": \"<integer>\"\n  }\n]",
+                  "createdAt": "2026-10-21T21:03:25.000Z",
+                  "updatedAt": "2026-10-21T21:03:25.000Z",
+                  "uid": "35240-edb8e13e-e3ee-451a-a300-80ef38037c10"
+                },
+                {
+                  "id": "5421638a-4144-4302-80eb-3de881ff7f5e",
+                  "name": "Validation Error",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/_internal_runs/?run_id=<string>&agent_id=<string>&agent_ids=<string>&statuses=<string>&background=<boolean>&stop_reason=end_turn&template_family=<string>&step_count=<integer>&step_count_operator=gte&tools_used=<string>&before=<string>&after=<string>&limit=<integer>&order=desc&order_by=created_at&active=false&ascending=false&project_id=<string>&conversation_id=<string>&duration_percentile=<integer>&duration_value=<integer>&duration_operator=gt&start_date=<dateTime>&end_date=<dateTime>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "_internal_runs",
+                        ""
+                      ],
+                      "query": [
+                        {
+                          "description": "Filter by a specific run ID.",
+                          "key": "run_id",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "The unique identifier of the agent associated with the run.",
+                          "key": "agent_id",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "The unique identifiers of the agents associated with the run. Deprecated in favor of agent_id field.",
+                          "key": "agent_ids",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Filter runs by status. Can specify multiple statuses.",
+                          "key": "statuses",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "If True, filters for runs that were created in background mode.",
+                          "key": "background",
+                          "value": "<boolean>"
+                        },
+                        {
+                          "description": "Filter runs by stop reason.",
+                          "key": "stop_reason",
+                          "value": "end_turn"
+                        },
+                        {
+                          "description": "Filter runs by template family (base_template_id).",
+                          "key": "template_family",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Filter runs by step count. Must be provided with step_count_operator.",
+                          "key": "step_count",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Operator for step_count filter: 'eq' for equals, 'gte' for greater than or equal, 'lte' for less than or equal.",
+                          "key": "step_count_operator",
+                          "value": "gte"
+                        },
+                        {
+                          "description": "Filter runs that used any of the specified tools.",
+                          "key": "tools_used",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Run ID cursor for pagination. Returns runs that come before this run ID in the specified sort order",
+                          "key": "before",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Run ID cursor for pagination. Returns runs that come after this run ID in the specified sort order",
+                          "key": "after",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Maximum number of runs to return",
+                          "key": "limit",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Sort order for runs by creation time. 'asc' for oldest first, 'desc' for newest first",
+                          "key": "order",
+                          "value": "desc"
+                        },
+                        {
+                          "description": "Field to sort by",
+                          "key": "order_by",
+                          "value": "created_at"
+                        },
+                        {
+                          "description": "Filter for active runs.",
+                          "key": "active",
+                          "value": "false"
+                        },
+                        {
+                          "description": "Whether to sort agents oldest to newest (True) or newest to oldest (False, default). Deprecated in favor of order field.",
+                          "key": "ascending",
+                          "value": "false"
+                        },
+                        {
+                          "description": "Filter runs by project ID.",
+                          "key": "project_id",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Filter runs by conversation ID.",
+                          "key": "conversation_id",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Filter runs by duration percentile (1-100). Returns runs slower than this percentile.",
+                          "key": "duration_percentile",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Duration value in nanoseconds for filtering. Must be used with duration_operator.",
+                          "key": "duration_value",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Comparison operator for duration filter: 'gt' (greater than), 'lt' (less than), 'eq' (equals).",
+                          "key": "duration_operator",
+                          "value": "gt"
+                        },
+                        {
+                          "description": "Filter runs created on or after this date (ISO 8601 format).",
+                          "key": "start_date",
+                          "value": "<dateTime>"
+                        },
+                        {
+                          "description": "Filter runs created on or before this date (ISO 8601 format).",
+                          "key": "end_date",
+                          "value": "<dateTime>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                  "code": 422,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"msg\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"loc\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"msg\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-10-21T21:03:25.000Z",
+                  "updatedAt": "2026-10-21T21:03:25.000Z",
+                  "uid": "35240-5421638a-4144-4302-80eb-3de881ff7f5e"
                 }
               ],
-              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "createdAt": "2026-10-21T21:03:25.000Z",
+              "updatedAt": "2026-10-21T21:03:25.000Z",
+              "uid": "35240-012d75ed-84dd-4400-924d-113f5885849a"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "009936e3-be28-424c-9d95-0fbc0291229c",
+          "createdAt": "2026-10-21T21:03:25.000Z",
+          "updatedAt": "2026-10-21T21:03:25.000Z",
+          "uid": "35240-009936e3-be28-424c-9d95-0fbc0291229c"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "https://api.letta.com",
-      "key": "baseUrl"
+      "id": "9d2df6e7-6a54-4974-859b-c5a3551ab49b",
+      "createdAt": "2026-10-21T21:03:25.000Z",
+      "updatedAt": "2026-10-21T21:03:25.000Z",
+      "uid": "35240-9d2df6e7-6a54-4974-859b-c5a3551ab49b"
     }
   ],
   "auth": {
@@ -533,17 +536,15 @@
     "bearer": [
       {
         "key": "token",
-        "value": "{{bearerToken}}"
+        "value": "{{bearerToken}}",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "a3264ba9-0bb3-41bb-874e-560547ad721a",
-    "name": "Letta Admin Internal Runs API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "REST API for Letta, the stateful agents platform. Manage agents, memory blocks, archival passages, sources, custom tools, MCP servers, multi-agent groups, runs, and streaming responses. Available as Letta Cloud (managed) at https://api.letta.com/v1 and as the self-hosted open-source server (Apache-2.0) typically run at http://localhost:8283.\n\nContact Support:\n Name: Letta\n Email: support@letta.com",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.letta.com"
     }
-  }
+  ]
 }

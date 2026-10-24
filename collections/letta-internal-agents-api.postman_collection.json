@@ -1,377 +1,421 @@
 {
+  "info": {
+    "_postman_id": "4aea56e6-0e76-4d35-b656-92544b932f74",
+    "name": "Letta Internal Agents API",
+    "description": "REST API for Letta, the stateful agents platform. Manage agents, memory blocks, archival passages, sources, custom tools, MCP servers, multi-agent groups, runs, and streaming responses. Available as Letta Cloud (managed) at https://api.letta.com/v1 and as the self-hosted open-source server (Apache-2.0) typically run at http://localhost:8283.\n\nContact Support:\n Name: Letta\n Email: support@letta.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T21:03:14.000Z",
+    "updatedAt": "2026-10-21T21:03:15.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-4aea56e6-0e76-4d35-b656-92544b932f74"
+  },
   "item": [
     {
-      "id": "19e91efe-bca3-4a45-9def-304a91a5b5f7",
-      "name": "Internal Agents",
-      "description": {
-        "content": "Internal Agents operations.",
-        "type": "text/plain"
-      },
+      "name": "v1",
       "item": [
         {
-          "id": "560cb9ce-7689-4b3b-9ea8-3cb77b0a8ff6",
-          "name": "Count Agents",
-          "request": {
-            "name": "Count Agents",
-            "description": {
-              "content": "Get the total number of agents for a user, with option to exclude hidden agents.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v1",
-                "_internal_agents",
-                "count"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "exclude_hidden",
-                  "value": "true",
-                  "description": "If True, excludes hidden agents from the count. If False, includes all agents."
-                }
-              ],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
+          "name": "_internal_agents",
+          "item": [
             {
-              "id": "68435f34-6b71-4243-bf4c-287fcb6f40cd",
-              "name": "Successful Response",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "_internal_agents",
-                    "count"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
+              "name": "count",
+              "item": [
+                {
+                  "name": "Count Agents",
+                  "id": "19af4933-9948-45d1-8a55-a30ea523d904",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/_internal_agents/count?exclude_hidden=true",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "_internal_agents",
+                        "count"
+                      ],
+                      "query": [
+                        {
+                          "description": "If True, excludes hidden agents from the count. If False, includes all agents.",
+                          "key": "exclude_hidden",
+                          "value": "true"
+                        }
+                      ]
+                    },
+                    "description": "Get the total number of agents for a user, with option to exclude hidden agents."
+                  },
+                  "response": [
                     {
-                      "key": "exclude_hidden",
-                      "value": "true"
+                      "id": "673436ef-00f2-4e47-8338-e707c0b9f1a3",
+                      "name": "Successful Response",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/_internal_agents/count?exclude_hidden=true",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "_internal_agents",
+                            "count"
+                          ],
+                          "query": [
+                            {
+                              "description": "If True, excludes hidden agents from the count. If False, includes all agents.",
+                              "key": "exclude_hidden",
+                              "value": "true"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "<integer>",
+                      "createdAt": "2026-10-21T21:03:15.000Z",
+                      "updatedAt": "2026-10-21T21:03:15.000Z",
+                      "uid": "35240-673436ef-00f2-4e47-8338-e707c0b9f1a3"
+                    },
+                    {
+                      "id": "f9513544-0fde-4da3-bdae-9d0da61e8f06",
+                      "name": "Validation Error",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/_internal_agents/count?exclude_hidden=true",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "_internal_agents",
+                            "count"
+                          ],
+                          "query": [
+                            {
+                              "description": "If True, excludes hidden agents from the count. If False, includes all agents.",
+                              "key": "exclude_hidden",
+                              "value": "true"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                      "code": 422,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"msg\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"loc\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"msg\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-10-21T21:03:15.000Z",
+                      "updatedAt": "2026-10-21T21:03:15.000Z",
+                      "uid": "35240-f9513544-0fde-4da3-bdae-9d0da61e8f06"
                     }
                   ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "createdAt": "2026-10-21T21:03:15.000Z",
+                  "updatedAt": "2026-10-21T21:03:15.000Z",
+                  "uid": "35240-19af4933-9948-45d1-8a55-a30ea523d904"
                 }
               ],
-              "body": "339",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "id": "35b36bc0-4e52-4d79-aa22-5871c22c1dcf",
+              "createdAt": "2026-10-21T21:03:15.000Z",
+              "updatedAt": "2026-10-21T21:03:15.000Z",
+              "uid": "35240-35b36bc0-4e52-4d79-aa22-5871c22c1dcf"
             },
             {
-              "id": "6fdf0be9-5a6d-4b1f-8e4c-fafc6707b620",
-              "name": "Validation Error",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "_internal_agents",
-                    "count"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
+              "name": "{agent_id}",
+              "item": [
+                {
+                  "name": "core-memory",
+                  "item": [
                     {
-                      "key": "exclude_hidden",
-                      "value": "true"
+                      "name": "blocks",
+                      "item": [
+                        {
+                          "name": "{block_label}",
+                          "item": [
+                            {
+                              "name": "Modify Block for Agent",
+                              "id": "6bf1fc28-7bef-4467-85f3-20be7303b306",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "PATCH",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"value\": \"<string>\",\n  \"limit\": \"<integer>\",\n  \"project_id\": \"<string>\",\n  \"template_name\": \"<string>\",\n  \"is_template\": false,\n  \"template_id\": \"<string>\",\n  \"base_template_id\": \"<string>\",\n  \"deployment_id\": \"<string>\",\n  \"entity_id\": \"<string>\",\n  \"preserve_on_migration\": \"<boolean>\",\n  \"label\": \"<string>\",\n  \"read_only\": false,\n  \"description\": \"<string>\",\n  \"metadata\": {\n    \"ex_c1\": true\n  },\n  \"hidden\": \"<boolean>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/v1/_internal_agents/:agent_id/core-memory/blocks/:block_label",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v1",
+                                    "_internal_agents",
+                                    ":agent_id",
+                                    "core-memory",
+                                    "blocks",
+                                    ":block_label"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "ef6f05f9-5af9-4b46-94ab-32bf9f5f43c4",
+                                      "key": "agent_id",
+                                      "value": "agent-78864fc2-ce5f-4664-b52d-df19c0b5ca40",
+                                      "description": "(Required) The ID of the agent in the format 'agent-<uuid4>'"
+                                    },
+                                    {
+                                      "id": "d8704ac2-4091-4c25-92de-00bc77ea6e28",
+                                      "key": "block_label",
+                                      "value": "<string>",
+                                      "description": "(Required) "
+                                    }
+                                  ]
+                                },
+                                "description": "Updates a core memory block of an agent."
+                              },
+                              "response": [
+                                {
+                                  "id": "2d2ef434-1a98-46bb-a557-a504f238d0f3",
+                                  "name": "Successful Response",
+                                  "originalRequest": {
+                                    "method": "PATCH",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"value\": \"<string>\",\n  \"limit\": \"<integer>\",\n  \"project_id\": \"<string>\",\n  \"template_name\": \"<string>\",\n  \"is_template\": false,\n  \"template_id\": \"<string>\",\n  \"base_template_id\": \"<string>\",\n  \"deployment_id\": \"<string>\",\n  \"entity_id\": \"<string>\",\n  \"preserve_on_migration\": \"<boolean>\",\n  \"label\": \"<string>\",\n  \"read_only\": false,\n  \"description\": \"<string>\",\n  \"metadata\": {\n    \"ex_c1\": true\n  },\n  \"hidden\": \"<boolean>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/v1/_internal_agents/:agent_id/core-memory/blocks/:block_label",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "v1",
+                                        "_internal_agents",
+                                        ":agent_id",
+                                        "core-memory",
+                                        "blocks",
+                                        ":block_label"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "agent_id"
+                                        },
+                                        {
+                                          "key": "block_label"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"value\": \"<string>\",\n  \"limit\": 100000,\n  \"project_id\": \"<string>\",\n  \"template_name\": \"<string>\",\n  \"is_template\": false,\n  \"template_id\": \"<string>\",\n  \"base_template_id\": \"<string>\",\n  \"deployment_id\": \"<string>\",\n  \"entity_id\": \"<string>\",\n  \"preserve_on_migration\": \"<boolean>\",\n  \"label\": \"<string>\",\n  \"read_only\": false,\n  \"description\": \"<string>\",\n  \"metadata\": {\n    \"amet_0_5\": -94238425,\n    \"nostrud_9b7\": true,\n    \"dolor_2c3\": \"dolore velit\",\n    \"uted\": \"velit proident\"\n  },\n  \"hidden\": \"<boolean>\",\n  \"id\": \"block-82cadd8f\",\n  \"created_by_id\": \"<string>\",\n  \"last_updated_by_id\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                  "createdAt": "2026-10-21T21:03:15.000Z",
+                                  "updatedAt": "2026-10-21T21:03:15.000Z",
+                                  "uid": "35240-2d2ef434-1a98-46bb-a557-a504f238d0f3"
+                                },
+                                {
+                                  "id": "90c3a62e-e6e2-41da-a07e-bddd6b1e34df",
+                                  "name": "Validation Error",
+                                  "originalRequest": {
+                                    "method": "PATCH",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"value\": \"<string>\",\n  \"limit\": \"<integer>\",\n  \"project_id\": \"<string>\",\n  \"template_name\": \"<string>\",\n  \"is_template\": false,\n  \"template_id\": \"<string>\",\n  \"base_template_id\": \"<string>\",\n  \"deployment_id\": \"<string>\",\n  \"entity_id\": \"<string>\",\n  \"preserve_on_migration\": \"<boolean>\",\n  \"label\": \"<string>\",\n  \"read_only\": false,\n  \"description\": \"<string>\",\n  \"metadata\": {\n    \"ex_c1\": true\n  },\n  \"hidden\": \"<boolean>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/v1/_internal_agents/:agent_id/core-memory/blocks/:block_label",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "v1",
+                                        "_internal_agents",
+                                        ":agent_id",
+                                        "core-memory",
+                                        "blocks",
+                                        ":block_label"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "agent_id"
+                                        },
+                                        {
+                                          "key": "block_label"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                                  "code": 422,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"msg\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"loc\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"msg\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ]\n}",
+                                  "createdAt": "2026-10-21T21:03:15.000Z",
+                                  "updatedAt": "2026-10-21T21:03:15.000Z",
+                                  "uid": "35240-90c3a62e-e6e2-41da-a07e-bddd6b1e34df"
+                                }
+                              ],
+                              "createdAt": "2026-10-21T21:03:15.000Z",
+                              "updatedAt": "2026-10-21T21:03:15.000Z",
+                              "uid": "35240-6bf1fc28-7bef-4467-85f3-20be7303b306"
+                            }
+                          ],
+                          "id": "ef3dd1c1-7037-4969-aea8-ed0caea8c168",
+                          "createdAt": "2026-10-21T21:03:15.000Z",
+                          "updatedAt": "2026-10-21T21:03:15.000Z",
+                          "uid": "35240-ef3dd1c1-7037-4969-aea8-ed0caea8c168"
+                        }
+                      ],
+                      "id": "78a405ab-c33e-476a-ace8-5ff38042c500",
+                      "createdAt": "2026-10-21T21:03:15.000Z",
+                      "updatedAt": "2026-10-21T21:03:15.000Z",
+                      "uid": "35240-78a405ab-c33e-476a-ace8-5ff38042c500"
                     }
                   ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
-              "code": 422,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "id": "b8925405-1f3a-4e20-bd5d-113072424306",
+                  "createdAt": "2026-10-21T21:03:15.000Z",
+                  "updatedAt": "2026-10-21T21:03:15.000Z",
+                  "uid": "35240-b8925405-1f3a-4e20-bd5d-113072424306"
                 }
               ],
-              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "id": "2c7e099d-ce8e-4a0e-beba-66507c50dfc0",
+              "createdAt": "2026-10-21T21:03:15.000Z",
+              "updatedAt": "2026-10-21T21:03:15.000Z",
+              "uid": "35240-2c7e099d-ce8e-4a0e-beba-66507c50dfc0"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "7e785940-33b2-4bae-bef4-4fa7cf30fc91",
-          "name": "Modify Block for Agent",
-          "request": {
-            "name": "Modify Block for Agent",
-            "description": {
-              "content": "Updates a core memory block of an agent.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v1",
-                "_internal_agents",
-                ":agent_id",
-                "core-memory",
-                "blocks",
-                ":block_label"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "block_label",
-                  "description": "(Required) "
-                },
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "agent_id",
-                  "description": "(Required) The ID of the agent in the format 'agent-<uuid4>'"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "PATCH",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"value\": \"<string>\",\n  \"limit\": \"<integer>\",\n  \"project_id\": \"<string>\",\n  \"template_name\": \"<string>\",\n  \"is_template\": false,\n  \"template_id\": \"<string>\",\n  \"base_template_id\": \"<string>\",\n  \"deployment_id\": \"<string>\",\n  \"entity_id\": \"<string>\",\n  \"preserve_on_migration\": \"<boolean>\",\n  \"label\": \"<string>\",\n  \"read_only\": false,\n  \"description\": \"<string>\",\n  \"metadata\": {\n    \"key_0\": 4273,\n    \"key_1\": 8888\n  },\n  \"hidden\": \"<boolean>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
-            {
-              "id": "c545f453-c116-4a88-9a04-9445b47741b5",
-              "name": "Successful Response",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "_internal_agents",
-                    ":agent_id",
-                    "core-memory",
-                    "blocks",
-                    ":block_label"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "block_label",
-                      "description": "(Required) "
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "agent_id",
-                      "description": "(Required) The ID of the agent in the format 'agent-<uuid4>'"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PATCH",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"value\": \"<string>\",\n  \"limit\": \"<integer>\",\n  \"project_id\": \"<string>\",\n  \"template_name\": \"<string>\",\n  \"is_template\": false,\n  \"template_id\": \"<string>\",\n  \"base_template_id\": \"<string>\",\n  \"deployment_id\": \"<string>\",\n  \"entity_id\": \"<string>\",\n  \"preserve_on_migration\": \"<boolean>\",\n  \"label\": \"<string>\",\n  \"read_only\": false,\n  \"description\": \"<string>\",\n  \"metadata\": {\n    \"key_0\": 3811\n  },\n  \"hidden\": \"<boolean>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"value\": \"string\",\n  \"limit\": 100000,\n  \"project_id\": \"string\",\n  \"template_name\": \"string\",\n  \"is_template\": false,\n  \"template_id\": \"string\",\n  \"base_template_id\": \"string\",\n  \"deployment_id\": \"string\",\n  \"entity_id\": \"string\",\n  \"preserve_on_migration\": false,\n  \"label\": \"string\",\n  \"read_only\": false,\n  \"description\": \"string\",\n  \"metadata\": {\n    \"key_0\": true,\n    \"key_1\": \"string\"\n  },\n  \"hidden\": true,\n  \"id\": \"block-123e4567-e89b-12d3-a456-426614174000\",\n  \"created_by_id\": \"string\",\n  \"last_updated_by_id\": \"string\",\n  \"tags\": [\n    \"string\",\n    \"string\"\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "4825b3dc-6eb0-4ab8-8b79-05608767be46",
-              "name": "Validation Error",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "_internal_agents",
-                    ":agent_id",
-                    "core-memory",
-                    "blocks",
-                    ":block_label"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "block_label",
-                      "description": "(Required) "
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "agent_id",
-                      "description": "(Required) The ID of the agent in the format 'agent-<uuid4>'"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PATCH",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"value\": \"<string>\",\n  \"limit\": \"<integer>\",\n  \"project_id\": \"<string>\",\n  \"template_name\": \"<string>\",\n  \"is_template\": false,\n  \"template_id\": \"<string>\",\n  \"base_template_id\": \"<string>\",\n  \"deployment_id\": \"<string>\",\n  \"entity_id\": \"<string>\",\n  \"preserve_on_migration\": \"<boolean>\",\n  \"label\": \"<string>\",\n  \"read_only\": false,\n  \"description\": \"<string>\",\n  \"metadata\": {\n    \"key_0\": 3811\n  },\n  \"hidden\": \"<boolean>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
-              "code": 422,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "ab556478-cd4b-47e5-8584-b51be0a61240",
+          "createdAt": "2026-10-21T21:03:15.000Z",
+          "updatedAt": "2026-10-21T21:03:15.000Z",
+          "uid": "35240-ab556478-cd4b-47e5-8584-b51be0a61240"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "https://api.letta.com",
-      "key": "baseUrl"
+      "id": "2f7d4d58-aba5-4c4e-b865-96e8a3b47404",
+      "createdAt": "2026-10-21T21:03:15.000Z",
+      "updatedAt": "2026-10-21T21:03:15.000Z",
+      "uid": "35240-2f7d4d58-aba5-4c4e-b865-96e8a3b47404"
     }
   ],
   "auth": {
@@ -379,17 +423,15 @@
     "bearer": [
       {
         "key": "token",
-        "value": "{{bearerToken}}"
+        "value": "{{bearerToken}}",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "5a342c6a-012e-4fd5-a864-fb20b2053060",
-    "name": "Letta Admin Internal Agents API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "REST API for Letta, the stateful agents platform. Manage agents, memory blocks, archival passages, sources, custom tools, MCP servers, multi-agent groups, runs, and streaming responses. Available as Letta Cloud (managed) at https://api.letta.com/v1 and as the self-hosted open-source server (Apache-2.0) typically run at http://localhost:8283.\n\nContact Support:\n Name: Letta\n Email: support@letta.com",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.letta.com"
     }
-  }
+  ]
 }

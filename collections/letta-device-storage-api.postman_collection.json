@@ -1,115 +1,121 @@
 {
+  "info": {
+    "_postman_id": "f84301f0-eb76-4a8d-828b-42a732b74054",
+    "name": "Letta Device Storage API",
+    "description": "REST API for Letta, the stateful agents platform. Manage agents, memory blocks, archival passages, sources, custom tools, MCP servers, multi-agent groups, runs, and streaming responses. Available as Letta Cloud (managed) at https://api.letta.com/v1 and as the self-hosted open-source server (Apache-2.0) typically run at http://localhost:8283.\n\nContact Support:\n Name: Letta\n Email: support@letta.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T21:02:17.000Z",
+    "updatedAt": "2026-10-21T21:02:18.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-f84301f0-eb76-4a8d-828b-42a732b74054"
+  },
   "item": [
     {
-      "id": "c06c3331-4f75-422a-959f-1ad1918db9f5",
-      "name": "Device Storage",
-      "description": {
-        "content": "Per-device storage for the Letta Code SDK and ADE.",
-        "type": "text/plain"
-      },
+      "name": "v1",
       "item": [
         {
-          "id": "29031a06-29cb-4f71-b348-6f592632188f",
-          "name": "Get Device Storage Key",
-          "request": {
-            "name": "Get Device Storage Key",
-            "description": {
-              "content": "Returns an HMAC-derived AES-256-GCM key scoped to the authenticated user and device. Used to encrypt/decrypt local IndexedDB caches on the client.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v1",
-                "device-storage-key"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "deviceId",
-                  "value": "<string>",
-                  "description": "(Required) "
-                }
-              ],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
+          "name": "device-storage-key",
+          "item": [
             {
-              "id": "2bffc1bd-0bf4-4bd3-895d-8206b415141d",
-              "name": "200",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "device-storage-key"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "deviceId",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": []
-                },
+              "name": "Get Device Storage Key",
+              "id": "5abda4ec-48c1-4014-b311-7cdfe2445e29",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
                 "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/v1/device-storage-key?deviceId=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v1",
+                    "device-storage-key"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) ",
+                      "key": "deviceId",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "description": "Returns an HMAC-derived AES-256-GCM key scoped to the authenticated user and device. Used to encrypt/decrypt local IndexedDB caches on the client."
               },
-              "status": "OK",
-              "code": 200,
-              "header": [
+              "response": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "id": "cdbb8a55-3671-4cda-9c79-c3e688197763",
+                  "name": "200",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/device-storage-key?deviceId=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "device-storage-key"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) ",
+                          "key": "deviceId",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"key\": \"<string>\"\n}",
+                  "createdAt": "2026-10-21T21:02:18.000Z",
+                  "updatedAt": "2026-10-21T21:02:18.000Z",
+                  "uid": "35240-cdbb8a55-3671-4cda-9c79-c3e688197763"
                 }
               ],
-              "body": "{\n  \"key\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "createdAt": "2026-10-21T21:02:18.000Z",
+              "updatedAt": "2026-10-21T21:02:18.000Z",
+              "uid": "35240-5abda4ec-48c1-4014-b311-7cdfe2445e29"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "135718ad-5b29-4e8e-80a7-8a35e390cb9e",
+          "createdAt": "2026-10-21T21:02:18.000Z",
+          "updatedAt": "2026-10-21T21:02:18.000Z",
+          "uid": "35240-135718ad-5b29-4e8e-80a7-8a35e390cb9e"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "https://api.letta.com",
-      "key": "baseUrl"
+      "id": "9f46632f-fc11-463c-978b-ab31bf59ccc8",
+      "createdAt": "2026-10-21T21:02:18.000Z",
+      "updatedAt": "2026-10-21T21:02:18.000Z",
+      "uid": "35240-9f46632f-fc11-463c-978b-ab31bf59ccc8"
     }
   ],
   "auth": {
@@ -117,17 +123,15 @@
     "bearer": [
       {
         "key": "token",
-        "value": "{{bearerToken}}"
+        "value": "{{bearerToken}}",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "16e155fd-ceef-41b1-a879-3f44aa14cbb7",
-    "name": "Letta Admin Device Storage API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "REST API for Letta, the stateful agents platform. Manage agents, memory blocks, archival passages, sources, custom tools, MCP servers, multi-agent groups, runs, and streaming responses. Available as Letta Cloud (managed) at https://api.letta.com/v1 and as the self-hosted open-source server (Apache-2.0) typically run at http://localhost:8283.\n\nContact Support:\n Name: Letta\n Email: support@letta.com",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.letta.com"
     }
-  }
+  ]
 }

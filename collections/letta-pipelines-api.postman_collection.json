@@ -1,233 +1,1667 @@
 {
+  "info": {
+    "_postman_id": "fc6c85fd-4715-4ff0-b8af-94806d024bf4",
+    "name": "Letta Pipelines API",
+    "description": "REST API for Letta, the stateful agents platform. Manage agents, memory blocks, archival passages, sources, custom tools, MCP servers, multi-agent groups, runs, and streaming responses. Available as Letta Cloud (managed) at https://api.letta.com/v1 and as the self-hosted open-source server (Apache-2.0) typically run at http://localhost:8283.\n\nContact Support:\n Name: Letta\n Email: support@letta.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T21:04:03.000Z",
+    "updatedAt": "2026-10-21T21:04:04.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-fc6c85fd-4715-4ff0-b8af-94806d024bf4"
+  },
   "item": [
     {
-      "id": "9c16852b-1c26-44c2-abdf-124649990c96",
-      "name": "Pipelines",
-      "description": {
-        "content": "Composable agent pipelines.",
-        "type": "text/plain"
-      },
+      "name": "v1",
       "item": [
         {
-          "id": "0fef0fb7-512a-43dd-a1a4-cef9c661a8b0",
-          "name": "Create Pipeline",
-          "request": {
-            "name": "Create Pipeline",
-            "description": {
-              "content": "Create a new pipeline (producer + feed + optionally subscribers)",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v1",
-                "pipelines"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"name\": \"<string>\",\n  \"project_id\": \"<string>\",\n  \"integration_type\": \"<string>\",\n  \"producer_config\": {\n    \"type\": \"<string>\",\n    \"data\": {\n      \"channels\": [\n        {\n          \"channel_id\": \"<string>\",\n          \"channel_name\": \"<string>\",\n          \"last_message_ts\": \"<string>\"\n        }\n      ],\n      \"max_messages_per_poll\": \"<number>\"\n    }\n  },\n  \"subscriber_agent_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"subscriber_cron_schedule\": \"<string>\",\n  \"prompt_template\": \"<string>\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
+          "name": "pipelines",
+          "item": [
             {
-              "id": "031bb736-886c-42ad-9a50-a647e207a5c7",
-              "name": "200",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "pipelines"
+              "name": "count",
+              "item": [
+                {
+                  "name": "Count Pipelines",
+                  "id": "e7fbaffa-9852-4759-a96f-b531d640ead9",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/pipelines/count?search=<string>&integration_type=<string>&integration_id=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "pipelines",
+                        "count"
+                      ],
+                      "query": [
+                        {
+                          "key": "search",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "integration_type",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "integration_id",
+                          "value": "<string>"
+                        }
+                      ]
+                    },
+                    "description": "Get the total count of pipelines, optionally filtered by project and search"
+                  },
+                  "response": [
+                    {
+                      "id": "65d3bb9d-1027-44ba-88d1-a3302d6b07a8",
+                      "name": "200",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/pipelines/count?search=<string>&integration_type=<string>&integration_id=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "pipelines",
+                            "count"
+                          ],
+                          "query": [
+                            {
+                              "key": "search",
+                              "value": "<string>"
+                            },
+                            {
+                              "key": "integration_type",
+                              "value": "<string>"
+                            },
+                            {
+                              "key": "integration_id",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"count\": \"<number>\"\n}",
+                      "createdAt": "2026-10-21T21:04:04.000Z",
+                      "updatedAt": "2026-10-21T21:04:04.000Z",
+                      "uid": "35240-65d3bb9d-1027-44ba-88d1-a3302d6b07a8"
+                    }
                   ],
-                  "host": [
-                    "{{baseUrl}}"
+                  "createdAt": "2026-10-21T21:04:04.000Z",
+                  "updatedAt": "2026-10-21T21:04:04.000Z",
+                  "uid": "35240-e7fbaffa-9852-4759-a96f-b531d640ead9"
+                }
+              ],
+              "id": "5e1ce00c-7d4a-4c40-8abb-dddc54ff1db9",
+              "createdAt": "2026-10-21T21:04:04.000Z",
+              "updatedAt": "2026-10-21T21:04:04.000Z",
+              "uid": "35240-5e1ce00c-7d4a-4c40-8abb-dddc54ff1db9"
+            },
+            {
+              "name": "{pipeline_id}",
+              "item": [
+                {
+                  "name": "config",
+                  "item": [
+                    {
+                      "name": "Update Pipeline Producer Config",
+                      "id": "8a2bf0b4-13f2-489b-9826-41a743b28a32",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"producer_config\": {\n    \"type\": \"slack_channel_reader\",\n    \"data\": {\n      \"channels\": [\n        {\n          \"channel_id\": \"<string>\",\n          \"channel_name\": \"<string>\",\n          \"last_message_ts\": \"<string>\"\n        }\n      ],\n      \"max_messages_per_poll\": \"<number>\"\n    }\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/pipelines/:pipeline_id/config",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "pipelines",
+                            ":pipeline_id",
+                            "config"
+                          ],
+                          "variable": [
+                            {
+                              "id": "c3aecad6-7a27-4ee8-8bf0-9c8f77d885b7",
+                              "key": "pipeline_id",
+                              "value": "<string>",
+                              "description": "(Required) "
+                            }
+                          ]
+                        },
+                        "description": "Update the producer configuration for a pipeline (e.g., Slack channels)"
+                      },
+                      "response": [
+                        {
+                          "id": "fd843172-7ef8-4508-9154-6e0f9e24d357",
+                          "name": "200",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"producer_config\": {\n    \"type\": \"slack_channel_reader\",\n    \"data\": {\n      \"channels\": [\n        {\n          \"channel_id\": \"<string>\",\n          \"channel_name\": \"<string>\",\n          \"last_message_ts\": \"<string>\"\n        }\n      ],\n      \"max_messages_per_poll\": \"<number>\"\n    }\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/pipelines/:pipeline_id/config",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "pipelines",
+                                ":pipeline_id",
+                                "config"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "pipeline_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"pipeline\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"organization_id\": \"<string>\",\n    \"project_id\": \"<string>\",\n    \"integration_id\": \"<string>\",\n    \"integration_type\": \"microsoftTeams\",\n    \"feed_id\": \"<string>\",\n    \"config\": {\n      \"type\": \"slack_channel_reader\",\n      \"data\": {\n        \"channels\": [\n          {\n            \"channel_id\": \"<string>\",\n            \"channel_name\": \"<string>\",\n            \"last_message_ts\": \"<string>\"\n          }\n        ],\n        \"max_messages_per_poll\": \"<number>\"\n      }\n    },\n    \"next_scheduled_at\": \"<dateTime>\",\n    \"last_run_at\": \"<dateTime>\",\n    \"disabled_at\": \"<dateTime>\",\n    \"created_at\": \"<dateTime>\",\n    \"updated_at\": \"<dateTime>\",\n    \"integration_display_name\": \"<string>\",\n    \"feed_name\": \"<string>\",\n    \"subscriber_count\": \"<number>\",\n    \"error_count\": \"<number>\",\n    \"project_name\": \"<string>\",\n    \"project_slug\": \"<string>\"\n  }\n}",
+                          "createdAt": "2026-10-21T21:04:04.000Z",
+                          "updatedAt": "2026-10-21T21:04:04.000Z",
+                          "uid": "35240-fd843172-7ef8-4508-9154-6e0f9e24d357"
+                        },
+                        {
+                          "id": "e408f08d-84b1-4c36-bd8d-a8a93223945c",
+                          "name": "400",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"producer_config\": {\n    \"type\": \"slack_channel_reader\",\n    \"data\": {\n      \"channels\": [\n        {\n          \"channel_id\": \"<string>\",\n          \"channel_name\": \"<string>\",\n          \"last_message_ts\": \"<string>\"\n        }\n      ],\n      \"max_messages_per_poll\": \"<number>\"\n    }\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/pipelines/:pipeline_id/config",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "pipelines",
+                                ":pipeline_id",
+                                "config"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "pipeline_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"message\": \"<string>\",\n  \"errorCode\": \"configTypeMismatch\"\n}",
+                          "createdAt": "2026-10-21T21:04:04.000Z",
+                          "updatedAt": "2026-10-21T21:04:04.000Z",
+                          "uid": "35240-e408f08d-84b1-4c36-bd8d-a8a93223945c"
+                        },
+                        {
+                          "id": "f054e237-5567-427a-934f-16a8464f989d",
+                          "name": "404",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"producer_config\": {\n    \"type\": \"slack_channel_reader\",\n    \"data\": {\n      \"channels\": [\n        {\n          \"channel_id\": \"<string>\",\n          \"channel_name\": \"<string>\",\n          \"last_message_ts\": \"<string>\"\n        }\n      ],\n      \"max_messages_per_poll\": \"<number>\"\n    }\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/pipelines/:pipeline_id/config",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "pipelines",
+                                ":pipeline_id",
+                                "config"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "pipeline_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"message\": \"<string>\",\n  \"errorCode\": \"pipelineNotFound\"\n}",
+                          "createdAt": "2026-10-21T21:04:04.000Z",
+                          "updatedAt": "2026-10-21T21:04:04.000Z",
+                          "uid": "35240-f054e237-5567-427a-934f-16a8464f989d"
+                        }
+                      ],
+                      "createdAt": "2026-10-21T21:04:04.000Z",
+                      "updatedAt": "2026-10-21T21:04:04.000Z",
+                      "uid": "35240-8a2bf0b4-13f2-489b-9826-41a743b28a32"
+                    }
                   ],
-                  "query": [],
-                  "variable": []
+                  "id": "872aa897-c31b-4777-bc89-dab28c845881",
+                  "createdAt": "2026-10-21T21:04:04.000Z",
+                  "updatedAt": "2026-10-21T21:04:04.000Z",
+                  "uid": "35240-872aa897-c31b-4777-bc89-dab28c845881"
                 },
+                {
+                  "name": "sync",
+                  "item": [
+                    {
+                      "name": "history",
+                      "item": [
+                        {
+                          "name": "List Pipeline Sync History",
+                          "id": "7828cb08-df72-4fb3-8c3c-8c40cd499b8e",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/pipelines/:pipeline_id/sync/history",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "pipelines",
+                                ":pipeline_id",
+                                "sync",
+                                "history"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "4d0b8e4c-4b8e-465e-812a-b03a8c327bfc",
+                                  "key": "pipeline_id",
+                                  "value": "<string>",
+                                  "description": "(Required) "
+                                }
+                              ]
+                            },
+                            "description": "List the sync run history for a pipeline from Temporal with error details"
+                          },
+                          "response": [
+                            {
+                              "id": "8d904cfa-2ff9-4ade-bb43-271d6e2710c9",
+                              "name": "200",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/v1/pipelines/:pipeline_id/sync/history",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v1",
+                                    "pipelines",
+                                    ":pipeline_id",
+                                    "sync",
+                                    "history"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "pipeline_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"runs\": [\n    {\n      \"workflow_id\": \"<string>\",\n      \"status\": \"completed\",\n      \"started_at\": \"<dateTime>\",\n      \"completed_at\": \"<dateTime>\",\n      \"error\": {\n        \"error_type\": \"<string>\",\n        \"error_message\": \"<string>\"\n      }\n    },\n    {\n      \"workflow_id\": \"<string>\",\n      \"status\": \"running\",\n      \"started_at\": \"<dateTime>\",\n      \"completed_at\": \"<dateTime>\",\n      \"error\": {\n        \"error_type\": \"<string>\",\n        \"error_message\": \"<string>\"\n      }\n    }\n  ],\n  \"next_page_token\": \"<string>\"\n}",
+                              "createdAt": "2026-10-21T21:04:04.000Z",
+                              "updatedAt": "2026-10-21T21:04:04.000Z",
+                              "uid": "35240-8d904cfa-2ff9-4ade-bb43-271d6e2710c9"
+                            },
+                            {
+                              "id": "548cb4af-92ae-4720-969d-2a3fe53c6d97",
+                              "name": "404",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/v1/pipelines/:pipeline_id/sync/history",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v1",
+                                    "pipelines",
+                                    ":pipeline_id",
+                                    "sync",
+                                    "history"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "pipeline_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"message\": \"<string>\",\n  \"errorCode\": \"pipelineNotFound\"\n}",
+                              "createdAt": "2026-10-21T21:04:04.000Z",
+                              "updatedAt": "2026-10-21T21:04:04.000Z",
+                              "uid": "35240-548cb4af-92ae-4720-969d-2a3fe53c6d97"
+                            }
+                          ],
+                          "createdAt": "2026-10-21T21:04:04.000Z",
+                          "updatedAt": "2026-10-21T21:04:04.000Z",
+                          "uid": "35240-7828cb08-df72-4fb3-8c3c-8c40cd499b8e"
+                        }
+                      ],
+                      "id": "b78802a4-107a-4501-88d0-1c9813cc093c",
+                      "createdAt": "2026-10-21T21:04:04.000Z",
+                      "updatedAt": "2026-10-21T21:04:04.000Z",
+                      "uid": "35240-b78802a4-107a-4501-88d0-1c9813cc093c"
+                    },
+                    {
+                      "name": "Sync Pipeline",
+                      "id": "fc0f6d46-463c-4aba-8bef-29d9cd661af6",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/pipelines/:pipeline_id/sync",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "pipelines",
+                            ":pipeline_id",
+                            "sync"
+                          ],
+                          "variable": [
+                            {
+                              "id": "3f6fa76b-7c2f-46ea-bf57-a226cb9e7703",
+                              "key": "pipeline_id",
+                              "value": "<string>",
+                              "description": "(Required) "
+                            }
+                          ]
+                        },
+                        "description": "Manually trigger a pipeline sync to fetch new messages immediately"
+                      },
+                      "response": [
+                        {
+                          "id": "d2020384-3bec-4222-a366-5abe24e78aa2",
+                          "name": "200",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/pipelines/:pipeline_id/sync",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "pipelines",
+                                ":pipeline_id",
+                                "sync"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "pipeline_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"success\": \"<boolean>\",\n  \"messages_ingested\": \"<number>\",\n  \"workflow_id\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T21:04:04.000Z",
+                          "updatedAt": "2026-10-21T21:04:04.000Z",
+                          "uid": "35240-d2020384-3bec-4222-a366-5abe24e78aa2"
+                        },
+                        {
+                          "id": "1351be2e-0402-4903-b41d-7c51fedbc0f1",
+                          "name": "400",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/pipelines/:pipeline_id/sync",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "pipelines",
+                                ":pipeline_id",
+                                "sync"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "pipeline_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"message\": \"<string>\",\n  \"errorCode\": \"syncFailed\"\n}",
+                          "createdAt": "2026-10-21T21:04:04.000Z",
+                          "updatedAt": "2026-10-21T21:04:04.000Z",
+                          "uid": "35240-1351be2e-0402-4903-b41d-7c51fedbc0f1"
+                        },
+                        {
+                          "id": "740b27f7-666a-4370-bb5d-fa3257c646a9",
+                          "name": "404",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/pipelines/:pipeline_id/sync",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "pipelines",
+                                ":pipeline_id",
+                                "sync"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "pipeline_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"message\": \"<string>\",\n  \"errorCode\": \"pipelineNotFound\"\n}",
+                          "createdAt": "2026-10-21T21:04:04.000Z",
+                          "updatedAt": "2026-10-21T21:04:04.000Z",
+                          "uid": "35240-740b27f7-666a-4370-bb5d-fa3257c646a9"
+                        }
+                      ],
+                      "createdAt": "2026-10-21T21:04:04.000Z",
+                      "updatedAt": "2026-10-21T21:04:04.000Z",
+                      "uid": "35240-fc0f6d46-463c-4aba-8bef-29d9cd661af6"
+                    }
+                  ],
+                  "id": "55da07a7-1b76-4eb7-a01f-066a199549e4",
+                  "createdAt": "2026-10-21T21:04:04.000Z",
+                  "updatedAt": "2026-10-21T21:04:04.000Z",
+                  "uid": "35240-55da07a7-1b76-4eb7-a01f-066a199549e4"
+                },
+                {
+                  "name": "Get Pipeline",
+                  "id": "d9a45505-86a3-47bf-95c2-13acc7b63fed",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/pipelines/:pipeline_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "pipelines",
+                        ":pipeline_id"
+                      ],
+                      "variable": [
+                        {
+                          "id": "30cd54e6-04f4-4cc7-900e-a25c9fd5a028",
+                          "key": "pipeline_id",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    },
+                    "description": "Get a single pipeline with details"
+                  },
+                  "response": [
+                    {
+                      "id": "a1300c93-adaa-47e5-9fa0-d96ca2f3f171",
+                      "name": "200",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/pipelines/:pipeline_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "pipelines",
+                            ":pipeline_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "pipeline_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"pipeline\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"organization_id\": \"<string>\",\n    \"project_id\": \"<string>\",\n    \"integration_id\": \"<string>\",\n    \"integration_type\": \"microsoftTeams\",\n    \"feed_id\": \"<string>\",\n    \"config\": {\n      \"type\": \"slack_channel_reader\",\n      \"data\": {\n        \"channels\": [\n          {\n            \"channel_id\": \"<string>\",\n            \"channel_name\": \"<string>\",\n            \"last_message_ts\": \"<string>\"\n          }\n        ],\n        \"max_messages_per_poll\": \"<number>\"\n      }\n    },\n    \"next_scheduled_at\": \"<dateTime>\",\n    \"last_run_at\": \"<dateTime>\",\n    \"disabled_at\": \"<dateTime>\",\n    \"created_at\": \"<dateTime>\",\n    \"updated_at\": \"<dateTime>\",\n    \"integration_display_name\": \"<string>\",\n    \"feed_name\": \"<string>\",\n    \"subscriber_count\": \"<number>\",\n    \"error_count\": \"<number>\",\n    \"project_name\": \"<string>\",\n    \"project_slug\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-10-21T21:04:04.000Z",
+                      "updatedAt": "2026-10-21T21:04:04.000Z",
+                      "uid": "35240-a1300c93-adaa-47e5-9fa0-d96ca2f3f171"
+                    },
+                    {
+                      "id": "fc2da1ec-4e9b-453c-8d04-9236d9a674eb",
+                      "name": "404",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/pipelines/:pipeline_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "pipelines",
+                            ":pipeline_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "pipeline_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\",\n  \"errorCode\": \"pipelineNotFound\"\n}",
+                      "createdAt": "2026-10-21T21:04:04.000Z",
+                      "updatedAt": "2026-10-21T21:04:04.000Z",
+                      "uid": "35240-fc2da1ec-4e9b-453c-8d04-9236d9a674eb"
+                    }
+                  ],
+                  "createdAt": "2026-10-21T21:04:04.000Z",
+                  "updatedAt": "2026-10-21T21:04:04.000Z",
+                  "uid": "35240-d9a45505-86a3-47bf-95c2-13acc7b63fed"
+                },
+                {
+                  "name": "Update Pipeline",
+                  "id": "cbf6340b-9a13-40da-a230-089e6f1d6583",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"disabled\": \"<boolean>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/pipelines/:pipeline_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "pipelines",
+                        ":pipeline_id"
+                      ],
+                      "variable": [
+                        {
+                          "id": "37daa167-008a-4040-8306-eb8aedf87dc7",
+                          "key": "pipeline_id",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    },
+                    "description": "Update pipeline name or disable/enable it"
+                  },
+                  "response": [
+                    {
+                      "id": "53491d69-a370-4889-9e80-9b7c76f351f6",
+                      "name": "200",
+                      "originalRequest": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\",\n  \"disabled\": \"<boolean>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/pipelines/:pipeline_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "pipelines",
+                            ":pipeline_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "pipeline_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"pipeline\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"organization_id\": \"<string>\",\n    \"project_id\": \"<string>\",\n    \"integration_id\": \"<string>\",\n    \"integration_type\": \"microsoftTeams\",\n    \"feed_id\": \"<string>\",\n    \"config\": {\n      \"type\": \"slack_channel_reader\",\n      \"data\": {\n        \"channels\": [\n          {\n            \"channel_id\": \"<string>\",\n            \"channel_name\": \"<string>\",\n            \"last_message_ts\": \"<string>\"\n          }\n        ],\n        \"max_messages_per_poll\": \"<number>\"\n      }\n    },\n    \"next_scheduled_at\": \"<dateTime>\",\n    \"last_run_at\": \"<dateTime>\",\n    \"disabled_at\": \"<dateTime>\",\n    \"created_at\": \"<dateTime>\",\n    \"updated_at\": \"<dateTime>\",\n    \"integration_display_name\": \"<string>\",\n    \"feed_name\": \"<string>\",\n    \"subscriber_count\": \"<number>\",\n    \"error_count\": \"<number>\",\n    \"project_name\": \"<string>\",\n    \"project_slug\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-10-21T21:04:04.000Z",
+                      "updatedAt": "2026-10-21T21:04:04.000Z",
+                      "uid": "35240-53491d69-a370-4889-9e80-9b7c76f351f6"
+                    },
+                    {
+                      "id": "a369e386-8513-458a-b921-2a375f59cc43",
+                      "name": "404",
+                      "originalRequest": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\",\n  \"disabled\": \"<boolean>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/pipelines/:pipeline_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "pipelines",
+                            ":pipeline_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "pipeline_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\",\n  \"errorCode\": \"pipelineNotFound\"\n}",
+                      "createdAt": "2026-10-21T21:04:04.000Z",
+                      "updatedAt": "2026-10-21T21:04:04.000Z",
+                      "uid": "35240-a369e386-8513-458a-b921-2a375f59cc43"
+                    }
+                  ],
+                  "createdAt": "2026-10-21T21:04:04.000Z",
+                  "updatedAt": "2026-10-21T21:04:04.000Z",
+                  "uid": "35240-cbf6340b-9a13-40da-a230-089e6f1d6583"
+                },
+                {
+                  "name": "Delete Pipeline",
+                  "id": "a55eba75-b7cf-43f9-9698-08b2c06523dc",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/pipelines/:pipeline_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "pipelines",
+                        ":pipeline_id"
+                      ],
+                      "variable": [
+                        {
+                          "id": "128cdbc2-e6f0-4534-bda0-361cc5c3bf21",
+                          "key": "pipeline_id",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    },
+                    "description": "Soft delete a pipeline and cascade to feed + subscriptions"
+                  },
+                  "response": [
+                    {
+                      "id": "a740e8bc-14b7-4ca8-a98c-349bc15d107c",
+                      "name": "200",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/pipelines/:pipeline_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "pipelines",
+                            ":pipeline_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "pipeline_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"success\": \"<boolean>\"\n}",
+                      "createdAt": "2026-10-21T21:04:04.000Z",
+                      "updatedAt": "2026-10-21T21:04:04.000Z",
+                      "uid": "35240-a740e8bc-14b7-4ca8-a98c-349bc15d107c"
+                    },
+                    {
+                      "id": "d1707ed3-66ae-4cb2-85ca-cc5b0f1c5025",
+                      "name": "404",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/pipelines/:pipeline_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "pipelines",
+                            ":pipeline_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "pipeline_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\",\n  \"errorCode\": \"pipelineNotFound\"\n}",
+                      "createdAt": "2026-10-21T21:04:04.000Z",
+                      "updatedAt": "2026-10-21T21:04:04.000Z",
+                      "uid": "35240-d1707ed3-66ae-4cb2-85ca-cc5b0f1c5025"
+                    }
+                  ],
+                  "createdAt": "2026-10-21T21:04:04.000Z",
+                  "updatedAt": "2026-10-21T21:04:04.000Z",
+                  "uid": "35240-a55eba75-b7cf-43f9-9698-08b2c06523dc"
+                }
+              ],
+              "id": "c2812432-9843-4514-b806-f43aa38961f2",
+              "createdAt": "2026-10-21T21:04:04.000Z",
+              "updatedAt": "2026-10-21T21:04:04.000Z",
+              "uid": "35240-c2812432-9843-4514-b806-f43aa38961f2"
+            },
+            {
+              "name": "preview",
+              "item": [
+                {
+                  "name": "Preview Pipeline",
+                  "id": "b4a2f1f6-5c72-458f-9bf4-dcb503eaeb64",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"integration_type\": \"custom_webhook\",\n  \"integration_id\": \"<string>\",\n  \"producer_config\": {\n    \"type\": \"slack_channel_reader\",\n    \"data\": {\n      \"channels\": [\n        {\n          \"channel_id\": \"<string>\",\n          \"channel_name\": \"<string>\",\n          \"last_message_ts\": \"<string>\"\n        }\n      ],\n      \"max_messages_per_poll\": \"<number>\"\n    }\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/pipelines/preview",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "pipelines",
+                        "preview"
+                      ]
+                    },
+                    "description": "Fetch sample messages from integration to preview what agents will receive"
+                  },
+                  "response": [
+                    {
+                      "id": "4cd48d16-aceb-40d7-b4e6-e0fbe39230fb",
+                      "name": "200",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"integration_type\": \"custom_webhook\",\n  \"integration_id\": \"<string>\",\n  \"producer_config\": {\n    \"type\": \"slack_channel_reader\",\n    \"data\": {\n      \"channels\": [\n        {\n          \"channel_id\": \"<string>\",\n          \"channel_name\": \"<string>\",\n          \"last_message_ts\": \"<string>\"\n        }\n      ],\n      \"max_messages_per_poll\": \"<number>\"\n    }\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/pipelines/preview",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "pipelines",
+                            "preview"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"sampleMessages\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"messageCount\": \"<number>\"\n}",
+                      "createdAt": "2026-10-21T21:04:04.000Z",
+                      "updatedAt": "2026-10-21T21:04:04.000Z",
+                      "uid": "35240-4cd48d16-aceb-40d7-b4e6-e0fbe39230fb"
+                    },
+                    {
+                      "id": "c576a3e4-0478-416b-9519-2eaa515159c9",
+                      "name": "400",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"integration_type\": \"custom_webhook\",\n  \"integration_id\": \"<string>\",\n  \"producer_config\": {\n    \"type\": \"slack_channel_reader\",\n    \"data\": {\n      \"channels\": [\n        {\n          \"channel_id\": \"<string>\",\n          \"channel_name\": \"<string>\",\n          \"last_message_ts\": \"<string>\"\n        }\n      ],\n      \"max_messages_per_poll\": \"<number>\"\n    }\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/pipelines/preview",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "pipelines",
+                            "preview"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\",\n  \"errorCode\": \"tokenExpired\"\n}",
+                      "createdAt": "2026-10-21T21:04:04.000Z",
+                      "updatedAt": "2026-10-21T21:04:04.000Z",
+                      "uid": "35240-c576a3e4-0478-416b-9519-2eaa515159c9"
+                    }
+                  ],
+                  "createdAt": "2026-10-21T21:04:04.000Z",
+                  "updatedAt": "2026-10-21T21:04:04.000Z",
+                  "uid": "35240-b4a2f1f6-5c72-458f-9bf4-dcb503eaeb64"
+                }
+              ],
+              "id": "4dc2dc63-f70b-4d39-bd59-35ae337b74a8",
+              "createdAt": "2026-10-21T21:04:04.000Z",
+              "updatedAt": "2026-10-21T21:04:04.000Z",
+              "uid": "35240-4dc2dc63-f70b-4d39-bd59-35ae337b74a8"
+            },
+            {
+              "name": "Create Pipeline",
+              "id": "bbb37334-b639-4d95-81be-02ce4c4fa317",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
+                    "key": "Content-Type",
+                    "value": "application/json"
                   },
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"name\": \"<string>\",\n  \"project_id\": \"<string>\",\n  \"integration_type\": \"<string>\",\n  \"producer_config\": {\n    \"type\": \"<string>\",\n    \"data\": {\n      \"channels\": [\n        {\n          \"channel_id\": \"<string>\",\n          \"channel_name\": \"<string>\",\n          \"last_message_ts\": \"<string>\"\n        }\n      ],\n      \"max_messages_per_poll\": \"<number>\"\n    }\n  },\n  \"subscriber_agent_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"subscriber_cron_schedule\": \"<string>\",\n  \"prompt_template\": \"<string>\"\n}",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"project_id\": \"<string>\",\n  \"integration_type\": \"discord\",\n  \"producer_config\": {\n    \"type\": \"slack_channel_reader\",\n    \"data\": {\n      \"channels\": [\n        {\n          \"channel_id\": \"<string>\",\n          \"channel_name\": \"<string>\",\n          \"last_message_ts\": \"<string>\"\n        }\n      ],\n      \"max_messages_per_poll\": \"<number>\"\n    }\n  },\n  \"subscriber_agent_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"subscriber_cron_schedule\": \"<string>\",\n  \"prompt_template\": \"<string>\"\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"pipeline\": {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"organization_id\": \"string\",\n    \"project_id\": \"string\",\n    \"integration_id\": \"string\",\n    \"integration_type\": \"custom_webhook\",\n    \"feed_id\": \"string\",\n    \"config\": {\n      \"type\": \"slack_channel_reader\",\n      \"data\": {\n        \"channels\": [\n          {\n            \"channel_id\": \"string\",\n            \"channel_name\": \"string\",\n            \"last_message_ts\": \"string\"\n          }\n        ],\n        \"max_messages_per_poll\": 9010.650937569864\n      }\n    },\n    \"next_scheduled_at\": \"2023-07-20T18:46:44.028Z\",\n    \"last_run_at\": \"1990-01-01T12:31:24.680Z\",\n    \"disabled_at\": \"1980-06-07T17:51:58.860Z\",\n    \"created_at\": \"2019-11-30T04:07:41.126Z\",\n    \"updated_at\": \"1962-11-15T20:01:22.105Z\",\n    \"integration_display_name\": \"string\",\n    \"feed_name\": \"string\",\n    \"subscriber_count\": 4252.180197859799,\n    \"error_count\": 8772.795590622527,\n    \"project_name\": \"string\",\n    \"project_slug\": \"string\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "c991431b-2200-4d67-bcdd-ec6f0eb03104",
-              "name": "400",
-              "originalRequest": {
+                },
                 "url": {
-                  "path": [
-                    "v1",
-                    "pipelines"
-                  ],
+                  "raw": "{{baseUrl}}/v1/pipelines",
                   "host": [
                     "{{baseUrl}}"
                   ],
-                  "query": [],
-                  "variable": []
+                  "path": [
+                    "v1",
+                    "pipelines"
+                  ]
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
+                "description": "Create a new pipeline (producer + feed + optionally subscribers)"
+              },
+              "response": [
+                {
+                  "id": "91b96d25-fad5-4f8c-8739-0dab30216b63",
+                  "name": "200",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"project_id\": \"<string>\",\n  \"integration_type\": \"discord\",\n  \"producer_config\": {\n    \"type\": \"slack_channel_reader\",\n    \"data\": {\n      \"channels\": [\n        {\n          \"channel_id\": \"<string>\",\n          \"channel_name\": \"<string>\",\n          \"last_message_ts\": \"<string>\"\n        }\n      ],\n      \"max_messages_per_poll\": \"<number>\"\n    }\n  },\n  \"subscriber_agent_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"subscriber_cron_schedule\": \"<string>\",\n  \"prompt_template\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
                     },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/pipelines",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "pipelines"
+                      ]
+                    }
                   },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"pipeline\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"organization_id\": \"<string>\",\n    \"project_id\": \"<string>\",\n    \"integration_id\": \"<string>\",\n    \"integration_type\": \"microsoftTeams\",\n    \"feed_id\": \"<string>\",\n    \"config\": {\n      \"type\": \"slack_channel_reader\",\n      \"data\": {\n        \"channels\": [\n          {\n            \"channel_id\": \"<string>\",\n            \"channel_name\": \"<string>\",\n            \"last_message_ts\": \"<string>\"\n          }\n        ],\n        \"max_messages_per_poll\": \"<number>\"\n      }\n    },\n    \"next_scheduled_at\": \"<dateTime>\",\n    \"last_run_at\": \"<dateTime>\",\n    \"disabled_at\": \"<dateTime>\",\n    \"created_at\": \"<dateTime>\",\n    \"updated_at\": \"<dateTime>\",\n    \"integration_display_name\": \"<string>\",\n    \"feed_name\": \"<string>\",\n    \"subscriber_count\": \"<number>\",\n    \"error_count\": \"<number>\",\n    \"project_name\": \"<string>\",\n    \"project_slug\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-10-21T21:04:04.000Z",
+                  "updatedAt": "2026-10-21T21:04:04.000Z",
+                  "uid": "35240-91b96d25-fad5-4f8c-8739-0dab30216b63"
+                },
+                {
+                  "id": "abffbaf3-f954-42b4-a258-aa92f95908e1",
+                  "name": "400",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"project_id\": \"<string>\",\n  \"integration_type\": \"discord\",\n  \"producer_config\": {\n    \"type\": \"slack_channel_reader\",\n    \"data\": {\n      \"channels\": [\n        {\n          \"channel_id\": \"<string>\",\n          \"channel_name\": \"<string>\",\n          \"last_message_ts\": \"<string>\"\n        }\n      ],\n      \"max_messages_per_poll\": \"<number>\"\n    }\n  },\n  \"subscriber_agent_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"subscriber_cron_schedule\": \"<string>\",\n  \"prompt_template\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/pipelines",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "pipelines"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\",\n  \"errorCode\": \"agentNotFound\"\n}",
+                  "createdAt": "2026-10-21T21:04:04.000Z",
+                  "updatedAt": "2026-10-21T21:04:04.000Z",
+                  "uid": "35240-abffbaf3-f954-42b4-a258-aa92f95908e1"
+                }
+              ],
+              "createdAt": "2026-10-21T21:04:04.000Z",
+              "updatedAt": "2026-10-21T21:04:04.000Z",
+              "uid": "35240-bbb37334-b639-4d95-81be-02ce4c4fa317"
+            },
+            {
+              "name": "List Pipelines",
+              "id": "642c0b55-ac17-451c-983f-d7abd9a46ca4",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"name\": \"<string>\",\n  \"project_id\": \"<string>\",\n  \"integration_type\": \"<string>\",\n  \"producer_config\": {\n    \"type\": \"<string>\",\n    \"data\": {\n      \"channels\": [\n        {\n          \"channel_id\": \"<string>\",\n          \"channel_name\": \"<string>\",\n          \"last_message_ts\": \"<string>\"\n        }\n      ],\n      \"max_messages_per_poll\": \"<number>\"\n    }\n  },\n  \"subscriber_agent_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"subscriber_cron_schedule\": \"<string>\",\n  \"prompt_template\": \"<string>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"message\": \"string\",\n  \"errorCode\": \"invalidProducerConfig\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "f995aa4d-9923-489e-831e-d72c39d97ea2",
-          "name": "List Pipelines",
-          "request": {
-            "name": "List Pipelines",
-            "description": {
-              "content": "List all pipelines for the organization with optional filtering",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v1",
-                "pipelines"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "search",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "key": "integration_type",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "key": "integration_id",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "key": "offset",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "key": "limit",
-                  "value": "<string>"
-                }
-              ],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "749a8752-d668-419d-af1d-e06a77004be2",
-              "name": "200",
-              "originalRequest": {
                 "url": {
+                  "raw": "{{baseUrl}}/v1/pipelines?search=<string>&integration_type=<string>&integration_id=<string>&offset=<string>&limit=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "v1",
                     "pipelines"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
                   ],
                   "query": [
                     {
@@ -250,1479 +1684,92 @@
                       "key": "limit",
                       "value": "<string>"
                     }
-                  ],
-                  "variable": []
+                  ]
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
+                "description": "List all pipelines for the organization with optional filtering"
               },
-              "status": "OK",
-              "code": 200,
-              "header": [
+              "response": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "id": "9a2e9f28-06d6-4d39-8912-218ab7b97b36",
+                  "name": "200",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/pipelines?search=<string>&integration_type=<string>&integration_id=<string>&offset=<string>&limit=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "pipelines"
+                      ],
+                      "query": [
+                        {
+                          "key": "search",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "integration_type",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "integration_id",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "offset",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "limit",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"pipelines\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"organization_id\": \"<string>\",\n      \"project_id\": \"<string>\",\n      \"integration_id\": \"<string>\",\n      \"integration_type\": \"slack\",\n      \"feed_id\": \"<string>\",\n      \"config\": {\n        \"type\": \"slack_channel_reader\",\n        \"data\": {\n          \"channels\": [\n            {\n              \"channel_id\": \"<string>\",\n              \"channel_name\": \"<string>\",\n              \"last_message_ts\": \"<string>\"\n            }\n          ],\n          \"max_messages_per_poll\": \"<number>\"\n        }\n      },\n      \"next_scheduled_at\": \"<dateTime>\",\n      \"last_run_at\": \"<dateTime>\",\n      \"disabled_at\": \"<dateTime>\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\",\n      \"integration_display_name\": \"<string>\",\n      \"feed_name\": \"<string>\",\n      \"subscriber_count\": \"<number>\",\n      \"error_count\": \"<number>\",\n      \"project_name\": \"<string>\",\n      \"project_slug\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"organization_id\": \"<string>\",\n      \"project_id\": \"<string>\",\n      \"integration_id\": \"<string>\",\n      \"integration_type\": \"custom_webhook\",\n      \"feed_id\": \"<string>\",\n      \"config\": {\n        \"type\": \"slack_channel_reader\",\n        \"data\": {\n          \"channels\": [\n            {\n              \"channel_id\": \"<string>\",\n              \"channel_name\": \"<string>\",\n              \"last_message_ts\": \"<string>\"\n            }\n          ],\n          \"max_messages_per_poll\": \"<number>\"\n        }\n      },\n      \"next_scheduled_at\": \"<dateTime>\",\n      \"last_run_at\": \"<dateTime>\",\n      \"disabled_at\": \"<dateTime>\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\",\n      \"integration_display_name\": \"<string>\",\n      \"feed_name\": \"<string>\",\n      \"subscriber_count\": \"<number>\",\n      \"error_count\": \"<number>\",\n      \"project_name\": \"<string>\",\n      \"project_slug\": \"<string>\"\n    }\n  ],\n  \"hasNextPage\": \"<boolean>\"\n}",
+                  "createdAt": "2026-10-21T21:04:04.000Z",
+                  "updatedAt": "2026-10-21T21:04:04.000Z",
+                  "uid": "35240-9a2e9f28-06d6-4d39-8912-218ab7b97b36"
                 }
               ],
-              "body": "{\n  \"pipelines\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"organization_id\": \"string\",\n      \"project_id\": \"string\",\n      \"integration_id\": \"string\",\n      \"integration_type\": \"microsoftTeams\",\n      \"feed_id\": \"string\",\n      \"config\": {\n        \"type\": \"slack_channel_reader\",\n        \"data\": {\n          \"channels\": [\n            {\n              \"channel_id\": \"string\",\n              \"channel_name\": \"string\",\n              \"last_message_ts\": \"string\"\n            }\n          ],\n          \"max_messages_per_poll\": 4452.403850156139\n        }\n      },\n      \"next_scheduled_at\": \"1949-02-21T06:10:00.955Z\",\n      \"last_run_at\": \"2004-10-28T15:02:26.197Z\",\n      \"disabled_at\": \"2012-12-26T19:45:42.015Z\",\n      \"created_at\": \"1973-03-25T04:35:53.330Z\",\n      \"updated_at\": \"1996-02-04T09:21:43.970Z\",\n      \"integration_display_name\": \"string\",\n      \"feed_name\": \"string\",\n      \"subscriber_count\": 3333.689363535076,\n      \"error_count\": 8102.086272253669,\n      \"project_name\": \"string\",\n      \"project_slug\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"organization_id\": \"string\",\n      \"project_id\": \"string\",\n      \"integration_id\": \"string\",\n      \"integration_type\": \"microsoftTeams\",\n      \"feed_id\": \"string\",\n      \"config\": {\n        \"type\": \"slack_channel_reader\",\n        \"data\": {\n          \"channels\": [\n            {\n              \"channel_id\": \"string\",\n              \"channel_name\": \"string\",\n              \"last_message_ts\": \"string\"\n            }\n          ],\n          \"max_messages_per_poll\": 1765.2784669432497\n        }\n      },\n      \"next_scheduled_at\": \"1960-10-16T15:03:27.897Z\",\n      \"last_run_at\": \"1968-04-14T12:00:28.251Z\",\n      \"disabled_at\": \"1998-01-29T12:54:21.443Z\",\n      \"created_at\": \"2023-04-04T12:44:37.418Z\",\n      \"updated_at\": \"2012-07-29T13:46:23.036Z\",\n      \"integration_display_name\": \"string\",\n      \"feed_name\": \"string\",\n      \"subscriber_count\": 9301.686235080862,\n      \"error_count\": 1423.4393604478157,\n      \"project_name\": \"string\",\n      \"project_slug\": \"string\"\n    }\n  ],\n  \"hasNextPage\": false\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "createdAt": "2026-10-21T21:04:04.000Z",
+              "updatedAt": "2026-10-21T21:04:04.000Z",
+              "uid": "35240-642c0b55-ac17-451c-983f-d7abd9a46ca4"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "a4c5dcfe-0840-4d5d-9207-912685833411",
-          "name": "Count Pipelines",
-          "request": {
-            "name": "Count Pipelines",
-            "description": {
-              "content": "Get the total count of pipelines, optionally filtered by project and search",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v1",
-                "pipelines",
-                "count"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "search",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "key": "integration_type",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "key": "integration_id",
-                  "value": "<string>"
-                }
-              ],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "8c7de448-78b4-4bb7-aaaa-c185b3db0fe6",
-              "name": "200",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "pipelines",
-                    "count"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "search",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "integration_type",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "integration_id",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"count\": 4155.194669417656\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "7dd4f021-7251-4ef5-986b-278571434093",
-          "name": "Get Pipeline",
-          "request": {
-            "name": "Get Pipeline",
-            "description": {
-              "content": "Get a single pipeline with details",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v1",
-                "pipelines",
-                ":pipeline_id"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "pipeline_id",
-                  "description": "(Required) "
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "e4b124fa-efe5-44c0-8cf2-83419bb7d805",
-              "name": "200",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "pipelines",
-                    ":pipeline_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "pipeline_id",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"pipeline\": {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"organization_id\": \"string\",\n    \"project_id\": \"string\",\n    \"integration_id\": \"string\",\n    \"integration_type\": \"custom_webhook\",\n    \"feed_id\": \"string\",\n    \"config\": {\n      \"type\": \"slack_channel_reader\",\n      \"data\": {\n        \"channels\": [\n          {\n            \"channel_id\": \"string\",\n            \"channel_name\": \"string\",\n            \"last_message_ts\": \"string\"\n          }\n        ],\n        \"max_messages_per_poll\": 9010.650937569864\n      }\n    },\n    \"next_scheduled_at\": \"2023-07-20T18:46:44.028Z\",\n    \"last_run_at\": \"1990-01-01T12:31:24.680Z\",\n    \"disabled_at\": \"1980-06-07T17:51:58.860Z\",\n    \"created_at\": \"2019-11-30T04:07:41.126Z\",\n    \"updated_at\": \"1962-11-15T20:01:22.105Z\",\n    \"integration_display_name\": \"string\",\n    \"feed_name\": \"string\",\n    \"subscriber_count\": 4252.180197859799,\n    \"error_count\": 8772.795590622527,\n    \"project_name\": \"string\",\n    \"project_slug\": \"string\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "c2c5dbc0-d607-40f0-9ee3-72280341f37b",
-              "name": "404",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "pipelines",
-                    ":pipeline_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "pipeline_id",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"message\": \"string\",\n  \"errorCode\": \"pipelineNotFound\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "f3ef1fd6-dd66-435f-bb8c-28881bbf4371",
-          "name": "Update Pipeline",
-          "request": {
-            "name": "Update Pipeline",
-            "description": {
-              "content": "Update pipeline name or disable/enable it",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v1",
-                "pipelines",
-                ":pipeline_id"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "pipeline_id",
-                  "description": "(Required) "
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "PATCH",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"name\": \"<string>\",\n  \"disabled\": \"<boolean>\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
-            {
-              "id": "654465cf-1dfd-40f9-b21b-b2d9dda9c55c",
-              "name": "200",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "pipelines",
-                    ":pipeline_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "pipeline_id",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PATCH",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"name\": \"<string>\",\n  \"disabled\": \"<boolean>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"pipeline\": {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"organization_id\": \"string\",\n    \"project_id\": \"string\",\n    \"integration_id\": \"string\",\n    \"integration_type\": \"custom_webhook\",\n    \"feed_id\": \"string\",\n    \"config\": {\n      \"type\": \"slack_channel_reader\",\n      \"data\": {\n        \"channels\": [\n          {\n            \"channel_id\": \"string\",\n            \"channel_name\": \"string\",\n            \"last_message_ts\": \"string\"\n          }\n        ],\n        \"max_messages_per_poll\": 9010.650937569864\n      }\n    },\n    \"next_scheduled_at\": \"2023-07-20T18:46:44.028Z\",\n    \"last_run_at\": \"1990-01-01T12:31:24.680Z\",\n    \"disabled_at\": \"1980-06-07T17:51:58.860Z\",\n    \"created_at\": \"2019-11-30T04:07:41.126Z\",\n    \"updated_at\": \"1962-11-15T20:01:22.105Z\",\n    \"integration_display_name\": \"string\",\n    \"feed_name\": \"string\",\n    \"subscriber_count\": 4252.180197859799,\n    \"error_count\": 8772.795590622527,\n    \"project_name\": \"string\",\n    \"project_slug\": \"string\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "c4411023-37f5-4bee-970d-386b49991f01",
-              "name": "404",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "pipelines",
-                    ":pipeline_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "pipeline_id",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PATCH",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"name\": \"<string>\",\n  \"disabled\": \"<boolean>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"message\": \"string\",\n  \"errorCode\": \"pipelineNotFound\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "91cd7df5-6f19-4b93-8845-6091ffee1f59",
-          "name": "Delete Pipeline",
-          "request": {
-            "name": "Delete Pipeline",
-            "description": {
-              "content": "Soft delete a pipeline and cascade to feed + subscriptions",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v1",
-                "pipelines",
-                ":pipeline_id"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "pipeline_id",
-                  "description": "(Required) "
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "DELETE",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
-            {
-              "id": "0a225112-f350-4287-92a3-720c381d5919",
-              "name": "200",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "pipelines",
-                    ":pipeline_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "pipeline_id",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"success\": false\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "a218ebef-e187-49be-b332-1164836ffded",
-              "name": "404",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "pipelines",
-                    ":pipeline_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "pipeline_id",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"message\": \"string\",\n  \"errorCode\": \"pipelineNotFound\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "fb499fa6-1458-4369-b119-7b5bdb5c7c51",
-          "name": "Update Pipeline Producer Config",
-          "request": {
-            "name": "Update Pipeline Producer Config",
-            "description": {
-              "content": "Update the producer configuration for a pipeline (e.g., Slack channels)",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v1",
-                "pipelines",
-                ":pipeline_id",
-                "config"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "pipeline_id",
-                  "description": "(Required) "
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "PATCH",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"producer_config\": {\n    \"type\": \"<string>\",\n    \"data\": {\n      \"channels\": [\n        {\n          \"channel_id\": \"<string>\",\n          \"channel_name\": \"<string>\",\n          \"last_message_ts\": \"<string>\"\n        }\n      ],\n      \"max_messages_per_poll\": \"<number>\"\n    }\n  }\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
-            {
-              "id": "b462f562-dd0c-4f96-a670-67e90f9df4e9",
-              "name": "200",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "pipelines",
-                    ":pipeline_id",
-                    "config"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "pipeline_id",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PATCH",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"producer_config\": {\n    \"type\": \"<string>\",\n    \"data\": {\n      \"channels\": [\n        {\n          \"channel_id\": \"<string>\",\n          \"channel_name\": \"<string>\",\n          \"last_message_ts\": \"<string>\"\n        }\n      ],\n      \"max_messages_per_poll\": \"<number>\"\n    }\n  }\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"pipeline\": {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"organization_id\": \"string\",\n    \"project_id\": \"string\",\n    \"integration_id\": \"string\",\n    \"integration_type\": \"custom_webhook\",\n    \"feed_id\": \"string\",\n    \"config\": {\n      \"type\": \"slack_channel_reader\",\n      \"data\": {\n        \"channels\": [\n          {\n            \"channel_id\": \"string\",\n            \"channel_name\": \"string\",\n            \"last_message_ts\": \"string\"\n          }\n        ],\n        \"max_messages_per_poll\": 9010.650937569864\n      }\n    },\n    \"next_scheduled_at\": \"2023-07-20T18:46:44.028Z\",\n    \"last_run_at\": \"1990-01-01T12:31:24.680Z\",\n    \"disabled_at\": \"1980-06-07T17:51:58.860Z\",\n    \"created_at\": \"2019-11-30T04:07:41.126Z\",\n    \"updated_at\": \"1962-11-15T20:01:22.105Z\",\n    \"integration_display_name\": \"string\",\n    \"feed_name\": \"string\",\n    \"subscriber_count\": 4252.180197859799,\n    \"error_count\": 8772.795590622527,\n    \"project_name\": \"string\",\n    \"project_slug\": \"string\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "660c6124-2d16-4983-882a-f762104881c3",
-              "name": "400",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "pipelines",
-                    ":pipeline_id",
-                    "config"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "pipeline_id",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PATCH",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"producer_config\": {\n    \"type\": \"<string>\",\n    \"data\": {\n      \"channels\": [\n        {\n          \"channel_id\": \"<string>\",\n          \"channel_name\": \"<string>\",\n          \"last_message_ts\": \"<string>\"\n        }\n      ],\n      \"max_messages_per_poll\": \"<number>\"\n    }\n  }\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"message\": \"string\",\n  \"errorCode\": \"configTypeMismatch\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "dd811320-ce1c-405f-8b91-e82d446a72de",
-              "name": "404",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "pipelines",
-                    ":pipeline_id",
-                    "config"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "pipeline_id",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PATCH",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"producer_config\": {\n    \"type\": \"<string>\",\n    \"data\": {\n      \"channels\": [\n        {\n          \"channel_id\": \"<string>\",\n          \"channel_name\": \"<string>\",\n          \"last_message_ts\": \"<string>\"\n        }\n      ],\n      \"max_messages_per_poll\": \"<number>\"\n    }\n  }\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"message\": \"string\",\n  \"errorCode\": \"pipelineNotFound\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "4c4f7aba-b800-412f-97a0-61ca0cd3651e",
-          "name": "Preview Pipeline",
-          "request": {
-            "name": "Preview Pipeline",
-            "description": {
-              "content": "Fetch sample messages from integration to preview what agents will receive",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v1",
-                "pipelines",
-                "preview"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"integration_type\": \"<string>\",\n  \"integration_id\": \"<string>\",\n  \"producer_config\": {\n    \"type\": \"<string>\",\n    \"data\": {\n      \"channels\": [\n        {\n          \"channel_id\": \"<string>\",\n          \"channel_name\": \"<string>\",\n          \"last_message_ts\": \"<string>\"\n        }\n      ],\n      \"max_messages_per_poll\": \"<number>\"\n    }\n  }\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
-            {
-              "id": "1b0b35be-9f45-4d8b-ab8a-1b642755acaa",
-              "name": "200",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "pipelines",
-                    "preview"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"integration_type\": \"<string>\",\n  \"integration_id\": \"<string>\",\n  \"producer_config\": {\n    \"type\": \"<string>\",\n    \"data\": {\n      \"channels\": [\n        {\n          \"channel_id\": \"<string>\",\n          \"channel_name\": \"<string>\",\n          \"last_message_ts\": \"<string>\"\n        }\n      ],\n      \"max_messages_per_poll\": \"<number>\"\n    }\n  }\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"sampleMessages\": [\n    \"string\",\n    \"string\"\n  ],\n  \"messageCount\": 7332.6627104796335\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "87c16f1f-6c97-4504-b2bb-b81d1aa94285",
-              "name": "400",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "pipelines",
-                    "preview"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"integration_type\": \"<string>\",\n  \"integration_id\": \"<string>\",\n  \"producer_config\": {\n    \"type\": \"<string>\",\n    \"data\": {\n      \"channels\": [\n        {\n          \"channel_id\": \"<string>\",\n          \"channel_name\": \"<string>\",\n          \"last_message_ts\": \"<string>\"\n        }\n      ],\n      \"max_messages_per_poll\": \"<number>\"\n    }\n  }\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"message\": \"string\",\n  \"errorCode\": \"tokenExpired\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "710643b8-a1ec-41b0-9334-18de0d6fc2f9",
-          "name": "Sync Pipeline",
-          "request": {
-            "name": "Sync Pipeline",
-            "description": {
-              "content": "Manually trigger a pipeline sync to fetch new messages immediately",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v1",
-                "pipelines",
-                ":pipeline_id",
-                "sync"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "pipeline_id",
-                  "description": "(Required) "
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
-            {
-              "id": "c7eb66fe-aed4-46c4-aed1-ee3813632741",
-              "name": "200",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "pipelines",
-                    ":pipeline_id",
-                    "sync"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "pipeline_id",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"success\": true,\n  \"messages_ingested\": 1302.8108540772255,\n  \"workflow_id\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "ec107d29-b690-4326-aa3f-5c140f6cd1ee",
-              "name": "400",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "pipelines",
-                    ":pipeline_id",
-                    "sync"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "pipeline_id",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"message\": \"string\",\n  \"errorCode\": \"pipelineDisabled\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "c1afd7eb-4cb6-43da-97bd-29cbdc43b984",
-              "name": "404",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "pipelines",
-                    ":pipeline_id",
-                    "sync"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "pipeline_id",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"message\": \"string\",\n  \"errorCode\": \"pipelineNotFound\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "db4d83e2-0ddc-4c7f-ac6b-62168b0ad873",
-          "name": "List Pipeline Sync History",
-          "request": {
-            "name": "List Pipeline Sync History",
-            "description": {
-              "content": "List the sync run history for a pipeline from Temporal with error details",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v1",
-                "pipelines",
-                ":pipeline_id",
-                "sync",
-                "history"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "pipeline_id",
-                  "description": "(Required) "
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "5cda9a1e-2f11-4afd-bb38-f8cf3ba2fa96",
-              "name": "200",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "pipelines",
-                    ":pipeline_id",
-                    "sync",
-                    "history"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "pipeline_id",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"runs\": [\n    {\n      \"workflow_id\": \"string\",\n      \"status\": \"timed_out\",\n      \"started_at\": \"1977-10-11T02:27:36.174Z\",\n      \"completed_at\": \"1961-12-23T08:21:52.206Z\",\n      \"error\": {\n        \"error_type\": \"string\",\n        \"error_message\": \"string\"\n      }\n    },\n    {\n      \"workflow_id\": \"string\",\n      \"status\": \"canceled\",\n      \"started_at\": \"1960-06-04T23:51:54.905Z\",\n      \"completed_at\": \"2026-05-15T20:46:22.805Z\",\n      \"error\": {\n        \"error_type\": \"string\",\n        \"error_message\": \"string\"\n      }\n    }\n  ],\n  \"next_page_token\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "bd33e201-b43f-4ef9-bdaf-cd45f4817550",
-              "name": "404",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "pipelines",
-                    ":pipeline_id",
-                    "sync",
-                    "history"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "pipeline_id",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"message\": \"string\",\n  \"errorCode\": \"pipelineNotFound\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "ae5bacba-8876-4a58-9ed8-fee57d7d0f92",
+          "createdAt": "2026-10-21T21:04:04.000Z",
+          "updatedAt": "2026-10-21T21:04:04.000Z",
+          "uid": "35240-ae5bacba-8876-4a58-9ed8-fee57d7d0f92"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "https://api.letta.com",
-      "key": "baseUrl"
+      "id": "dc00b144-21a8-45d6-ba39-d97106138917",
+      "createdAt": "2026-10-21T21:04:04.000Z",
+      "updatedAt": "2026-10-21T21:04:04.000Z",
+      "uid": "35240-dc00b144-21a8-45d6-ba39-d97106138917"
     }
   ],
   "auth": {
@@ -1730,17 +1777,15 @@
     "bearer": [
       {
         "key": "token",
-        "value": "{{bearerToken}}"
+        "value": "{{bearerToken}}",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "2ba30878-ef22-4de6-9572-1e746200d30a",
-    "name": "Letta Admin Pipelines API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "REST API for Letta, the stateful agents platform. Manage agents, memory blocks, archival passages, sources, custom tools, MCP servers, multi-agent groups, runs, and streaming responses. Available as Letta Cloud (managed) at https://api.letta.com/v1 and as the self-hosted open-source server (Apache-2.0) typically run at http://localhost:8283.\n\nContact Support:\n Name: Letta\n Email: support@letta.com",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.letta.com"
     }
-  }
+  ]
 }

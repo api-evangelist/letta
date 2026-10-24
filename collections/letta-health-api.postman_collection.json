@@ -1,187 +1,195 @@
 {
+  "info": {
+    "_postman_id": "1e094be8-38db-449f-b0f6-4ddb4c5a68b7",
+    "name": "Letta Health API",
+    "description": "REST API for Letta, the stateful agents platform. Manage agents, memory blocks, archival passages, sources, custom tools, MCP servers, multi-agent groups, runs, and streaming responses. Available as Letta Cloud (managed) at https://api.letta.com/v1 and as the self-hosted open-source server (Apache-2.0) typically run at http://localhost:8283.\n\nContact Support:\n Name: Letta\n Email: support@letta.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T21:03:04.000Z",
+    "updatedAt": "2026-10-21T21:03:05.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-1e094be8-38db-449f-b0f6-4ddb4c5a68b7"
+  },
   "item": [
     {
-      "id": "f2cfaf74-b62f-4155-8f41-0f77e092a1aa",
-      "name": "Health",
-      "description": {
-        "content": "Service health/readiness endpoint.",
-        "type": "text/plain"
-      },
+      "name": "v1",
       "item": [
         {
-          "id": "4bc5da37-a26f-470d-8695-ed97ea3eaeb0",
-          "name": "Check Health",
-          "request": {
-            "name": "Check Health",
-            "description": {
-              "content": "Liveness endpoint; returns 200 when process is responsive.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v1",
-                "health",
-                ""
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
+          "name": "health",
+          "item": [
             {
-              "id": "5c749db0-25f1-4f8b-b99b-7eb949bccc52",
-              "name": "Successful Response",
-              "originalRequest": {
+              "name": "Check Health",
+              "id": "3a660de4-0d15-494a-8d56-83d5c017fda5",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
                 "url": {
+                  "raw": "{{baseUrl}}/v1/health/",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "v1",
                     "health",
                     ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
+                  ]
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
+                "description": "Liveness endpoint; returns 200 when process is responsive."
+              },
+              "response": [
+                {
+                  "id": "9e527354-a60f-4616-8e3c-1ff72cfeabf8",
+                  "name": "Successful Response",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/health/",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "health",
+                        ""
+                      ]
+                    }
                   },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"version\": \"<string>\",\n  \"status\": \"<string>\"\n}",
+                  "createdAt": "2026-10-21T21:03:05.000Z",
+                  "updatedAt": "2026-10-21T21:03:05.000Z",
+                  "uid": "35240-9e527354-a60f-4616-8e3c-1ff72cfeabf8"
+                }
+              ],
+              "createdAt": "2026-10-21T21:03:05.000Z",
+              "updatedAt": "2026-10-21T21:03:05.000Z",
+              "uid": "35240-3a660de4-0d15-494a-8d56-83d5c017fda5"
+            }
+          ],
+          "id": "bb392663-82a3-4097-aa1e-e7ed4ac13429",
+          "createdAt": "2026-10-21T21:03:05.000Z",
+          "updatedAt": "2026-10-21T21:03:05.000Z",
+          "uid": "35240-bb392663-82a3-4097-aa1e-e7ed4ac13429"
+        },
+        {
+          "name": "ready",
+          "item": [
+            {
+              "name": "Check Readiness",
+              "id": "880e4af2-4d7d-4d47-b8d0-592ee4989457",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"version\": \"string\",\n  \"status\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "8f39eb1f-4846-47be-97e6-a5717b352d19",
-          "name": "Check Readiness",
-          "request": {
-            "name": "Check Readiness",
-            "description": {
-              "content": "Readiness endpoint gated by internal readiness state when enforcement is enabled.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v1",
-                "ready",
-                ""
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "aef16470-211d-4333-892c-94908689bd4c",
-              "name": "Successful Response",
-              "originalRequest": {
                 "url": {
+                  "raw": "{{baseUrl}}/v1/ready/",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "v1",
                     "ready",
                     ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
+                  ]
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
+                "description": "Readiness endpoint gated by internal readiness state when enforcement is enabled."
               },
-              "status": "OK",
-              "code": 200,
-              "header": [
+              "response": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "id": "ea8018e9-e7b3-4455-b5f0-76befcf3e658",
+                  "name": "Successful Response",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/ready/",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "ready",
+                        ""
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"version\": \"<string>\",\n  \"status\": \"<string>\"\n}",
+                  "createdAt": "2026-10-21T21:03:05.000Z",
+                  "updatedAt": "2026-10-21T21:03:05.000Z",
+                  "uid": "35240-ea8018e9-e7b3-4455-b5f0-76befcf3e658"
                 }
               ],
-              "body": "{\n  \"version\": \"string\",\n  \"status\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "createdAt": "2026-10-21T21:03:05.000Z",
+              "updatedAt": "2026-10-21T21:03:05.000Z",
+              "uid": "35240-880e4af2-4d7d-4d47-b8d0-592ee4989457"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "0b2fed5e-cd5a-4992-8ce2-57e900a7bfa4",
+          "createdAt": "2026-10-21T21:03:05.000Z",
+          "updatedAt": "2026-10-21T21:03:05.000Z",
+          "uid": "35240-0b2fed5e-cd5a-4992-8ce2-57e900a7bfa4"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "https://api.letta.com",
-      "key": "baseUrl"
+      "id": "7160eaf2-4d4f-4e99-b334-ff03bf4ceb55",
+      "createdAt": "2026-10-21T21:03:05.000Z",
+      "updatedAt": "2026-10-21T21:03:05.000Z",
+      "uid": "35240-7160eaf2-4d4f-4e99-b334-ff03bf4ceb55"
     }
   ],
   "auth": {
@@ -189,17 +197,15 @@
     "bearer": [
       {
         "key": "token",
-        "value": "{{bearerToken}}"
+        "value": "{{bearerToken}}",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "6a31aa62-c108-41f8-b44b-b815a37501dd",
-    "name": "Letta Admin Health API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "REST API for Letta, the stateful agents platform. Manage agents, memory blocks, archival passages, sources, custom tools, MCP servers, multi-agent groups, runs, and streaming responses. Available as Letta Cloud (managed) at https://api.letta.com/v1 and as the self-hosted open-source server (Apache-2.0) typically run at http://localhost:8283.\n\nContact Support:\n Name: Letta\n Email: support@letta.com",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.letta.com"
     }
-  }
+  ]
 }

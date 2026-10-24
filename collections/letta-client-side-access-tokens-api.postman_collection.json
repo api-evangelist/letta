@@ -1,525 +1,551 @@
 {
+  "info": {
+    "_postman_id": "4ead6cae-4e17-49ee-be8d-4de9cb73f282",
+    "name": "Letta Client-Side Access Tokens API",
+    "description": "REST API for Letta, the stateful agents platform. Manage agents, memory blocks, archival passages, sources, custom tools, MCP servers, multi-agent groups, runs, and streaming responses. Available as Letta Cloud (managed) at https://api.letta.com/v1 and as the self-hosted open-source server (Apache-2.0) typically run at http://localhost:8283.\n\nContact Support:\n Name: Letta\n Email: support@letta.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T21:02:04.000Z",
+    "updatedAt": "2026-10-21T21:02:05.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-4ead6cae-4e17-49ee-be8d-4de9cb73f282"
+  },
   "item": [
     {
-      "id": "e0e71e45-7b73-4eb7-bd8b-f0c1e7f48172",
-      "name": "Client-Side Access Tokens",
-      "description": {
-        "content": "Mint short-lived client-side access tokens for browser/mobile use.",
-        "type": "text/plain"
-      },
+      "name": "v1",
       "item": [
         {
-          "id": "e568fda1-f758-49b1-900b-c4c3039684aa",
-          "name": "Create Token (Cloud-only)",
-          "request": {
-            "name": "Create Token (Cloud-only)",
-            "description": {
-              "content": "Create a new client side access token with the specified configuration.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v1",
-                "client-side-access-tokens"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"policy\": [\n    {\n      \"type\": \"<string>\",\n      \"id\": \"<string>\",\n      \"access\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"type\": \"<string>\",\n      \"id\": \"<string>\",\n      \"access\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ],\n  \"hostname\": \"<uri>\",\n  \"expires_at\": \"<string>\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
+          "name": "client-side-access-tokens",
+          "item": [
             {
-              "id": "b047761f-9fbd-4df5-a932-0a6d6aea880e",
-              "name": "201",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "client-side-access-tokens"
+              "name": "{token}",
+              "item": [
+                {
+                  "name": "Delete Token (Cloud-only)",
+                  "id": "f7df0935-1d69-4fa3-9d0c-a3d530b9b655",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/client-side-access-tokens/:token",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "client-side-access-tokens",
+                        ":token"
+                      ],
+                      "variable": [
+                        {
+                          "id": "5754af7d-d215-4338-a7b7-bf844b208b68",
+                          "key": "token",
+                          "value": "<string>",
+                          "description": "(Required) The access token to delete"
+                        }
+                      ]
+                    },
+                    "description": "Delete a client side access token."
+                  },
+                  "response": [
+                    {
+                      "id": "c42cfd07-8b02-4edf-98fe-7ec5d5382652",
+                      "name": "204",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/client-side-access-tokens/:token",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "client-side-access-tokens",
+                            ":token"
+                          ],
+                          "variable": [
+                            {
+                              "key": "token"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "No Content",
+                      "code": 204,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{}",
+                      "createdAt": "2026-10-21T21:02:05.000Z",
+                      "updatedAt": "2026-10-21T21:02:05.000Z",
+                      "uid": "35240-c42cfd07-8b02-4edf-98fe-7ec5d5382652"
+                    },
+                    {
+                      "id": "39c06c80-9e9f-4a00-aa9e-8fc2fc76c4fb",
+                      "name": "400",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/client-side-access-tokens/:token",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "client-side-access-tokens",
+                            ":token"
+                          ],
+                          "variable": [
+                            {
+                              "key": "token"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-10-21T21:02:05.000Z",
+                      "updatedAt": "2026-10-21T21:02:05.000Z",
+                      "uid": "35240-39c06c80-9e9f-4a00-aa9e-8fc2fc76c4fb"
+                    }
                   ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+                  "createdAt": "2026-10-21T21:02:05.000Z",
+                  "updatedAt": "2026-10-21T21:02:05.000Z",
+                  "uid": "35240-f7df0935-1d69-4fa3-9d0c-a3d530b9b655"
+                }
+              ],
+              "id": "39ae4589-10ce-4b57-9021-aab4340ad596",
+              "createdAt": "2026-10-21T21:02:05.000Z",
+              "updatedAt": "2026-10-21T21:02:05.000Z",
+              "uid": "35240-39ae4589-10ce-4b57-9021-aab4340ad596"
+            },
+            {
+              "name": "Create Token (Cloud-only)",
+              "id": "fcbfc3c2-750e-4352-a1d4-a9d2c0f73e2c",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
+                    "key": "Content-Type",
+                    "value": "application/json"
                   },
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"policy\": [\n    {\n      \"type\": \"<string>\",\n      \"id\": \"<string>\",\n      \"access\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"type\": \"<string>\",\n      \"id\": \"<string>\",\n      \"access\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ],\n  \"hostname\": \"<uri>\",\n  \"expires_at\": \"<string>\"\n}",
+                  "raw": "{\n  \"policy\": [\n    {\n      \"type\": \"agent\",\n      \"id\": \"<string>\",\n      \"access\": [\n        \"write_messages\",\n        \"write_agent\"\n      ]\n    },\n    {\n      \"type\": \"agent\",\n      \"id\": \"<string>\",\n      \"access\": [\n        \"write_agent\",\n        \"write_agent\"\n      ]\n    }\n  ],\n  \"hostname\": \"https://\",\n  \"expires_at\": \"<string>\"\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
-                }
-              },
-              "status": "Created",
-              "code": 201,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"policy\": {\n    \"version\": \"1\",\n    \"data\": [\n      {\n        \"type\": \"agent\",\n        \"id\": \"string\",\n        \"access\": [\n          \"read_agent\",\n          \"read_agent\"\n        ]\n      },\n      {\n        \"type\": \"agent\",\n        \"id\": \"string\",\n        \"access\": [\n          \"read_messages\",\n          \"read_agent\"\n        ]\n      }\n    ]\n  },\n  \"token\": \"string\",\n  \"hostname\": \"string\",\n  \"expiresAt\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "6c712621-37c5-48c8-a50a-9b582d68b73f",
-              "name": "400",
-              "originalRequest": {
+                },
                 "url": {
-                  "path": [
-                    "v1",
-                    "client-side-access-tokens"
-                  ],
+                  "raw": "{{baseUrl}}/v1/client-side-access-tokens",
                   "host": [
                     "{{baseUrl}}"
                   ],
-                  "query": [],
-                  "variable": []
+                  "path": [
+                    "v1",
+                    "client-side-access-tokens"
+                  ]
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
+                "description": "Create a new client side access token with the specified configuration."
+              },
+              "response": [
+                {
+                  "id": "1bfcfc17-4994-48fa-9101-5cdca3a4bf28",
+                  "name": "201",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"policy\": [\n    {\n      \"type\": \"agent\",\n      \"id\": \"<string>\",\n      \"access\": [\n        \"write_messages\",\n        \"write_agent\"\n      ]\n    },\n    {\n      \"type\": \"agent\",\n      \"id\": \"<string>\",\n      \"access\": [\n        \"write_agent\",\n        \"write_agent\"\n      ]\n    }\n  ],\n  \"hostname\": \"https://\",\n  \"expires_at\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
                     },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/client-side-access-tokens",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "client-side-access-tokens"
+                      ]
+                    }
                   },
+                  "status": "Created",
+                  "code": 201,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"policy\": {\n    \"version\": \"1\",\n    \"data\": [\n      {\n        \"type\": \"agent\",\n        \"id\": \"<string>\",\n        \"access\": [\n          \"write_messages\",\n          \"write_messages\"\n        ]\n      },\n      {\n        \"type\": \"agent\",\n        \"id\": \"<string>\",\n        \"access\": [\n          \"write_messages\",\n          \"write_messages\"\n        ]\n      }\n    ]\n  },\n  \"token\": \"<string>\",\n  \"hostname\": \"<string>\",\n  \"expiresAt\": \"<string>\"\n}",
+                  "createdAt": "2026-10-21T21:02:05.000Z",
+                  "updatedAt": "2026-10-21T21:02:05.000Z",
+                  "uid": "35240-1bfcfc17-4994-48fa-9101-5cdca3a4bf28"
+                },
+                {
+                  "id": "9c395f7a-b296-4481-ae9c-dd05557691fe",
+                  "name": "400",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"policy\": [\n    {\n      \"type\": \"agent\",\n      \"id\": \"<string>\",\n      \"access\": [\n        \"write_messages\",\n        \"write_agent\"\n      ]\n    },\n    {\n      \"type\": \"agent\",\n      \"id\": \"<string>\",\n      \"access\": [\n        \"write_agent\",\n        \"write_agent\"\n      ]\n    }\n  ],\n  \"hostname\": \"https://\",\n  \"expires_at\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/client-side-access-tokens",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "client-side-access-tokens"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-10-21T21:02:05.000Z",
+                  "updatedAt": "2026-10-21T21:02:05.000Z",
+                  "uid": "35240-9c395f7a-b296-4481-ae9c-dd05557691fe"
+                }
+              ],
+              "createdAt": "2026-10-21T21:02:05.000Z",
+              "updatedAt": "2026-10-21T21:02:05.000Z",
+              "uid": "35240-fcbfc3c2-750e-4352-a1d4-a9d2c0f73e2c"
+            },
+            {
+              "name": "List Tokens (Cloud-only)",
+              "id": "699192d7-6916-418f-ab1d-fbf733bd57af",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"policy\": [\n    {\n      \"type\": \"<string>\",\n      \"id\": \"<string>\",\n      \"access\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"type\": \"<string>\",\n      \"id\": \"<string>\",\n      \"access\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ],\n  \"hostname\": \"<uri>\",\n  \"expires_at\": \"<string>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"message\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "b1c24026-ebca-4cf9-99d9-904f4119d01f",
-          "name": "List Tokens (Cloud-only)",
-          "request": {
-            "name": "List Tokens (Cloud-only)",
-            "description": {
-              "content": "List all client side access tokens for the current account. This is only available for cloud users.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v1",
-                "client-side-access-tokens"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "agentId",
-                  "value": "<string>",
-                  "description": "The agent ID to filter tokens by. If provided, only tokens for this agent will be returned."
-                },
-                {
-                  "disabled": false,
-                  "key": "offset",
-                  "value": "0",
-                  "description": "The offset for pagination. Defaults to 0."
-                },
-                {
-                  "disabled": false,
-                  "key": "limit",
-                  "value": "10",
-                  "description": "The number of tokens to return per page. Defaults to 10."
-                }
-              ],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "76dab138-0b6a-45b7-a42d-f18cfbe0caf7",
-              "name": "200",
-              "originalRequest": {
                 "url": {
+                  "raw": "{{baseUrl}}/v1/client-side-access-tokens?agentId=<string>&offset=0&limit=10",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "v1",
                     "client-side-access-tokens"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
                   ],
                   "query": [
                     {
+                      "description": "The agent ID to filter tokens by. If provided, only tokens for this agent will be returned.",
                       "key": "agentId",
                       "value": "<string>"
                     },
                     {
+                      "description": "The offset for pagination. Defaults to 0.",
                       "key": "offset",
                       "value": "0"
                     },
                     {
+                      "description": "The number of tokens to return per page. Defaults to 10.",
                       "key": "limit",
                       "value": "10"
                     }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"tokens\": [\n    {\n      \"policy\": {\n        \"version\": \"1\",\n        \"data\": [\n          {\n            \"type\": \"agent\",\n            \"id\": \"string\",\n            \"access\": [\n              \"read_agent\",\n              \"write_agent\"\n            ]\n          },\n          {\n            \"type\": \"agent\",\n            \"id\": \"string\",\n            \"access\": [\n              \"read_agent\",\n              \"write_messages\"\n            ]\n          }\n        ]\n      },\n      \"token\": \"string\",\n      \"hostname\": \"string\",\n      \"expiresAt\": \"string\"\n    },\n    {\n      \"policy\": {\n        \"version\": \"1\",\n        \"data\": [\n          {\n            \"type\": \"agent\",\n            \"id\": \"string\",\n            \"access\": [\n              \"read_messages\",\n              \"read_messages\"\n            ]\n          },\n          {\n            \"type\": \"agent\",\n            \"id\": \"string\",\n            \"access\": [\n              \"write_messages\",\n              \"read_messages\"\n            ]\n          }\n        ]\n      },\n      \"token\": \"string\",\n      \"hostname\": \"string\",\n      \"expiresAt\": \"string\"\n    }\n  ],\n  \"hasNextPage\": true\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "e0254a08-76bb-4197-95c7-e91bfbff8eed",
-              "name": "400",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "client-side-access-tokens"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "agentId",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "offset",
-                      "value": "0"
-                    },
-                    {
-                      "key": "limit",
-                      "value": "10"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"message\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "3c7c6ad2-1546-430e-9ff8-88bf86635d41",
-          "name": "Delete Token (Cloud-only)",
-          "request": {
-            "name": "Delete Token (Cloud-only)",
-            "description": {
-              "content": "Delete a client side access token.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v1",
-                "client-side-access-tokens",
-                ":token"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "token",
-                  "description": "(Required) The access token to delete"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "DELETE",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
-            {
-              "id": "b8bdfbfd-80fe-4d9c-80d2-2c2e1b9cfd8a",
-              "name": "204",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "client-side-access-tokens",
-                    ":token"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "token",
-                      "description": "(Required) The access token to delete"
-                    }
                   ]
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
+                "description": "List all client side access tokens for the current account. This is only available for cloud users."
               },
-              "status": "No Content",
-              "code": 204,
-              "header": [
+              "response": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "afdb2052-a2b6-455c-9f39-05e7745c2848",
-              "name": "400",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "client-side-access-tokens",
-                    ":token"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
+                  "id": "273f787e-ec07-4985-b3dc-8f600217027d",
+                  "name": "200",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/client-side-access-tokens?agentId=<string>&offset=0&limit=10",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "client-side-access-tokens"
+                      ],
+                      "query": [
+                        {
+                          "description": "The agent ID to filter tokens by. If provided, only tokens for this agent will be returned.",
+                          "key": "agentId",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "The offset for pagination. Defaults to 0.",
+                          "key": "offset",
+                          "value": "0"
+                        },
+                        {
+                          "description": "The number of tokens to return per page. Defaults to 10.",
+                          "key": "limit",
+                          "value": "10"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
                     {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "token",
-                      "description": "(Required) The access token to delete"
+                      "key": "Content-Type",
+                      "value": "application/json"
                     }
-                  ]
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"tokens\": [\n    {\n      \"policy\": {\n        \"version\": \"1\",\n        \"data\": [\n          {\n            \"type\": \"agent\",\n            \"id\": \"<string>\",\n            \"access\": [\n              \"read_agent\",\n              \"read_messages\"\n            ]\n          },\n          {\n            \"type\": \"agent\",\n            \"id\": \"<string>\",\n            \"access\": [\n              \"read_agent\",\n              \"write_agent\"\n            ]\n          }\n        ]\n      },\n      \"token\": \"<string>\",\n      \"hostname\": \"<string>\",\n      \"expiresAt\": \"<string>\"\n    },\n    {\n      \"policy\": {\n        \"version\": \"1\",\n        \"data\": [\n          {\n            \"type\": \"agent\",\n            \"id\": \"<string>\",\n            \"access\": [\n              \"write_messages\",\n              \"read_messages\"\n            ]\n          },\n          {\n            \"type\": \"agent\",\n            \"id\": \"<string>\",\n            \"access\": [\n              \"read_agent\",\n              \"read_agent\"\n            ]\n          }\n        ]\n      },\n      \"token\": \"<string>\",\n      \"hostname\": \"<string>\",\n      \"expiresAt\": \"<string>\"\n    }\n  ],\n  \"hasNextPage\": \"<boolean>\"\n}",
+                  "createdAt": "2026-10-21T21:02:05.000Z",
+                  "updatedAt": "2026-10-21T21:02:05.000Z",
+                  "uid": "35240-273f787e-ec07-4985-b3dc-8f600217027d"
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "id": "c7169a7c-4dda-46b6-b9d5-5345e092156c",
+                  "name": "400",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/client-side-access-tokens?agentId=<string>&offset=0&limit=10",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "client-side-access-tokens"
+                      ],
+                      "query": [
+                        {
+                          "description": "The agent ID to filter tokens by. If provided, only tokens for this agent will be returned.",
+                          "key": "agentId",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "The offset for pagination. Defaults to 0.",
+                          "key": "offset",
+                          "value": "0"
+                        },
+                        {
+                          "description": "The number of tokens to return per page. Defaults to 10.",
+                          "key": "limit",
+                          "value": "10"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-10-21T21:02:05.000Z",
+                  "updatedAt": "2026-10-21T21:02:05.000Z",
+                  "uid": "35240-c7169a7c-4dda-46b6-b9d5-5345e092156c"
                 }
               ],
-              "body": "{\n  \"message\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "createdAt": "2026-10-21T21:02:05.000Z",
+              "updatedAt": "2026-10-21T21:02:05.000Z",
+              "uid": "35240-699192d7-6916-418f-ab1d-fbf733bd57af"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "ae8bd935-35e2-43d2-997e-fde8258a388d",
+          "createdAt": "2026-10-21T21:02:05.000Z",
+          "updatedAt": "2026-10-21T21:02:05.000Z",
+          "uid": "35240-ae8bd935-35e2-43d2-997e-fde8258a388d"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "https://api.letta.com",
-      "key": "baseUrl"
+      "id": "6d615b62-c327-46c3-b472-3881be4896eb",
+      "createdAt": "2026-10-21T21:02:05.000Z",
+      "updatedAt": "2026-10-21T21:02:05.000Z",
+      "uid": "35240-6d615b62-c327-46c3-b472-3881be4896eb"
     }
   ],
   "auth": {
@@ -527,17 +553,15 @@
     "bearer": [
       {
         "key": "token",
-        "value": "{{bearerToken}}"
+        "value": "{{bearerToken}}",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "048ba9ce-c105-4137-936d-994a9a8e9340",
-    "name": "Letta Admin Client-Side Access Tokens API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "REST API for Letta, the stateful agents platform. Manage agents, memory blocks, archival passages, sources, custom tools, MCP servers, multi-agent groups, runs, and streaming responses. Available as Letta Cloud (managed) at https://api.letta.com/v1 and as the self-hosted open-source server (Apache-2.0) typically run at http://localhost:8283.\n\nContact Support:\n Name: Letta\n Email: support@letta.com",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.letta.com"
     }
-  }
+  ]
 }

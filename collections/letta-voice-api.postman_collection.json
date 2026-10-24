@@ -1,272 +1,311 @@
 {
+  "info": {
+    "_postman_id": "7167d91d-2c24-4da8-a5aa-de800a672e2f",
+    "name": "Letta Voice API",
+    "description": "REST API for Letta, the stateful agents platform. Manage agents, memory blocks, archival passages, sources, custom tools, MCP servers, multi-agent groups, runs, and streaming responses. Available as Letta Cloud (managed) at https://api.letta.com/v1 and as the self-hosted open-source server (Apache-2.0) typically run at http://localhost:8283.\n\nContact Support:\n Name: Letta\n Email: support@letta.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T21:04:54.000Z",
+    "updatedAt": "2026-10-21T21:04:54.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-7167d91d-2c24-4da8-a5aa-de800a672e2f"
+  },
   "item": [
     {
-      "id": "21f82e79-265c-4d67-b8d9-10833b33e264",
-      "name": "Voice",
-      "description": {
-        "content": "Voice (low-latency) chat completions endpoint for agents.",
-        "type": "text/plain"
-      },
+      "name": "v1",
       "item": [
         {
-          "id": "3fade23f-babe-495c-a540-96833b099505",
-          "name": "Create Voice Chat Completions",
-          "request": {
-            "name": "Create Voice Chat Completions",
-            "description": {
-              "content": "DEPRECATED: This voice-beta endpoint has been deprecated.\n\nThe voice functionality has been integrated into the main chat completions endpoint.\nPlease use the standard /v1/agents/{agent_id}/messages endpoint instead.\n\nThis endpoint will be removed in a future version.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v1",
-                "voice-beta",
-                ":agent_id",
-                "chat",
-                "completions"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "agent_id",
-                  "description": "(Required) "
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"key_0\": \"string\",\n  \"key_1\": 3676\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
+          "name": "voice-beta",
+          "item": [
             {
-              "id": "1d3c5007-e5f6-4da5-a06e-e362bd587921",
-              "name": "Successful response",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "voice-beta",
-                    ":agent_id",
-                    "chat",
-                    "completions"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "agent_id",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"key_0\": true\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
+              "name": "{agent_id}",
+              "item": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "name": "chat",
+                  "item": [
+                    {
+                      "name": "completions",
+                      "item": [
+                        {
+                          "name": "Create Voice Chat Completions",
+                          "id": "52830d02-6b93-4a5c-925b-37e64eca0d03",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"sint9a0\": \"pariatur mollit\",\n  \"magna64d\": 70527841.3298263,\n  \"nona0\": true,\n  \"consequat_119\": 97886750\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/voice-beta/:agent_id/chat/completions",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "voice-beta",
+                                ":agent_id",
+                                "chat",
+                                "completions"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "d4ae2f0e-3f77-4a91-8b48-0a06fd084ce7",
+                                  "key": "agent_id",
+                                  "value": "<string>",
+                                  "description": "(Required) "
+                                }
+                              ]
+                            },
+                            "description": "DEPRECATED: This voice-beta endpoint has been deprecated.\n\nThe voice functionality has been integrated into the main chat completions endpoint.\nPlease use the standard /v1/agents/{agent_id}/messages endpoint instead.\n\nThis endpoint will be removed in a future version."
+                          },
+                          "response": [
+                            {
+                              "id": "d3d50300-6f98-436f-ac65-c26122b48dfb",
+                              "name": "Successful response",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"sint9a0\": \"pariatur mollit\",\n  \"magna64d\": 70527841.3298263,\n  \"nona0\": true,\n  \"consequat_119\": 97886750\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/v1/voice-beta/:agent_id/chat/completions",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v1",
+                                    "voice-beta",
+                                    ":agent_id",
+                                    "chat",
+                                    "completions"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "agent_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{}",
+                              "createdAt": "2026-10-21T21:04:55.000Z",
+                              "updatedAt": "2026-10-21T21:04:55.000Z",
+                              "uid": "35240-d3d50300-6f98-436f-ac65-c26122b48dfb"
+                            },
+                            {
+                              "id": "43fd69b6-0a2b-4f84-b4b0-86e2ef861e25",
+                              "name": "Endpoint deprecated",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"sint9a0\": \"pariatur mollit\",\n  \"magna64d\": 70527841.3298263,\n  \"nona0\": true,\n  \"consequat_119\": 97886750\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/v1/voice-beta/:agent_id/chat/completions",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v1",
+                                    "voice-beta",
+                                    ":agent_id",
+                                    "chat",
+                                    "completions"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "agent_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Gone",
+                              "code": 410,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"example\": {\n    \"detail\": \"This endpoint has been deprecated\"\n  }\n}",
+                              "createdAt": "2026-10-21T21:04:55.000Z",
+                              "updatedAt": "2026-10-21T21:04:55.000Z",
+                              "uid": "35240-43fd69b6-0a2b-4f84-b4b0-86e2ef861e25"
+                            },
+                            {
+                              "id": "2b1a98f9-611f-4b85-b3db-32b3576b766e",
+                              "name": "Validation Error",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"sint9a0\": \"pariatur mollit\",\n  \"magna64d\": 70527841.3298263,\n  \"nona0\": true,\n  \"consequat_119\": 97886750\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/v1/voice-beta/:agent_id/chat/completions",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v1",
+                                    "voice-beta",
+                                    ":agent_id",
+                                    "chat",
+                                    "completions"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "agent_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                              "code": 422,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"msg\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"loc\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"msg\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ]\n}",
+                              "createdAt": "2026-10-21T21:04:55.000Z",
+                              "updatedAt": "2026-10-21T21:04:55.000Z",
+                              "uid": "35240-2b1a98f9-611f-4b85-b3db-32b3576b766e"
+                            }
+                          ],
+                          "createdAt": "2026-10-21T21:04:54.000Z",
+                          "updatedAt": "2026-10-21T21:04:54.000Z",
+                          "uid": "35240-52830d02-6b93-4a5c-925b-37e64eca0d03"
+                        }
+                      ],
+                      "id": "cc11f267-873c-4912-9a19-b25b389b43bc",
+                      "createdAt": "2026-10-21T21:04:54.000Z",
+                      "updatedAt": "2026-10-21T21:04:54.000Z",
+                      "uid": "35240-cc11f267-873c-4912-9a19-b25b389b43bc"
+                    }
+                  ],
+                  "id": "102d9a81-0d49-41a0-9522-39f21d59518d",
+                  "createdAt": "2026-10-21T21:04:54.000Z",
+                  "updatedAt": "2026-10-21T21:04:54.000Z",
+                  "uid": "35240-102d9a81-0d49-41a0-9522-39f21d59518d"
                 }
               ],
-              "body": "{}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "38994fd2-aa6a-4420-97aa-ee0d39190699",
-              "name": "Endpoint deprecated",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "voice-beta",
-                    ":agent_id",
-                    "chat",
-                    "completions"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "agent_id",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"key_0\": true\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Gone",
-              "code": 410,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"detail\": \"This endpoint has been deprecated\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "fc00b74c-ba28-4c20-a1ac-d470fdecbc7d",
-              "name": "Validation Error",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "voice-beta",
-                    ":agent_id",
-                    "chat",
-                    "completions"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "agent_id",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"key_0\": true\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
-              "code": 422,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "id": "92278cd4-ae3d-48cc-8b14-30d685a394d4",
+              "createdAt": "2026-10-21T21:04:54.000Z",
+              "updatedAt": "2026-10-21T21:04:54.000Z",
+              "uid": "35240-92278cd4-ae3d-48cc-8b14-30d685a394d4"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "d8609c35-752c-4e94-a87b-c759efa137ec",
+          "createdAt": "2026-10-21T21:04:54.000Z",
+          "updatedAt": "2026-10-21T21:04:54.000Z",
+          "uid": "35240-d8609c35-752c-4e94-a87b-c759efa137ec"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "https://api.letta.com",
-      "key": "baseUrl"
+      "id": "e8d7394d-911e-448a-abfe-11366f2dd788",
+      "createdAt": "2026-10-21T21:04:54.000Z",
+      "updatedAt": "2026-10-21T21:04:54.000Z",
+      "uid": "35240-e8d7394d-911e-448a-abfe-11366f2dd788"
     }
   ],
   "auth": {
@@ -274,17 +313,15 @@
     "bearer": [
       {
         "key": "token",
-        "value": "{{bearerToken}}"
+        "value": "{{bearerToken}}",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "0f6c9621-9172-47f2-ba7a-41ed68297381",
-    "name": "Letta Admin Voice API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "REST API for Letta, the stateful agents platform. Manage agents, memory blocks, archival passages, sources, custom tools, MCP servers, multi-agent groups, runs, and streaming responses. Available as Letta Cloud (managed) at https://api.letta.com/v1 and as the self-hosted open-source server (Apache-2.0) typically run at http://localhost:8283.\n\nContact Support:\n Name: Letta\n Email: support@letta.com",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.letta.com"
     }
-  }
+  ]
 }

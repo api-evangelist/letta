@@ -1,179 +1,204 @@
 {
+  "info": {
+    "_postman_id": "3f0e4e0b-84c8-4a45-8db3-ad7fb87e2e3d",
+    "name": "Letta Passages API",
+    "description": "REST API for Letta, the stateful agents platform. Manage agents, memory blocks, archival passages, sources, custom tools, MCP servers, multi-agent groups, runs, and streaming responses. Available as Letta Cloud (managed) at https://api.letta.com/v1 and as the self-hosted open-source server (Apache-2.0) typically run at http://localhost:8283.\n\nContact Support:\n Name: Letta\n Email: support@letta.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T21:04:00.000Z",
+    "updatedAt": "2026-10-21T21:04:00.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-3f0e4e0b-84c8-4a45-8db3-ad7fb87e2e3d"
+  },
   "item": [
     {
-      "id": "c8861a3b-9dcb-45ca-ab73-a7b939e92627",
-      "name": "Passages",
-      "description": {
-        "content": "Individual archival memory passages (chunked context).",
-        "type": "text/plain"
-      },
+      "name": "v1",
       "item": [
         {
-          "id": "9be6b866-4c1c-4f09-afbc-26feca1ac63c",
-          "name": "Search Passages",
-          "request": {
-            "name": "Search Passages",
-            "description": {
-              "content": "Search passages across the organization with optional agent and archive filtering.\nReturns passages with relevance scores.\n\nThis endpoint supports semantic search through passages:\n- If neither agent_id nor archive_id is provided, searches ALL passages in the organization\n- If agent_id is provided, searches passages across all archives attached to that agent\n- If archive_id is provided, searches passages within that specific archive\n- If both are provided, agent_id takes precedence",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v1",
-                "passages",
-                "search"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"query\": \"<string>\",\n  \"agent_id\": \"<string>\",\n  \"archive_id\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"tag_match_mode\": \"any\",\n  \"limit\": 50,\n  \"start_date\": \"<dateTime>\",\n  \"end_date\": \"<dateTime>\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
+          "name": "passages",
+          "item": [
             {
-              "id": "bf711643-c4e7-444b-805c-f7e3e5cfc301",
-              "name": "Successful Response",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "passages",
-                    "search"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"query\": \"<string>\",\n  \"agent_id\": \"<string>\",\n  \"archive_id\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"tag_match_mode\": \"any\",\n  \"limit\": 50,\n  \"start_date\": \"<dateTime>\",\n  \"end_date\": \"<dateTime>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
+              "name": "search",
+              "item": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "name": "Search Passages",
+                  "id": "27070daa-1e0f-4f7c-a48f-6eb5b0a3c47f",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"query\": \"<string>\",\n  \"agent_id\": \"<string>\",\n  \"archive_id\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"tag_match_mode\": \"any\",\n  \"limit\": 50,\n  \"start_date\": \"<dateTime>\",\n  \"end_date\": \"<dateTime>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/passages/search",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "passages",
+                        "search"
+                      ]
+                    },
+                    "description": "Search passages across the organization with optional agent and archive filtering.\nReturns passages with relevance scores.\n\nThis endpoint supports semantic search through passages:\n- If neither agent_id nor archive_id is provided, searches ALL passages in the organization\n- If agent_id is provided, searches passages across all archives attached to that agent\n- If archive_id is provided, searches passages within that specific archive\n- If both are provided, agent_id takes precedence"
+                  },
+                  "response": [
+                    {
+                      "id": "bf96cbfe-2008-4450-b0e9-340dbf11b0ee",
+                      "name": "Successful Response",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"query\": \"<string>\",\n  \"agent_id\": \"<string>\",\n  \"archive_id\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"tag_match_mode\": \"any\",\n  \"limit\": 50,\n  \"start_date\": \"<dateTime>\",\n  \"end_date\": \"<dateTime>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/passages/search",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "passages",
+                            "search"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "[\n  {\n    \"passage\": {\n      \"text\": \"<string>\",\n      \"embedding\": [\n        \"<number>\",\n        \"<number>\"\n      ],\n      \"embedding_config\": {\n        \"embedding_endpoint_type\": \"anthropic\",\n        \"embedding_model\": \"<string>\",\n        \"embedding_dim\": \"<integer>\",\n        \"embedding_endpoint\": \"<string>\",\n        \"embedding_chunk_size\": \"<integer>\",\n        \"handle\": \"<string>\",\n        \"batch_size\": 32,\n        \"azure_endpoint\": \"<string>\",\n        \"azure_version\": \"<string>\",\n        \"azure_deployment\": \"<string>\"\n      },\n      \"created_by_id\": \"<string>\",\n      \"last_updated_by_id\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\",\n      \"is_deleted\": false,\n      \"archive_id\": \"<string>\",\n      \"source_id\": \"<string>\",\n      \"file_id\": \"<string>\",\n      \"file_name\": \"<string>\",\n      \"metadata\": {\n        \"nulla_a0\": \"fugiat ess\",\n        \"fugiat_74\": \"reprehenderit minim ut elit\",\n        \"dolor_e04\": \"cillum minim Lorem cupidatat\"\n      },\n      \"tags\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"id\": \"passage-ccbd424a\"\n    },\n    \"score\": \"<number>\",\n    \"metadata\": {\n      \"velit_2\": false,\n      \"veniame7\": 28912962,\n      \"dolor68\": \"anim\",\n      \"id_7_5\": -41765621.524598196\n    }\n  },\n  {\n    \"passage\": {\n      \"text\": \"<string>\",\n      \"embedding\": [\n        \"<number>\",\n        \"<number>\"\n      ],\n      \"embedding_config\": {\n        \"embedding_endpoint_type\": \"vllm\",\n        \"embedding_model\": \"<string>\",\n        \"embedding_dim\": \"<integer>\",\n        \"embedding_endpoint\": \"<string>\",\n        \"embedding_chunk_size\": \"<integer>\",\n        \"handle\": \"<string>\",\n        \"batch_size\": 32,\n        \"azure_endpoint\": \"<string>\",\n        \"azure_version\": \"<string>\",\n        \"azure_deployment\": \"<string>\"\n      },\n      \"created_by_id\": \"<string>\",\n      \"last_updated_by_id\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\",\n      \"is_deleted\": false,\n      \"archive_id\": \"<string>\",\n      \"source_id\": \"<string>\",\n      \"file_id\": \"<string>\",\n      \"file_name\": \"<string>\",\n      \"metadata\": {\n        \"officia103\": true,\n        \"magna18f\": -47320064,\n        \"nullabaf\": -98466269.77468348,\n        \"commodo_9c\": -79922919\n      },\n      \"tags\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"id\": \"passage-5BE1e97F\"\n    },\n    \"score\": \"<number>\",\n    \"metadata\": {\n      \"fugiat8c\": false,\n      \"aute_fdd\": -22033993.94375691\n    }\n  }\n]",
+                      "createdAt": "2026-10-21T21:04:01.000Z",
+                      "updatedAt": "2026-10-21T21:04:01.000Z",
+                      "uid": "35240-bf96cbfe-2008-4450-b0e9-340dbf11b0ee"
+                    },
+                    {
+                      "id": "3acf3b52-a46d-4b4a-80e4-7d416074db72",
+                      "name": "Validation Error",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"query\": \"<string>\",\n  \"agent_id\": \"<string>\",\n  \"archive_id\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"tag_match_mode\": \"any\",\n  \"limit\": 50,\n  \"start_date\": \"<dateTime>\",\n  \"end_date\": \"<dateTime>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/passages/search",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "passages",
+                            "search"
+                          ]
+                        }
+                      },
+                      "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                      "code": 422,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"msg\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"loc\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"msg\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-10-21T21:04:01.000Z",
+                      "updatedAt": "2026-10-21T21:04:01.000Z",
+                      "uid": "35240-3acf3b52-a46d-4b4a-80e4-7d416074db72"
+                    }
+                  ],
+                  "createdAt": "2026-10-21T21:04:01.000Z",
+                  "updatedAt": "2026-10-21T21:04:01.000Z",
+                  "uid": "35240-27070daa-1e0f-4f7c-a48f-6eb5b0a3c47f"
                 }
               ],
-              "body": "[\n  {\n    \"passage\": {\n      \"text\": \"string\",\n      \"embedding\": [\n        698.0265897983206,\n        9476.35649585519\n      ],\n      \"embedding_config\": {\n        \"embedding_endpoint_type\": \"webui-legacy\",\n        \"embedding_model\": \"string\",\n        \"embedding_dim\": 5950,\n        \"embedding_endpoint\": \"string\",\n        \"embedding_chunk_size\": 5579,\n        \"handle\": \"string\",\n        \"batch_size\": 32,\n        \"azure_endpoint\": \"string\",\n        \"azure_version\": \"string\",\n        \"azure_deployment\": \"string\"\n      },\n      \"created_by_id\": \"string\",\n      \"last_updated_by_id\": \"string\",\n      \"created_at\": \"1956-08-05T08:06:05.681Z\",\n      \"updated_at\": \"2017-07-21T02:42:00.463Z\",\n      \"is_deleted\": false,\n      \"archive_id\": \"string\",\n      \"source_id\": \"string\",\n      \"file_id\": \"string\",\n      \"file_name\": \"string\",\n      \"metadata\": {\n        \"key_0\": 6835.42784858361,\n        \"key_1\": 7963.469386105347,\n        \"key_2\": 468,\n        \"key_3\": 2207.680010206159,\n        \"key_4\": 343\n      },\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"id\": \"passage-123e4567-e89b-12d3-a456-426614174000\"\n    },\n    \"score\": 7727.724261148311,\n    \"metadata\": {\n      \"key_0\": \"string\",\n      \"key_1\": 3354.9067114611084,\n      \"key_2\": 5773\n    }\n  },\n  {\n    \"passage\": {\n      \"text\": \"string\",\n      \"embedding\": [\n        1010.7950603380256,\n        9245.569146524444\n      ],\n      \"embedding_config\": {\n        \"embedding_endpoint_type\": \"vllm\",\n        \"embedding_model\": \"string\",\n        \"embedding_dim\": 3712,\n        \"embedding_endpoint\": \"string\",\n        \"embedding_chunk_size\": 4984,\n        \"handle\": \"string\",\n        \"batch_size\": 32,\n        \"azure_endpoint\": \"string\",\n        \"azure_version\": \"string\",\n        \"azure_deployment\": \"string\"\n      },\n      \"created_by_id\": \"string\",\n      \"last_updated_by_id\": \"string\",\n      \"created_at\": \"1968-09-18T18:02:09.431Z\",\n      \"updated_at\": \"1948-10-11T22:22:41.919Z\",\n      \"is_deleted\": false,\n      \"archive_id\": \"string\",\n      \"source_id\": \"string\",\n      \"file_id\": \"string\",\n      \"file_name\": \"string\",\n      \"metadata\": {\n        \"key_0\": true,\n        \"key_1\": 658\n      },\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"id\": \"passage-123e4567-e89b-12d3-a456-426614174000\"\n    },\n    \"score\": 9573.919681095236,\n    \"metadata\": {\n      \"key_0\": 7228.440978186852,\n      \"key_1\": true,\n      \"key_2\": false\n    }\n  }\n]",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "36040c2a-f96f-409c-9db1-a8917ce271b9",
-              "name": "Validation Error",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "passages",
-                    "search"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"query\": \"<string>\",\n  \"agent_id\": \"<string>\",\n  \"archive_id\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"tag_match_mode\": \"any\",\n  \"limit\": 50,\n  \"start_date\": \"<dateTime>\",\n  \"end_date\": \"<dateTime>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
-              "code": 422,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "id": "4a75bddb-d81f-4417-98c9-8ea965bb4ccf",
+              "createdAt": "2026-10-21T21:04:01.000Z",
+              "updatedAt": "2026-10-21T21:04:01.000Z",
+              "uid": "35240-4a75bddb-d81f-4417-98c9-8ea965bb4ccf"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "29ae5de9-4334-46c6-a357-b3e68b4aa50d",
+          "createdAt": "2026-10-21T21:04:01.000Z",
+          "updatedAt": "2026-10-21T21:04:01.000Z",
+          "uid": "35240-29ae5de9-4334-46c6-a357-b3e68b4aa50d"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "https://api.letta.com",
-      "key": "baseUrl"
+      "id": "8d6d5a7b-b4a2-4856-97ac-5aee2e25d5df",
+      "createdAt": "2026-10-21T21:04:01.000Z",
+      "updatedAt": "2026-10-21T21:04:01.000Z",
+      "uid": "35240-8d6d5a7b-b4a2-4856-97ac-5aee2e25d5df"
     }
   ],
   "auth": {
@@ -181,17 +206,15 @@
     "bearer": [
       {
         "key": "token",
-        "value": "{{bearerToken}}"
+        "value": "{{bearerToken}}",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "34483694-9e2d-4d50-8ed5-0507612c1bfc",
-    "name": "Letta Admin Passages API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "REST API for Letta, the stateful agents platform. Manage agents, memory blocks, archival passages, sources, custom tools, MCP servers, multi-agent groups, runs, and streaming responses. Available as Letta Cloud (managed) at https://api.letta.com/v1 and as the self-hosted open-source server (Apache-2.0) typically run at http://localhost:8283.\n\nContact Support:\n Name: Letta\n Email: support@letta.com",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.letta.com"
     }
-  }
+  ]
 }

@@ -1,232 +1,204 @@
 {
+  "info": {
+    "_postman_id": "9e35b492-4dea-4ee9-a6e9-a8a1d3ee4762",
+    "name": "Letta Chat API",
+    "description": "REST API for Letta, the stateful agents platform. Manage agents, memory blocks, archival passages, sources, custom tools, MCP servers, multi-agent groups, runs, and streaming responses. Available as Letta Cloud (managed) at https://api.letta.com/v1 and as the self-hosted open-source server (Apache-2.0) typically run at http://localhost:8283.\n\nContact Support:\n Name: Letta\n Email: support@letta.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T21:05:00.000Z",
+    "updatedAt": "2026-10-21T21:05:00.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-9e35b492-4dea-4ee9-a6e9-a8a1d3ee4762"
+  },
   "item": [
     {
-      "id": "23fab6b5-31a5-4e20-8bd6-0a95e7a540e6",
-      "name": "Chat Completions",
-      "description": {
-        "content": "OpenAI-compatible chat completions backed by a Letta agent.",
-        "type": "text/plain"
-      },
+      "name": "v1",
       "item": [
         {
-          "id": "c06cceff-d021-4795-a3f0-02ae7b08c4dc",
-          "name": "Create Chat Completion",
-          "request": {
-            "name": "Create Chat Completion",
-            "description": {
-              "content": "Create a chat completion using a Letta agent (OpenAI-compatible).",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v1",
-                "chat",
-                "completions"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"key_0\": true\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
+          "name": "chat",
+          "item": [
             {
-              "id": "958b8141-05d0-4a5b-b8d9-452d7cd3d95a",
-              "name": "Successful response",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "chat",
-                    "completions"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"key_0\": \"string\",\n  \"key_1\": true\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
+              "name": "completions",
+              "item": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "name": "Create Chat Completion",
+                  "id": "5cfff2e7-44ea-4bff-8fcb-66eb4ce71681",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"model\": \"<string>\",\n  \"messages\": [\n    {\n      \"content\": \"<string>\",\n      \"role\": \"<string>\",\n      \"name\": \"<string>\"\n    },\n    {\n      \"content\": \"<string>\",\n      \"role\": \"<string>\",\n      \"name\": \"<string>\"\n    }\n  ],\n  \"temperature\": \"<number>\",\n  \"top_p\": \"<number>\",\n  \"n\": \"<integer>\",\n  \"stream\": \"<boolean>\",\n  \"stop\": \"<string>\",\n  \"max_tokens\": \"<integer>\",\n  \"presence_penalty\": \"<number>\",\n  \"frequency_penalty\": \"<number>\",\n  \"user\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/chat/completions",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "chat",
+                        "completions"
+                      ]
+                    },
+                    "description": "Create a chat completion using a Letta agent (OpenAI-compatible).\n\nThis endpoint provides full OpenAI API compatibility. The agent is selected based on:\n- The 'model' parameter in the request (should contain an agent ID in format 'agent-...')\n\nWhen streaming is enabled (stream=true), the response will be Server-Sent Events\nwith ChatCompletionChunk objects."
+                  },
+                  "response": [
+                    {
+                      "id": "b86271dd-c5b1-47b9-ac3a-bafc3d91dac9",
+                      "name": "Successful response",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"model\": \"<string>\",\n  \"messages\": [\n    {\n      \"content\": \"<string>\",\n      \"role\": \"<string>\",\n      \"name\": \"<string>\"\n    },\n    {\n      \"content\": \"<string>\",\n      \"role\": \"<string>\",\n      \"name\": \"<string>\"\n    }\n  ],\n  \"temperature\": \"<number>\",\n  \"top_p\": \"<number>\",\n  \"n\": \"<integer>\",\n  \"stream\": \"<boolean>\",\n  \"stop\": \"<string>\",\n  \"max_tokens\": \"<integer>\",\n  \"presence_penalty\": \"<number>\",\n  \"frequency_penalty\": \"<number>\",\n  \"user\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/chat/completions",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "chat",
+                            "completions"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"choices\": [\n    {\n      \"finish_reason\": \"tool_calls\",\n      \"index\": \"<integer>\",\n      \"message\": {\n        \"role\": \"<string>\",\n        \"content\": \"<string>\",\n        \"refusal\": \"<string>\",\n        \"annotations\": [\n          {\n            \"type\": \"<string>\",\n            \"url_citation\": {\n              \"end_index\": \"<integer>\",\n              \"start_index\": \"<integer>\",\n              \"title\": \"<string>\",\n              \"url\": \"<string>\"\n            }\n          },\n          {\n            \"type\": \"<string>\",\n            \"url_citation\": {\n              \"end_index\": \"<integer>\",\n              \"start_index\": \"<integer>\",\n              \"title\": \"<string>\",\n              \"url\": \"<string>\"\n            }\n          }\n        ],\n        \"audio\": {\n          \"id\": \"<string>\",\n          \"data\": \"<string>\",\n          \"expires_at\": \"<integer>\",\n          \"transcript\": \"<string>\"\n        },\n        \"function_call\": {\n          \"arguments\": \"<string>\",\n          \"name\": \"<string>\"\n        },\n        \"tool_calls\": [\n          {\n            \"id\": \"<string>\",\n            \"function\": {\n              \"arguments\": \"<string>\",\n              \"name\": \"<string>\"\n            },\n            \"type\": \"<string>\"\n          },\n          {\n            \"id\": \"<string>\",\n            \"function\": {\n              \"arguments\": \"<string>\",\n              \"name\": \"<string>\"\n            },\n            \"type\": \"<string>\"\n          }\n        ]\n      },\n      \"logprobs\": {\n        \"content\": [\n          {\n            \"token\": \"<string>\",\n            \"logprob\": \"<number>\",\n            \"top_logprobs\": [\n              {\n                \"token\": \"<string>\",\n                \"logprob\": \"<number>\",\n                \"bytes\": [\n                  \"<integer>\",\n                  \"<integer>\"\n                ]\n              },\n              {\n                \"token\": \"<string>\",\n                \"logprob\": \"<number>\",\n                \"bytes\": [\n                  \"<integer>\",\n                  \"<integer>\"\n                ]\n              }\n            ],\n            \"bytes\": [\n              \"<integer>\",\n              \"<integer>\"\n            ]\n          },\n          {\n            \"token\": \"<string>\",\n            \"logprob\": \"<number>\",\n            \"top_logprobs\": [\n              {\n                \"token\": \"<string>\",\n                \"logprob\": \"<number>\",\n                \"bytes\": [\n                  \"<integer>\",\n                  \"<integer>\"\n                ]\n              },\n              {\n                \"token\": \"<string>\",\n                \"logprob\": \"<number>\",\n                \"bytes\": [\n                  \"<integer>\",\n                  \"<integer>\"\n                ]\n              }\n            ],\n            \"bytes\": [\n              \"<integer>\",\n              \"<integer>\"\n            ]\n          }\n        ],\n        \"refusal\": [\n          {\n            \"token\": \"<string>\",\n            \"logprob\": \"<number>\",\n            \"top_logprobs\": [\n              {\n                \"token\": \"<string>\",\n                \"logprob\": \"<number>\",\n                \"bytes\": [\n                  \"<integer>\",\n                  \"<integer>\"\n                ]\n              },\n              {\n                \"token\": \"<string>\",\n                \"logprob\": \"<number>\",\n                \"bytes\": [\n                  \"<integer>\",\n                  \"<integer>\"\n                ]\n              }\n            ],\n            \"bytes\": [\n              \"<integer>\",\n              \"<integer>\"\n            ]\n          },\n          {\n            \"token\": \"<string>\",\n            \"logprob\": \"<number>\",\n            \"top_logprobs\": [\n              {\n                \"token\": \"<string>\",\n                \"logprob\": \"<number>\",\n                \"bytes\": [\n                  \"<integer>\",\n                  \"<integer>\"\n                ]\n              },\n              {\n                \"token\": \"<string>\",\n                \"logprob\": \"<number>\",\n                \"bytes\": [\n                  \"<integer>\",\n                  \"<integer>\"\n                ]\n              }\n            ],\n            \"bytes\": [\n              \"<integer>\",\n              \"<integer>\"\n            ]\n          }\n        ]\n      }\n    },\n    {\n      \"finish_reason\": \"length\",\n      \"index\": \"<integer>\",\n      \"message\": {\n        \"role\": \"<string>\",\n        \"content\": \"<string>\",\n        \"refusal\": \"<string>\",\n        \"annotations\": [\n          {\n            \"type\": \"<string>\",\n            \"url_citation\": {\n              \"end_index\": \"<integer>\",\n              \"start_index\": \"<integer>\",\n              \"title\": \"<string>\",\n              \"url\": \"<string>\"\n            }\n          },\n          {\n            \"type\": \"<string>\",\n            \"url_citation\": {\n              \"end_index\": \"<integer>\",\n              \"start_index\": \"<integer>\",\n              \"title\": \"<string>\",\n              \"url\": \"<string>\"\n            }\n          }\n        ],\n        \"audio\": {\n          \"id\": \"<string>\",\n          \"data\": \"<string>\",\n          \"expires_at\": \"<integer>\",\n          \"transcript\": \"<string>\"\n        },\n        \"function_call\": {\n          \"arguments\": \"<string>\",\n          \"name\": \"<string>\"\n        },\n        \"tool_calls\": [\n          {\n            \"id\": \"<string>\",\n            \"function\": {\n              \"arguments\": \"<string>\",\n              \"name\": \"<string>\"\n            },\n            \"type\": \"<string>\"\n          },\n          {\n            \"id\": \"<string>\",\n            \"function\": {\n              \"arguments\": \"<string>\",\n              \"name\": \"<string>\"\n            },\n            \"type\": \"<string>\"\n          }\n        ]\n      },\n      \"logprobs\": {\n        \"content\": [\n          {\n            \"token\": \"<string>\",\n            \"logprob\": \"<number>\",\n            \"top_logprobs\": [\n              {\n                \"token\": \"<string>\",\n                \"logprob\": \"<number>\",\n                \"bytes\": [\n                  \"<integer>\",\n                  \"<integer>\"\n                ]\n              },\n              {\n                \"token\": \"<string>\",\n                \"logprob\": \"<number>\",\n                \"bytes\": [\n                  \"<integer>\",\n                  \"<integer>\"\n                ]\n              }\n            ],\n            \"bytes\": [\n              \"<integer>\",\n              \"<integer>\"\n            ]\n          },\n          {\n            \"token\": \"<string>\",\n            \"logprob\": \"<number>\",\n            \"top_logprobs\": [\n              {\n                \"token\": \"<string>\",\n                \"logprob\": \"<number>\",\n                \"bytes\": [\n                  \"<integer>\",\n                  \"<integer>\"\n                ]\n              },\n              {\n                \"token\": \"<string>\",\n                \"logprob\": \"<number>\",\n                \"bytes\": [\n                  \"<integer>\",\n                  \"<integer>\"\n                ]\n              }\n            ],\n            \"bytes\": [\n              \"<integer>\",\n              \"<integer>\"\n            ]\n          }\n        ],\n        \"refusal\": [\n          {\n            \"token\": \"<string>\",\n            \"logprob\": \"<number>\",\n            \"top_logprobs\": [\n              {\n                \"token\": \"<string>\",\n                \"logprob\": \"<number>\",\n                \"bytes\": [\n                  \"<integer>\",\n                  \"<integer>\"\n                ]\n              },\n              {\n                \"token\": \"<string>\",\n                \"logprob\": \"<number>\",\n                \"bytes\": [\n                  \"<integer>\",\n                  \"<integer>\"\n                ]\n              }\n            ],\n            \"bytes\": [\n              \"<integer>\",\n              \"<integer>\"\n            ]\n          },\n          {\n            \"token\": \"<string>\",\n            \"logprob\": \"<number>\",\n            \"top_logprobs\": [\n              {\n                \"token\": \"<string>\",\n                \"logprob\": \"<number>\",\n                \"bytes\": [\n                  \"<integer>\",\n                  \"<integer>\"\n                ]\n              },\n              {\n                \"token\": \"<string>\",\n                \"logprob\": \"<number>\",\n                \"bytes\": [\n                  \"<integer>\",\n                  \"<integer>\"\n                ]\n              }\n            ],\n            \"bytes\": [\n              \"<integer>\",\n              \"<integer>\"\n            ]\n          }\n        ]\n      }\n    }\n  ],\n  \"created\": \"<integer>\",\n  \"model\": \"<string>\",\n  \"object\": \"<string>\",\n  \"service_tier\": \"scale\",\n  \"system_fingerprint\": \"<string>\",\n  \"usage\": {\n    \"completion_tokens\": \"<integer>\",\n    \"prompt_tokens\": \"<integer>\",\n    \"total_tokens\": \"<integer>\",\n    \"completion_tokens_details\": {\n      \"accepted_prediction_tokens\": \"<integer>\",\n      \"audio_tokens\": \"<integer>\",\n      \"reasoning_tokens\": \"<integer>\",\n      \"rejected_prediction_tokens\": \"<integer>\"\n    },\n    \"prompt_tokens_details\": {\n      \"audio_tokens\": \"<integer>\",\n      \"cached_tokens\": \"<integer>\",\n      \"qui__66\": false,\n      \"laborisf76\": -73112497.62506673,\n      \"id42\": -76904314\n    }\n  }\n}",
+                      "createdAt": "2026-10-21T21:05:01.000Z",
+                      "updatedAt": "2026-10-21T21:05:01.000Z",
+                      "uid": "35240-b86271dd-c5b1-47b9-ac3a-bafc3d91dac9"
+                    },
+                    {
+                      "id": "c2ba8258-49cb-457a-b9d5-8360b0af5d06",
+                      "name": "Validation Error",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"model\": \"<string>\",\n  \"messages\": [\n    {\n      \"content\": \"<string>\",\n      \"role\": \"<string>\",\n      \"name\": \"<string>\"\n    },\n    {\n      \"content\": \"<string>\",\n      \"role\": \"<string>\",\n      \"name\": \"<string>\"\n    }\n  ],\n  \"temperature\": \"<number>\",\n  \"top_p\": \"<number>\",\n  \"n\": \"<integer>\",\n  \"stream\": \"<boolean>\",\n  \"stop\": \"<string>\",\n  \"max_tokens\": \"<integer>\",\n  \"presence_penalty\": \"<number>\",\n  \"frequency_penalty\": \"<number>\",\n  \"user\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/chat/completions",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "chat",
+                            "completions"
+                          ]
+                        }
+                      },
+                      "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                      "code": 422,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"msg\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"loc\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"msg\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-10-21T21:05:01.000Z",
+                      "updatedAt": "2026-10-21T21:05:01.000Z",
+                      "uid": "35240-c2ba8258-49cb-457a-b9d5-8360b0af5d06"
+                    }
+                  ],
+                  "createdAt": "2026-10-21T21:05:01.000Z",
+                  "updatedAt": "2026-10-21T21:05:01.000Z",
+                  "uid": "35240-5cfff2e7-44ea-4bff-8fcb-66eb4ce71681"
                 }
               ],
-              "body": "{\n  \"key_0\": \"string\",\n  \"key_1\": true\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "a20364e4-b0a3-4d24-9953-722338f06f98",
-              "name": "Missing or invalid Bearer API key.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "chat",
-                    "completions"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"key_0\": \"string\",\n  \"key_1\": true\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": {\n    \"message\": \"string\",\n    \"code\": \"string\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "cd5003ad-e2fb-4f09-862a-89e35d297668",
-              "name": "The request payload failed validation.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "chat",
-                    "completions"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"key_0\": \"string\",\n  \"key_1\": true\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
-              "code": 422,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "id": "b3420ac8-cf12-4581-a7fb-7dffdce9483f",
+              "createdAt": "2026-10-21T21:05:01.000Z",
+              "updatedAt": "2026-10-21T21:05:01.000Z",
+              "uid": "35240-b3420ac8-cf12-4581-a7fb-7dffdce9483f"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "742d9c43-ccae-4b8b-845e-598ff780ecd7",
+          "createdAt": "2026-10-21T21:05:01.000Z",
+          "updatedAt": "2026-10-21T21:05:01.000Z",
+          "uid": "35240-742d9c43-ccae-4b8b-845e-598ff780ecd7"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "https://api.letta.com/v1",
-      "key": "baseUrl"
+      "id": "de613586-2348-4b63-b37e-131c52222c5b",
+      "createdAt": "2026-10-21T21:05:01.000Z",
+      "updatedAt": "2026-10-21T21:05:01.000Z",
+      "uid": "35240-de613586-2348-4b63-b37e-131c52222c5b"
     }
   ],
   "auth": {
@@ -234,17 +206,15 @@
     "bearer": [
       {
         "key": "token",
-        "value": "{{bearerToken}}"
+        "value": "{{bearerToken}}",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "312adfa6-47ab-44bc-9352-bed808d2b5eb",
-    "name": "Letta Agent Templates Chat Completions API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "The Letta API creates and operates stateful AI agents whose memory - core context blocks and archival vector memory - persists across sessions. It configures the tools, data sources, identities, and multi-agent groups an agent uses, sends and streams messages to agents, and inspects the runs, jobs, and steps behind every agent response. The same OpenAPI-documented interface is served by the managed Letta Cloud API and by the open-source, self-hostable Letta server. All requests require a Bearer API key.\n\nContact Support:\n Name: Letta",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.letta.com"
     }
-  }
+  ]
 }
