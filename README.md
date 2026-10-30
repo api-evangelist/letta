@@ -1,4 +1,4 @@
-# Letta (letta)
+# Letta
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,144 +66,297 @@
 
 Letta (formerly MemGPT) is a stateful AI agents platform built around long-term memory, tool execution, and multi-agent coordination. The Letta REST API exposes 239 endpoints across 36 public resource categories — agents, memory blocks, archival memory, sources (RAG), custom tools (sandboxed/client-side/MCP), MCP servers, multi-agent groups, identities, runs, scheduled messages, and a streaming voice-mode endpoint. Open-source server (Apache-2.0, 22.9k+ stars) is available on GitHub; Letta Cloud is the managed offering; the Agent Development Environment (ADE) provides a web UI for inspecting context windows, memory blocks, and run history. Python and TypeScript SDKs ship alongside the REST API, and the open `.af` agent file format lets agents migrate between deployments.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/letta/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/letta/refs/heads/main/apis.yml)
+**Areas:** Artificial Intelligence · Agents · Stateful Agents · Memory · MemGPT · Continual Learning · MCP · Multi-Agent · RAG · Open Source · Real-Time
 
-## Tags
+## Letta on APIs.io
 
-- AI
-- Agents
-- Stateful Agents
-- Memory
-- MemGPT
-- Continual Learning
-- MCP
-- Multi-Agent
-- RAG
-- Open Source
+Everything profiled for Letta is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/letta/](https://apis.io/providers/letta/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### APIs (41)
 
-- **Created:** 2026-05-08
-- **Modified:** 2026-05-22
+- [Letta Code](https://apis.io/apis/letta/letta-code/) — Letta's memory-first coding agent — a CLI plus a desktop app (and an action for GitHub repos). "The memory-first coding agent that remembers and learns."…
+- [Letta Admin API](https://apis.io/apis/letta/letta-admin-api/) — Administrative operations (org / billing / policy).
+- [Letta Agents API](https://apis.io/apis/letta/letta-agents-api/) — Create, list, modify, export, and delete stateful agents with memory and tools.
+- [Letta Archives API](https://apis.io/apis/letta/letta-archives-api/) — Manage archival memory archives and passages (RAG-style long-term store).
+- [Letta Blocks API](https://apis.io/apis/letta/letta-blocks-api/) — Manage in-context memory blocks (core memory) shared across agents.
+- [Letta Client-Side Access Tokens API](https://apis.io/apis/letta/letta-client-side-access-tokens-api/) — Mint short-lived client-side access tokens for browser/mobile use.
+- [Letta Conversations API](https://apis.io/apis/letta/letta-conversations-api/) — Conversational session threads anchored to an agent.
+- [Letta Device Storage API](https://apis.io/apis/letta/letta-device-storage-api/) — Per-device storage for the Letta Code SDK and ADE.
+- [Letta Embeddings API](https://apis.io/apis/letta/letta-embeddings-api/) — List configured embedding models.
+- [Letta Environments API](https://apis.io/apis/letta/letta-environments-api/) — Environment variables and configuration scoped to agents/tools.
+- [Letta Feeds API](https://apis.io/apis/letta/letta-feeds-api/) — Subscribed feeds that drive agents.
+- [Letta Folders API](https://apis.io/apis/letta/letta-folders-api/) — Organize agents and resources into folders.
+- [Letta Groups API](https://apis.io/apis/letta/letta-groups-api/) — Coordinate multi-agent groups (supervisor/worker, round-robin, sleep-time).
+- [Letta Health API](https://apis.io/apis/letta/letta-health-api/) — Service health/readiness endpoint.
+- [Letta Identities API](https://apis.io/apis/letta/letta-identities-api/) — Map external user identities to agents and memory contexts.
+- [Letta Internal Agents API](https://apis.io/apis/letta/letta-internal-agents-api/) — Internal Agents operations.
+- [Letta Internal Blocks API](https://apis.io/apis/letta/letta-internal-blocks-api/) — Internal Blocks operations.
+- [Letta Internal Runs API](https://apis.io/apis/letta/letta-internal-runs-api/) — Internal Runs operations.
+- [Letta Internal Templates API](https://apis.io/apis/letta/letta-internal-templates-api/) — Internal Templates operations.
+- [Letta Jobs API](https://apis.io/apis/letta/letta-jobs-api/) — Manage long-running background jobs (e.g., file ingestion).
+- [Letta MCP Servers API](https://apis.io/apis/letta/letta-mcp-servers-api/) — Register external Model Context Protocol servers and expose their tools to agents.
+- [Letta Memory Files API](https://apis.io/apis/letta/letta-memory-files-api/) — Memory-mapped file resources attached to agents.
+- [Letta Messages API](https://apis.io/apis/letta/letta-messages-api/) — Send messages, list message history, search, and batch operations.
+- [Letta Metadata API](https://apis.io/apis/letta/letta-metadata-api/) — Service/runtime metadata.
+- [Letta Models API](https://apis.io/apis/letta/letta-models-api/) — List available chat and embedding models exposed by configured providers.
+- [Letta Passages API](https://apis.io/apis/letta/letta-passages-api/) — Individual archival memory passages (chunked context).
+- [Letta Pipelines API](https://apis.io/apis/letta/letta-pipelines-api/) — Composable agent pipelines.
+- [Letta Projects API](https://apis.io/apis/letta/letta-projects-api/) — Project-level scoping for agents and resources.
+- [Letta Providers API](https://apis.io/apis/letta/letta-providers-api/) — Configure LLM provider credentials (OpenAI, Anthropic, Azure, Ollama, etc.).
+- [Letta Runs API](https://apis.io/apis/letta/letta-runs-api/) — Inspect and manage agent runs (executions of an agent in response to a message).
+- [Letta Sandboxes API](https://apis.io/apis/letta/letta-sandboxes-api/) — Manage code-execution sandboxes used by sandbox tools.
+- [Letta Scheduled Messages API](https://apis.io/apis/letta/letta-scheduled-messages-api/) — Schedule one-time or recurring messages to drive agents over time.
+- [Letta Sources API](https://apis.io/apis/letta/letta-sources-api/) — Manage data sources (files, URLs) used to populate agent archival memory.
+- [Letta Steps API](https://apis.io/apis/letta/letta-steps-api/) — Per-step traces of an agent run.
+- [Letta Tag API](https://apis.io/apis/letta/letta-tag-api/) — Tag-based filtering metadata.
+- [Letta Telemetry API](https://apis.io/apis/letta/letta-telemetry-api/) — Run-step traces and observability data.
+- [Letta Templates API](https://apis.io/apis/letta/letta-templates-api/) — Reusable agent templates for instantiation.
+- [Letta Tools API](https://apis.io/apis/letta/letta-tools-api/) — Register and execute custom tools (sandboxed Python, client-side, MCP).
+- [Letta Voice API](https://apis.io/apis/letta/letta-voice-api/) — Voice (low-latency) chat completions endpoint for agents.
+- [Letta LL Ms API](https://apis.io/apis/letta/letta-llms-api/) — List available LLM models and configurations.
+- [Letta Chat Completions API](https://apis.io/apis/letta/letta-chat-completions-api/) — Chat operations.
 
-## APIs
+### Published properties
 
-### Letta Cloud API
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-REST API for managing stateful agents, memory blocks (in-context + archival/RAG), custom tools (sandboxed Python, client-side, MCP-delegated), sources, multi-agent groups (supervisor/round-robin/dynamic/sleep-time), MCP server registrations, runs, identities, scheduled messages, and a beta voice-mode streaming endpoint. 239 paths under `/v1/`. Bearer token auth (`Authorization: Bearer $LETTA_API_KEY`).
+#### AsyncAPI (1)
 
-- **Human URL:** [https://docs.letta.com/](https://docs.letta.com/)
-- **Base URL:** `https://api.letta.com`
+Event-driven and webhook contracts.
 
-#### Tags
+- [Letta Agent Message Streaming (HTTP + SSE)](https://apis.io/asyncapis/letta/letta-asyncapi/)
 
-- Agents
-- Memory
-- Tools
-- Streaming
-- RAG
-- MCP
-- Multi-Agent
+#### Event channels (1)
 
-#### Properties
+Individual events and webhooks the provider emits.
 
-- [Documentation](https://docs.letta.com/)
-- [Sign Up](https://app.letta.com/)
-- [Pricing](https://docs.letta.com/guides/api/plans)
-- [Git Hub](https://github.com/letta-ai/letta)
-- [L L Ms Txt](https://docs.letta.com/llms-full.txt)
-- [Changelog](https://www.letta.com/blog)
-- [OpenAPI](openapi/letta-openapi.json) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/letta.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/letta.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Open A P I Y A M L](openapi/letta-openapi.yml)
-- [Spectral Ruleset](rules/letta-rules.yml)
-- [JSON Schema](json-schema/letta-agent-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/letta-block-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/letta-tool-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/letta-source-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/letta-run-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/letta-group-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/letta-identity-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/letta-message-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/letta-passage-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/letta-archive-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/letta-job-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/letta-llm-config-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/letta-embedding-config-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/letta-provider-schema.json) — [JSON Schema](https://json-schema.org/specification)
+- [/agents/{agent_id}/messages](https://apis.io/channels/letta/agents-agent-id-messages/)
 
-### Letta Self-Hosted Server
+#### Agentic access (1)
 
-Open-source Letta server (Apache-2.0) for self-hosted agent deployments. Same REST API surface as Letta Cloud, free to run; pay only for hosting and underlying LLM API usage. Default base URL is http://localhost:8283. Agents can be migrated between self-hosted and cloud via the open .af agent file format.
+Which operations an agent can call, which act, and which need a human in the loop.
 
-- **Human URL:** [https://github.com/letta-ai/letta](https://github.com/letta-ai/letta)
-- **Base URL:** `http://localhost:8283`
+- [Letta Agentic Access](https://apis.io/agentic-access/letta/letta-agentic-access/)
 
-#### Tags
+#### JSON Schema (349)
 
-- Open Source
-- Self-Hosted
-- Agents
-- Docker
+The data models the API reads and writes.
 
-#### Properties
+- [AgentState](https://apis.io/schemas/letta/letta-agent/)
+- [AgentEnvironmentVariable](https://apis.io/schemas/letta/letta-agentenvironmentvariable/)
+- [AgentFileAttachment](https://apis.io/schemas/letta/letta-agentfileattachment/)
+- [AgentFileSchema](https://apis.io/schemas/letta/letta-agentfileschema/)
+- [AgentState](https://apis.io/schemas/letta/letta-agentstate/)
+- [AgentType](https://apis.io/schemas/letta/letta-agenttype/)
+- [Annotation](https://apis.io/schemas/letta/letta-annotation/)
+- [AnnotationURLCitation](https://apis.io/schemas/letta/letta-annotationurlcitation/)
+- [AnthropicModelSettings](https://apis.io/schemas/letta/letta-anthropicmodelsettings/)
+- [AnthropicThinking](https://apis.io/schemas/letta/letta-anthropicthinking/)
+- [ApprovalCreate](https://apis.io/schemas/letta/letta-approvalcreate/)
+- [ApprovalRequestMessage](https://apis.io/schemas/letta/letta-approvalrequestmessage/)
+- [ApprovalResponseMessage](https://apis.io/schemas/letta/letta-approvalresponsemessage/)
+- [ApprovalReturn](https://apis.io/schemas/letta/letta-approvalreturn/)
+- [ArchivalMemorySearchResponse](https://apis.io/schemas/letta/letta-archivalmemorysearchresponse/)
+- [ArchivalMemorySearchResult](https://apis.io/schemas/letta/letta-archivalmemorysearchresult/)
+- [Archive](https://apis.io/schemas/letta/letta-archive/)
+- [ArchiveCreateRequest](https://apis.io/schemas/letta/letta-archivecreaterequest/)
+- [ArchiveUpdateRequest](https://apis.io/schemas/letta/letta-archiveupdaterequest/)
+- [AssistantMessage](https://apis.io/schemas/letta/letta-assistantmessage/)
+- [AssistantMessageListResult](https://apis.io/schemas/letta/letta-assistantmessagelistresult/)
+- [Audio](https://apis.io/schemas/letta/letta-audio/)
+- [AuthRequest](https://apis.io/schemas/letta/letta-authrequest/)
+- [AuthResponse](https://apis.io/schemas/letta/letta-authresponse/)
+- [AzureModelSettings](https://apis.io/schemas/letta/letta-azuremodelsettings/)
+- …and 324 more published on APIs.io
 
-- [Git Hub](https://github.com/letta-ai/letta)
-- [Documentation](https://docs.letta.com/)
-- [License](https://github.com/letta-ai/letta/blob/main/LICENSE)
-- [Docker](https://github.com/letta-ai/letta/blob/main/Dockerfile)
-- [Agent File Format](https://github.com/letta-ai/agent-file)
-- [OpenAPI](openapi/letta-openapi.json) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/letta.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/letta.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+#### JSON Structure (15)
 
-### Letta Code
+Data models expressed in JSON Structure.
 
-Letta's memory-first coding agent — a CLI plus a desktop app (and an action for GitHub repos). "The memory-first coding agent that remembers and learns." Builds on the Letta Code SDK and the broader Letta platform; offered with personal plans (chat.letta.com) separate from the API Plan.
+- [Letta Agent Structure](https://apis.io/json-structure/letta/letta-agent-structure/)
+- [Letta Archive Structure](https://apis.io/json-structure/letta/letta-archive-structure/)
+- [Letta Block Structure](https://apis.io/json-structure/letta/letta-block-structure/)
+- [Letta Embedding Config Structure](https://apis.io/json-structure/letta/letta-embedding-config-structure/)
+- [Letta Group Structure](https://apis.io/json-structure/letta/letta-group-structure/)
+- [Letta Identity Structure](https://apis.io/json-structure/letta/letta-identity-structure/)
+- [Letta Job Structure](https://apis.io/json-structure/letta/letta-job-structure/)
+- [Letta Llm Config Structure](https://apis.io/json-structure/letta/letta-llm-config-structure/)
+- [Letta Message Structure](https://apis.io/json-structure/letta/letta-message-structure/)
+- [Letta Passage Structure](https://apis.io/json-structure/letta/letta-passage-structure/)
+- [Letta Provider Structure](https://apis.io/json-structure/letta/letta-provider-structure/)
+- [Letta Run Structure](https://apis.io/json-structure/letta/letta-run-structure/)
+- [Letta Source Structure](https://apis.io/json-structure/letta/letta-source-structure/)
+- [Letta Structure](https://apis.io/json-structure/letta/letta-structure/)
+- [Letta Tool Structure](https://apis.io/json-structure/letta/letta-tool-structure/)
 
-- **Human URL:** [https://github.com/letta-ai/letta-code](https://github.com/letta-ai/letta-code)
-- **Base URL:** `https://chat.letta.com`
+#### JSON-LD (1)
 
-#### Tags
+Linked-data contexts for the provider's vocabulary.
 
-- Coding Agent
-- CLI
-- Desktop
+- [Letta Context](https://apis.io/jsonld/letta/letta-context/)
 
-#### Properties
+#### Vocabulary (1)
 
-- [Git Hub](https://github.com/letta-ai/letta-code)
-- [SDK](https://github.com/letta-ai/letta-code-sdk)
-- [Git Hub Action](https://github.com/letta-ai/letta-code-action)
-- [Demo](https://github.com/letta-ai/letta-oss-ui)
-- [Skills](https://github.com/letta-ai/skills)
-- [Postman Collection](collections/letta.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/letta.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+The provider's domain terms, defined.
 
-## Common Properties
+- [letta-vocabulary](https://apis.io/vocabularies/letta/letta-vocabulary/)
 
-- [LinkedIn](https://www.linkedin.com/company/letta-ai)
+#### Examples (29)
+
+Example requests and responses.
+
+- [Letta Agent Payload Example](https://apis.io/examples/letta/letta-agent-payload-example/)
+- [Letta Block Payload Example](https://apis.io/examples/letta/letta-block-payload-example/)
+- [Letta Create Agent Example](https://apis.io/examples/letta/letta-create-agent-example/)
+- [Letta Create Identity Example](https://apis.io/examples/letta/letta-create-identity-example/)
+- [Letta Create Memory Block Example](https://apis.io/examples/letta/letta-create-memory-block-example/)
+- [Letta Create Multi Agent Group Example](https://apis.io/examples/letta/letta-create-multi-agent-group-example/)
+- [Letta Create Source Example](https://apis.io/examples/letta/letta-create-source-example/)
+- [Letta Create Tool Example](https://apis.io/examples/letta/letta-create-tool-example/)
+- [Letta Create Voice Chat Completions Example](https://apis.io/examples/letta/letta-create-voice-chat-completions-example/)
+- [Letta Group Payload Example](https://apis.io/examples/letta/letta-group-payload-example/)
+- [Letta List Agents Example](https://apis.io/examples/letta/letta-list-agents-example/)
+- [Letta List Chat Models Example](https://apis.io/examples/letta/letta-list-chat-models-example/)
+- [Letta List Embedding Models Example](https://apis.io/examples/letta/letta-list-embedding-models-example/)
+- [Letta List Mcp Servers Example](https://apis.io/examples/letta/letta-list-mcp-servers-example/)
+- [Letta List Memory Blocks Example](https://apis.io/examples/letta/letta-list-memory-blocks-example/)
+- [Letta List Runs Example](https://apis.io/examples/letta/letta-list-runs-example/)
+- [Letta List Tools Example](https://apis.io/examples/letta/letta-list-tools-example/)
+- [Letta Mcp Server Payload Example](https://apis.io/examples/letta/letta-mcp-server-payload-example/)
+- [Letta Register Mcp Server Example](https://apis.io/examples/letta/letta-register-mcp-server-example/)
+- [Letta Retrieve Agent Example](https://apis.io/examples/letta/letta-retrieve-agent-example/)
+- [Letta Retrieve Run Example](https://apis.io/examples/letta/letta-retrieve-run-example/)
+- [Letta Run Payload Example](https://apis.io/examples/letta/letta-run-payload-example/)
+- [Letta Run Tool From Source Example](https://apis.io/examples/letta/letta-run-tool-from-source-example/)
+- [Letta Send Agent Message Example](https://apis.io/examples/letta/letta-send-agent-message-example/)
+- [Letta Source Payload Example](https://apis.io/examples/letta/letta-source-payload-example/)
+- …and 4 more published on APIs.io
+
+#### Collections (50)
+
+Postman and Open Collection request collections.
+
+- [Letta API](https://apis.io/collections/letta/open-letta/)
+- [Letta Admin API](https://apis.io/collections/letta/open-letta-admin-api/)
+- [Letta Agent Templates API](https://apis.io/collections/letta/open-letta-agent-templates-api/)
+- [Letta Admin Agents API](https://apis.io/collections/letta/open-letta-agents-api/)
+- [Letta API](https://apis.io/collections/letta/open-letta-ai/)
+- [Letta Agent Templates Archival Memory API](https://apis.io/collections/letta/open-letta-archival-memory-api/)
+- [Letta Admin Archives API](https://apis.io/collections/letta/open-letta-archives-api/)
+- [Letta Admin Blocks API](https://apis.io/collections/letta/open-letta-blocks-api/)
+- [Letta Admin Chat API](https://apis.io/collections/letta/open-letta-chat-api/)
+- [Letta Agent Templates Chat Completions API](https://apis.io/collections/letta/open-letta-chat-completions-api/)
+- [Letta Admin Client-Side Access Tokens API](https://apis.io/collections/letta/open-letta-client-side-access-tokens-api/)
+- [Letta Admin Conversations API](https://apis.io/collections/letta/open-letta-conversations-api/)
+- [Letta Admin Device Storage API](https://apis.io/collections/letta/open-letta-device-storage-api/)
+- [Letta Admin Embeddings API](https://apis.io/collections/letta/open-letta-embeddings-api/)
+- [Letta Admin Environments API](https://apis.io/collections/letta/open-letta-environments-api/)
+- [Letta Admin Feeds API](https://apis.io/collections/letta/open-letta-feeds-api/)
+- [Letta Admin Folders API](https://apis.io/collections/letta/open-letta-folders-api/)
+- [Letta Admin Groups API](https://apis.io/collections/letta/open-letta-groups-api/)
+- [Letta Admin Health API](https://apis.io/collections/letta/open-letta-health-api/)
+- [Letta Admin Identities API](https://apis.io/collections/letta/open-letta-identities-api/)
+- [Letta Admin Internal Agents API](https://apis.io/collections/letta/open-letta-internal-agents-api/)
+- [Letta Admin Internal Blocks API](https://apis.io/collections/letta/open-letta-internal-blocks-api/)
+- [Letta Admin Internal Runs API](https://apis.io/collections/letta/open-letta-internal-runs-api/)
+- [Letta Admin Internal Templates API](https://apis.io/collections/letta/open-letta-internal-templates-api/)
+- [Letta Admin Jobs API](https://apis.io/collections/letta/open-letta-jobs-api/)
+- …and 25 more published on APIs.io
+
+#### Governance rules (2)
+
+Spectral rulesets for the provider's contracts.
+
+- [Letta — asyncapi rules](https://apis.io/rules/letta/letta-asyncapi-spectral-rules/)
+- [Letta — jsonschema rules](https://apis.io/rules/letta/letta-jsonschema-spectral-rules/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Letta Authentication](https://apis.io/security/letta/letta-authentication/)
+- [Letta Domain Security](https://apis.io/security/letta/letta-domain-security/)
+
+#### Plans and pricing (2)
+
+Published plans, tiers and prices.
+
+- [Letta Plans Pricing](https://apis.io/plans/letta/letta-plans-pricing/)
+- [Letta Price Estimates](https://apis.io/plans/letta/letta-price-estimates/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Letta Rate Limits](https://apis.io/rate-limits/letta/letta-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Letta Finops](https://apis.io/finops/letta/letta-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
 - [Website](https://www.letta.com/)
-- [Blog](https://www.letta.com/blog)
 - [Documentation](https://docs.letta.com/)
-- [L L Ms Txt](https://docs.letta.com/llms-full.txt)
-- [Git Hub](https://github.com/letta-ai)
-- [Git Hub Org](https://github.com/letta-ai)
-- [Python S D K](https://github.com/letta-ai/letta-python)
-- [Type Script S D K](https://github.com/letta-ai/letta-node)
-- [Sign In](https://app.letta.com/)
 - [Pricing](https://docs.letta.com/guides/api/plans)
-- [Plans](plans/letta-plans-pricing.yml)
-- [Rate Limits](rate-limits/letta-rate-limits.yml)
-- [Fin Ops](finops/letta-finops.yml)
-- [Spectral Ruleset](rules/letta-rules.yml)
-- [J S O N L D Context](json-ld/letta-context.jsonld)
-- [Vocabulary](vocabulary/letta-vocabulary.yml)
-- [Agent File Format](https://github.com/letta-ai/agent-file)
-- [L L Ms Txt](https://docs.letta.com/llms.txt)
+- [Blog](https://www.letta.com/blog)
+- [GitHub](https://github.com/letta-ai)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 51.5** — developing · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 73.2 |
+| Contract quality | 74.1 |
+| Contract governance | 27.3 |
+| Operational transparency | 18.4 |
+| Developer ergonomics | 31.0 |
+| Access clarity | 55.3 |
+
+**Agent readiness 34.6** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | documented (partial credit) |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | verified |
+| OpenAPI Examples | partial |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | derived (partial credit) |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | yes |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | partial |
+| Operation Distinctiveness | mostly |
+
+**Regulatory alignment 15.5** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/letta/](https://apis.io/providers/letta/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Letta: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/letta/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
